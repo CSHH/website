@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenters;
+namespace App\AdminModule\Presenters;
 
 class HomepagePresenter extends BasePresenter
 {
