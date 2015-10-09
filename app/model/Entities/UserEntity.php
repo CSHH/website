@@ -38,6 +38,13 @@ class UserEntity extends BaseEntity
 	 *
 	 * @var string
 	 */
+	protected $avatar;
+
+	/**
+	 * @ORM\Column(type="string", nullable=true)
+	 *
+	 * @var string
+	 */
 	protected $forename;
 
 	/**
