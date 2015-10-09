@@ -10,6 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserEntity extends BaseEntity
 {
+    /** @var int */
+    const ROLE_ADMINISTRATOR = 99;
+    /** @var int */
+    const ROLE_USER = 1;
+
     /**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
@@ -53,4 +58,11 @@ class UserEntity extends BaseEntity
 	 * @var string
 	 */
 	protected $surname;
+
+	/**
+	 * @ORM\Column(type="integer")
+	 *
+	 * @var int
+	 */
+	protected $role = self::ROLE_USER;
 }
