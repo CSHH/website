@@ -2,6 +2,7 @@
 
 namespace App\Model\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -53,4 +54,25 @@ class PageEntity extends BaseEntity
      * @var string
      */
     protected $keywords;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="TagEntity")
+     * @ORM\JoinTable(name="page_tag",
+     *     joinColumns={
+     *         @ORM\JoinColumn(name="page_id", referencedColumnName="id")
+     *     },
+     *     inverseJoinColumns={
+     *         @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
+     *     }
+     * )
+     *
+     * @var ArrayCollection
+     */
+    protected $tags;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->tags = new ArrayCollection;
+    }
 }
