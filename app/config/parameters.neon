@@ -1,0 +1,4 @@
+parameters:
+    thumbsDir: /thumbs
+    uploadDir: /upload
+    contactEmail: john.doe@example.com

@@ -1,0 +1,4 @@
+session:
+    autoStart: true
+    expiration: 14 days
+    save_path: %tempDir%/sessions
