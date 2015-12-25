@@ -8,3 +8,5 @@ extensions:
     translatable: Zenify\DoctrineBehaviors\DI\TranslatableExtension
     timestampable: Zenify\DoctrineBehaviors\DI\TimestampableExtension
     sessionPanel: Kdyby\SessionPanel\DI\SessionPanelExtension
+    asset: HeavenProject\AssetLoader\DI\AssetLoaderExtension
+    thumb: HeavenProject\Thumbnailer\DI\ThumbExtension

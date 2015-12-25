@@ -6,7 +6,9 @@ includes:
     - application.neon
 
     - extensions.neon
+    - extensions.asset.neon
     - extensions.migrations.neon
+    - extensions.thumb.neon
     - extensions.translation.neon
 
     - parameters.neon
@@ -16,3 +18,5 @@ includes:
     - session.neon
 
     - services.neon
+
+    - ../../libs/heavenproject/AssetLoader/config.neon
