@@ -7,9 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="`image`")
+ * @ORM\Table(name="`article`")
  */
-class ImageEntity extends BaseEntity
+class ArticleEntity extends BaseEntity
 {
     /**
 	 * @ORM\Id
@@ -23,9 +23,9 @@ class ImageEntity extends BaseEntity
 	/**
 	 * @ORM\ManyToMany(targetEntity="TagEntity")
 	 * @ORM\JoinTable(
-	 *     name="image_tag",
+	 *     name="article_tag",
 	 *     joinColumns={
-	 *         @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+	 *         @ORM\JoinColumn(name="article_id", referencedColumnName="id")
 	 *     },
 	 *     inverseJoinColumns={
 	 *         @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
@@ -36,26 +36,47 @@ class ImageEntity extends BaseEntity
 	 */
 	protected $tags;
 
+	/**
+	 * @ORM\ManyToOne(targetEntity="UserEntity")
+	 *
+	 * @var UserEntity
+	 */
+	protected $user;
+
     /**
-     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @ORM\Column(type="string", unique=true)
      *
      * @var string
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", unique=true)
      *
      * @var string
      */
-    protected $alt;
+    protected $slug;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
-    protected $file;
+    protected $perex;
+
+    /**
+     * @ORM\Column(type="text")
+     *
+     * @var string
+     */
+    protected $text;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 *
+	 * @var bool
+	 */
+	protected $isActive = false;
 
 	public function __construct()
 	{

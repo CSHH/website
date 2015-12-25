@@ -27,9 +27,9 @@ class TagEntity extends BaseEntity
     protected $name;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", unique=true)
      *
-     * @var bool
+     * @var string
      */
-    protected $isDeletable = false;
+    protected $slug;
 }

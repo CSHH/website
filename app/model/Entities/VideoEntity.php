@@ -7,10 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="`image`")
+ * @ORM\Table(name="`video`")
  */
-class ImageEntity extends BaseEntity
+class VideoEntity extends BaseEntity
 {
+	/** @var string */
+	const TYPE_YOUTUBE = 'youtube';
+	/** @var string */
+	const TYPE_VIMEO = 'vimeo';
+
     /**
 	 * @ORM\Id
 	 * @ORM\Column(type="integer")
@@ -23,9 +28,9 @@ class ImageEntity extends BaseEntity
 	/**
 	 * @ORM\ManyToMany(targetEntity="TagEntity")
 	 * @ORM\JoinTable(
-	 *     name="image_tag",
+	 *     name="video_tag",
 	 *     joinColumns={
-	 *         @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+	 *         @ORM\JoinColumn(name="video_id", referencedColumnName="id")
 	 *     },
 	 *     inverseJoinColumns={
 	 *         @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
@@ -36,26 +41,47 @@ class ImageEntity extends BaseEntity
 	 */
 	protected $tags;
 
+	/**
+	 * @ORM\ManyToOne(targetEntity="UserEntity")
+	 *
+	 * @var UserEntity
+	 */
+	protected $user;
+
     /**
-     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @ORM\Column(type="string", unique=true)
      *
      * @var string
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", unique=true)
      *
      * @var string
      */
-    protected $alt;
+    protected $slug;
 
     /**
      * @ORM\Column(type="string")
      *
      * @var string
      */
-    protected $file;
+    protected $src;
+
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @var string
+     */
+    protected $type;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 *
+	 * @var bool
+	 */
+	protected $isActive = false;
 
 	public function __construct()
 	{
