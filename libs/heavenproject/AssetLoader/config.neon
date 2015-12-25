@@ -1,0 +1,5 @@
+nette:
+	latte:
+		macros:
+			-
+				HeavenProject\AssetLoader\AssetMacro
