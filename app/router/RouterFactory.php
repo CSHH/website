@@ -8,7 +8,6 @@ use Nette\Application\Routers\RouteList;
 
 class RouterFactory
 {
-
     /**
      * @return Nette\Application\IRouter
      */
@@ -16,9 +15,7 @@ class RouterFactory
     {
         $router = new RouteList;
 
-        $router[] = new Route('admin', 'Admin:Homepage:default');
-
-        $router[] = new Route('<presenter>/<action>', 'Front:Homepage:default');
+        $router[] = new Route('<presenter>/<action>', 'Homepage:default');
 
         return $router;
     }
