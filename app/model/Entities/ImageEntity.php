@@ -16,21 +16,21 @@ class ImageEntity extends BaseEntity
     use Identifier;
     use Timestampable;
 
-	/**
-	 * @ORM\ManyToMany(targetEntity="TagEntity")
-	 * @ORM\JoinTable(
-	 *     name="image_tag",
-	 *     joinColumns={
-	 *         @ORM\JoinColumn(name="image_id", referencedColumnName="id")
-	 *     },
-	 *     inverseJoinColumns={
-	 *         @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
-	 *     }
-	 * )
-	 *
-	 * @var ArrayCollection
-	 */
-	protected $tags;
+    /**
+     * @ORM\ManyToMany(targetEntity="TagEntity")
+     * @ORM\JoinTable(
+     *     name="image_tag",
+     *     joinColumns={
+     *         @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     *     },
+     *     inverseJoinColumns={
+     *         @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
+     *     }
+     * )
+     *
+     * @var ArrayCollection
+     */
+    protected $tags;
 
     /**
      * @ORM\Column(type="string", nullable=true, unique=true)
@@ -39,32 +39,32 @@ class ImageEntity extends BaseEntity
      */
     protected $name;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="FileEntity")
-	 *
-	 * @var FileEntity
-	 */
+    /**
+     * @ORM\ManyToOne(targetEntity="FileEntity")
+     *
+     * @var FileEntity
+     */
     protected $file;
 
-	/**
-	 * @ORM\Column(type="boolean")
-	 *
-	 * @var bool
-	 */
-	protected $isActive = false;
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @var bool
+     */
+    protected $isActive = false;
 
-	public function __construct()
-	{
-		parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
 
-		$this->tags = new ArrayCollection;
-	}
+        $this->tags = new ArrayCollection;
+    }
 
-	/**
-	 * @return ArrayCollection
-	 */
-	public function getTags()
-	{
-		return $this->tags;
-	}
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
 }

@@ -13,31 +13,31 @@ class WikiDraftEntity extends BaseEntity
 {
     use Identifier;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="WikiEntity")
-	 *
-	 * @var WikiEntity
-	 */
-	protected $wiki;
+    /**
+     * @ORM\ManyToOne(targetEntity="WikiEntity")
+     *
+     * @var WikiEntity
+     */
+    protected $wiki;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="UserEntity")
-	 *
-	 * @var UserEntity
-	 */
-	protected $user;
+    /**
+     * @ORM\ManyToOne(targetEntity="UserEntity")
+     *
+     * @var UserEntity
+     */
+    protected $user;
 
-	/**
-	 * @ORM\Column(type="text")
-	 *
-	 * @var string
-	 */
-	protected $text;
+    /**
+     * @ORM\Column(type="text")
+     *
+     * @var string
+     */
+    protected $text;
 
-	/**
-	 * @ORM\Column(type="datetime")
-	 *
-	 * @var \DateTime
-	 */
-	protected $createdAt;
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    protected $createdAt;
 }

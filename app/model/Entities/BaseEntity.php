@@ -2,8 +2,8 @@
 
 namespace App\Model\Entities;
 
-use Kdyby;
 use Doctrine\ORM\Mapping as ORM;
+use Kdyby;
 
 /**
  * @ORM\MappedSuperclass()

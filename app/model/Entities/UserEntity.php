@@ -20,40 +20,40 @@ class UserEntity extends BaseEntity
     /** @var int */
     const ROLE_USER = 1;
 
-	/**
-	 * @ORM\Column(type="string", unique=true, nullable=true)
-	 *
-	 * @var string
-	 */
-	protected $username;
+    /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     *
+     * @var string
+     */
+    protected $username;
 
-	/**
-	 * @ORM\Column(type="string", unique=true, nullable=true)
-	 *
-	 * @var string
-	 */
-	protected $email;
+    /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     *
+     * @var string
+     */
+    protected $email;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="FileEntity")
-	 *
-	 * @var FileEntity
-	 */
-	protected $avatar;
+    /**
+     * @ORM\ManyToOne(targetEntity="FileEntity")
+     *
+     * @var FileEntity
+     */
+    protected $avatar;
 
-	/**
-	 * @ORM\Column(type="string", nullable=true)
-	 *
-	 * @var string
-	 */
-	protected $forename;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    protected $forename;
 
-	/**
-	 * @ORM\Column(type="string", nullable=true)
-	 *
-	 * @var string
-	 */
-	protected $surname;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    protected $surname;
 
     /**
      * @ORM\Column(type="string", length=60, nullable=true)
@@ -69,10 +69,10 @@ class UserEntity extends BaseEntity
      */
     protected $salt;
 
-	/**
-	 * @ORM\Column(type="integer")
-	 *
-	 * @var int
-	 */
-	protected $role = self::ROLE_USER;
+    /**
+     * @ORM\Column(type="integer")
+     *
+     * @var int
+     */
+    protected $role = self::ROLE_USER;
 }
