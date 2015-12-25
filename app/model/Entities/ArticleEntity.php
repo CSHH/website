@@ -4,6 +4,8 @@ namespace App\Model\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity
@@ -11,14 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ArticleEntity extends BaseEntity
 {
-    /**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue
-     *
-     * @var int
-     */
-    protected $id;
+    use Identifier;
+    use Timestampable;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="TagEntity")

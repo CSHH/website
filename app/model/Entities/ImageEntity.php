@@ -4,6 +4,8 @@ namespace App\Model\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity
@@ -11,14 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ImageEntity extends BaseEntity
 {
-    /**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue
-     *
-     * @var int
-     */
-    protected $id;
+    use Identifier;
+    use Timestampable;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="TagEntity")
@@ -43,19 +39,19 @@ class ImageEntity extends BaseEntity
      */
     protected $name;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     *
-     * @var string
-     */
-    protected $alt;
-
-    /**
-     * @ORM\Column(type="string")
-     *
-     * @var string
-     */
+	/**
+	 * @ORM\ManyToOne(targetEntity="FileEntity")
+	 *
+	 * @var FileEntity
+	 */
     protected $file;
+
+	/**
+	 * @ORM\Column(type="boolean")
+	 *
+	 * @var bool
+	 */
+	protected $isActive = false;
 
 	public function __construct()
 	{

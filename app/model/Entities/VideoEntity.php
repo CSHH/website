@@ -4,6 +4,8 @@ namespace App\Model\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity
@@ -11,19 +13,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class VideoEntity extends BaseEntity
 {
+    use Identifier;
+    use Timestampable;
+
 	/** @var string */
 	const TYPE_YOUTUBE = 'youtube';
 	/** @var string */
 	const TYPE_VIMEO = 'vimeo';
-
-    /**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue
-     *
-     * @var int
-     */
-    protected $id;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="TagEntity")
