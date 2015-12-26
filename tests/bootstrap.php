@@ -13,6 +13,7 @@ $configurator->setDebugMode(false);
 $configurator->setTempDirectory(TEMP_DIR);
 $configurator->createRobotLoader()
     ->addDirectory(__DIR__ . '/../app')
+    ->addDirectory(__DIR__ . '/../libs')
     ->register();
 
 $configurator->addConfig(__DIR__ . '/../app/config/config.neon');
