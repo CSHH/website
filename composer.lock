@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9995c0e7c9f552b40256c47d72d7440d",
-    "content-hash": "21faad094c99b84cfb514af3712fcb22",
+    "hash": "42a9cc7cb328c73d9e67d3555cde1cc4",
+    "content-hash": "5fd179114ed4ebe67ad3aeca870fa231",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -2816,7 +2816,64 @@
             "time": "2015-03-12 00:01:14"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "nette/tester",
+            "version": "v1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/tester.git",
+                "reference": "b0f312e7ab9a70bbd5c92568e2a20dd46be9a529"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/tester/zipball/b0f312e7ab9a70bbd5c92568e2a20dd46be9a529",
+                "reference": "b0f312e7ab9a70bbd5c92568e2a20dd46be9a529",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "bin": [
+                "src/tester"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.6-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "An easy-to-use PHP unit testing framework.",
+            "homepage": "https://tester.nette.org",
+            "keywords": [
+                "nette",
+                "testing",
+                "unit"
+            ],
+            "time": "2015-10-26 05:38:30"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
