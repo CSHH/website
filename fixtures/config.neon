@@ -1,0 +1,26 @@
+App\Model\Entities\UserEntity:
+    "user_harry_mason":
+        "username": "harry"
+        "email": "harry.mason@example.com"
+        "avatar": null
+        "forename": "Harry"
+        "surname": "Mason"
+        "password": null
+        "salt": null
+        "role": 1
+App\Model\Entities\TagEntity:
+    "tag_povidky":
+        "name": "Povídky"
+        "slug": "povidky"
+    "tag_recenze":
+        "name": "Recenze"
+        "slug": "recenze"
+App\Model\Entities\ArticleEntity:
+    "article{1..100}":
+        "tag": @tag*
+        "user": @user_harry_mason
+        "name (unique)": "<sentence(3)>"
+        "slug (unique)": "<slug()>"
+        "perex": "<paragraph(2)>"
+        "text": "<paragraph(100)>"
+        "isActive": true
