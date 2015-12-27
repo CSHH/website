@@ -2,7 +2,6 @@
 
 namespace App\Model\Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
@@ -22,20 +21,11 @@ class VideoEntity extends BaseEntity
     const TYPE_VIMEO = 'vimeo';
 
     /**
-     * @ORM\ManyToMany(targetEntity="TagEntity")
-     * @ORM\JoinTable(
-     *     name="video_tag",
-     *     joinColumns={
-     *         @ORM\JoinColumn(name="video_id", referencedColumnName="id")
-     *     },
-     *     inverseJoinColumns={
-     *         @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
-     *     }
-     * )
+     * @ORM\ManyToOne(targetEntity="TagEntity")
      *
-     * @var ArrayCollection
+     * @var TagEntity
      */
-    protected $tags;
+    protected $tag;
 
     /**
      * @ORM\ManyToOne(targetEntity="UserEntity")
@@ -78,19 +68,4 @@ class VideoEntity extends BaseEntity
      * @var bool
      */
     protected $isActive = false;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->tags = new ArrayCollection;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
 }

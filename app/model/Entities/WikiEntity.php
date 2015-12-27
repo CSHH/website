@@ -24,20 +24,11 @@ class WikiEntity extends BaseEntity
     const TYPE_BOOK = 'book';
 
     /**
-     * @ORM\ManyToMany(targetEntity="TagEntity")
-     * @ORM\JoinTable(
-     *     name="wiki_tag",
-     *     joinColumns={
-     *         @ORM\JoinColumn(name="wiki_id", referencedColumnName="id")
-     *     },
-     *     inverseJoinColumns={
-     *         @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
-     *     }
-     * )
+     * @ORM\ManyToOne(targetEntity="TagEntity")
      *
-     * @var ArrayCollection
+     * @var TagEntity
      */
-    protected $tags;
+    protected $tag;
 
     /**
      * @ORM\ManyToMany(targetEntity="WikiEntity")
@@ -131,18 +122,9 @@ class WikiEntity extends BaseEntity
     {
         parent::__construct();
 
-        $this->tags         =
         $this->related      =
         $this->contributors =
         $this->drafts       = new ArrayCollection;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getTags()
-    {
-        return $this->tags;
     }
 
     /**

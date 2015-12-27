@@ -2,7 +2,6 @@
 
 namespace App\Model\Entities;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
@@ -17,20 +16,11 @@ class ImageEntity extends BaseEntity
     use Timestampable;
 
     /**
-     * @ORM\ManyToMany(targetEntity="TagEntity")
-     * @ORM\JoinTable(
-     *     name="image_tag",
-     *     joinColumns={
-     *         @ORM\JoinColumn(name="image_id", referencedColumnName="id")
-     *     },
-     *     inverseJoinColumns={
-     *         @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
-     *     }
-     * )
+     * @ORM\ManyToOne(targetEntity="TagEntity")
      *
-     * @var ArrayCollection
+     * @var TagEntity
      */
-    protected $tags;
+    protected $tag;
 
     /**
      * @ORM\Column(type="string", nullable=true, unique=true)
@@ -52,19 +42,4 @@ class ImageEntity extends BaseEntity
      * @var bool
      */
     protected $isActive = false;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->tags = new ArrayCollection;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
 }
