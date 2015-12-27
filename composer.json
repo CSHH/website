@@ -28,6 +28,7 @@
 		"zenify/doctrine-migrations": "~2.1.0"
 	},
 	"require-dev": {
-		"nette/tester": "~1.6.0"
+		"nette/tester": "~1.6.0",
+		"zenify/doctrine-fixtures": "~3.0.0"
 	}
 }
