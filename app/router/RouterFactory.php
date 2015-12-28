@@ -15,6 +15,15 @@ class RouterFactory
     {
         $router = new RouteList;
 
+        $router[] = new Route('hry[/<tagSlug>]', 'Game:default');
+        $router[] = new Route('hry/<tagSlug>/<slug>', 'Game:detail');
+
+        $router[] = new Route('filmy[/<tagSlug>]', 'Movie:default');
+        $router[] = new Route('filmy/<tagSlug>/<slug>', 'Movie:detail');
+
+        $router[] = new Route('knihy[/<tagSlug>]', 'Book:default');
+        $router[] = new Route('knihy/<tagSlug>/<slug>', 'Book:detail');
+
         $router[] = new Route('clanky[/<tagSlug>]', 'Article:default');
         $router[] = new Route('clanky/<tagSlug>/<slug>', 'Article:detail');
 
