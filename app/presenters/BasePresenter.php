@@ -20,7 +20,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->template->articleCrud = $this->articleCrud;
         $this->template->tagCrud     = $this->tagCrud;
 
-		$this->template->uploadDir = $this->context->parameters['uploadDir'];
+        $this->template->uploadDir = $this->context->parameters['uploadDir'];
     }
 
     protected function throw404()
