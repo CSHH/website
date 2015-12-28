@@ -1,0 +1,11 @@
+{block content}
+
+{foreach $images as $image}
+
+    {var $description = $image->name ?: $image->tag->name}
+
+    <img src="{$basePath}{$uploadDir . '/' . $image->file->getFilePath()|thumb:100:100}" title="{$description}" alt="{$description}">
+
+{/foreach}
+
+{control vp}
