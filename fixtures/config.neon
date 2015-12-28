@@ -62,3 +62,12 @@ App\Model\Entities\ImageEntity:
         "name (unique)": "50%? <sentence(3)>"
         "file": @file_halo_of_the_sun
         "isActive": "80%? true : false"
+App\Model\Entities\VideoEntity:
+    "video_{1..100}":
+        "tag": @tag_silent*
+        "user": @user*
+        "name (unique)": "<sentence(3)>"
+        "slug (unique)": "<slug()>"
+        "src": ""
+        "type": "50%? youtube : vimeo"
+        "isActive": "80%? true : false"
