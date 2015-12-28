@@ -71,3 +71,16 @@ App\Model\Entities\VideoEntity:
         "src": ""
         "type": "50%? youtube : vimeo"
         "isActive": "80%? true : false"
+App\Model\Entities\WikiEntity:
+    "wiki_{1..100}":
+        "tag": @tag_silent*
+        "related": []
+        "contributors": []
+        "drafts": []
+        "createdBy": @user*
+        "lastUpdatedBy": @user*
+        "name (unique)": "<sentence(3)>"
+        "slug (unique)": "<slug()>"
+        "perex": "<paragraph(2)>"
+        "text": "<paragraph(100)>"
+        "type": "<randomElement(array('game', 'movie', 'book'))>"
