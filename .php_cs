@@ -32,7 +32,7 @@ return Symfony\CS\Config\Config::create()
         'double_arrow_multiline_whitespaces', /* [symfony] Operator => should not be arounded by multi-line whitespaces. */
         'duplicate_semicolon',                /* [symfony] Remove duplicated semicolons. */
         /*'empty_return',                       /* [symfony] A return statement wishing to return nothing should be simply "return". */
-        'extra_empty_lines',                  /* [symfony] Removes extra empty lines. */
+        /*'extra_empty_lines',                  /* [symfony] Removes extra empty lines. */
         /*'include',                            /* [symfony] Include and file path should be divided with a single space. File path should not be placed under brackets. */
         'multiline_array_trailing_comma',     /* [symfony] PHP multi-line arrays should have a trailing comma. */
         'namespace_no_leading_whitespace',    /* [symfony] The namespace declaration line shouldn't contain leading whitespace. */
