@@ -48,3 +48,17 @@ App\Model\Entities\ArticleEntity:
         "perex": "<paragraph(2)>"
         "text": "<paragraph(100)>"
         "isActive": "80%? true : false"
+App\Model\Entities\FileEntity:
+    "file_halo_of_the_sun":
+        "year": "1970"
+        "month": "01"
+        "name": "halo_of_the_sun"
+        "extension": "jpg"
+        "checksum": "4b843dc5f600e9448cc33d8022ef0937a6e1508c"
+        "joints": 250
+App\Model\Entities\ImageEntity:
+    "image_{1..250}":
+        "tag": @tag_silent*
+        "name (unique)": "50%? <sentence(3)>"
+        "file": @file_halo_of_the_sun
+        "isActive": "80%? true : false"
