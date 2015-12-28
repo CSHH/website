@@ -53,7 +53,7 @@ class VideoCrud extends BaseCrud
      * @param  Entities\TagEntity     $tag
      * @return Entities\VideoEntity[]
      */
-    public function getAllByTag(Entities\VideoEntity $tag)
+    public function getAllByTag(Entities\TagEntity $tag)
     {
         return $this->dao->createQueryBuilder()
             ->select('v')

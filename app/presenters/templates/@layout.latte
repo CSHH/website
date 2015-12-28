@@ -17,35 +17,49 @@
 
     <div>
 
+        {var $tags = $tagCrud->getAll()}
+
         <ul>
-            <li>{_}ui.games{/_}</li>
+            <li><a n:href="Game:default">{_}ui.games{/_}</a></li>
             <ul>
-                <li n:foreach="$tagCrud->getAll() as $tag" n:if="$articleCrud->getAllByTag($tag)">{$tag->name}</li>
+                <li n:foreach="$tags as $tag" n:if="$wikiCrud->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_GAME)">
+                    <a n:href="Game:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
             </ul>
 
-            <li>{_}ui.movies{/_}</li>
+            <li><a n:href="Movie:default">{_}ui.movies{/_}</a></li>
             <ul>
-                <li n:foreach="$tagCrud->getAll() as $tag" n:if="$articleCrud->getAllByTag($tag)">{$tag->name}</li>
+                <li n:foreach="$tags as $tag" n:if="$wikiCrud->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_MOVIE)">
+                    <a n:href="Movie:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
             </ul>
 
-            <li>{_}ui.books{/_}</li>
+            <li><a n:href="Book:default">{_}ui.books{/_}</a></li>
             <ul>
-                <li n:foreach="$tagCrud->getAll() as $tag" n:if="$articleCrud->getAllByTag($tag)">{$tag->name}</li>
+                <li n:foreach="$tags as $tag" n:if="$wikiCrud->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_BOOK)">
+                    <a n:href="Book:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
             </ul>
 
-            <li>{_}ui.articles{/_}</li>
+            <li><a n:href="Article:default">{_}ui.articles{/_}</a></li>
             <ul>
-                <li n:foreach="$tagCrud->getAll() as $tag" n:if="$articleCrud->getAllByTag($tag)">{$tag->name}</li>
+                <li n:foreach="$tags as $tag" n:if="$articleCrud->getAllByTag($tag)">
+                    <a n:href="Article:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
             </ul>
 
-            <li>{_}ui.galleries{/_}</li>
+            <li><a n:href="Gallery:default">{_}ui.galleries{/_}</a></li>
             <ul>
-                <li n:foreach="$tagCrud->getAll() as $tag" n:if="$articleCrud->getAllByTag($tag)">{$tag->name}</li>
+                <li n:foreach="$tags as $tag" n:if="$imageCrud->getAllByTag($tag)">
+                    <a n:href="Gallery:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
             </ul>
 
-            <li>{_}ui.videos{/_}</li>
+            <li><a n:href="Video:default">{_}ui.videos{/_}</a></li>
             <ul>
-                <li n:foreach="$tagCrud->getAll() as $tag" n:if="$articleCrud->getAllByTag($tag)">{$tag->name}</li>
+                <li n:foreach="$tags as $tag" n:if="$videoCrud->getAllByTag($tag)">
+                    <a n:href="Video:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
             </ul>
         </ul>
 

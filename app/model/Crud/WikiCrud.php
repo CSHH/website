@@ -52,17 +52,21 @@ class WikiCrud extends BaseCrud
     }
 
     /**
-     * @param  Entities\TagEntity       $tag
+     * @param  Entities\TagEntity    $tag
+	 * @param  string                $type
      * @return Entities\WikiEntity[]
      */
-    public function getAllByTag(Entities\TagEntity $tag)
+    public function getAllByTag(Entities\TagEntity $tag, $type)
     {
         return $this->dao->createQueryBuilder()
             ->select('w')
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->join('w.tag', 't')
-            ->where('t.id = :tagId')
-            ->setParameter('tagId', $tag->id)
+            ->where('t.id = :tagId AND w.type = :type')
+            ->setParameters(array(
+				'tagId' => $tag->id,
+				'type'  => $type,
+			))
             ->getQuery()
             ->getResult();
     }

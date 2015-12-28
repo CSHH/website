@@ -53,7 +53,7 @@ class ImageCrud extends BaseCrud
      * @param  Entities\TagEntity       $tag
      * @return Entities\ImageEntity[]
      */
-    public function getAllByTag(Entities\ImageEntity $tag)
+    public function getAllByTag(Entities\TagEntity $tag)
     {
         return $this->dao->createQueryBuilder()
             ->select('i')
