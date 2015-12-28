@@ -12,12 +12,12 @@ class TagCrud extends BaseCrud
         parent::__construct($dao);
     }
 
-	/**
-	 * @param string $slug
-	 * @return Entities\TagEntity|null
-	 */
-	public function getBySlug($slug)
-	{
-		return $this->dao->findOneBy(array('slug' => $slug));
-	}
+    /**
+     * @param  string                  $slug
+     * @return Entities\TagEntity|null
+     */
+    public function getBySlug($slug)
+    {
+        return $this->dao->findOneBy(array('slug' => $slug));
+    }
 }

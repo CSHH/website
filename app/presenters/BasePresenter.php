@@ -7,21 +7,21 @@ use Nette;
 
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-	/** @var Crud\ArticleCrud @inject */
-	public $articleCrud;
+    /** @var Crud\ArticleCrud @inject */
+    public $articleCrud;
 
-	/** @var Crud\TagCrud @inject */
-	public $tagCrud;
+    /** @var Crud\TagCrud @inject */
+    public $tagCrud;
 
-	protected function beforeRender()
-	{
-		parent::beforeRender();
+    protected function beforeRender()
+    {
+        parent::beforeRender();
 
-		$this->template->articleCrud = $this->articleCrud;
-		$this->template->tagCrud = $this->tagCrud;
-	}
+        $this->template->articleCrud = $this->articleCrud;
+        $this->template->tagCrud     = $this->tagCrud;
+    }
 
-	protected function throw404()
+    protected function throw404()
     {
         $this->error();
     }

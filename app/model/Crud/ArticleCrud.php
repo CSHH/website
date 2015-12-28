@@ -15,27 +15,27 @@ class ArticleCrud extends BaseCrud
         parent::__construct($dao);
     }
 
-	/**
-	 * @param int $page
-	 * @param int $limit
-	 * @return Paginator
-	 */
-	public function getAllForPage($page, $limit)
-	{
-		$qb = $this->dao->createQueryBuilder()
-			->select('a')
-			->from(Entities\ArticleEntity::getClassName(), 'a')
-			->setFirstResult($page * $limit - $limit)
-			->setMaxResults($limit);
+    /**
+     * @param  int       $page
+     * @param  int       $limit
+     * @return Paginator
+     */
+    public function getAllForPage($page, $limit)
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('a')
+            ->from(Entities\ArticleEntity::getClassName(), 'a')
+            ->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
 
-		return new Paginator($qb->getQuery());
-	}
+        return new Paginator($qb->getQuery());
+    }
 
     /**
-	 * @param int $page
-	 * @param int $limit
+     * @param  int                $page
+     * @param  int                $limit
      * @param  Entities\TagEntity $tag
-	 * @return Paginator
+     * @return Paginator
      */
     public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
@@ -45,14 +45,14 @@ class ArticleCrud extends BaseCrud
             ->join('a.tag', 't')
             ->where('t.id = :tagId')
             ->setParameter('tagId', $tag->id)
-			->setFirstResult($page * $limit - $limit)
-			->setMaxResults($limit);
+            ->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
 
-		return new Paginator($qb->getQuery());
+        return new Paginator($qb->getQuery());
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity       $tag
      * @return Entities\ArticleEntity[]
      */
     public function getAllByTag(Entities\TagEntity $tag)
@@ -68,7 +68,7 @@ class ArticleCrud extends BaseCrud
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity          $tag
      * @param  string                      $slug
      * @return Entities\ArticleEntity|null
      */
@@ -81,15 +81,13 @@ class ArticleCrud extends BaseCrud
                 ->join('a.tag', 't')
                 ->where('t.id = :tagId AND a.slug = :slug')
                 ->setParameters(array(
-					'tagId' => $tag->id,
-					'slug'  => $slug,
+                    'tagId' => $tag->id,
+                    'slug'  => $slug,
                 ))
                 ->getQuery()
                 ->getSingleResult();
-
         } catch (NonUniqueResultException $e) {
             return null;
-
         } catch (NoResultException $e) {
             return null;
         }
