@@ -1,10 +1,19 @@
 App\Model\Entities\UserEntity:
-    "user_harry_mason":
-        "username": "harry"
-        "email": "harry.mason@example.com"
+    "user_admin":
+        "username": "johndoe"
+        "email": "john.doe@example.com"
         "avatar": null
-        "forename": "Harry"
-        "surname": "Mason"
+        "forename": "John"
+        "surname": "Doe"
+        "password": "$2y$10$D7DlW8aCiF0JZfvXCpxdeeMbklNC0nJ7IcvdpwIgQoHtWTLQ1UVK2"
+        "salt": "X1QWzJRBy3"
+        "role": 99
+    "user_{1..50}":
+        "username (unique)": "<username()><current()>"
+        "email (unique)": "<username()>@example.com"
+        "avatar": null
+        "forename": "<firstName()>"
+        "surname": "<lastName()>"
         "password": null
         "salt": null
         "role": 1
@@ -15,12 +24,27 @@ App\Model\Entities\TagEntity:
     "tag_recenze":
         "name": "Recenze"
         "slug": "recenze"
+    "tag_silent_hill":
+        "name": "Silent Hill"
+        "slug": "silent-hill"
+    "tag_silent_hill_2":
+        "name": "Silent Hill 2"
+        "slug": "silent-hill-2"
+    "tag_silent_hill_3":
+        "name": "Silent Hill 3"
+        "slug": "silent-hill-3"
+    "tag_silent_hill_4_the_room":
+        "name": "Silent Hill 4 The Room"
+        "slug": "silent-hill-4-the-room"
+    "tag_nezaraditelne":
+        "name": "Nezařaditelné"
+        "slug": "nezaraditelne"
 App\Model\Entities\ArticleEntity:
-    "article{1..100}":
+    "article_{1..100}":
         "tag": @tag*
-        "user": @user_harry_mason
+        "user": @user*
         "name (unique)": "<sentence(3)>"
         "slug (unique)": "<slug()>"
         "perex": "<paragraph(2)>"
         "text": "<paragraph(100)>"
-        "isActive": true
+        "isActive": "80%? true : false"
