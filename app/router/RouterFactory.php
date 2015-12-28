@@ -15,8 +15,8 @@ class RouterFactory
     {
         $router = new RouteList;
 
-        $router[] = new Route('clanky[/<tag>]', 'Article:default');
-        $router[] = new Route('clanky/<tag>/<slug>', 'Article:detail');
+        $router[] = new Route('clanky[/<tagSlug>]', 'Article:default');
+        $router[] = new Route('clanky/<tagSlug>/<slug>', 'Article:detail');
 
         $router[] = new Route('<presenter>/<action>', 'Homepage:default');
 

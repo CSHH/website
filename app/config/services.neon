@@ -1,3 +1,4 @@
 services:
     router: App\RouterFactory::createRouter
     - App\Model\Crud\ArticleCrud(@doctrine.dao(App\Model\Entities\ArticleEntity))
+    - App\Model\Crud\TagCrud(@doctrine.dao(App\Model\Entities\TagEntity))

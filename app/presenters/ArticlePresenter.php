@@ -24,44 +24,40 @@ class ArticlePresenter extends BasePresenter
 	private $vp;
 
 	/**
-     * @param string $tag
+     * @param string $tagSlug
      */
-    public function actionDefault($tag)
+    public function actionDefault($tagSlug)
     {
+		$tag = $tagSlug ? $this->tagCrud->getBySlug($tagSlug) : null;
+
 		$limit = 10;
 
         $articles = $tag
             ? $this->articleCrud->getAllByTagForPage($this->page, $limit, $tag)
             : $this->articleCrud->getAllForPage($this->page, $limit);
 
-		$this->vp = new Controls\VisualPaginator($this->page);
-		$p = $this->vp->getPaginator();
-		$p->setItemCount($articles->count());
-		$p->setItemsPerPage($limit);
-		$p->setPage($this->page);
+		$this->preparePaginator($articles->count(), $limit);
 
-        if ($tag && !$articles || $this->page > $p->getLastPage()) {
+        if ($tag && !$articles || $this->page > $this->vp->getPaginator()->getLastPage()) {
             $this->throw404();
         }
 
         $this->articles = $articles;
     }
 
-	/**
-     * @param string $tag
-     */
-    public function renderDefault($tag)
+    public function renderDefault()
     {
         $this->template->articles = $this->articles;
-        $this->template->tag      = $tag;
     }
 
     /**
-     * @param string $tag
+     * @param string $tagSlug
      * @param string $slug
      */
-    public function actionDetail($tag, $slug)
+    public function actionDetail($tagSlug, $slug)
     {
+		$tag = $tagSlug ? $this->tagCrud->getBySlug($tagSlug) : null;
+
         if (!$tag || !$slug) {
             $this->throw404();
         }
@@ -86,5 +82,18 @@ class ArticlePresenter extends BasePresenter
 	protected function createComponentVp()
 	{
 		return $this->vp;
+	}
+
+	/**
+	 * @param int $itemCount
+	 * @param int $limit
+	 */
+	private function preparePaginator($itemCount, $limit)
+	{
+		$this->vp = new Controls\VisualPaginator($this->page);
+		$p = $this->vp->getPaginator();
+		$p->setItemCount($itemCount);
+		$p->setItemsPerPage($limit);
+		$p->setPage($this->page);
 	}
 }
