@@ -1,0 +1,86 @@
+App\Model\Entities\UserEntity:
+    "user_admin":
+        "username": "johndoe"
+        "email": "john.doe@example.com"
+        "avatar": null
+        "forename": "John"
+        "surname": "Doe"
+        "password": "$2y$10$D7DlW8aCiF0JZfvXCpxdeeMbklNC0nJ7IcvdpwIgQoHtWTLQ1UVK2"
+        "salt": "X1QWzJRBy3"
+        "role": 99
+    "user_{1..50}":
+        "username (unique)": "<username()><current()>"
+        "email (unique)": "<username()>@example.com"
+        "avatar": null
+        "forename": "<firstName()>"
+        "surname": "<lastName()>"
+        "password": null
+        "salt": null
+        "role": 1
+App\Model\Entities\TagEntity:
+    "tag_povidky":
+        "name": "Povídky"
+        "slug": "povidky"
+    "tag_recenze":
+        "name": "Recenze"
+        "slug": "recenze"
+    "tag_silent_hill":
+        "name": "Silent Hill"
+        "slug": "silent-hill"
+    "tag_silent_hill_2":
+        "name": "Silent Hill 2"
+        "slug": "silent-hill-2"
+    "tag_silent_hill_3":
+        "name": "Silent Hill 3"
+        "slug": "silent-hill-3"
+    "tag_silent_hill_4_the_room":
+        "name": "Silent Hill 4 The Room"
+        "slug": "silent-hill-4-the-room"
+    "tag_nezaraditelne":
+        "name": "Nezařaditelné"
+        "slug": "nezaraditelne"
+App\Model\Entities\ArticleEntity:
+    "article_{1..100}":
+        "tag": @tag*
+        "user": @user*
+        "name (unique)": "<sentence(3)>"
+        "slug (unique)": "<slug()>"
+        "perex": "<paragraph(2)>"
+        "text": "<paragraph(100)>"
+        "isActive": "80%? true : false"
+App\Model\Entities\FileEntity:
+    "file_halo_of_the_sun":
+        "year": "1970"
+        "month": "01"
+        "name": "halo_of_the_sun"
+        "extension": "jpg"
+        "checksum": "4b843dc5f600e9448cc33d8022ef0937a6e1508c"
+        "joints": 250
+App\Model\Entities\ImageEntity:
+    "image_{1..250}":
+        "tag": @tag_silent*
+        "name (unique)": "50%? <sentence(3)>"
+        "file": @file_halo_of_the_sun
+        "isActive": "80%? true : false"
+App\Model\Entities\VideoEntity:
+    "video_{1..100}":
+        "tag": @tag_silent*
+        "user": @user*
+        "name (unique)": "<sentence(3)>"
+        "slug (unique)": "<slug()>"
+        "src": ""
+        "type": "50%? youtube : vimeo"
+        "isActive": "80%? true : false"
+App\Model\Entities\WikiEntity:
+    "wiki_{1..100}":
+        "tag": @tag_silent*
+        "related": []
+        "contributors": []
+        "drafts": []
+        "createdBy": @user*
+        "lastUpdatedBy": @user*
+        "name (unique)": "<sentence(3)>"
+        "slug (unique)": "<slug()>"
+        "perex": "<paragraph(2)>"
+        "text": "<paragraph(100)>"
+        "type": "<randomElement(array('game', 'movie', 'book'))>"

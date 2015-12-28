@@ -1,0 +1,12 @@
+{block content}
+
+{foreach $articles as $article}
+
+    <div>
+        <h2><a n:href="detail, tagSlug => $article->tag->slug, slug => $article->slug">{$article->id}. {$article->name}</a></h2>
+        <p>{$article->perex}</p>
+    </div>
+
+{/foreach}
+
+{control vp}

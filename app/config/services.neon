@@ -1,0 +1,7 @@
+services:
+    router: App\RouterFactory::createRouter
+    - App\Model\Crud\ArticleCrud(@doctrine.dao(App\Model\Entities\ArticleEntity))
+    - App\Model\Crud\ImageCrud(@doctrine.dao(App\Model\Entities\ImageEntity))
+    - App\Model\Crud\TagCrud(@doctrine.dao(App\Model\Entities\TagEntity))
+    - App\Model\Crud\VideoCrud(@doctrine.dao(App\Model\Entities\VideoEntity))
+    - App\Model\Crud\WikiCrud(@doctrine.dao(App\Model\Entities\WikiEntity))

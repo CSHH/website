@@ -3,6 +3,8 @@
 namespace App\Model\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity
@@ -10,14 +12,15 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ImageEntity extends BaseEntity
 {
+    use Identifier;
+    use Timestampable;
+
     /**
-	 * @ORM\Id
-	 * @ORM\Column(type="integer")
-	 * @ORM\GeneratedValue
+     * @ORM\ManyToOne(targetEntity="TagEntity")
      *
-     * @var int
+     * @var TagEntity
      */
-    protected $id;
+    protected $tag;
 
     /**
      * @ORM\Column(type="string", nullable=true, unique=true)
@@ -27,16 +30,16 @@ class ImageEntity extends BaseEntity
     protected $name;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="FileEntity")
      *
-     * @var string
-     */
-    protected $alt;
-
-    /**
-     * @ORM\Column(type="string")
-     *
-     * @var string
+     * @var FileEntity
      */
     protected $file;
+
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @var bool
+     */
+    protected $isActive = false;
 }

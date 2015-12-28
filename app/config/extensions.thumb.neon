@@ -1,0 +1,3 @@
+thumb:
+    wwwDir: %wwwDir%
+    thumbDir: %thumbsDir%

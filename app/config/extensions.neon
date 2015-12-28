@@ -1,0 +1,13 @@
+extensions:
+    annotations: Kdyby\Annotations\DI\AnnotationsExtension
+    console: Kdyby\Console\DI\ConsoleExtension
+    doctrine: Kdyby\Doctrine\DI\OrmExtension
+    events: Kdyby\Events\DI\EventsExtension
+    translation: Kdyby\Translation\DI\TranslationExtension
+    migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+    translatable: Zenify\DoctrineBehaviors\DI\TranslatableExtension
+    timestampable: Zenify\DoctrineBehaviors\DI\TimestampableExtension
+    fixtures: Zenify\DoctrineFixtures\DI\FixturesExtension
+    sessionPanel: Kdyby\SessionPanel\DI\SessionPanelExtension
+    asset: HeavenProject\AssetLoader\DI\AssetLoaderExtension
+    thumb: HeavenProject\Thumbnailer\DI\ThumbExtension

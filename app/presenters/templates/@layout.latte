@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>{ifset title}{include title|striptags} | {/ifset}Czech Silent Hill Heaven</title>
+
+    <link rel="stylesheet" href="{$basePath}/css/style.css">
+    <link rel="shortcut icon" href="{$basePath}/favicon.ico">
+
+    {block head}{/block}
+</head>
+
+<body>
+    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+    <div>
+
+        {var $tags = $tagCrud->getAll()}
+
+        <ul>
+            <li><a n:href="Game:default">{_}ui.games{/_}</a></li>
+            <ul>
+                <li n:foreach="$tags as $tag" n:if="$wikiCrud->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_GAME)">
+                    <a n:href="Game:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
+            </ul>
+
+            <li><a n:href="Movie:default">{_}ui.movies{/_}</a></li>
+            <ul>
+                <li n:foreach="$tags as $tag" n:if="$wikiCrud->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_MOVIE)">
+                    <a n:href="Movie:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
+            </ul>
+
+            <li><a n:href="Book:default">{_}ui.books{/_}</a></li>
+            <ul>
+                <li n:foreach="$tags as $tag" n:if="$wikiCrud->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_BOOK)">
+                    <a n:href="Book:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
+            </ul>
+
+            <li><a n:href="Article:default">{_}ui.articles{/_}</a></li>
+            <ul>
+                <li n:foreach="$tags as $tag" n:if="$articleCrud->getAllByTag($tag)">
+                    <a n:href="Article:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
+            </ul>
+
+            <li><a n:href="Gallery:default">{_}ui.galleries{/_}</a></li>
+            <ul>
+                <li n:foreach="$tags as $tag" n:if="$imageCrud->getAllByTag($tag)">
+                    <a n:href="Gallery:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
+            </ul>
+
+            <li><a n:href="Video:default">{_}ui.videos{/_}</a></li>
+            <ul>
+                <li n:foreach="$tags as $tag" n:if="$videoCrud->getAllByTag($tag)">
+                    <a n:href="Video:default, tagSlug => $tag->slug">{$tag->name}</a>
+                </li>
+            </ul>
+        </ul>
+
+    </div>
+
+    {include content}
+
+    {block scripts}
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="//nette.github.io/resources/js/netteForms.min.js"></script>
+        <script src="{$basePath}/js/main.js"></script>
+    {/block}
+</body>
+</html>
