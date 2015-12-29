@@ -18,13 +18,16 @@ class WikiCrud extends BaseCrud
     /**
      * @param  int       $page
      * @param  int       $limit
+     * @param  string    $type
      * @return Paginator
      */
-    public function getAllForPage($page, $limit)
+    public function getAllForPage($page, $limit, $type)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('w')
             ->from(Entities\WikiEntity::getClassName(), 'w')
+            ->where('w.type = :type')
+            ->setParameter('type', $type)
             ->setFirstResult($page * $limit - $limit)
             ->setMaxResults($limit);
 
@@ -35,16 +38,20 @@ class WikiCrud extends BaseCrud
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
+     * @param  string             $type
      * @return Paginator
      */
-    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag)
+    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $type)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('w')
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->join('w.tag', 't')
-            ->where('t.id = :tagId')
-            ->setParameter('tagId', $tag->id)
+            ->where('t.id = :tagId AND w.type = :type')
+            ->setParameters(array(
+                'tagId' => $tag->id,
+                'type'  => $type,
+            ))
             ->setFirstResult($page * $limit - $limit)
             ->setMaxResults($limit);
 

@@ -2,15 +2,11 @@
 
 namespace App\Presenters;
 
-use App\Components\Controls;
 use App\Model\Crud;
 use App\Model\Entities;
 
-class ArticlePresenter extends BasePresenter
+class ArticlePresenter extends PageablePresenter
 {
-    /** @var int @persistent */
-    public $page = 1;
-
     /** @var Crud\ArticleCrud @inject */
     public $articleCrud;
 
@@ -22,9 +18,6 @@ class ArticlePresenter extends BasePresenter
 
     /** @var Entities\TagEntity */
     private $tag;
-
-    /** @var Controls\VisualPaginator */
-    private $vp;
 
     /**
      * @param string $tagSlug
@@ -79,26 +72,5 @@ class ArticlePresenter extends BasePresenter
     public function renderDetail()
     {
         $this->template->article = $this->article;
-    }
-
-    /**
-     * @return Controls\VisualPaginator
-     */
-    protected function createComponentVp()
-    {
-        return $this->vp;
-    }
-
-    /**
-     * @param int $itemCount
-     * @param int $limit
-     */
-    private function preparePaginator($itemCount, $limit)
-    {
-        $this->vp = new Controls\VisualPaginator($this->page);
-        $p        = $this->vp->getPaginator();
-        $p->setItemCount($itemCount);
-        $p->setItemsPerPage($limit);
-        $p->setPage($this->page);
     }
 }
