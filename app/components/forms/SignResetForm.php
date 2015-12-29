@@ -110,19 +110,16 @@ class SignResetForm extends Nette\Application\UI\Control
             );
 
             $form->getPresenter()->flashMessage('Na zadanou adresu byl odeslán e-mail.');
-
         } catch (FormSentBySpamException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
-
         } catch (UserNotFoundException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError('Došlo k chybě.');
-
         } catch (\PDOException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);

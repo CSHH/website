@@ -49,8 +49,8 @@ class ImageCrud extends BaseCrud
         return new Paginator($qb->getQuery());
     }
 
-	/**
-     * @param  Entities\TagEntity       $tag
+    /**
+     * @param  Entities\TagEntity     $tag
      * @return Entities\ImageEntity[]
      */
     public function getAllByTag(Entities\TagEntity $tag)

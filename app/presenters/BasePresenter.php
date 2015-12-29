@@ -31,9 +31,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         parent::beforeRender();
 
         $this->template->articleCrud = $this->articleCrud;
-		$this->template->imageCrud   = $this->imageCrud;
-		$this->template->videoCrud   = $this->videoCrud;
-		$this->template->wikiCrud    = $this->wikiCrud;
+        $this->template->imageCrud   = $this->imageCrud;
+        $this->template->videoCrud   = $this->videoCrud;
+        $this->template->wikiCrud    = $this->wikiCrud;
         $this->template->tagCrud     = $this->tagCrud;
 
         $this->template->uploadDir = $this->context->parameters['uploadDir'];

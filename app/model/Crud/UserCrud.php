@@ -2,18 +2,18 @@
 
 namespace App\Model\Crud;
 
+use App\Model\Duplicities\DuplicityChecker;
+use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
+use App\Model\Exceptions\ActivationLimitExpiredException;
+use App\Model\Exceptions\UserNotFoundException;
+use App\Model\Security\Authenticator;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Security\Passwords;
-use Nette\Utils\Random;
-use App\Model\Duplicities\DuplicityChecker;
-use Nette\Utils\DateTime;
-use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use Nette\Utils\ArrayHash;
-use App\Model\Exceptions\UserNotFoundException;
-use App\Model\Exceptions\ActivationLimitExpiredException;
-use App\Model\Security\Authenticator;
+use Nette\Utils\DateTime;
+use Nette\Utils\Random;
 
 class UserCrud extends BaseCrud
 {
@@ -32,7 +32,7 @@ class UserCrud extends BaseCrud
     }
 
     /**
-     * @param ArrayHash $values
+     * @param  ArrayHash                             $values
      * @throws PossibleUniqueKeyDuplicationException
      * @return Entities\UserEntity
      */
@@ -43,26 +43,26 @@ class UserCrud extends BaseCrud
         $pass = $values->password;
 
         $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'email', $user->email);
-		if ($e) {
-			throw new PossibleUniqueKeyDuplicationException('Uživatel s tímto e-mailem je u nás již registrován. Použijte prosím jinou e-mailovou adresu.');
-		}
+        if ($e) {
+            throw new PossibleUniqueKeyDuplicationException('Uživatel s tímto e-mailem je u nás již registrován. Použijte prosím jinou e-mailovou adresu.');
+        }
 
         $time = new DateTime;
 
-        $user->token = $this->generateToken();
+        $user->token          = $this->generateToken();
         $user->tokenCreatedAt = $time;
-        $user->salt = $this->generateSalt();
+        $user->salt           = $this->generateSalt();
 
         $user->password = Passwords::hash($pass . $user->salt);
 
-		$this->em->persist($user);
-		$this->em->flush();
+        $this->em->persist($user);
+        $this->em->flush();
 
         return $user;
     }
 
     /**
-     * @param string $email
+     * @param  string                   $email
      * @return Entities\UserEntity|null
      */
     public function getByEmail($email)
@@ -126,7 +126,7 @@ class UserCrud extends BaseCrud
         }
 
         while (true) {
-            $salt = Random::generate(10, '0-9A-Za-z');
+            $salt  = Random::generate(10, '0-9A-Za-z');
             $found = array_search($salt, $salts, true);
 
             if ($found === false) {
@@ -136,13 +136,13 @@ class UserCrud extends BaseCrud
     }
 
     /**
-     * @param int $userId
-     * @param string $token
-     * @param bool $checkExpiration
+     * @param  int                             $userId
+     * @param  string                          $token
+     * @param  bool                            $checkExpiration
      * @throws UserNotFoundException
      * @throws ActivationLimitExpiredException
      */
-    public function unlock($userId, $token, $checkExpiration = TRUE)
+    public function unlock($userId, $token, $checkExpiration = true)
     {
         $user = $this->dao->findOneBy(['id' => $userId, 'token' => $token]);
         if (!$user) {
@@ -157,9 +157,9 @@ class UserCrud extends BaseCrud
             }
         }
 
-        $user->token = NULL;
-        $user->tokenCreatedAt = NULL;
-        $user->isAuthenticated = TRUE;
+        $user->token           = null;
+        $user->tokenCreatedAt  = null;
+        $user->isAuthenticated = true;
 
         $this->em->persist($user);
         $this->em->flush();
@@ -179,9 +179,9 @@ class UserCrud extends BaseCrud
         $diff = $currentTimestamp - $createdTimestamp;
 
         if ($diff >= Authenticator::ACTIVATION_LIMIT_TIMESTAMP) {
-            return TRUE;
+            return true;
         } else {
-            return FALSE;
+            return false;
         }
     }
 

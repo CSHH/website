@@ -2,17 +2,17 @@
 
 namespace App\Components\Forms;
 
+use App\Model\Crud;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Exceptions\FormSentBySpamException;
+use HeavenProject\Utils\FlashType;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
-use Nette\Security\IAuthenticator;
 use Nette\Mail\IMailer;
-use Tracy;
 use Nette\Mail\Message;
-use App\Model\Crud;
-use HeavenProject\Utils\FlashType;
+use Nette\Security\IAuthenticator;
+use Tracy;
 
 class SignUpForm extends Nette\Application\UI\Control
 {
@@ -32,11 +32,11 @@ class SignUpForm extends Nette\Application\UI\Control
     private $contactEmail;
 
     /**
-     * @param ITranslator $translator
-     * @param Crud\UserCrud $userCrud
+     * @param ITranslator    $translator
+     * @param Crud\UserCrud  $userCrud
      * @param IAuthenticator $authenticator
-     * @param IMailer $mailer
-     * @param string $contactEmail
+     * @param IMailer        $mailer
+     * @param string         $contactEmail
      */
     public function __construct(
         ITranslator $translator,
@@ -64,9 +64,9 @@ class SignUpForm extends Nette\Application\UI\Control
         $form->addText('username', 'Uživatelské jméno')
             ->setRequired('Zadejte prosím své uživatelské jméno.');
 
-		$form->addText('email', 'E-mail')
+        $form->addText('email', 'E-mail')
             ->addRule($form::EMAIL, 'Zadaný e-mail neodpovídá požadovanému formátu.')
-			->setRequired('Zadejte prosím svoji e-mailovou adresu.');
+            ->setRequired('Zadejte prosím svoji e-mailovou adresu.');
 
         $form->addPassword('password', 'Heslo')
             ->setRequired('Zadejte prosím své přihlašovací heslo.');
@@ -77,12 +77,12 @@ class SignUpForm extends Nette\Application\UI\Control
             ->setOmitted();
 
         // Antispam
-        $form->addText('__anti', '__Anti', NULL)
+        $form->addText('__anti', '__Anti', null)
             ->setAttribute('style', 'display: none;');
 
-		$form->onSuccess[] = array($this, 'formSucceeded');
+        $form->onSuccess[] = array($this, 'formSucceeded');
 
-		$form->addSubmit('submit', 'Registrovat');
+        $form->addSubmit('submit', 'Registrovat');
 
         return $form;
     }
@@ -103,19 +103,16 @@ class SignUpForm extends Nette\Application\UI\Control
             $this->sendEmail($this->contactEmail, $user->email, $user->token, $user->id);
             $p->flashMessage('Na zadanou adresu byl zaslán e-mail, pomocí kterého můžete registraci dokončit.', FlashType::SUCCESS);
             $p->redirect('Homepage:default');
-
-		} catch (FormSentBySpamException $e) {
+        } catch (FormSentBySpamException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
-
         } catch (\Exception $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
@@ -137,7 +134,7 @@ class SignUpForm extends Nette\Application\UI\Control
      * @param string $from
      * @param string $to
      * @param string $token
-     * @param int $userId
+     * @param int    $userId
      */
     private function sendEmail($from, $to, $token, $userId)
     {

@@ -69,7 +69,6 @@ class SignInForm extends Nette\Application\UI\Control
             $form->presenter->flashMessage('Vítejte');
 
             $form->presenter->redirect('Homepage:default');
-
         } catch (AuthenticationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);

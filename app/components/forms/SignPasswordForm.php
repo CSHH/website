@@ -65,13 +65,11 @@ class SignPasswordForm extends Nette\Application\UI\Control
             $form->getPresenter()->flashMessage(
                 'Heslo bylo změněno. Přihlašte se prosím.'
             );
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->getPresenter()->flashMessage($e->getMessage());
-
         } catch (\PDOException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
