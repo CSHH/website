@@ -184,4 +184,20 @@ class UserCrud extends BaseCrud
             return FALSE;
         }
     }
+
+    /**
+     * @param Entities\UserEntity
+     * @return string
+     */
+    public function prepareNewToken(Entities\UserEntity $e)
+    {
+        $token             = $this->generateToken();
+        $e->token          = $token;
+        $e->tokenCreatedAt = new DateTime;
+
+        $this->em->persist($e);
+        $this->em->flush();
+
+        return $token;
+    }
 }

@@ -1,0 +1,12 @@
+{form form}
+
+    {if $form->hasErrors()}
+        <div n:foreach="$form->getErrors() as $error" n:class="flash, error">{$error}</div>
+    {/if}
+
+    {label email /}
+    {input email}
+
+    {input submit, class => 'button'}
+
+{/form}

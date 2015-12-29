@@ -20,12 +20,16 @@ class SignPresenter extends BasePresenter
     public $userCrud;
 
     /** @var string */
+    protected $appDir;
+
+    /** @var string */
     protected $contactEmail;
 
     protected function startup()
     {
         parent::startup();
 
+        $this->appDir       = $this->context->parameters['appDir'];
         $this->contactEmail = $this->context->parameters['contactEmail'];
     }
 
@@ -106,4 +110,18 @@ class SignPresenter extends BasePresenter
             new Authenticator($this->userCrud)
         );
 	}
+
+    /**
+     * @return Forms\SignResetForm
+     */
+    protected function createComponentSignResetForm()
+    {
+        return new Forms\SignResetForm(
+            $this->translator,
+            $this->appDir,
+            $this->contactEmail,
+            $this->userCrud,
+            $this->mailer
+        );
+    }
 }
