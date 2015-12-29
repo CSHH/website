@@ -20,6 +20,9 @@ class ArticlePresenter extends BasePresenter
     /** @var Entities\ArticleEntity */
     private $article;
 
+    /** @var Entities\TagEntity */
+    private $tag;
+
     /** @var Controls\VisualPaginator */
     private $vp;
 
@@ -43,11 +46,13 @@ class ArticlePresenter extends BasePresenter
         }
 
         $this->articles = $articles;
+        $this->tag      = $tag;
     }
 
     public function renderDefault()
     {
         $this->template->articles = $this->articles;
+        $this->template->tag      = $this->tag;
     }
 
     /**

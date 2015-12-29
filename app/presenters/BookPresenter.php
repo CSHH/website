@@ -20,6 +20,9 @@ class BookPresenter extends BasePresenter
     /** @var Entities\WikiEntity */
     private $wiki;
 
+    /** @var Entities\TagEntity */
+    private $tag;
+
     /** @var Controls\VisualPaginator */
     private $vp;
 
@@ -43,11 +46,13 @@ class BookPresenter extends BasePresenter
         }
 
         $this->wikis = $wikis;
+        $this->tag   = $tag;
     }
 
     public function renderDefault()
     {
         $this->template->wikis = $this->wikis;
+        $this->template->tag   = $this->tag;
     }
 
     /**

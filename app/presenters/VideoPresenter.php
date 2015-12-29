@@ -17,6 +17,9 @@ class VideoPresenter extends BasePresenter
     /** @var Entities\VideoEntity[] */
     private $videos;
 
+    /** @var Entities\TagEntity */
+    private $tag;
+
     /** @var Controls\VisualPaginator */
     private $vp;
 
@@ -40,11 +43,13 @@ class VideoPresenter extends BasePresenter
         }
 
         $this->videos = $videos;
+        $this->tag    = $tag;
     }
 
     public function renderDefault()
     {
         $this->template->videos = $this->videos;
+        $this->template->tag    = $this->tag;
     }
 
     /**

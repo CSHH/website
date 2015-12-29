@@ -17,6 +17,9 @@ class GalleryPresenter extends BasePresenter
     /** @var Entities\ImageEntity[] */
     private $images;
 
+    /** @var Entities\TagEntity */
+    private $tag;
+
     /** @var Controls\VisualPaginator */
     private $vp;
 
@@ -40,11 +43,13 @@ class GalleryPresenter extends BasePresenter
         }
 
         $this->images = $images;
+        $this->tag    = $tag;
     }
 
     public function renderDefault()
     {
         $this->template->images = $this->images;
+        $this->template->tag    = $this->tag;
     }
 
     /**
