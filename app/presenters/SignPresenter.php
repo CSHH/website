@@ -29,6 +29,14 @@ class SignPresenter extends BasePresenter
         $this->contactEmail = $this->context->parameters['contactEmail'];
     }
 
+    public function actionOut()
+    {
+        $this->getUser()->logout();
+
+        $this->flashMessage('Byl/a jste odhlášen/a.');
+        $this->redirect('Sign:in');
+    }
+
     /**
      * @param int $userId
      * @param string $token
