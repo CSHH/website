@@ -8,6 +8,9 @@ App\Model\Entities\UserEntity:
         "password": "$2y$10$D7DlW8aCiF0JZfvXCpxdeeMbklNC0nJ7IcvdpwIgQoHtWTLQ1UVK2"
         "salt": "X1QWzJRBy3"
         "role": 99
+        "token": null
+        "tokenCreatedAt": null
+        "isAuthenticated": true
     "user_{1..50}":
         "username (unique)": "<username()><current()>"
         "email (unique)": "<username()>@example.com"
@@ -17,6 +20,9 @@ App\Model\Entities\UserEntity:
         "password": null
         "salt": null
         "role": 1
+        "token": null
+        "tokenCreatedAt": null
+        "isAuthenticated": true
 App\Model\Entities\TagEntity:
     "tag_povidky":
         "name": "Povídky"

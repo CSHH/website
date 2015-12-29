@@ -53,7 +53,7 @@ class WikiCrud extends BaseCrud
 
     /**
      * @param  Entities\TagEntity    $tag
-	 * @param  string                $type
+     * @param  string                $type
      * @return Entities\WikiEntity[]
      */
     public function getAllByTag(Entities\TagEntity $tag, $type)
@@ -64,16 +64,16 @@ class WikiCrud extends BaseCrud
             ->join('w.tag', 't')
             ->where('t.id = :tagId AND w.type = :type')
             ->setParameters(array(
-				'tagId' => $tag->id,
-				'type'  => $type,
-			))
+                'tagId' => $tag->id,
+                'type'  => $type,
+            ))
             ->getQuery()
             ->getResult();
     }
 
     /**
-     * @param  Entities\TagEntity          $tag
-     * @param  string                      $slug
+     * @param  Entities\TagEntity       $tag
+     * @param  string                   $slug
      * @return Entities\WikiEntity|null
      */
     public function getByTagAndSlug(Entities\TagEntity $tag, $slug)

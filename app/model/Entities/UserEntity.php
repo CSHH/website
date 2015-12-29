@@ -75,4 +75,25 @@ class UserEntity extends BaseEntity
      * @var int
      */
     protected $role = self::ROLE_USER;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    public $token;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTime
+     */
+    public $tokenCreatedAt;
+
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @var bool
+     */
+    public $isAuthenticated = false;
 }
