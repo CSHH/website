@@ -10,6 +10,7 @@ use App\Model\Exceptions\UserNotFoundException;
 use Tracy;
 use HeavenProject\Utils\FlashType;
 use App\Model\Exceptions\ActivationLimitExpiredException;
+use App\Model\Entities;
 
 class SignPresenter extends BasePresenter
 {
@@ -24,6 +25,9 @@ class SignPresenter extends BasePresenter
 
     /** @var string */
     protected $contactEmail;
+
+    /** @var Entities\UserEntity */
+    protected $e;
 
     protected function startup()
     {
@@ -87,6 +91,40 @@ class SignPresenter extends BasePresenter
     }
 
     /**
+     * @param  int                             $uid
+     * @param  string                          $token
+     * @throws ActivationLimitExpiredException
+     */
+    public function actionPassword($uid, $token)
+    {
+        //$this->checkLogin();
+
+        if (empty($uid) || empty($token)) {
+            $this->redirect('Sign:in');
+        }
+
+        $this->flashMessage('Zadejte prosím své nové heslo.');
+
+        $this->e = $this->userCrud->getById($uid);
+
+        try {
+            if (!$this->e) {
+                throw new UserNotFoundException('Uživatel nebyl nalezen.');
+            }
+
+            $this->userCrud->checkForTokenExpiration($this->e, $token);
+
+        } catch (UserNotFoundException $e) {
+            $this->flashMessage($e->getMessage());
+            $this->redirect('Sign:in');
+
+        } catch (ActivationLimitExpiredException $e) {
+            $this->flashMessage($e->getMessage());
+            $this->redirect('Sign:in');
+        }
+    }
+
+    /**
      * @return Forms\SignUpForm
      */
 	protected function createComponentSignUpForm()
@@ -123,5 +161,24 @@ class SignPresenter extends BasePresenter
             $this->userCrud,
             $this->mailer
         );
+    }
+
+    /**
+     * @return Forms\SignPasswordForm
+     */
+    protected function createComponentSignPasswordForm()
+    {
+        return new Forms\SignPasswordForm(
+            $this->translator,
+            $this->userCrud,
+            $this->e
+        );
+    }
+
+    private function checkLogin()
+    {
+        if ($this->getUser()->isLoggedIn()) {
+            $this->redirect('Homepage:default');
+        }
     }
 }

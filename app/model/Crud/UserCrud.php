@@ -200,4 +200,28 @@ class UserCrud extends BaseCrud
 
         return $token;
     }
+
+    /**
+     * @param  Entities\UserEntity             $e
+     * @param  string                          $token
+     * @throws UserNotFoundException
+     * @throws ActivationLimitExpiredException
+     */
+    public function checkForTokenExpiration(Entities\UserEntity $e, $token)
+    {
+        if ($e->token !== $token) {
+            throw new UserNotFoundException('Token nesouhlasí.');
+        }
+
+        $current = new DateTime;
+        $created = $e->tokenCreatedAt;
+
+        $currentTimestamp = $current->getTimestamp();
+        $createdTimestamp = $created->getTimestamp();
+
+        $diff = $currentTimestamp - $createdTimestamp;
+        if ($diff >= Authenticator::ACTIVATION_LIMIT_TIMESTAMP) {
+            throw new ActivationLimitExpiredException('Čas pro aktivaci uživatelského účtu vypršel.');
+        }
+    }
 }
