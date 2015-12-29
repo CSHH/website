@@ -5,7 +5,7 @@ namespace App\Presenters;
 use App\Model\Crud;
 use App\Model\Entities;
 
-class GalleryPresenter extends PageablePresenter
+final class GalleryPresenter extends PageablePresenter
 {
     /** @var Crud\ImageCrud @inject */
     public $imageCrud;

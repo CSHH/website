@@ -5,7 +5,7 @@ namespace App\Presenters;
 use App\Model\Crud;
 use App\Model\Entities;
 
-class ArticlePresenter extends PageablePresenter
+final class ArticlePresenter extends PageablePresenter
 {
     /** @var Crud\ArticleCrud @inject */
     public $articleCrud;

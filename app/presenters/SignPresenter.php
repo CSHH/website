@@ -12,7 +12,7 @@ use HeavenProject\Utils\FlashType;
 use Nette\Mail\IMailer;
 use Tracy;
 
-class SignPresenter extends BasePresenter
+final class SignPresenter extends BasePresenter
 {
     /** @var IMailer @inject */
     public $mailer;

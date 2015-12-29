@@ -5,7 +5,7 @@ namespace App\Presenters;
 use App\Model\Crud;
 use App\Model\Entities;
 
-class VideoPresenter extends PageablePresenter
+final class VideoPresenter extends PageablePresenter
 {
     /** @var Crud\VideoCrud @inject */
     public $videoCrud;

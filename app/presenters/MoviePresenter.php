@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use App\Model\Entities;
 
-class MoviePresenter extends WikiPresenter
+final class MoviePresenter extends WikiPresenter
 {
     /**
      * @param string $tagSlug
