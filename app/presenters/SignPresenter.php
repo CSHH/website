@@ -87,4 +87,15 @@ class SignPresenter extends BasePresenter
             $this->contactEmail
         );
 	}
+
+    /**
+     * @return Forms\SignInForm
+     */
+	protected function createComponentSignInForm()
+	{
+		return new Forms\SignInForm(
+            $this->translator,
+            new Authenticator($this->userCrud)
+        );
+	}
 }
