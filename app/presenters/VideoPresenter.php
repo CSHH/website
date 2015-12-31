@@ -2,46 +2,25 @@
 
 namespace App\Presenters;
 
-use App\Model\Crud;
 use App\Model\Entities;
 
-final class VideoPresenter extends PageablePresenter
+final class VideoPresenter extends SingleUserContentPresenter
 {
-    /** @var Crud\VideoCrud @inject */
-    public $videoCrud;
-
     /** @var Entities\VideoEntity[] */
     private $videos;
-
-    /** @var Entities\TagEntity */
-    private $tag;
 
     /**
      * @param string $tagSlug
      */
     public function actionDefault($tagSlug)
     {
-        $tag = $tagSlug ? $this->tagCrud->getBySlug($tagSlug) : null;
-
-        $limit = 10;
-
-        $videos = $tag
-            ? $this->videoCrud->getAllByTagForPage($this->page, $limit, $tag)
-            : $this->videoCrud->getAllForPage($this->page, $limit);
-
-        $this->preparePaginator($videos->count(), $limit);
-
-        if ($tag && !$videos || $this->page > $this->vp->getPaginator()->getLastPage()) {
-            $this->throw404();
-        }
-
-        $this->videos = $videos;
-        $this->tag    = $tag;
+        $this->videos = $this->runActionDefault($this->videoCrud, $tagSlug, 10);
     }
 
     public function renderDefault()
     {
+        parent::runRenderDefault();
+
         $this->template->videos = $this->videos;
-        $this->template->tag    = $this->tag;
     }
 }

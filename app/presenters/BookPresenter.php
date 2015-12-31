@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use App\Model\Entities;
 
-final class BookPresenter extends WikiPresenter
+final class BookPresenter extends SharedContentPresenter
 {
     /**
      * @param string $tagSlug

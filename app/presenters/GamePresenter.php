@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use App\Model\Entities;
 
-final class GamePresenter extends WikiPresenter
+final class GamePresenter extends SharedContentPresenter
 {
     /**
      * @param string $tagSlug

@@ -4,7 +4,7 @@ namespace App\Presenters;
 
 use App\Model\Entities;
 
-abstract class WikiPresenter extends PageablePresenter
+abstract class SharedContentPresenter extends PageablePresenter
 {
     /** @var Entities\WikiEntity[] */
     protected $wikis;
@@ -12,20 +12,15 @@ abstract class WikiPresenter extends PageablePresenter
     /** @var Entities\WikiEntity */
     protected $wiki;
 
-    /** @var Entities\TagEntity */
-    protected $tag;
-
     /**
      * @param string $tagSlug
      * @param string $slug
      */
     public function actionDetail($tagSlug, $slug)
     {
-        $tag = $tagSlug ? $this->tagCrud->getBySlug($tagSlug) : null;
+        $tag = $this->getTag($tagSlug);
 
-        if (!$tag || !$slug) {
-            $this->throw404();
-        }
+        $this->throw404IfNoTagOrSlug($tag, $slug);
 
         $wiki = $this->wikiCrud->getByTagAndSlug($tag, $slug);
 
@@ -48,7 +43,7 @@ abstract class WikiPresenter extends PageablePresenter
      */
     protected function runActionDefault($tagSlug, $limit, $type)
     {
-        $tag = $tagSlug ? $this->tagCrud->getBySlug($tagSlug) : null;
+        $tag = $this->getTag($tagSlug);
 
         $wikis = $tag
             ? $this->wikiCrud->getAllByTagForPage($this->page, $limit, $tag, $type)
@@ -56,9 +51,7 @@ abstract class WikiPresenter extends PageablePresenter
 
         $this->preparePaginator($wikis->count(), $limit);
 
-        if ($tag && !$wikis || $this->page > $this->vp->getPaginator()->getLastPage()) {
-            $this->throw404();
-        }
+        $this->throw404IfNoItemsOnPage($wikis, $tag);
 
         $this->wikis = $wikis;
         $this->tag   = $tag;
@@ -66,7 +59,8 @@ abstract class WikiPresenter extends PageablePresenter
 
     public function renderDefault()
     {
+        parent::runRenderDefault();
+
         $this->template->wikis = $this->wikis;
-        $this->template->tag   = $this->tag;
     }
 }
