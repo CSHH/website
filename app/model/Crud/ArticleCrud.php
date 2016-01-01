@@ -92,4 +92,24 @@ class ArticleCrud extends BaseCrud
             return null;
         }
     }
+
+    /**
+     * @param  int                 $page
+     * @param  int                 $limit
+     * @param  Entities\UserEntity $user
+     * @return Paginator
+     */
+    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('a')
+            ->from(Entities\ArticleEntity::getClassName(), 'a')
+            ->join('a.user', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $user->id)
+            ->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($qb->getQuery());
+    }
 }
