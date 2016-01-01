@@ -16,6 +16,10 @@
     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
     <div>
+        <a n:if="$user->isLoggedIn()" n:href="UserSection:default">Uživatelská sekce</a>
+    </div>
+
+    <div>
 
         {var $tags = $tagCrud->getAll()}
 
