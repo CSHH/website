@@ -94,6 +94,43 @@ class ArticleCrud extends BaseCrud
     }
 
     /**
+     * @param  Entities\TagEntity       $tag
+     * @param  Entities\UserEntity      $user
+     * @return Entities\ArticleEntity[]
+     */
+    public function getAllByTagAndUser(Entities\TagEntity $tag, Entities\UserEntity $user)
+    {
+        return $this->dao->createQueryBuilder()
+            ->select('a')
+            ->from(Entities\ArticleEntity::getClassName(), 'a')
+            ->join('a.tag', 't')
+            ->join('a.user', 'u')
+            ->where('t.id = :tagId AND u.id = :userId')
+            ->setParameters(array(
+                'tagId'  => $tag->id,
+                'userId' => $user->id,
+            ))
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param  Entities\UserEntity      $user
+     * @return Entities\ArticleEntity[]
+     */
+    public function getAllByUser(Entities\UserEntity $user)
+    {
+        return $this->dao->createQueryBuilder()
+            ->select('a')
+            ->from(Entities\ArticleEntity::getClassName(), 'a')
+            ->join('a.user', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $user->id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param  int                 $page
      * @param  int                 $limit
      * @param  Entities\UserEntity $user

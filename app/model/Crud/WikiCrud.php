@@ -103,4 +103,28 @@ class WikiCrud extends BaseCrud
             return null;
         }
     }
+
+    /**
+     * @param  int                 $page
+     * @param  int                 $limit
+     * @param  Entities\UserEntity $user
+     * @param  string              $type
+     * @return Paginator
+     */
+    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user, $type)
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::getClassName(), 'w')
+            ->join('w.createdBy', 'u')
+            ->where('u.id = :userId AND w.type = :type')
+            ->setParameters(array(
+                'userId' => $user->id,
+                'type'   => $type,
+            ))
+            ->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($qb->getQuery());
+    }
 }

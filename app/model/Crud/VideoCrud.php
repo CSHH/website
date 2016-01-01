@@ -64,4 +64,24 @@ class VideoCrud extends BaseCrud
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param  int                 $page
+     * @param  int                 $limit
+     * @param  Entities\UserEntity $user
+     * @return Paginator
+     */
+    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('v')
+            ->from(Entities\VideoEntity::getClassName(), 'v')
+            ->join('v.user', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $user->id)
+            ->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($qb->getQuery());
+    }
 }
