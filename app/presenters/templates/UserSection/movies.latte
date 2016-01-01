@@ -1,1 +1,11 @@
 {block content}
+
+{foreach $items as $item}
+
+    <div>
+        <a href="">{$item->name}</a>
+    </div>
+
+{/foreach}
+
+{control vp}
