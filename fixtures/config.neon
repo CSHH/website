@@ -65,6 +65,7 @@ App\Model\Entities\FileEntity:
 App\Model\Entities\ImageEntity:
     "image_{1..250}":
         "tag": @tag_silent*
+        "user": @user*
         "name (unique)": "50%? <sentence(3)>"
         "file": @file_halo_of_the_sun
         "isActive": "80%? true : false"
