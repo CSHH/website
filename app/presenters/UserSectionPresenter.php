@@ -62,7 +62,7 @@ final class UserSectionPresenter extends SecurePresenter
         $this->template->items = $this->items;
     }
 
-    public function actionMoview()
+    public function actionMovies()
     {
         $items = $this->wikiCrud->getAllByUserForPage($this->page, 10, $this->getLoggedUser(), Entities\WikiEntity::TYPE_MOVIE);
         $this->preparePaginator($items->count(), 10);
