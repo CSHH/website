@@ -41,14 +41,14 @@ class ArticleForm extends Nette\Application\UI\Control
 
         $form->setTranslator($this->translator);
 
-        $form->addText('name', 'Název')
-            ->setRequired('');
+        $form->addText('name', 'locale.form.name')
+            ->setRequired('locale.form.name_required');
 
-        $form->addTextArea('perex', 'Perex')
-            ->setRequired('');
+        $form->addTextArea('perex', 'locale.form.perex')
+            ->setRequired('locale.form.perex_required');
 
-        $form->addTextArea('text', 'Text')
-            ->setRequired('');
+        $form->addTextArea('text', 'locale.form.text')
+            ->setRequired('locale.form.text_required');
 
         if ($this->item) {
             $form->autoFill($this->item);
@@ -82,9 +82,9 @@ class ArticleForm extends Nette\Application\UI\Control
         }
 
         if ($this->item) {
-            $p->flashMessage('Upraveno');
+            $p->flashMessage($this->translator->translate('locale.item.updated'));
         } else {
-            $p->flashMessage('Vytvořeno');
+            $p->flashMessage($this->translator->translate('locale.item.created'));
         }
 
         $p->redirect('this');
