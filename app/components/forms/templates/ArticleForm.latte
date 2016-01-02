@@ -1,0 +1,26 @@
+{form form}
+
+    {foreach $form->errors as $error}
+        <div>{$error}</div>
+    {/foreach}
+
+    <div>
+        {label name /}
+        {input name}
+    </div>
+
+    <div>
+        {label perex /}
+        {input perex}
+    </div>
+
+    <div>
+        {label text /}
+        {input text}
+    </div>
+
+    <div>
+        {input submit}
+    </div>
+
+{/form}
