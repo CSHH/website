@@ -39,6 +39,8 @@ class ArticleForm extends Nette\Application\UI\Control
     {
         $form = new Form;
 
+        $form->setTranslator($this->translator);
+
         $form->addText('name', 'Název')
             ->setRequired('');
 
@@ -54,7 +56,7 @@ class ArticleForm extends Nette\Application\UI\Control
 
         $form->onSuccess[] = array($this, 'formSucceeded');
 
-        $form->addSubmit('submit', 'Přihlásit');
+        $form->addSubmit('submit', 'locale.form.save');
 
         return $form;
     }

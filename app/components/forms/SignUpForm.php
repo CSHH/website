@@ -61,19 +61,21 @@ class SignUpForm extends Nette\Application\UI\Control
     {
         $form = new Form;
 
-        $form->addText('username', 'Uživatelské jméno')
-            ->setRequired('Zadejte prosím své uživatelské jméno.');
+        $form->setTranslator($this->translator);
 
-        $form->addText('email', 'E-mail')
-            ->addRule($form::EMAIL, 'Zadaný e-mail neodpovídá požadovanému formátu.')
-            ->setRequired('Zadejte prosím svoji e-mailovou adresu.');
+        $form->addText('username', 'locale.form.username')
+            ->setRequired('locale.form.username_required');
 
-        $form->addPassword('password', 'Heslo')
-            ->setRequired('Zadejte prosím své přihlašovací heslo.');
+        $form->addText('email', 'locale.form.email')
+            ->addRule($form::EMAIL, 'locale.form.email_not_in_order')
+            ->setRequired('locale.form.email_address');
 
-        $form->addPassword('password_confirm', 'Heslo znovu')
-            ->addRule($form::EQUAL, 'Hesla se musí shodovat.', $form['password'])
-            ->setRequired('Zadejte prosím Vaše přihlašovací heslo znovu pro ověření.')
+        $form->addPassword('password', 'locale.form.password')
+            ->setRequired('locale.form.password_required');
+
+        $form->addPassword('password_confirm', 'locale.form.password_confirm')
+            ->addRule($form::EQUAL, 'locale.form.password_equal', $form['password'])
+            ->setRequired('locale.form.password_confirm_required')
             ->setOmitted();
 
         // Antispam
@@ -82,7 +84,7 @@ class SignUpForm extends Nette\Application\UI\Control
 
         $form->onSuccess[] = array($this, 'formSucceeded');
 
-        $form->addSubmit('submit', 'Registrovat');
+        $form->addSubmit('submit', 'locale.form.submit_sign_up');
 
         return $form;
     }
@@ -95,30 +97,40 @@ class SignUpForm extends Nette\Application\UI\Control
             $values = $form->getValues();
 
             if (strlen($values->__anti) > 0) {
-                throw new FormSentBySpamException('Byl zaznamenán pokus o odeslání spamu prostřednictvím registračního formuláře.');
+                throw new FormSentBySpamException(
+                    $this->translator->translate('locale.form.spam_attempt_sign_up')
+                );
             }
             unset($values->__anti);
 
             $user = $this->userCrud->createRegistration($values);
             $this->sendEmail($this->contactEmail, $user->email, $user->token, $user->id);
-            $p->flashMessage('Na zadanou adresu byl zaslán e-mail, pomocí kterého můžete registraci dokončit.', FlashType::SUCCESS);
-            $p->redirect('Homepage:default');
+
+            $p->flashMessage(
+                $this->translator->translate('locale.sign.sign_up_email_sent'),
+                FlashType::SUCCESS
+            );
+
         } catch (FormSentBySpamException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
+
         } catch (PossibleUniqueKeyDuplicationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
+
         } catch (\Exception $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
-            $form->addError('Došlo k chybě.');
+            $form->addError($this->translator->translate('locale.error.occurred'));
         }
+
+        $p->redirect('Homepage:default');
     }
 
     public function render()
@@ -138,12 +150,17 @@ class SignUpForm extends Nette\Application\UI\Control
      */
     private function sendEmail($from, $to, $token, $userId)
     {
-        $text = $this->presenter->link('//Sign:unlock', array('userId' => $userId, 'token' => $token));
+        $text = $this->presenter->link(
+            '//Sign:unlock',
+            array(
+                'userId' => $userId,
+                'token'  => $token,
+            ));
 
         $email = new Message;
         $email->setFrom($from)
             ->addTo($to)
-            ->setSubject('Registrace')
+            ->setSubject($this->translator->translate('locale.sign.sign_up_request'))
             ->setBody($text);
 
         $this->mailer->send($email);

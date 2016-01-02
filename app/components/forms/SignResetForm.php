@@ -5,6 +5,7 @@ namespace App\Components\Forms;
 use App\Model\Crud;
 use App\Model\Exceptions\FormSentBySpamException;
 use App\Model\Exceptions\UserNotFoundException;
+use HeavenProject\Utils\FlashType;
 use Latte;
 use Nette;
 use Nette\Application\UI\Form;
@@ -60,9 +61,11 @@ class SignResetForm extends Nette\Application\UI\Control
     {
         $form = new Form;
 
-        $form->addText('email', 'E-mail')
-            ->addRule($form::EMAIL, 'Zadaný e-mail neodpovídá požadovanému formátu.')
-            ->setRequired('Zadejte prosím svůj přihlašovací e-mail');
+        $form->setTranslator($this->translator);
+
+        $form->addText('email', 'locale.form.email')
+            ->addRule($form::EMAIL, 'locale.form.email_not_in_order')
+            ->setRequired('locale.form.email_required');
 
         // Antispam
         $form->addText('__anti', '__Anti', null)
@@ -70,7 +73,7 @@ class SignResetForm extends Nette\Application\UI\Control
 
         $form->onSuccess[] = array($this, 'formSucceeded');
 
-        $form->addSubmit('submit', 'Odeslat');
+        $form->addSubmit('submit', 'locale.form.send');
 
         return $form;
     }
@@ -78,23 +81,25 @@ class SignResetForm extends Nette\Application\UI\Control
     public function formSucceeded(Form $form)
     {
         try {
+            $p = $this->getPresenter();
+
             $values = $form->getValues();
 
             if (strlen($values->__anti) > 0) {
                 throw new FormSentBySpamException(
-                    'Byl zaznamenán pokus o odeslání spamu prostřednictvím formuláře pro vyžádání nového hesla.'
+                    $this->translator->translate('locale.form.spam_attempt_sign_reset')
                 );
             }
             unset($values->__anti);
 
-            $user  = $this->userCrud->getByEmail($values->email);
+            $user = $this->userCrud->getByEmail($values->email);
             if (!$user) {
                 throw new UserNotFoundException;
             }
 
             $token = $this->userCrud->prepareNewToken($user);
 
-            $link  = $this->getPresenter()->link(
+            $link = $p->link(
                 '//Sign:password',
                 array(
                     'uid'   => $user->id,
@@ -105,29 +110,35 @@ class SignResetForm extends Nette\Application\UI\Control
             $this->sendEmail(
                 $this->contactEmail,
                 $values->email,
-                'Vyžádání nového hesla',
+                $this->translator->translate('locale.sign.new_password_request'),
                 $link
             );
 
-            $form->getPresenter()->flashMessage('Na zadanou adresu byl odeslán e-mail.');
+            $p->flashMessage(
+                $this->translator->translate('locale.sign.new_password_request_email_sent'),
+                FlashType::INFO
+            );
+
         } catch (FormSentBySpamException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
+
         } catch (UserNotFoundException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
-            $form->addError('Došlo k chybě.');
+            $form->addError($this->translator->translate('locale.error.occurred'));
+
         } catch (\PDOException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
-            $form->addError('Došlo k chybě.');
+            $form->addError($this->translator->translate('locale.error.occurred'));
         }
 
-        $form->getPresenter()->redirect('Sign:in');
+        $p->redirect('Sign:in');
     }
 
     public function render()
