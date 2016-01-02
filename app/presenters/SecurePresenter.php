@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use Nette\Security\IUserStorage;
 
 abstract class SecurePresenter extends PageablePresenter
@@ -16,5 +17,8 @@ abstract class SecurePresenter extends PageablePresenter
             }
             $this->redirect('Sign:in');
         }
+
+        $ext = new FormExtendingMethods;
+        $ext->registerMethods();
     }
 }
