@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Components\Forms;
 use App\Model\Crud;
 use App\Model\Entities;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -14,11 +15,41 @@ final class UserSectionPresenter extends SecurePresenter
     /** @var Paginator */
     private $items;
 
+    /** @var Entities\BaseEntity */
+    private $item;
+
+    /**
+     * @param int $id
+     */
+    public function actionArticleForm($id = null)
+    {
+        if ($id !== null) {
+            $item = $this->articleCrud->getById($id);
+            if (!$item) {
+                $this->flashMessage($this->translator->translate('common.item.does_not_exist'));
+            }
+
+            $this->item = $item;
+        }
+    }
+
     public function actionArticles()
     {
         $items = $this->articleCrud->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
         $this->preparePaginator($items->count(), 10);
         $this->items = $items;
+    }
+
+    /**
+     * @return Forms\ArticleForm
+     */
+    protected function createComponentArticleForm()
+    {
+        return new Forms\ArticleForm(
+            $this->translator,
+            $this->articleCrud,
+            $this->item
+        );
     }
 
     public function renderArticles()
