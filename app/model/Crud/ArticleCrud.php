@@ -2,17 +2,58 @@
 
 namespace App\Model\Crud;
 
+use App\Model\Duplicities\DuplicityChecker;
+use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Kdyby\Doctrine\EntityDao;
+use Kdyby\Doctrine\EntityManager;
+use Nette\Utils\ArrayHash;
 
 class ArticleCrud extends BaseCrud
 {
-    public function __construct(EntityDao $dao)
+    use DuplicityChecker;
+
+    /** @var EntityManager */
+    private $em;
+
+    public function __construct(EntityDao $dao, EntityManager $em)
     {
         parent::__construct($dao);
+
+        $this->em = $em;
+    }
+
+    public function create(ArrayHash $values)
+    {
+        $e = new Entities\ArticleEntity;
+
+        $ent = $this->isValueDuplicate($this->em, Entities\ArticleEntity::getClassName(), 'name', $values->name);
+        if ($ent) {
+            throw new PossibleUniqueKeyDuplicationException('Článek s tímto názvem již existuje.');
+        }
+
+        $this->em->persist($e);
+        $this->em->flush();
+
+        return $e;
+    }
+
+    public function update(ArrayHash $values, Entities\ArticleEntity $e)
+    {
+        $e->setValues($values);
+
+        $ent = $this->isValueDuplicate($this->em, Entities\ArticleEntity::getClassName(), 'name', $values->name);
+        if ($ent && $ent->id !== $e->id) {
+            throw new PossibleUniqueKeyDuplicationException('Článek s tímto názvem již existuje.');
+        }
+
+        $this->em->persist($e);
+        $this->em->flush();
+
+        return $e;
     }
 
     /**
