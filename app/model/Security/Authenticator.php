@@ -4,8 +4,8 @@ namespace App\Model\Security;
 
 use App\Model\Crud;
 use Nette;
-use Nette\Security\Passwords;
 use Nette\Localization\ITranslator;
+use Nette\Security\Passwords;
 
 class Authenticator extends Nette\Object implements Nette\Security\IAuthenticator
 {
@@ -43,19 +43,16 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
                 $this->translator->translate('locale.sign.incorrect_email'),
                 self::IDENTITY_NOT_FOUND
             );
-
         } elseif (!$user->isAuthenticated) {
             throw new Nette\Security\AuthenticationException(
                 $this->translator->translate('locale.sign.authentication_waiting'),
                 self::NOT_APPROVED
             );
-
         } elseif (!Passwords::verify($password . $user->salt, $user->password)) {
             throw new Nette\Security\AuthenticationException(
                 $this->translator->translate('locale.sign.incorrect_password'),
                 self::INVALID_CREDENTIAL
             );
-
         } elseif (Passwords::needsRehash($user->password)) {
             $this->userCrud->updatePassword($user, $user->password);
         }

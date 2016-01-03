@@ -91,19 +91,16 @@ class ArticleForm extends Nette\Application\UI\Control
                 $ent = $this->articleCrud->create($values, $tag, new Entities\ArticleEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
-
         } catch (Exceptions\MissingTagException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
-
         } catch (\Exception $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);

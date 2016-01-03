@@ -68,13 +68,11 @@ class SignPasswordForm extends Nette\Application\UI\Control
             $this->userCrud->updatePassword($this->item, $values->password, true);
 
             $p->flashMessage($this->translator->translate('locale.sign.password_changed_sign_in'), FlashType::INFO);
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->getPresenter()->flashMessage($e->getMessage(), FlashType::WARNING);
-
         } catch (\PDOException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);

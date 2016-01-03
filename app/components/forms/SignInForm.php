@@ -73,7 +73,6 @@ class SignInForm extends Nette\Application\UI\Control
                 $this->translator->translate('locale.sign.in'),
                 FlashType::INFO
             );
-
         } catch (AuthenticationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);

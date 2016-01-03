@@ -110,19 +110,16 @@ class SignUpForm extends Nette\Application\UI\Control
                 $this->translator->translate('locale.sign.sign_up_email_sent'),
                 FlashType::SUCCESS
             );
-
         } catch (FormSentBySpamException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
-
         } catch (\Exception $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);

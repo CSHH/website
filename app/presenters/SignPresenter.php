@@ -64,21 +64,18 @@ final class SignPresenter extends BasePresenter
         try {
             $this->userCrud->unlock($userId, $token);
             $this->flashMessage('Váš účet byl úspěšně aktivován. Přihlašte se prosím.');
-
         } catch (UserNotFoundException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $this->flashMessage($e->getMessage(), FlashType::WARNING);
             $this->redirect('Homepage:default');
-
         } catch (ActivationLimitExpiredException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $this->flashMessage($e->getMessage(), FlashType::WARNING);
             $this->redirect('Homepage:default');
-
         } catch (\Exception $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
@@ -113,11 +110,9 @@ final class SignPresenter extends BasePresenter
             }
 
             $this->userCrud->checkForTokenExpiration($this->e, $token);
-
         } catch (UserNotFoundException $e) {
             $this->flashMessage($e->getMessage());
             $this->redirect('Sign:in');
-
         } catch (ActivationLimitExpiredException $e) {
             $this->flashMessage($e->getMessage());
             $this->redirect('Sign:in');

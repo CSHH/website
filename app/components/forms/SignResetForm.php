@@ -118,19 +118,16 @@ class SignResetForm extends Nette\Application\UI\Control
                 $this->translator->translate('locale.sign.new_password_request_email_sent'),
                 FlashType::INFO
             );
-
         } catch (FormSentBySpamException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
-
         } catch (UserNotFoundException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($this->translator->translate('locale.error.occurred'));
-
         } catch (\PDOException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);

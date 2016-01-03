@@ -8,11 +8,11 @@ use App\Model\Entities;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use HeavenProject\Utils\Slugger;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
-use Nette\Utils\ArrayHash;
 use Nette\Localization\ITranslator;
-use HeavenProject\Utils\Slugger;
+use Nette\Utils\ArrayHash;
 
 class ArticleCrud extends BaseCrud
 {
