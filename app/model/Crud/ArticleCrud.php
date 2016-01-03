@@ -11,33 +11,45 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Utils\ArrayHash;
+use Nette\Localization\ITranslator;
+use HeavenProject\Utils\Slugger;
 
 class ArticleCrud extends BaseCrud
 {
     use DuplicityChecker;
 
+    /** @var ITranslator */
+    private $translator;
+
     /** @var EntityManager */
     private $em;
 
-    public function __construct(EntityDao $dao, EntityManager $em)
-    {
+    public function __construct(
+        EntityDao $dao,
+        ITranslator $translator,
+        EntityManager $em
+    ) {
         parent::__construct($dao);
 
-        $this->em = $em;
+        $this->translator = $translator;
+        $this->em         = $em;
     }
 
     public function create(
         ArrayHash $values,
-        Entities\TagEntity $tag
+        Entities\TagEntity $tag,
+        Entities\ArticleEntity $e
     ) {
-        $e = new Entities\ArticleEntity;
+        $e->setValues($values);
 
-        $ent = $this->isValueDuplicate($this->em, Entities\ArticleEntity::getClassName(), 'name', $values->name);
-        if ($ent) {
-            throw new PossibleUniqueKeyDuplicationException('Článek s tímto názvem již existuje.');
+        if ($this->getByTagAndName($tag, $values->name)) {
+            throw new PossibleUniqueKeyDuplicationException(
+                $this->translator->translate('locale.duplicity.article_tag_and_name')
+            );
         }
 
-        $e->tag = $tag;
+        $e->slug = $e->slug ?: Slugger::slugify($e->name);
+        $e->tag  = $tag;
 
         $this->em->persist($e);
         $this->em->flush();
@@ -47,17 +59,19 @@ class ArticleCrud extends BaseCrud
 
     public function update(
         ArrayHash $values,
-        Entities\ArticleEntity $e,
-        Entities\TagEntity $tag
+        Entities\TagEntity $tag,
+        Entities\ArticleEntity $e
     ) {
         $e->setValues($values);
 
-        $ent = $this->isValueDuplicate($this->em, Entities\ArticleEntity::getClassName(), 'name', $values->name);
-        if ($ent && $ent->id !== $e->id) {
-            throw new PossibleUniqueKeyDuplicationException('Článek s tímto názvem již existuje.');
+        if ($e->tag->id !== $tag->id && $this->getByTagAndName($tag, $values->name)) {
+            throw new PossibleUniqueKeyDuplicationException(
+                $this->translator->translate('locale.duplicity.article_tag_and_name')
+            );
         }
 
-        $e->tag = $tag;
+        $e->slug = $e->slug ?: Slugger::slugify($e->name);
+        $e->tag  = $tag;
 
         $this->em->persist($e);
         $this->em->flush();
@@ -115,6 +129,32 @@ class ArticleCrud extends BaseCrud
             ->setParameter('tagId', $tag->id)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @param  Entities\TagEntity          $tag
+     * @param  string                      $name
+     * @return Entities\ArticleEntity|null
+     */
+    public function getByTagAndName(Entities\TagEntity $tag, $name)
+    {
+        try {
+            return $this->dao->createQueryBuilder()
+                ->select('a')
+                ->from(Entities\ArticleEntity::getClassName(), 'a')
+                ->join('a.tag', 't')
+                ->where('t.id = :tagId AND a.name = :name')
+                ->setParameters(array(
+                    'tagId' => $tag->id,
+                    'name'  => $name,
+                ))
+                ->getQuery()
+                ->getSingleResult();
+        } catch (NonUniqueResultException $e) {
+            return null;
+        } catch (NoResultException $e) {
+            return null;
+        }
     }
 
     /**
