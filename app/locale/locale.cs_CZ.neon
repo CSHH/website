@@ -94,3 +94,7 @@ item:
     created: 'Položka byla úspěšně vytvořena.'
     updated: 'Položka byla úspěšně upravena.'
     deleted: 'Položka byla úspěšně smazána.'
+
+duplicity:
+    article_name: 'Článek s tímto názvem již existuje.'
+    article_tag_and_name: 'Článek s tímto názvem ve zvolené kategorii již existuje.'
