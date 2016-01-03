@@ -62,9 +62,11 @@ form:
 #    gallery: 'Galerie'
     spam_attempt_sign_reset: 'Byl zaznamenán pokus o odeslání spamu prostřednictvím formuláře pro vyžádání nového hesla.'
     spam_attempt_sign_up: 'Byl zaznamenán pokus o odeslání spamu prostřednictvím registračního formuláře.'
+    tag: Zařazení
 
 error:
     occurred: 'Došlo k chybě.'
+    missing_tag: 'Záznam nelze zařadit do neexistující kategorie.'
 
 sign:
     password_changed_sign_in: 'Heslo bylo změněno. Přihlašte se prosím.'
