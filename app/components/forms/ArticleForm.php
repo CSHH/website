@@ -4,6 +4,7 @@ namespace App\Components\Forms;
 
 use App\Model\Crud;
 use App\Model\Entities;
+use App\Model\Exceptions;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
@@ -14,6 +15,9 @@ class ArticleForm extends Nette\Application\UI\Control
     /** @var ITranslator */
     private $translator;
 
+    /** @var Crud\TagCrud */
+    private $tagCrud;
+
     /** @var Crud\ArticleCrud */
     private $articleCrud;
 
@@ -22,12 +26,14 @@ class ArticleForm extends Nette\Application\UI\Control
 
     public function __construct(
         ITranslator $translator,
+        Crud\TagCrud $tagCrud,
         Crud\ArticleCrud $articleCrud,
         Entities\ArticleEntity $item = null
     ) {
         parent::__construct();
 
         $this->translator  = $translator;
+        $this->tagCrud     = $tagCrud;
         $this->articleCrud = $articleCrud;
         $this->item        = $item;
     }
@@ -68,11 +74,26 @@ class ArticleForm extends Nette\Application\UI\Control
 
             $values = $form->getValues();
 
-            if ($this->item) {
-                $ent = $this->articleCrud->update($values, $this->item);
-            } else {
-                $ent = $this->articleCrud->create($values);
+            $tagId = $form->getHttpData(Form::DATA_LINE, 'tagId');
+            $tag   = $tagId ? $this->tagCrud->getById($tagId) : null;
+
+            if (!$tag) {
+                throw new Exceptions\MissingTagException(
+                    $this->translator->translate('locale.error.missing_tag')
+                );
             }
+
+            if ($this->item) {
+                $ent = $this->articleCrud->update($values, $this->item, $tag);
+            } else {
+                $ent = $this->articleCrud->create($values, $tag);
+            }
+
+        } catch (Exceptions\MissingTagException $e) {
+            Tracy\Debugger::barDump($e->getMessage());
+            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
+
+            $form->addError($e->getMessage());
 
         } catch (\Exception $e) {
             Tracy\Debugger::barDump($e->getMessage());
@@ -96,6 +117,21 @@ class ArticleForm extends Nette\Application\UI\Control
 
         $template->setFile(__DIR__ . '/templates/ArticleForm.latte');
 
+        $template->tags = $this->getTags();
+
         $template->render();
+    }
+
+    /**
+     * @return array
+     */
+    private function getTags()
+    {
+        $tags = array();
+        foreach ($this->tagCrud->getAll() as $tag) {
+            $tags[$tag->id] = $tag->name;
+        }
+
+        return $tags;
     }
 }

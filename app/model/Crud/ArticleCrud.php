@@ -26,8 +26,10 @@ class ArticleCrud extends BaseCrud
         $this->em = $em;
     }
 
-    public function create(ArrayHash $values)
-    {
+    public function create(
+        ArrayHash $values,
+        Entities\TagEntity $tag
+    ) {
         $e = new Entities\ArticleEntity;
 
         $ent = $this->isValueDuplicate($this->em, Entities\ArticleEntity::getClassName(), 'name', $values->name);
@@ -35,20 +37,27 @@ class ArticleCrud extends BaseCrud
             throw new PossibleUniqueKeyDuplicationException('Článek s tímto názvem již existuje.');
         }
 
+        $e->tag = $tag;
+
         $this->em->persist($e);
         $this->em->flush();
 
         return $e;
     }
 
-    public function update(ArrayHash $values, Entities\ArticleEntity $e)
-    {
+    public function update(
+        ArrayHash $values,
+        Entities\ArticleEntity $e,
+        Entities\TagEntity $tag
+    ) {
         $e->setValues($values);
 
         $ent = $this->isValueDuplicate($this->em, Entities\ArticleEntity::getClassName(), 'name', $values->name);
         if ($ent && $ent->id !== $e->id) {
             throw new PossibleUniqueKeyDuplicationException('Článek s tímto názvem již existuje.');
         }
+
+        $e->tag = $tag;
 
         $this->em->persist($e);
         $this->em->flush();

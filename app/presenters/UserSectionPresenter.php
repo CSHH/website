@@ -47,6 +47,7 @@ final class UserSectionPresenter extends SecurePresenter
     {
         return new Forms\ArticleForm(
             $this->translator,
+            $this->tagCrud,
             $this->articleCrud,
             $this->item
         );
