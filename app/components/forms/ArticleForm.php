@@ -3,6 +3,7 @@
 namespace App\Components\Forms;
 
 use App\Model\Crud;
+use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
 use App\Model\Exceptions;
 use Nette;
@@ -84,12 +85,20 @@ class ArticleForm extends Nette\Application\UI\Control
             }
 
             if ($this->item) {
-                $ent = $this->articleCrud->update($values, $this->item, $tag);
+                $ent = $this->articleCrud->update($values, $tag, $this->item);
+                $p->flashMessage($this->translator->translate('locale.item.updated'));
             } else {
-                $ent = $this->articleCrud->create($values, $tag);
+                $ent = $this->articleCrud->create($values, $tag, new Entities\ArticleEntity);
+                $p->flashMessage($this->translator->translate('locale.item.created'));
             }
 
         } catch (Exceptions\MissingTagException $e) {
+            Tracy\Debugger::barDump($e->getMessage());
+            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
+
+            $form->addError($e->getMessage());
+
+        } catch (PossibleUniqueKeyDuplicationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
@@ -99,16 +108,12 @@ class ArticleForm extends Nette\Application\UI\Control
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
-            $form->addError($e->getMessage());
+            $form->addError($this->translator->translate('locale.error.occurred'));
         }
 
-        if ($this->item) {
-            $p->flashMessage($this->translator->translate('locale.item.updated'));
-        } else {
-            $p->flashMessage($this->translator->translate('locale.item.created'));
+        if (!empty($ent)) {
+            $p->redirect('this');
         }
-
-        $p->redirect('this');
     }
 
     public function render()
