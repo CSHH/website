@@ -3,14 +3,60 @@
 namespace App\Model\Crud;
 
 use App\Model\Entities;
+use Kdyby\Doctrine\EntityManager;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Kdyby\Doctrine\EntityDao;
+use HeavenProject\FileManagement\FileManager;
 
 class ImageCrud extends BaseCrud
 {
-    public function __construct(EntityDao $dao)
+    /** @var EntityManager */
+    private $em;
+
+    /** @var EntityDao */
+    private $fileDao;
+
+    /** @var string */
+    private $uploadDir;
+
+    /**
+     * @param string        $wwwDir
+     * @param string        $uploadDir
+     * @param EntityDao     $dao
+     * @param EntityDao     $fileDao
+     * @param EntityManager $em
+     */
+    public function __construct($wwwDir, $uploadDir, EntityDao $dao, EntityDao $fileDao, EntityManager $em)
     {
         parent::__construct($dao);
+
+        $this->uploadDir = $wwwDir . $uploadDir;
+        $this->fileDao   = $fileDao;
+        $this->em        = $em;
+    }
+
+    public function uploadImages(
+        Entities\TagEntity $tag,
+        array $images,
+        Entities\UserEntity $user
+    ) {
+        if ($images) {
+            $fm = new FileManager($this->em, $this->fileDao, $this->uploadDir);
+
+            foreach ($images as $img) {
+                $e       = new Entities\ImageEntity;
+                $e->file = $fm->upload(new Entities\FileEntity, $img);
+                $e->user = $user;
+                $e->tag  = $tag;
+
+                $this->em->flush();
+            }
+        }
+
+        $this->em->persist($e);
+        $this->em->flush();
+
+        return $e;
     }
 
     /**

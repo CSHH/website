@@ -1,7 +1,12 @@
 services:
     router: App\RouterFactory::createRouter
     - App\Model\Crud\ArticleCrud(@doctrine.dao(App\Model\Entities\ArticleEntity))
-    - App\Model\Crud\ImageCrud(@doctrine.dao(App\Model\Entities\ImageEntity))
+    - App\Model\Crud\ImageCrud(
+        %wwwDir%,
+        %uploadDir%,
+        @doctrine.dao(App\Model\Entities\ImageEntity),
+        @doctrine.dao(App\Model\Entities\FileEntity)
+    )
     - App\Model\Crud\TagCrud(@doctrine.dao(App\Model\Entities\TagEntity))
     - App\Model\Crud\UserCrud(@doctrine.dao(App\Model\Entities\UserEntity))
     - App\Model\Crud\VideoCrud(@doctrine.dao(App\Model\Entities\VideoEntity))
