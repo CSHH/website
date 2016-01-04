@@ -49,7 +49,14 @@ class ArticleCrud extends BaseCrud
         }
 
         $e->slug = $e->slug ?: Slugger::slugify($e->name);
-        $e->tag  = $tag;
+
+        if ($this->getByTagAndSlug($tag, $e->slug)) {
+            throw new PossibleUniqueKeyDuplicationException(
+                $this->translator->translate('locale.duplicity.article_tag_and_slug')
+            );
+        }
+
+        $e->tag = $tag;
 
         $this->em->persist($e);
         $this->em->flush();
@@ -71,7 +78,14 @@ class ArticleCrud extends BaseCrud
         }
 
         $e->slug = $e->slug ?: Slugger::slugify($e->name);
-        $e->tag  = $tag;
+
+        if ($e->tag->id !== $tag->id && $this->getByTagAndSlug($tag, $e->slug)) {
+            throw new PossibleUniqueKeyDuplicationException(
+                $this->translator->translate('locale.duplicity.article_tag_and_slug')
+            );
+        }
+
+        $e->tag = $tag;
 
         $this->em->persist($e);
         $this->em->flush();
