@@ -37,7 +37,7 @@ class ImageEntity extends BaseEntity
     protected $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="FileEntity")
+     * @ORM\ManyToOne(targetEntity="FileEntity", cascade={"persist", "remove"})
      *
      * @var FileEntity
      */
