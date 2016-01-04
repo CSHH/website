@@ -9,6 +9,8 @@ sections:
 form:
 #    image: 'Obrázek'
 #    image_additional: 'Doplňující obrázek'
+    images: 'Obrázky'
+    images_required: 'Vyberte prosím obrázky pro nahrání.'
 #    active: 'Aktivní'
     name: 'Název'
     name_required: 'Zadejte prosím název.'
@@ -94,6 +96,7 @@ item:
     created: 'Položka byla úspěšně vytvořena.'
     updated: 'Položka byla úspěšně upravena.'
     deleted: 'Položka byla úspěšně smazána.'
+    images_uploaded: 'Obrázky byly úspěšně nahrány.'
 
 duplicity:
     article_name: 'Článek s tímto názvem již existuje.'
