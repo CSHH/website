@@ -49,11 +49,32 @@ class VideoEntity extends BaseEntity
     protected $slug;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      *
      * @var string
      */
-    protected $src;
+    protected $youtubeVideoSrc;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    protected $youtubeVideoUrl;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    protected $vimeoVideoSrc;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var string
+     */
+    protected $vimeoVideoUrl;
 
     /**
      * @ORM\Column(type="string")
