@@ -38,6 +38,7 @@ class ArticleCrud extends BaseCrud
     public function create(
         ArrayHash $values,
         Entities\TagEntity $tag,
+        Entities\UserEntity $user,
         Entities\ArticleEntity $e
     ) {
         $e->setValues($values);
@@ -56,7 +57,8 @@ class ArticleCrud extends BaseCrud
             );
         }
 
-        $e->tag = $tag;
+        $e->tag  = $tag;
+        $e->user = $user;
 
         $this->em->persist($e);
         $this->em->flush();
@@ -67,6 +69,7 @@ class ArticleCrud extends BaseCrud
     public function update(
         ArrayHash $values,
         Entities\TagEntity $tag,
+        Entities\UserEntity $user,
         Entities\ArticleEntity $e
     ) {
         $e->setValues($values);
@@ -85,7 +88,8 @@ class ArticleCrud extends BaseCrud
             );
         }
 
-        $e->tag = $tag;
+        $e->tag  = $tag;
+        $e->user = $user;
 
         $this->em->persist($e);
         $this->em->flush();

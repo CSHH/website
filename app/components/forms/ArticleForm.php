@@ -22,6 +22,9 @@ class ArticleForm extends Nette\Application\UI\Control
     /** @var Crud\ArticleCrud */
     private $articleCrud;
 
+    /** @var Entities\UserEntity */
+    private $user;
+
     /** @var Entities\ArticleEntity */
     private $item;
 
@@ -29,6 +32,7 @@ class ArticleForm extends Nette\Application\UI\Control
         ITranslator $translator,
         Crud\TagCrud $tagCrud,
         Crud\ArticleCrud $articleCrud,
+        Entities\UserEntity $user,
         Entities\ArticleEntity $item = null
     ) {
         parent::__construct();
@@ -36,6 +40,7 @@ class ArticleForm extends Nette\Application\UI\Control
         $this->translator  = $translator;
         $this->tagCrud     = $tagCrud;
         $this->articleCrud = $articleCrud;
+        $this->user        = $user;
         $this->item        = $item;
     }
 
@@ -85,10 +90,10 @@ class ArticleForm extends Nette\Application\UI\Control
             }
 
             if ($this->item) {
-                $ent = $this->articleCrud->update($values, $tag, $this->item);
+                $ent = $this->articleCrud->update($values, $tag, $this->user, $this->item);
                 $p->flashMessage($this->translator->translate('locale.item.updated'));
             } else {
-                $ent = $this->articleCrud->create($values, $tag, new Entities\ArticleEntity);
+                $ent = $this->articleCrud->create($values, $tag, $this->user, new Entities\ArticleEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
         } catch (Exceptions\MissingTagException $e) {

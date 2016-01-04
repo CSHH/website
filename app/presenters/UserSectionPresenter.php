@@ -49,6 +49,7 @@ final class UserSectionPresenter extends SecurePresenter
             $this->translator,
             $this->tagCrud,
             $this->articleCrud,
+            $this->getLoggedUser(),
             $this->item
         );
     }
