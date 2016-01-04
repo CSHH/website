@@ -40,6 +40,11 @@ final class UserSectionPresenter extends SecurePresenter
         $this->items = $items;
     }
 
+    public function renderArticles()
+    {
+        $this->template->items = $this->items;
+    }
+
     /**
      * @return Forms\ArticleForm
      */
@@ -54,11 +59,6 @@ final class UserSectionPresenter extends SecurePresenter
         );
     }
 
-    public function renderArticles()
-    {
-        $this->template->items = $this->items;
-    }
-
     public function actionGalleries()
     {
         $items = $this->imageCrud->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
@@ -69,6 +69,19 @@ final class UserSectionPresenter extends SecurePresenter
     public function renderGalleries()
     {
         $this->template->items = $this->items;
+    }
+
+    /**
+     * @return Forms\GalleryForm
+     */
+    protected function createComponentGalleryForm()
+    {
+        return new Forms\GalleryForm(
+            $this->translator,
+            $this->tagCrud,
+            $this->imageCrud,
+            $this->getLoggedUser()
+        );
     }
 
     public function actionVideos()
