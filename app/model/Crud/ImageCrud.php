@@ -49,14 +49,10 @@ class ImageCrud extends BaseCrud
                 $e->user = $user;
                 $e->tag  = $tag;
 
+                $this->em->persist($e);
                 $this->em->flush();
             }
         }
-
-        $this->em->persist($e);
-        $this->em->flush();
-
-        return $e;
     }
 
     /**
