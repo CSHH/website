@@ -19,6 +19,6 @@ class Slugger extends Nette\Object
      */
     public static function slugify($subject)
     {
-        return Strings::webalize($subject, '-');
+        return Strings::webalize($subject);
     }
 }
