@@ -98,3 +98,4 @@ item:
 duplicity:
     article_name: 'Článek s tímto názvem již existuje.'
     article_tag_and_name: 'Článek s tímto názvem ve zvolené kategorii již existuje.'
+    article_tag_and_slug: 'Název tohoto článku se buď přímo shoduje nebo je příliž podobný s některými již existujícími články v této kategorii. Pokuste se prosím zvolit název, který bude více jednoznačný.'
