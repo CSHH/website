@@ -2,6 +2,7 @@
 
 namespace App\Components\Forms;
 
+use HeavenProject\Utils\FlashType;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
@@ -34,18 +35,20 @@ class SignInForm extends Nette\Application\UI\Control
     {
         $form = new Form;
 
-        $form->addText('email', 'E-mail')
-            ->addRule($form::EMAIL, 'Zadaný e-mail neodpovídá požadovanému formátu.')
-            ->setRequired('Zadejte prosím svůj přihlašovací e-mail');
+        $form->setTranslator($this->translator);
 
-        $form->addPassword('password', 'Heslo')
-            ->setRequired('Zadejte prosím své přihlašovací heslo');
+        $form->addText('email', 'locale.form.email')
+            ->addRule($form::EMAIL, 'locale.form.email_not_in_order')
+            ->setRequired('locale.form.email_required');
 
-        $form->addCheckbox('remember', 'Neodhlašovat');
+        $form->addPassword('password', 'locale.form.password')
+            ->setRequired('locale.form.password_required');
+
+        $form->addCheckbox('remember', 'locale.form.remember');
 
         $form->onSuccess[] = array($this, 'formSucceeded');
 
-        $form->addSubmit('submit', 'Přihlásit');
+        $form->addSubmit('submit', 'locale.form.sign_in');
 
         return $form;
     }
@@ -53,28 +56,31 @@ class SignInForm extends Nette\Application\UI\Control
     public function formSucceeded(Form $form)
     {
         try {
+            $p = $this->getPresenter();
+
             $values = $form->getValues();
 
-            $presenter = $form->getPresenter();
-            $presenter->getUser()->setAuthenticator($this->authenticator);
+            $p->getUser()->setAuthenticator($this->authenticator);
 
             if ($values->remember) {
-                $presenter->getUser()->setExpiration('14 days', false);
+                $p->getUser()->setExpiration('14 days', false);
             } else {
-                $presenter->getUser()->setExpiration('60 minutes', true);
+                $p->getUser()->setExpiration('60 minutes', true);
             }
 
-            $presenter->getUser()->login($values->email, $values->password);
-
-            $form->presenter->flashMessage('Vítejte');
-
-            $form->presenter->redirect('Homepage:default');
+            $p->getUser()->login($values->email, $values->password);
+            $p->flashMessage(
+                $this->translator->translate('locale.sign.in'),
+                FlashType::INFO
+            );
         } catch (AuthenticationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
         }
+
+        $p->redirect('Homepage:default');
     }
 
     public function render()

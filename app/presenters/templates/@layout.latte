@@ -16,46 +16,51 @@
     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
     <div>
+        <a n:if="$user->isLoggedIn()" n:href="UserSection:default">Uživatelská sekce</a>
+        <a n:if="$user->isLoggedIn()" n:href="Sign:out">Odhlásit</a>
+    </div>
+
+    <div>
 
         {var $tags = $tagCrud->getAll()}
 
         <ul>
-            <li><a n:href="Game:default">{_}ui.games{/_}</a></li>
+            <li><a n:href="Game:default">{_}locale.sections.games{/_}</a></li>
             <ul>
                 <li n:foreach="$tags as $tag" n:if="$wikiCrud->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_GAME)">
                     <a n:href="Game:default, tagSlug => $tag->slug">{$tag->name}</a>
                 </li>
             </ul>
 
-            <li><a n:href="Movie:default">{_}ui.movies{/_}</a></li>
+            <li><a n:href="Movie:default">{_}locale.sections.movies{/_}</a></li>
             <ul>
                 <li n:foreach="$tags as $tag" n:if="$wikiCrud->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_MOVIE)">
                     <a n:href="Movie:default, tagSlug => $tag->slug">{$tag->name}</a>
                 </li>
             </ul>
 
-            <li><a n:href="Book:default">{_}ui.books{/_}</a></li>
+            <li><a n:href="Book:default">{_}locale.sections.books{/_}</a></li>
             <ul>
                 <li n:foreach="$tags as $tag" n:if="$wikiCrud->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_BOOK)">
                     <a n:href="Book:default, tagSlug => $tag->slug">{$tag->name}</a>
                 </li>
             </ul>
 
-            <li><a n:href="Article:default">{_}ui.articles{/_}</a></li>
+            <li><a n:href="Article:default">{_}locale.sections.articles{/_}</a></li>
             <ul>
                 <li n:foreach="$tags as $tag" n:if="$articleCrud->getAllByTag($tag)">
                     <a n:href="Article:default, tagSlug => $tag->slug">{$tag->name}</a>
                 </li>
             </ul>
 
-            <li><a n:href="Gallery:default">{_}ui.galleries{/_}</a></li>
+            <li><a n:href="Gallery:default">{_}locale.sections.galleries{/_}</a></li>
             <ul>
                 <li n:foreach="$tags as $tag" n:if="$imageCrud->getAllByTag($tag)">
                     <a n:href="Gallery:default, tagSlug => $tag->slug">{$tag->name}</a>
                 </li>
             </ul>
 
-            <li><a n:href="Video:default">{_}ui.videos{/_}</a></li>
+            <li><a n:href="Video:default">{_}locale.sections.videos{/_}</a></li>
             <ul>
                 <li n:foreach="$tags as $tag" n:if="$videoCrud->getAllByTag($tag)">
                     <a n:href="Video:default, tagSlug => $tag->slug">{$tag->name}</a>

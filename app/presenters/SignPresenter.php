@@ -12,7 +12,7 @@ use HeavenProject\Utils\FlashType;
 use Nette\Mail\IMailer;
 use Tracy;
 
-class SignPresenter extends BasePresenter
+final class SignPresenter extends BasePresenter
 {
     /** @var IMailer @inject */
     public $mailer;
@@ -140,7 +140,7 @@ class SignPresenter extends BasePresenter
     {
         return new Forms\SignInForm(
             $this->translator,
-            new Authenticator($this->userCrud)
+            new Authenticator($this->translator, $this->userCrud)
         );
     }
 

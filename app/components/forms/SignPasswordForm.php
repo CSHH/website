@@ -5,6 +5,7 @@ namespace App\Components\Forms;
 use App\Model\Crud;
 use App\Model\Entities;
 use App\Model\Exceptions\PossibleUniqueKeyDuplicationException;
+use HeavenProject\Utils\FlashType;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
@@ -19,18 +20,18 @@ class SignPasswordForm extends Nette\Application\UI\Control
     private $userCrud;
 
     /** @var Entities\UserEntity */
-    private $e;
+    private $item;
 
     public function __construct(
         ITranslator $translator,
         Crud\UserCrud $userCrud,
-        Entities\UserEntity $e
+        Entities\UserEntity $item
     ) {
         parent::__construct();
 
         $this->translator = $translator;
         $this->userCrud   = $userCrud;
-        $this->e          = $e;
+        $this->item       = $item;
     }
 
     /**
@@ -40,17 +41,19 @@ class SignPasswordForm extends Nette\Application\UI\Control
     {
         $form = new Form;
 
-        $form->addPassword('password', 'Heslo')
-            ->setRequired('Zadejte prosím své přihlašovací heslo.');
+        $form->setTranslator($this->translator);
 
-        $form->addPassword('password_confirm', 'Heslo znovu')
-            ->addRule($form::EQUAL, 'Hesla se musí shodovat.', $form['password'])
-            ->setRequired('Zadejte prosím Vaše přihlašovací heslo znovu pro ověření.')
+        $form->addPassword('password', 'locale.form.password_new')
+            ->setRequired('locale.form.password_new_required');
+
+        $form->addPassword('password_confirm', 'locale.form.password_new_confirm')
+            ->addRule($form::EQUAL, 'locale.form.password_equal', $form['password'])
+            ->setRequired('locale.form.password_new_confirm_required')
             ->setOmitted();
 
         $form->onSuccess[] = array($this, 'formSucceeded');
 
-        $form->addSubmit('submit', 'Změnit heslo');
+        $form->addSubmit('submit', 'locale.form.submit_change_password');
 
         return $form;
     }
@@ -58,26 +61,26 @@ class SignPasswordForm extends Nette\Application\UI\Control
     public function formSucceeded(Form $form)
     {
         try {
+            $p = $this->getPresenter();
+
             $values = $form->getValues();
 
-            $this->userCrud->updatePassword($this->e, $values->password, true);
+            $this->userCrud->updatePassword($this->item, $values->password, true);
 
-            $form->getPresenter()->flashMessage(
-                'Heslo bylo změněno. Přihlašte se prosím.'
-            );
+            $p->flashMessage($this->translator->translate('locale.sign.password_changed_sign_in'), FlashType::INFO);
         } catch (PossibleUniqueKeyDuplicationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
-            $form->getPresenter()->flashMessage($e->getMessage());
+            $form->getPresenter()->flashMessage($e->getMessage(), FlashType::WARNING);
         } catch (\PDOException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
-            $form->getPresenter()->flashMessage('Došlo k chybě.');
+            $form->getPresenter()->flashMessage($this->translator->translate('locale.error.occurred'), FlashType::WARNING);
         }
 
-        $form->getPresenter()->redirect('Sign:in');
+        $p->redirect('Sign:in');
     }
 
     public function render()
