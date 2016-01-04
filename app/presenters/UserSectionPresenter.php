@@ -84,6 +84,21 @@ final class UserSectionPresenter extends SecurePresenter
         );
     }
 
+    /**
+     * @param int $id
+     */
+    public function actionVideoForm($id = null)
+    {
+        if ($id !== null) {
+            $item = $this->videoCrud->getById($id);
+            if (!$item) {
+                $this->flashMessage($this->translator->translate('common.item.does_not_exist'));
+            }
+
+            $this->item = $item;
+        }
+    }
+
     public function actionVideos()
     {
         $items = $this->videoCrud->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
@@ -94,6 +109,20 @@ final class UserSectionPresenter extends SecurePresenter
     public function renderVideos()
     {
         $this->template->items = $this->items;
+    }
+
+    /**
+     * @return Forms\VideoForm
+     */
+    protected function createComponentVideoForm()
+    {
+        return new Forms\VideoForm(
+            $this->translator,
+            $this->tagCrud,
+            $this->videoCrud,
+            $this->getLoggedUser(),
+            $this->item
+        );
     }
 
     public function actionGames()

@@ -64,11 +64,15 @@ form:
 #    gallery: 'Galerie'
     spam_attempt_sign_reset: 'Byl zaznamenán pokus o odeslání spamu prostřednictvím formuláře pro vyžádání nového hesla.'
     spam_attempt_sign_up: 'Byl zaznamenán pokus o odeslání spamu prostřednictvím registračního formuláře.'
-    tag: Zařazení
+    tag: 'Zařazení'
+    video_source_url: 'Zdrojová url videa'
+    video_source_url_required: 'Zadejte prosím zdrojová url videa.'
 
 error:
     occurred: 'Došlo k chybě.'
     missing_tag: 'Záznam nelze zařadit do neexistující kategorie.'
+    invalid_video_url: 'Byla zadána nesprávná url videa.'
+    invalid_youtube_video_url: 'Pokud vkládáte odkaz na video z Youtube.com, použijte k tomuto účelu prosím odkaz z adresního řádku prohlížeče.'
 
 sign:
     password_changed_sign_in: 'Heslo bylo změněno. Přihlašte se prosím.'
