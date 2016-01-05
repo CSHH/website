@@ -1,33 +1,17 @@
 {form form}
 
-    {foreach $form->errors as $error}
-        <div>{$error}</div>
-    {/foreach}
+    {include 'include/errors.latte', form => $form}
 
-    <div>
-        {label username /}
-        {input username}
-    </div>
+    {include 'include/username.latte', _form => $form}
 
-    <div>
-        {label email /}
-        {input email}
-    </div>
+    {include 'include/email.latte', _form => $form}
 
-    <div>
-        {label password /}
-        {input password}
-    </div>
+    {include 'include/password.latte', _form => $form}
 
-    <div>
-        {label password_confirm /}
-        {input password_confirm}
-    </div>
+    {include 'include/passwordConfirm.latte', _form => $form}
 
-    {input __anti}
+    {include 'include/antiSpam.latte', _form => $form}
 
-    <div>
-        {input submit}
-    </div>
+    {include 'include/submit.latte', _form => $form}
 
 {/form}

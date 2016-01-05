@@ -1,16 +1,9 @@
 {form form}
 
-    {foreach $form->errors as $error}
-        <div>{$error}</div>
-    {/foreach}
+    {include 'include/errors.latte', form => $form}
 
-    <div>
-        {label email /}
-        {input email}
-    </div>
+    {include 'include/email.latte', _form => $form}
 
-    <div>
-        {input submit}
-    </div>
+    {include 'include/submit.latte', _form => $form}
 
 {/form}

@@ -1,25 +1,11 @@
 {form form}
 
-    {foreach $form->errors as $error}
-        <div>{$error}</div>
-    {/foreach}
+    {include 'include/errors.latte', form => $form}
 
-    <div>
-        <label>
-            {_}locale.form.tag{/_}
-            <select name="tagId">
-                <option n:foreach="$tags as $id => $name" value="{$id}">{$name}</option>
-            </select>
-        </label>
-    </div>
+    {include 'include/tags.latte'}
 
-    <div>
-        {label images /}
-        {input images}
-    </div>
+    {include 'include/images.latte', _form => $form}
 
-    <div>
-        {input submit}
-    </div>
+    {include 'include/submit.latte', _form => $form}
 
 {/form}
