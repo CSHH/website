@@ -58,7 +58,7 @@ class VideoCrud extends BaseCrud
 
         if ($this->getByTagAndName($tag, $values->name)) {
             throw new PossibleUniqueKeyDuplicationException(
-                $this->translator->translate('locale.duplicity.article_tag_and_name')
+                $this->translator->translate('locale.duplicity.video_tag_and_name')
             );
         }
 
@@ -66,7 +66,7 @@ class VideoCrud extends BaseCrud
 
         if ($this->getByTagAndSlug($tag, $e->slug)) {
             throw new PossibleUniqueKeyDuplicationException(
-                $this->translator->translate('locale.duplicity.article_tag_and_slug')
+                $this->translator->translate('locale.duplicity.video_tag_and_slug')
             );
         }
 
@@ -107,7 +107,7 @@ class VideoCrud extends BaseCrud
 
         if ($e->tag->id !== $tag->id && $this->getByTagAndName($tag, $values->name)) {
             throw new PossibleUniqueKeyDuplicationException(
-                $this->translator->translate('locale.duplicity.article_tag_and_name')
+                $this->translator->translate('locale.duplicity.video_tag_and_name')
             );
         }
 
@@ -115,7 +115,7 @@ class VideoCrud extends BaseCrud
 
         if ($e->tag->id !== $tag->id && $this->getByTagAndSlug($tag, $e->slug)) {
             throw new PossibleUniqueKeyDuplicationException(
-                $this->translator->translate('locale.duplicity.article_tag_and_slug')
+                $this->translator->translate('locale.duplicity.video_tag_and_slug')
             );
         }
 
