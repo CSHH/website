@@ -41,6 +41,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
     protected function throw404()
     {
-        $this->error();
+        $this->error(
+            $this->translator->translate('locale.error.page_not_found')
+        );
     }
 }
