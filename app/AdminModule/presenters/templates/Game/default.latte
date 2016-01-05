@@ -1,9 +1,13 @@
 {block content}
 
+<div>
+    <a n:href="form">Nový článek</a>
+</div>
+
 {foreach $items as $item}
 
     <div>
-        <a href="">{$item->name}</a>
+        <a n:href="form, id => $item->id">{$item->name}</a>
     </div>
 
 {/foreach}
