@@ -6,7 +6,7 @@ use App\Components\Controls;
 use App\Model\Entities;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
-abstract class PageablePresenter extends BasePresenter
+abstract class PageablePresenter extends SecurePresenter
 {
     /** @var int @persistent */
     public $page = 1;

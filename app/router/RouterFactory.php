@@ -28,18 +28,18 @@ class RouterFactory
         $router[] = new Route('videa[/<tagSlug>]', 'Front:Video:default');
 
         $router[] = new Route('uzivatelska-sekce', 'Admin:Homepage:default');
-        $router[] = new Route('uzivatelska-sekce/hry', 'Admin:Homepage:games');
-        $router[] = new Route('uzivatelska-sekce/hry/formular', 'Admin:Homepage:gameForm');
-        $router[] = new Route('uzivatelska-sekce/filmy', 'Admin:Homepage:movies');
-        $router[] = new Route('uzivatelska-sekce/filmy/formular', 'Admin:Homepage:movieForm');
-        $router[] = new Route('uzivatelska-sekce/knihy', 'Admin:Homepage:books');
-        $router[] = new Route('uzivatelska-sekce/knihy/formular', 'Admin:Homepage:bookForm');
-        $router[] = new Route('uzivatelska-sekce/clanky', 'Admin:Homepage:articles');
-        $router[] = new Route('uzivatelska-sekce/clanky/formular', 'Admin:Homepage:articleForm');
-        $router[] = new Route('uzivatelska-sekce/galerie', 'Admin:Homepage:galleries');
-        $router[] = new Route('uzivatelska-sekce/galerie/formular', 'Admin:Homepage:galleryForm');
-        $router[] = new Route('uzivatelska-sekce/videa', 'Admin:Homepage:videos');
-        $router[] = new Route('uzivatelska-sekce/videa/formular', 'Admin:Homepage:videoForm');
+        $router[] = new Route('uzivatelska-sekce/hry', 'Admin:Game:default');
+        $router[] = new Route('uzivatelska-sekce/hry/formular', 'Admin:default:form');
+        $router[] = new Route('uzivatelska-sekce/filmy', 'Admin:Movie:default');
+        $router[] = new Route('uzivatelska-sekce/filmy/formular', 'Admin:Movie:form');
+        $router[] = new Route('uzivatelska-sekce/knihy', 'Admin:Book:default');
+        $router[] = new Route('uzivatelska-sekce/knihy/formular', 'Admin:Book:form');
+        $router[] = new Route('uzivatelska-sekce/clanky', 'Admin:Article:default');
+        $router[] = new Route('uzivatelska-sekce/clanky/formular', 'Admin:Article:form');
+        $router[] = new Route('uzivatelska-sekce/galerie', 'Admin:Gallery:default');
+        $router[] = new Route('uzivatelska-sekce/galerie/formular', 'Admin:Gallery:form');
+        $router[] = new Route('uzivatelska-sekce/videa', 'Admin:Video:default');
+        $router[] = new Route('uzivatelska-sekce/videa/formular', 'Admin:Video:form');
         $router[] = new Route('uzivatelska-sekce/<presenter>/<action>', 'Admin:Homepage:default');
 
         return $router;

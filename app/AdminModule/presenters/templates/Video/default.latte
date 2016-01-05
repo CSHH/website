@@ -1,0 +1,15 @@
+{block content}
+
+<div>
+    <a n:href="form">Nové video</a>
+</div>
+
+{foreach $items as $item}
+
+    <div>
+        <a n:href="form, id => $item->id">{$item->name}</a>
+    </div>
+
+{/foreach}
+
+{control vp}
