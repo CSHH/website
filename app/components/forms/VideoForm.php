@@ -34,7 +34,7 @@ class VideoForm extends Nette\Application\UI\Control
         Crud\TagCrud $tagCrud,
         Crud\VideoCrud $videoCrud,
         Entities\UserEntity $user,
-        Entities\ArticleEntity $item = null
+        Entities\VideoEntity $item = null
     ) {
         parent::__construct();
 
@@ -57,7 +57,7 @@ class VideoForm extends Nette\Application\UI\Control
         $form->addText('name', 'locale.form.name')
             ->setRequired('locale.form.name_required');
 
-        $form->addText('src', 'locale.form.video_source_url')
+        $form->addText('url', 'locale.form.video_source_url')
             ->setRequired('locale.form.video_source_url_required');
 
         if ($this->item) {
