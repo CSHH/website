@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Presenters;
+namespace App\AdminModule\Presenters;
 
 use App\Components\Forms;
 use App\Model\Crud;
 use App\Model\Entities;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
-final class UserSectionPresenter extends SecurePresenter
+final class HomepagePresenter extends SecurePresenter
 {
     /** @var Crud\UserCrud @inject */
     public $userCrud;

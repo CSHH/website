@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenters;
+namespace App\AdminModule\Presenters;
 
 use App\Model\Crud;
 use Doctrine\ORM\Tools\Pagination\Paginator;

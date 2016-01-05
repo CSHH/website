@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenters;
+namespace App\AdminModule\Presenters;
 
 use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use Nette\Security\IUserStorage;

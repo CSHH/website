@@ -15,9 +15,13 @@
 <body>
     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
+    <h1>
+        <a n:href="Homepage:default">Czech Silent Hill Heaven</a>
+    </h1>
+
     <div>
-        <a n:if="$user->isLoggedIn()" n:href="UserSection:default">Uživatelská sekce</a>
-        <a n:if="$user->isLoggedIn()" n:href="Sign:out">Odhlásit</a>
+        <a n:if="$user->isLoggedIn()" n:href=":Admin:Homepage:default">Uživatelská sekce</a>
+        <a n:if="$user->isLoggedIn()" n:href=":Admin:Sign:out">Odhlásit</a>
     </div>
 
     <div>
