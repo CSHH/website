@@ -44,7 +44,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
     /**
      * @return Forms\ArticleForm
      */
-    protected function createComponentArticleForm()
+    protected function createComponentForm()
     {
         return new Forms\ArticleForm(
             $this->translator,

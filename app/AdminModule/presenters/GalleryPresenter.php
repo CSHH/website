@@ -25,7 +25,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
     /**
      * @return Forms\GalleryForm
      */
-    protected function createComponentGalleryForm()
+    protected function createComponentForm()
     {
         return new Forms\GalleryForm(
             $this->translator,

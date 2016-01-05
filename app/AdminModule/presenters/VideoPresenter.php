@@ -44,7 +44,7 @@ final class VideoPresenter extends SingleUserContentPresenter
     /**
      * @return Forms\VideoForm
      */
-    protected function createComponentVideoForm()
+    protected function createComponentForm()
     {
         return new Forms\VideoForm(
             $this->translator,
