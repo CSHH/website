@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Components\Forms;
+namespace App\AdminModule\Components\Forms;
 
 use App\Model\Crud;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;

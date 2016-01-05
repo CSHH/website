@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Components\Forms;
+use App\AdminModule\Components\Forms;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 final class GalleryPresenter extends SingleUserContentPresenter

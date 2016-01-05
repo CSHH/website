@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Components\Forms;
+use App\AdminModule\Components\Forms;
 use App\Model\Crud;
 use App\Model\Entities;
 use App\Model\Exceptions\ActivationLimitExpiredException;
