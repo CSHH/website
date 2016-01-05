@@ -54,9 +54,6 @@ class VideoCrud extends BaseCrud
         Entities\UserEntity $user,
         Entities\VideoEntity $e
     ) {
-        $src = $values->src;
-        unset($values->src);
-
         $e->setValues($values);
 
         if ($this->getByTagAndName($tag, $values->name)) {
@@ -73,15 +70,66 @@ class VideoCrud extends BaseCrud
             );
         }
 
-        if (Strings::contains($src, Entities\VideoEntity::TYPE_YOUTUBE . '.com')) {
-            $e->type = Entities\VideoEntity::TYPE_YOUTUBE;
-            $e->youtubeVideoSrc = $src ?: null;
-            $e->youtubeVideoUrl = $src ? $this->getYoutubeVideoUrl($src) : null;
+        $url = $e->url;
 
-        } elseif (Strings::contains($src, Entities\VideoEntity::TYPE_VIMEO . '.com')) {
+        if (Strings::contains($url, Entities\VideoEntity::TYPE_YOUTUBE . '.com')) {
+            $e->type = Entities\VideoEntity::TYPE_YOUTUBE;
+            $e->url = $url ?: null;
+            $e->src = $url ? $this->getYoutubeVideoSrc($url) : null;
+
+        } elseif (Strings::contains($url, Entities\VideoEntity::TYPE_VIMEO . '.com')) {
             $e->type = Entities\VideoEntity::TYPE_VIMEO;
-            $e->vimeoVideoSrc = $src ?: null;
-            $e->vimeoVideoUrl = $src ? $this->getVimeoVideoUrl($src) : null;
+            $e->url = $url ?: null;
+            $e->src = $url ? $this->getVimeoVideoSrc($url) : null;
+
+        } else {
+            throw new InvalidVideoUrlException(
+                $this->translator->translate('locale.error.invalid_video_url')
+            );
+        }
+
+        $e->tag  = $tag;
+        $e->user = $user;
+
+        $this->em->persist($e);
+        $this->em->flush();
+
+        return $e;
+    }
+
+    public function update(
+        ArrayHash $values,
+        Entities\TagEntity $tag,
+        Entities\UserEntity $user,
+        Entities\VideoEntity $e
+    ) {
+        $e->setValues($values);
+
+        if ($e->tag->id !== $tag->id && $this->getByTagAndName($tag, $values->name)) {
+            throw new PossibleUniqueKeyDuplicationException(
+                $this->translator->translate('locale.duplicity.article_tag_and_name')
+            );
+        }
+
+        $e->slug = $e->slug ?: Slugger::slugify($e->name);
+
+        if ($e->tag->id !== $tag->id && $this->getByTagAndSlug($tag, $e->slug)) {
+            throw new PossibleUniqueKeyDuplicationException(
+                $this->translator->translate('locale.duplicity.article_tag_and_slug')
+            );
+        }
+
+        $url = $e->url;
+
+        if (Strings::contains($url, Entities\VideoEntity::TYPE_YOUTUBE . '.com')) {
+            $e->type = Entities\VideoEntity::TYPE_YOUTUBE;
+            $e->url = $url ?: null;
+            $e->src = $url ? $this->getYoutubeVideoSrc($url) : null;
+
+        } elseif (Strings::contains($url, Entities\VideoEntity::TYPE_VIMEO . '.com')) {
+            $e->type = Entities\VideoEntity::TYPE_VIMEO;
+            $e->url = $url ?: null;
+            $e->src = $url ? $this->getVimeoVideoSrc($url) : null;
 
         } else {
             throw new InvalidVideoUrlException(
@@ -227,7 +275,7 @@ class VideoCrud extends BaseCrud
      * @throws InvalidVideoUrlException
      * @return string
      */
-    private function getYoutubeVideoUrl($pageUrl)
+    private function getYoutubeVideoSrc($pageUrl)
     {
         $key = 'watch?v=';
 
@@ -244,7 +292,7 @@ class VideoCrud extends BaseCrud
      * @param  string $pageUrl
      * @return string
      */
-    private function getVimeoVideoUrl($pageUrl)
+    private function getVimeoVideoSrc($pageUrl)
     {
         $url = $this->vimeoOembedEndpoint . '?url=' . rawurlencode($pageUrl);
 
