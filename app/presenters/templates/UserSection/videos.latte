@@ -7,7 +7,7 @@
 {foreach $items as $item}
 
     <div>
-        <a href="">{$item->name}</a>
+        <a n:href="videoForm, id => $item->id">{$item->name}</a>
     </div>
 
 {/foreach}
