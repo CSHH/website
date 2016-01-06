@@ -18,8 +18,8 @@ abstract class SingleUserContentPresenter extends PageablePresenter
         $tag = $this->getTag($tagSlug);
 
         $items = $tag
-            ? $repository->getAllByTagForPage($this->page, $limit, $tag)
-            : $repository->getAllForPage($this->page, $limit);
+            ? $repository->getAllByTagForPage($this->page, $limit, $tag, true)
+            : $repository->getAllForPage($this->page, $limit, true);
 
         $this->preparePaginator($items->count(), $limit);
 

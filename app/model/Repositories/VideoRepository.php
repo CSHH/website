@@ -201,14 +201,21 @@ class VideoRepository extends BaseRepository
     /**
      * @param  int       $page
      * @param  int       $limit
+     * @param  bool      $activeOnly
      * @return Paginator
      */
-    public function getAllForPage($page, $limit)
+    public function getAllForPage($page, $limit, $activeOnly = false)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('v')
-            ->from(Entities\VideoEntity::getClassName(), 'v')
-            ->setFirstResult($page * $limit - $limit)
+            ->from(Entities\VideoEntity::getClassName(), 'v');
+
+        if ($activeOnly) {
+            $qb->where('v.isActive = :state')
+                ->setParameter('state', true);
+        }
+
+        $qb->setFirstResult($page * $limit - $limit)
             ->setMaxResults($limit);
 
         return new Paginator($qb->getQuery());
@@ -218,16 +225,25 @@ class VideoRepository extends BaseRepository
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
+     * @param  bool               $activeOnly
      * @return Paginator
      */
-    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag)
+    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('v')
             ->from(Entities\VideoEntity::getClassName(), 'v')
             ->join('v.tag', 't')
-            ->where('t.id = :tagId')
-            ->setParameter('tagId', $tag->id)
+            ->where('t.id = :tagId');
+
+        $params = array('tagId' => $tag->id);
+
+        if ($activeOnly) {
+            $qb->andWhere('v.isActive = :state');
+            $params['state'] = true;
+        }
+
+        $qb->setParameters($params)
             ->setFirstResult($page * $limit - $limit)
             ->setMaxResults($limit);
 

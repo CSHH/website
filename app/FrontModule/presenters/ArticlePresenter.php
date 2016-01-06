@@ -39,7 +39,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
 
         $article = $this->articleRepository->getByTagAndSlug($tag, $slug);
 
-        if (!$article) {
+        if (!$article || !$article->isActive) {
             $this->throw404();
         }
 
