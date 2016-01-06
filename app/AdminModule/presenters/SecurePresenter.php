@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use Nette\Security\IUserStorage;
 

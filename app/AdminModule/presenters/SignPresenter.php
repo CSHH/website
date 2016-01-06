@@ -3,7 +3,7 @@
 namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Entities;
 use App\Model\Exceptions\ActivationLimitExpiredException;
 use App\Model\Exceptions\UserNotFoundException;

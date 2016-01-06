@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class SingleUserContentPresenter extends PageablePresenter

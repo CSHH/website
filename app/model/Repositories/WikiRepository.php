@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Crud;
+namespace App\Model\Repositories;
 
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;

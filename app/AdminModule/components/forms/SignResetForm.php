@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Components\Forms;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Exceptions\FormSentBySpamException;
 use App\Model\Exceptions\UserNotFoundException;
 use HeavenProject\Utils\FlashType;

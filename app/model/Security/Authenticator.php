@@ -2,7 +2,7 @@
 
 namespace App\Model\Security;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use Nette;
 use Nette\Localization\ITranslator;
 use Nette\Security\Passwords;

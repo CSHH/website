@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Components\Forms;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Entities;
 use App\Model\Exceptions;
 use Nette;

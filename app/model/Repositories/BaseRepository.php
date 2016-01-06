@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Crud;
+namespace App\Model\Repositories;
 
 use App\Model\Entities;
 use Kdyby\Doctrine\EntityDao;

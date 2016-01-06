@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Components\Forms;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Exceptions\InvalidVideoUrlException;
 use App\Model\Entities;

@@ -3,7 +3,7 @@
 namespace App\FrontModule\Presenters;
 
 use App;
-use App\Model\Crud;
+use App\Model\Repositories;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
 {

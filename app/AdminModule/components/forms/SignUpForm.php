@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Components\Forms;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Exceptions\FormSentBySpamException;
 use HeavenProject\Utils\FlashType;
