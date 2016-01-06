@@ -29,7 +29,7 @@ class RouterFactory
 
         $router[] = new Route('uzivatelska-sekce', 'Admin:Homepage:default');
         $router[] = new Route('uzivatelska-sekce/hry', 'Admin:Game:default');
-        $router[] = new Route('uzivatelska-sekce/hry/formular', 'Admin:default:form');
+        $router[] = new Route('uzivatelska-sekce/hry/formular', 'Admin:Game:form');
         $router[] = new Route('uzivatelska-sekce/filmy', 'Admin:Movie:default');
         $router[] = new Route('uzivatelska-sekce/filmy/formular', 'Admin:Movie:form');
         $router[] = new Route('uzivatelska-sekce/knihy', 'Admin:Book:default');
