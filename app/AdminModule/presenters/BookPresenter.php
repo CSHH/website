@@ -23,7 +23,7 @@ final class BookPresenter extends SharedContentPresenter
             $item = $this->wikiCrud->getById($id);
             $user = $this->getLoggedUser();
             if (!$item || $item->type !== Entities\WikiEntity::TYPE_BOOK || $item->createdBy->id !== $user->id) {
-                $this->flashMessage($this->translator->translate('common.item.does_not_exist'));
+                $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
                 $this->redirect('Book:default');
             }
 

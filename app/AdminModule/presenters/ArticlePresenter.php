@@ -23,7 +23,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
             $item = $this->articleCrud->getById($id);
             $user = $this->getLoggedUser();
             if (!$item || $item->user->id !== $user->id) {
-                $this->flashMessage($this->translator->translate('common.item.does_not_exist'));
+                $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
                 $this->redirect('Article:default');
             }
 
