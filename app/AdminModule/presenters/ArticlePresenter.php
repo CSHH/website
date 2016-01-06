@@ -21,8 +21,10 @@ final class ArticlePresenter extends SingleUserContentPresenter
     {
         if ($id !== null) {
             $item = $this->articleCrud->getById($id);
-            if (!$item) {
+            $user = $this->getLoggedUser();
+            if (!$item || $item->user->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('common.item.does_not_exist'));
+                $this->redirect('Article:default');
             }
 
             $this->item = $item;

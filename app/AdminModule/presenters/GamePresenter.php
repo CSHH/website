@@ -21,8 +21,10 @@ final class GamePresenter extends SharedContentPresenter
     {
         if ($id !== null) {
             $item = $this->wikiCrud->getById($id);
-            if (!$item) {
+            $user = $this->getLoggedUser();
+            if (!$item || $item->type !== Entities\WikiEntity::TYPE_GAME || $item->createdBy->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('common.item.does_not_exist'));
+                $this->redirect('Game:default');
             }
 
             $this->item = $item;

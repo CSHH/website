@@ -21,8 +21,10 @@ final class MoviePresenter extends SharedContentPresenter
     {
         if ($id !== null) {
             $item = $this->wikiCrud->getById($id);
-            if (!$item) {
+            $user = $this->getLoggedUser();
+            if (!$item || $item->type !== Entities\WikiEntity::TYPE_MOVIE || $item->createdBy->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('common.item.does_not_exist'));
+                $this->redirect('Movie:default');
             }
 
             $this->item = $item;

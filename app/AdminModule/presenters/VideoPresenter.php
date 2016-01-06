@@ -21,8 +21,10 @@ final class VideoPresenter extends SingleUserContentPresenter
     {
         if ($id !== null) {
             $item = $this->videoCrud->getById($id);
-            if (!$item) {
+            $user = $this->getLoggedUser();
+            if (!$item || $item->user->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('common.item.does_not_exist'));
+                $this->redirect('Video:default');
             }
 
             $this->item = $item;

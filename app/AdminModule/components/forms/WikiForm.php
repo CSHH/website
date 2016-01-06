@@ -17,7 +17,7 @@ class WikiForm extends AbstractContentForm
     /** @var string */
     private $type;
 
-    /** @var Entities\ArticleEntity */
+    /** @var Entities\WikiEntity */
     private $item;
 
     /**
@@ -26,7 +26,7 @@ class WikiForm extends AbstractContentForm
      * @param Crud\WikiCrud $wikiCrud
      * @param Entities\UserEntity $user
      * @param string $type
-     * @param Entities\ArticleEntity $item
+     * @param Entities\WikiEntity $item
      */
     public function __construct(
         ITranslator $translator,
@@ -34,7 +34,7 @@ class WikiForm extends AbstractContentForm
         Crud\WikiCrud $wikiCrud,
         Entities\UserEntity $user,
         $type,
-        Entities\ArticleEntity $item = null
+        Entities\WikiEntity $item = null
     ) {
         parent::__construct($translator, $tagCrud, $user);
 
