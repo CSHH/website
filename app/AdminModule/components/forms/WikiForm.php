@@ -11,7 +11,7 @@ use Nette\Localization\ITranslator;
 
 class WikiForm extends AbstractContentForm
 {
-    /** @var Crud\WikiCrud */
+    /** @var Repositories\WikiCrud */
     private $wikiCrud;
 
     /** @var string */
@@ -22,16 +22,16 @@ class WikiForm extends AbstractContentForm
 
     /**
      * @param ITranslator $translator
-     * @param Crud\TagCrud $tagCrud
-     * @param Crud\WikiCrud $wikiCrud
+     * @param Repositories\TagCrud $tagCrud
+     * @param Repositories\WikiCrud $wikiCrud
      * @param Entities\UserEntity $user
      * @param string $type
      * @param Entities\WikiEntity $item
      */
     public function __construct(
         ITranslator $translator,
-        Crud\TagCrud $tagCrud,
-        Crud\WikiCrud $wikiCrud,
+        Repositories\TagCrud $tagCrud,
+        Repositories\WikiCrud $wikiCrud,
         Entities\UserEntity $user,
         $type,
         Entities\WikiEntity $item = null

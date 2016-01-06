@@ -15,7 +15,7 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
     /** @var ITranslator */
     protected $translator;
 
-    /** @var Crud\TagCrud */
+    /** @var Repositories\TagCrud */
     protected $tagCrud;
 
     /** @var Entities\UserEntity */
@@ -23,7 +23,7 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
 
     public function __construct(
         ITranslator $translator,
-        Crud\TagCrud $tagCrud,
+        Repositories\TagCrud $tagCrud,
         Entities\UserEntity $user
     ) {
         parent::__construct();

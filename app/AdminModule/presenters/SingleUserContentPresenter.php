@@ -8,12 +8,12 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
     /**
-     * @param  Crud\BaseCrud $crud
+     * @param  Repositories\BaseCrud $crud
      * @param  string        $tagSlug
      * @param  int           $limit
      * @return Paginator
      */
-    protected function runActionDefault(Crud\BaseCrud $crud, $tagSlug, $limit)
+    protected function runActionDefault(Repositories\BaseCrud $crud, $tagSlug, $limit)
     {
         $tag = $this->getTag($tagSlug);
 

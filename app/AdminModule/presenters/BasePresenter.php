@@ -7,19 +7,19 @@ use App\Model\Crud;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
 {
-    /** @var Crud\ArticleCrud @inject */
+    /** @var Repositories\ArticleCrud @inject */
     public $articleCrud;
 
-    /** @var Crud\ImageCrud @inject */
+    /** @var Repositories\ImageCrud @inject */
     public $imageCrud;
 
-    /** @var Crud\VideoCrud @inject */
+    /** @var Repositories\VideoCrud @inject */
     public $videoCrud;
 
-    /** @var Crud\WikiCrud @inject */
+    /** @var Repositories\WikiCrud @inject */
     public $wikiCrud;
 
-    /** @var Crud\TagCrud @inject */
+    /** @var Repositories\TagCrud @inject */
     public $tagCrud;
 
     protected function beforeRender()

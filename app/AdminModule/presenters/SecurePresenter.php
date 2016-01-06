@@ -8,7 +8,7 @@ use Nette\Security\IUserStorage;
 
 abstract class SecurePresenter extends BasePresenter
 {
-    /** @var Crud\UserCrud @inject */
+    /** @var Repositories\UserCrud @inject */
     public $userCrud;
 
     protected function startup()

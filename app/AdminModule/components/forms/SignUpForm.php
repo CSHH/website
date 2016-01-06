@@ -19,7 +19,7 @@ class SignUpForm extends Nette\Application\UI\Control
     /** @var ITranslator */
     private $translator;
 
-    /** @var Crud\UserCrud */
+    /** @var Repositories\UserCrud */
     private $userCrud;
 
     /** @var IAuthenticator */
@@ -33,14 +33,14 @@ class SignUpForm extends Nette\Application\UI\Control
 
     /**
      * @param ITranslator    $translator
-     * @param Crud\UserCrud  $userCrud
+     * @param Repositories\UserCrud  $userCrud
      * @param IAuthenticator $authenticator
      * @param IMailer        $mailer
      * @param string         $contactEmail
      */
     public function __construct(
         ITranslator $translator,
-        Crud\UserCrud $userCrud,
+        Repositories\UserCrud $userCrud,
         IAuthenticator $authenticator,
         IMailer $mailer,
         $contactEmail

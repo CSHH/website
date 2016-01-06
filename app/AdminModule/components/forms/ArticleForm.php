@@ -11,7 +11,7 @@ use Nette\Localization\ITranslator;
 
 class ArticleForm extends AbstractContentForm
 {
-    /** @var Crud\ArticleCrud */
+    /** @var Repositories\ArticleCrud */
     private $articleCrud;
 
     /** @var Entities\ArticleEntity */
@@ -19,8 +19,8 @@ class ArticleForm extends AbstractContentForm
 
     public function __construct(
         ITranslator $translator,
-        Crud\TagCrud $tagCrud,
-        Crud\ArticleCrud $articleCrud,
+        Repositories\TagCrud $tagCrud,
+        Repositories\ArticleCrud $articleCrud,
         Entities\UserEntity $user,
         Entities\ArticleEntity $item = null
     ) {

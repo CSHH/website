@@ -25,7 +25,7 @@ class SignResetForm extends Nette\Application\UI\Control
     /** @var string */
     private $contactEmail;
 
-    /** @var Crud\UserCrud */
+    /** @var Repositories\UserCrud */
     private $userCrud;
 
     /** @var IMailer */
@@ -35,14 +35,14 @@ class SignResetForm extends Nette\Application\UI\Control
      * @param ITranslator   $translator
      * @param string        $appDir
      * @param string        $contactEmail
-     * @param Crud\UserCrud $userCrud
+     * @param Repositories\UserCrud $userCrud
      * @param IMailer       $mailer
      */
     public function __construct(
         ITranslator $translator,
         $appDir,
         $contactEmail,
-        Crud\UserCrud $userCrud,
+        Repositories\UserCrud $userCrud,
         IMailer $mailer
     ) {
         parent::__construct();

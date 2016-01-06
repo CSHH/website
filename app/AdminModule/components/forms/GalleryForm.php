@@ -11,13 +11,13 @@ use Nette\Localization\ITranslator;
 
 class GalleryForm extends AbstractContentForm
 {
-    /** @var Crud\ImageCrud */
+    /** @var Repositories\ImageCrud */
     private $imageCrud;
 
     public function __construct(
         ITranslator $translator,
-        Crud\TagCrud $tagCrud,
-        Crud\ImageCrud $imageCrud,
+        Repositories\TagCrud $tagCrud,
+        Repositories\ImageCrud $imageCrud,
         Entities\UserEntity $user
     ) {
         parent::__construct($translator, $tagCrud, $user);

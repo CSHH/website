@@ -17,7 +17,7 @@ final class SignPresenter extends BasePresenter
     /** @var IMailer @inject */
     public $mailer;
 
-    /** @var Crud\UserCrud @inject */
+    /** @var Repositories\UserCrud @inject */
     public $userCrud;
 
     /** @var string */

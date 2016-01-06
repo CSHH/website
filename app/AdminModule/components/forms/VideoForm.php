@@ -12,7 +12,7 @@ use Nette\Localization\ITranslator;
 
 class VideoForm extends AbstractContentForm
 {
-    /** @var Crud\VideoCrud */
+    /** @var Repositories\VideoCrud */
     private $videoCrud;
 
     /** @var Entities\ArticleEntity */
@@ -20,8 +20,8 @@ class VideoForm extends AbstractContentForm
 
     public function __construct(
         ITranslator $translator,
-        Crud\TagCrud $tagCrud,
-        Crud\VideoCrud $videoCrud,
+        Repositories\TagCrud $tagCrud,
+        Repositories\VideoCrud $videoCrud,
         Entities\UserEntity $user,
         Entities\VideoEntity $item = null
     ) {

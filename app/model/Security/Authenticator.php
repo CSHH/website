@@ -15,14 +15,14 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
     /** @var ITranslator */
     private $translator;
 
-    /** @var Crud\UserCrud */
+    /** @var Repositories\UserCrud */
     private $userCrud;
 
     /**
      * @param ITranslator   $translator
-     * @param Crud\UserCrud $userCrud
+     * @param Repositories\UserCrud $userCrud
      */
-    public function __construct(ITranslator $translator, Crud\UserCrud $userCrud)
+    public function __construct(ITranslator $translator, Repositories\UserCrud $userCrud)
     {
         $this->translator = $translator;
         $this->userCrud   = $userCrud;

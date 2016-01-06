@@ -16,7 +16,7 @@ class SignPasswordForm extends Nette\Application\UI\Control
     /** @var ITranslator */
     private $translator;
 
-    /** @var Crud\UserCrud */
+    /** @var Repositories\UserCrud */
     private $userCrud;
 
     /** @var Entities\UserEntity */
@@ -24,7 +24,7 @@ class SignPasswordForm extends Nette\Application\UI\Control
 
     public function __construct(
         ITranslator $translator,
-        Crud\UserCrud $userCrud,
+        Repositories\UserCrud $userCrud,
         Entities\UserEntity $item
     ) {
         parent::__construct();
