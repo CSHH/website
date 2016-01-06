@@ -8,8 +8,8 @@ use Nette\Security\IUserStorage;
 
 abstract class SecurePresenter extends BasePresenter
 {
-    /** @var Repositories\UserCrud @inject */
-    public $userCrud;
+    /** @var Repositories\UserRepository @inject */
+    public $userRepository;
 
     protected function startup()
     {
@@ -31,6 +31,6 @@ abstract class SecurePresenter extends BasePresenter
      */
     protected function getLoggedUser()
     {
-        return $this->userCrud->getById($this->getUser()->id);
+        return $this->userRepository->getById($this->getUser()->id);
     }
 }

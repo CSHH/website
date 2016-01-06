@@ -25,8 +25,8 @@ class SignResetForm extends Nette\Application\UI\Control
     /** @var string */
     private $contactEmail;
 
-    /** @var Repositories\UserCrud */
-    private $userCrud;
+    /** @var Repositories\UserRepository */
+    private $userRepository;
 
     /** @var IMailer */
     private $mailer;
@@ -35,14 +35,14 @@ class SignResetForm extends Nette\Application\UI\Control
      * @param ITranslator   $translator
      * @param string        $appDir
      * @param string        $contactEmail
-     * @param Repositories\UserCrud $userCrud
+     * @param Repositories\UserRepository $userRepository
      * @param IMailer       $mailer
      */
     public function __construct(
         ITranslator $translator,
         $appDir,
         $contactEmail,
-        Repositories\UserCrud $userCrud,
+        Repositories\UserRepository $userRepository,
         IMailer $mailer
     ) {
         parent::__construct();
@@ -50,7 +50,7 @@ class SignResetForm extends Nette\Application\UI\Control
         $this->translator   = $translator;
         $this->appDir       = $appDir;
         $this->contactEmail = $contactEmail;
-        $this->userCrud     = $userCrud;
+        $this->userRepository     = $userRepository;
         $this->mailer       = $mailer;
     }
 
@@ -92,12 +92,12 @@ class SignResetForm extends Nette\Application\UI\Control
             }
             unset($values->__anti);
 
-            $user = $this->userCrud->getByEmail($values->email);
+            $user = $this->userRepository->getByEmail($values->email);
             if (!$user) {
                 throw new UserNotFoundException;
             }
 
-            $token = $this->userCrud->prepareNewToken($user);
+            $token = $this->userRepository->prepareNewToken($user);
 
             $link = $p->link(
                 '//Sign:password',

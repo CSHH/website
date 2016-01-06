@@ -8,7 +8,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Kdyby\Doctrine\EntityDao;
 use HeavenProject\FileManagement\FileManager;
 
-class ImageCrud extends BaseCrud
+class ImageRepository extends BaseRepository
 {
     /** @var EntityManager */
     private $em;

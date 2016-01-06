@@ -5,7 +5,7 @@ namespace App\Model\Repositories;
 use App\Model\Entities;
 use Kdyby\Doctrine\EntityDao;
 
-abstract class BaseCrud
+abstract class BaseRepository
 {
     /** @var EntityDao */
     protected $dao;

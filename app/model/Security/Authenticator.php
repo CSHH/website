@@ -15,17 +15,17 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
     /** @var ITranslator */
     private $translator;
 
-    /** @var Repositories\UserCrud */
-    private $userCrud;
+    /** @var Repositories\UserRepository */
+    private $userRepository;
 
     /**
      * @param ITranslator   $translator
-     * @param Repositories\UserCrud $userCrud
+     * @param Repositories\UserRepository $userRepository
      */
-    public function __construct(ITranslator $translator, Repositories\UserCrud $userCrud)
+    public function __construct(ITranslator $translator, Repositories\UserRepository $userRepository)
     {
         $this->translator = $translator;
-        $this->userCrud   = $userCrud;
+        $this->userRepository   = $userRepository;
     }
 
     /**
@@ -36,7 +36,7 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
     {
         list($email, $password) = $credentials;
 
-        $user = $this->userCrud->getByEmail($email);
+        $user = $this->userRepository->getByEmail($email);
 
         if (!$user) {
             throw new Nette\Security\AuthenticationException(
@@ -54,7 +54,7 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
                 self::INVALID_CREDENTIAL
             );
         } elseif (Passwords::needsRehash($user->password)) {
-            $this->userCrud->updatePassword($user, $user->password);
+            $this->userRepository->updatePassword($user, $user->password);
         }
 
         $data = array(

@@ -14,7 +14,7 @@ use Kdyby\Doctrine\EntityManager;
 use Nette\Localization\ITranslator;
 use Nette\Utils\ArrayHash;
 
-class WikiCrud extends BaseCrud
+class WikiRepository extends BaseRepository
 {
     use DuplicityChecker;
 

@@ -15,7 +15,7 @@ use Nette\Utils\ArrayHash;
 use Nette\Utils\DateTime;
 use Nette\Utils\Random;
 
-class UserCrud extends BaseCrud
+class UserRepository extends BaseRepository
 {
     use DuplicityChecker;
 

@@ -20,7 +20,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
     public function actionForm($id = null)
     {
         if ($id !== null) {
-            $item = $this->articleCrud->getById($id);
+            $item = $this->articleRepository->getById($id);
             $user = $this->getLoggedUser();
             if (!$item || $item->user->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
@@ -33,7 +33,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $items = $this->articleCrud->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
+        $items = $this->articleRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
         $this->preparePaginator($items->count(), 10);
         $this->items = $items;
     }
@@ -50,8 +50,8 @@ final class ArticlePresenter extends SingleUserContentPresenter
     {
         return new Forms\ArticleForm(
             $this->translator,
-            $this->tagCrud,
-            $this->articleCrud,
+            $this->tagRepository,
+            $this->articleRepository,
             $this->getLoggedUser(),
             $this->item
         );

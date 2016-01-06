@@ -14,7 +14,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
      */
     public function actionDefault($tagSlug)
     {
-        $this->images = $this->runActionDefault($this->imageCrud, $tagSlug, 50);
+        $this->images = $this->runActionDefault($this->imageRepository, $tagSlug, 50);
     }
 
     public function renderDefault()

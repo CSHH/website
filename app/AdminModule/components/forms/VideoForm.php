@@ -12,22 +12,22 @@ use Nette\Localization\ITranslator;
 
 class VideoForm extends AbstractContentForm
 {
-    /** @var Repositories\VideoCrud */
-    private $videoCrud;
+    /** @var Repositories\VideoRepository */
+    private $videoRepository;
 
     /** @var Entities\ArticleEntity */
     private $item;
 
     public function __construct(
         ITranslator $translator,
-        Repositories\TagCrud $tagCrud,
-        Repositories\VideoCrud $videoCrud,
+        Repositories\TagRepository $tagRepository,
+        Repositories\VideoRepository $videoRepository,
         Entities\UserEntity $user,
         Entities\VideoEntity $item = null
     ) {
-        parent::__construct($translator, $tagCrud, $user);
+        parent::__construct($translator, $tagRepository, $user);
 
-        $this->videoCrud = $videoCrud;
+        $this->videoRepository = $videoRepository;
         $this->item      = $item;
     }
 
@@ -48,10 +48,10 @@ class VideoForm extends AbstractContentForm
             $tag    = $this->getSelectedTag($form);
 
             if ($this->item) {
-                $ent = $this->videoCrud->update($values, $tag, $this->user, $this->item);
+                $ent = $this->videoRepository->update($values, $tag, $this->user, $this->item);
                 $p->flashMessage($this->translator->translate('locale.item.updated'));
             } else {
-                $ent = $this->videoCrud->create($values, $tag, $this->user, new Entities\VideoEntity);
+                $ent = $this->videoRepository->create($values, $tag, $this->user, new Entities\VideoEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
 

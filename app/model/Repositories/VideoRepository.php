@@ -16,7 +16,7 @@ use HeavenProject\Utils\Slugger;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 
-class VideoCrud extends BaseCrud
+class VideoRepository extends BaseRepository
 {
     use DuplicityChecker;
 

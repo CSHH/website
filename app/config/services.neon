@@ -1,16 +1,16 @@
 services:
     router: App\RouterFactory::createRouter
-    - App\Model\Repositories\ArticleCrud(@doctrine.dao(App\Model\Entities\ArticleEntity))
-    - App\Model\Repositories\ImageCrud(
+    - App\Model\Repositories\ArticleRepository(@doctrine.dao(App\Model\Entities\ArticleEntity))
+    - App\Model\Repositories\ImageRepository(
         %wwwDir%,
         %uploadDir%,
         @doctrine.dao(App\Model\Entities\ImageEntity),
         @doctrine.dao(App\Model\Entities\FileEntity)
     )
-    - App\Model\Repositories\TagCrud(@doctrine.dao(App\Model\Entities\TagEntity))
-    - App\Model\Repositories\UserCrud(@doctrine.dao(App\Model\Entities\UserEntity))
-    - App\Model\Repositories\VideoCrud(
+    - App\Model\Repositories\TagRepository(@doctrine.dao(App\Model\Entities\TagEntity))
+    - App\Model\Repositories\UserRepository(@doctrine.dao(App\Model\Entities\UserEntity))
+    - App\Model\Repositories\VideoRepository(
         %vimeoOembedEndpoint%,
         @doctrine.dao(App\Model\Entities\VideoEntity)
     )
-    - App\Model\Repositories\WikiCrud(@doctrine.dao(App\Model\Entities\WikiEntity))
+    - App\Model\Repositories\WikiRepository(@doctrine.dao(App\Model\Entities\WikiEntity))

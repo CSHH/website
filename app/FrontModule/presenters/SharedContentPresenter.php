@@ -22,7 +22,7 @@ abstract class SharedContentPresenter extends PageablePresenter
 
         $this->throw404IfNoTagOrSlug($tag, $slug);
 
-        $wiki = $this->wikiCrud->getByTagAndSlug($tag, $slug);
+        $wiki = $this->wikiRepository->getByTagAndSlug($tag, $slug);
 
         if (!$wiki) {
             $this->throw404();
@@ -46,8 +46,8 @@ abstract class SharedContentPresenter extends PageablePresenter
         $tag = $this->getTag($tagSlug);
 
         $wikis = $tag
-            ? $this->wikiCrud->getAllByTagForPage($this->page, $limit, $tag, $type)
-            : $this->wikiCrud->getAllForPage($this->page, $limit, $type);
+            ? $this->wikiRepository->getAllByTagForPage($this->page, $limit, $tag, $type)
+            : $this->wikiRepository->getAllForPage($this->page, $limit, $type);
 
         $this->preparePaginator($wikis->count(), $limit);
 

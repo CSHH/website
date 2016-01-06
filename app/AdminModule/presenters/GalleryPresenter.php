@@ -12,7 +12,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $items = $this->imageCrud->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
+        $items = $this->imageRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
         $this->preparePaginator($items->count(), 10);
         $this->items = $items;
     }
@@ -29,8 +29,8 @@ final class GalleryPresenter extends SingleUserContentPresenter
     {
         return new Forms\GalleryForm(
             $this->translator,
-            $this->tagCrud,
-            $this->imageCrud,
+            $this->tagRepository,
+            $this->imageRepository,
             $this->getLoggedUser()
         );
     }

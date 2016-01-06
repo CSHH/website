@@ -11,8 +11,8 @@ use Nette\Localization\ITranslator;
 
 class WikiForm extends AbstractContentForm
 {
-    /** @var Repositories\WikiCrud */
-    private $wikiCrud;
+    /** @var Repositories\WikiRepository */
+    private $wikiRepository;
 
     /** @var string */
     private $type;
@@ -22,23 +22,23 @@ class WikiForm extends AbstractContentForm
 
     /**
      * @param ITranslator $translator
-     * @param Repositories\TagCrud $tagCrud
-     * @param Repositories\WikiCrud $wikiCrud
+     * @param Repositories\TagRepository $tagRepository
+     * @param Repositories\WikiRepository $wikiRepository
      * @param Entities\UserEntity $user
      * @param string $type
      * @param Entities\WikiEntity $item
      */
     public function __construct(
         ITranslator $translator,
-        Repositories\TagCrud $tagCrud,
-        Repositories\WikiCrud $wikiCrud,
+        Repositories\TagRepository $tagRepository,
+        Repositories\WikiRepository $wikiRepository,
         Entities\UserEntity $user,
         $type,
         Entities\WikiEntity $item = null
     ) {
-        parent::__construct($translator, $tagCrud, $user);
+        parent::__construct($translator, $tagRepository, $user);
 
-        $this->wikiCrud = $wikiCrud;
+        $this->wikiRepository = $wikiRepository;
         $this->type     = $type;
         $this->item     = $item;
     }
@@ -63,10 +63,10 @@ class WikiForm extends AbstractContentForm
             $tag    = $this->getSelectedTag($form);
 
             if ($this->item) {
-                $ent = $this->wikiCrud->update($values, $tag, $this->user, $this->type, $this->item);
+                $ent = $this->wikiRepository->update($values, $tag, $this->user, $this->type, $this->item);
                 $p->flashMessage($this->translator->translate('locale.item.updated'));
             } else {
-                $ent = $this->wikiCrud->create($values, $tag, $this->user, $this->type, new Entities\WikiEntity);
+                $ent = $this->wikiRepository->create($values, $tag, $this->user, $this->type, new Entities\WikiEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
 
