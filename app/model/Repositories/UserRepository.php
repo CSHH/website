@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Crud;
+namespace App\Model\Repositories;
 
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
@@ -15,7 +15,7 @@ use Nette\Utils\ArrayHash;
 use Nette\Utils\DateTime;
 use Nette\Utils\Random;
 
-class UserCrud extends BaseCrud
+class UserRepository extends BaseRepository
 {
     use DuplicityChecker;
 

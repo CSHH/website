@@ -2,14 +2,14 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use Nette\Security\IUserStorage;
 
 abstract class SecurePresenter extends BasePresenter
 {
-    /** @var Crud\UserCrud @inject */
-    public $userCrud;
+    /** @var Repositories\UserRepository @inject */
+    public $userRepository;
 
     protected function startup()
     {
@@ -31,6 +31,6 @@ abstract class SecurePresenter extends BasePresenter
      */
     protected function getLoggedUser()
     {
-        return $this->userCrud->getById($this->getUser()->id);
+        return $this->userRepository->getById($this->getUser()->id);
     }
 }

@@ -49,7 +49,7 @@ abstract class PageablePresenter extends BasePresenter
      */
     protected function getTag($tagSlug)
     {
-        return $tagSlug ? $this->tagCrud->getBySlug($tagSlug) : null;
+        return $tagSlug ? $this->tagRepository->getBySlug($tagSlug) : null;
     }
 
     /**

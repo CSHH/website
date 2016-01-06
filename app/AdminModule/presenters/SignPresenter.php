@@ -3,7 +3,7 @@
 namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Entities;
 use App\Model\Exceptions\ActivationLimitExpiredException;
 use App\Model\Exceptions\UserNotFoundException;
@@ -17,8 +17,8 @@ final class SignPresenter extends BasePresenter
     /** @var IMailer @inject */
     public $mailer;
 
-    /** @var Crud\UserCrud @inject */
-    public $userCrud;
+    /** @var Repositories\UserRepository @inject */
+    public $userRepository;
 
     /** @var string */
     protected $appDir;
@@ -62,7 +62,7 @@ final class SignPresenter extends BasePresenter
         }
 
         try {
-            $this->userCrud->unlock($userId, $token);
+            $this->userRepository->unlock($userId, $token);
             $this->flashMessage('Váš účet byl úspěšně aktivován. Přihlašte se prosím.');
         } catch (UserNotFoundException $e) {
             Tracy\Debugger::barDump($e->getMessage());
@@ -102,14 +102,14 @@ final class SignPresenter extends BasePresenter
 
         $this->flashMessage('Zadejte prosím své nové heslo.');
 
-        $this->e = $this->userCrud->getById($uid);
+        $this->e = $this->userRepository->getById($uid);
 
         try {
             if (!$this->e) {
                 throw new UserNotFoundException('Uživatel nebyl nalezen.');
             }
 
-            $this->userCrud->checkForTokenExpiration($this->e, $token);
+            $this->userRepository->checkForTokenExpiration($this->e, $token);
         } catch (UserNotFoundException $e) {
             $this->flashMessage($e->getMessage());
             $this->redirect('Sign:in');
@@ -126,8 +126,8 @@ final class SignPresenter extends BasePresenter
     {
         return new Forms\SignUpForm(
             $this->translator,
-            $this->userCrud,
-            new Authenticator($this->userCrud),
+            $this->userRepository,
+            new Authenticator($this->userRepository),
             $this->mailer,
             $this->contactEmail
         );
@@ -140,7 +140,7 @@ final class SignPresenter extends BasePresenter
     {
         return new Forms\SignInForm(
             $this->translator,
-            new Authenticator($this->translator, $this->userCrud)
+            new Authenticator($this->translator, $this->userRepository)
         );
     }
 
@@ -153,7 +153,7 @@ final class SignPresenter extends BasePresenter
             $this->translator,
             $this->appDir,
             $this->contactEmail,
-            $this->userCrud,
+            $this->userRepository,
             $this->mailer
         );
     }
@@ -165,7 +165,7 @@ final class SignPresenter extends BasePresenter
     {
         return new Forms\SignPasswordForm(
             $this->translator,
-            $this->userCrud,
+            $this->userRepository,
             $this->e
         );
     }

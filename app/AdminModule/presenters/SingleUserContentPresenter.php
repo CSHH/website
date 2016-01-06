@@ -2,24 +2,24 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
     /**
-     * @param  Crud\BaseCrud $crud
+     * @param  Repositories\BaseRepository $repository
      * @param  string        $tagSlug
      * @param  int           $limit
      * @return Paginator
      */
-    protected function runActionDefault(Crud\BaseCrud $crud, $tagSlug, $limit)
+    protected function runActionDefault(Repositories\BaseRepository $repository, $tagSlug, $limit)
     {
         $tag = $this->getTag($tagSlug);
 
         $items = $tag
-            ? $crud->getAllByTagForPage($this->page, $limit, $tag)
-            : $crud->getAllForPage($this->page, $limit);
+            ? $repository->getAllByTagForPage($this->page, $limit, $tag)
+            : $repository->getAllForPage($this->page, $limit);
 
         $this->preparePaginator($items->count(), $limit);
 

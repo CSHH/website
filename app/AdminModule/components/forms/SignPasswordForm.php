@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Components\Forms;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Entities;
 use App\Model\Exceptions\PossibleUniqueKeyDuplicationException;
 use HeavenProject\Utils\FlashType;
@@ -16,21 +16,21 @@ class SignPasswordForm extends Nette\Application\UI\Control
     /** @var ITranslator */
     private $translator;
 
-    /** @var Crud\UserCrud */
-    private $userCrud;
+    /** @var Repositories\UserRepository */
+    private $userRepository;
 
     /** @var Entities\UserEntity */
     private $item;
 
     public function __construct(
         ITranslator $translator,
-        Crud\UserCrud $userCrud,
+        Repositories\UserRepository $userRepository,
         Entities\UserEntity $item
     ) {
         parent::__construct();
 
         $this->translator = $translator;
-        $this->userCrud   = $userCrud;
+        $this->userRepository   = $userRepository;
         $this->item       = $item;
     }
 
@@ -65,7 +65,7 @@ class SignPasswordForm extends Nette\Application\UI\Control
 
             $values = $form->getValues();
 
-            $this->userCrud->updatePassword($this->item, $values->password, true);
+            $this->userRepository->updatePassword($this->item, $values->password, true);
 
             $p->flashMessage($this->translator->translate('locale.sign.password_changed_sign_in'), FlashType::INFO);
         } catch (PossibleUniqueKeyDuplicationException $e) {

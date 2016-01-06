@@ -3,34 +3,34 @@
 namespace App\FrontModule\Presenters;
 
 use App;
-use App\Model\Crud;
+use App\Model\Repositories;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
 {
-    /** @var Crud\ArticleCrud @inject */
-    public $articleCrud;
+    /** @var Repositories\ArticleRepository @inject */
+    public $articleRepository;
 
-    /** @var Crud\ImageCrud @inject */
-    public $imageCrud;
+    /** @var Repositories\ImageRepository @inject */
+    public $imageRepository;
 
-    /** @var Crud\VideoCrud @inject */
-    public $videoCrud;
+    /** @var Repositories\VideoRepository @inject */
+    public $videoRepository;
 
-    /** @var Crud\WikiCrud @inject */
-    public $wikiCrud;
+    /** @var Repositories\WikiRepository @inject */
+    public $wikiRepository;
 
-    /** @var Crud\TagCrud @inject */
-    public $tagCrud;
+    /** @var Repositories\TagRepository @inject */
+    public $tagRepository;
 
     protected function beforeRender()
     {
         parent::beforeRender();
 
-        $this->template->articleCrud = $this->articleCrud;
-        $this->template->imageCrud   = $this->imageCrud;
-        $this->template->videoCrud   = $this->videoCrud;
-        $this->template->wikiCrud    = $this->wikiCrud;
-        $this->template->tagCrud     = $this->tagCrud;
+        $this->template->articleRepository = $this->articleRepository;
+        $this->template->imageRepository   = $this->imageRepository;
+        $this->template->videoRepository   = $this->videoRepository;
+        $this->template->wikiRepository    = $this->wikiRepository;
+        $this->template->tagRepository     = $this->tagRepository;
 
         $this->template->uploadDir = $this->context->parameters['uploadDir'];
     }

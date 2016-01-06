@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Components\Forms;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
 use App\Model\Exceptions;
@@ -11,18 +11,18 @@ use Nette\Localization\ITranslator;
 
 class GalleryForm extends AbstractContentForm
 {
-    /** @var Crud\ImageCrud */
-    private $imageCrud;
+    /** @var Repositories\ImageRepository */
+    private $imageRepository;
 
     public function __construct(
         ITranslator $translator,
-        Crud\TagCrud $tagCrud,
-        Crud\ImageCrud $imageCrud,
+        Repositories\TagRepository $tagRepository,
+        Repositories\ImageRepository $imageRepository,
         Entities\UserEntity $user
     ) {
-        parent::__construct($translator, $tagCrud, $user);
+        parent::__construct($translator, $tagRepository, $user);
 
-        $this->imageCrud  = $imageCrud;
+        $this->imageRepository  = $imageRepository;
     }
 
     protected function configure(Form $form)
@@ -39,7 +39,7 @@ class GalleryForm extends AbstractContentForm
 
             $images = $form->getHttpData(Form::DATA_FILE, 'images[]');
 
-            $this->imageCrud->uploadImages($tag, $images, $this->user);
+            $this->imageRepository->uploadImages($tag, $images, $this->user);
             $p->flashMessage($this->translator->translate('locale.item.images_uploaded'));
 
         } catch (Exceptions\MissingTagException $e) {

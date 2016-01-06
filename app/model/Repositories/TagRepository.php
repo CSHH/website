@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Model\Crud;
+namespace App\Model\Repositories;
 
 use App\Model\Entities;
 use Kdyby\Doctrine\EntityDao;
 
-class TagCrud extends BaseCrud
+class TagRepository extends BaseRepository
 {
     public function __construct(EntityDao $dao)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Crud;
+namespace App\Model\Repositories;
 
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
@@ -14,7 +14,7 @@ use Kdyby\Doctrine\EntityManager;
 use Nette\Localization\ITranslator;
 use Nette\Utils\ArrayHash;
 
-class ArticleCrud extends BaseCrud
+class ArticleRepository extends BaseRepository
 {
     use DuplicityChecker;
 

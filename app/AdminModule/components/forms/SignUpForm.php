@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Components\Forms;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Exceptions\FormSentBySpamException;
 use HeavenProject\Utils\FlashType;
@@ -19,8 +19,8 @@ class SignUpForm extends Nette\Application\UI\Control
     /** @var ITranslator */
     private $translator;
 
-    /** @var Crud\UserCrud */
-    private $userCrud;
+    /** @var Repositories\UserRepository */
+    private $userRepository;
 
     /** @var IAuthenticator */
     private $authenticator;
@@ -33,14 +33,14 @@ class SignUpForm extends Nette\Application\UI\Control
 
     /**
      * @param ITranslator    $translator
-     * @param Crud\UserCrud  $userCrud
+     * @param Repositories\UserRepository  $userRepository
      * @param IAuthenticator $authenticator
      * @param IMailer        $mailer
      * @param string         $contactEmail
      */
     public function __construct(
         ITranslator $translator,
-        Crud\UserCrud $userCrud,
+        Repositories\UserRepository $userRepository,
         IAuthenticator $authenticator,
         IMailer $mailer,
         $contactEmail
@@ -48,7 +48,7 @@ class SignUpForm extends Nette\Application\UI\Control
         parent::__construct();
 
         $this->translator    = $translator;
-        $this->userCrud      = $userCrud;
+        $this->userRepository      = $userRepository;
         $this->authenticator = $authenticator;
         $this->mailer        = $mailer;
         $this->contactEmail  = $contactEmail;
@@ -103,7 +103,7 @@ class SignUpForm extends Nette\Application\UI\Control
             }
             unset($values->__anti);
 
-            $user = $this->userCrud->createRegistration($values);
+            $user = $this->userRepository->createRegistration($values);
             $this->sendEmail($this->contactEmail, $user->email, $user->token, $user->id);
 
             $p->flashMessage(

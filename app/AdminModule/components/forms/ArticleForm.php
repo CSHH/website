@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Components\Forms;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
 use App\Model\Exceptions;
@@ -11,22 +11,22 @@ use Nette\Localization\ITranslator;
 
 class ArticleForm extends AbstractContentForm
 {
-    /** @var Crud\ArticleCrud */
-    private $articleCrud;
+    /** @var Repositories\ArticleRepository */
+    private $articleRepository;
 
     /** @var Entities\ArticleEntity */
     private $item;
 
     public function __construct(
         ITranslator $translator,
-        Crud\TagCrud $tagCrud,
-        Crud\ArticleCrud $articleCrud,
+        Repositories\TagRepository $tagRepository,
+        Repositories\ArticleRepository $articleRepository,
         Entities\UserEntity $user,
         Entities\ArticleEntity $item = null
     ) {
-        parent::__construct($translator, $tagCrud, $user);
+        parent::__construct($translator, $tagRepository, $user);
 
-        $this->articleCrud = $articleCrud;
+        $this->articleRepository = $articleRepository;
         $this->item        = $item;
     }
 
@@ -50,10 +50,10 @@ class ArticleForm extends AbstractContentForm
             $tag    = $this->getSelectedTag($form);
 
             if ($this->item) {
-                $ent = $this->articleCrud->update($values, $tag, $this->user, $this->item);
+                $ent = $this->articleRepository->update($values, $tag, $this->user, $this->item);
                 $p->flashMessage($this->translator->translate('locale.item.updated'));
             } else {
-                $ent = $this->articleCrud->create($values, $tag, $this->user, new Entities\ArticleEntity);
+                $ent = $this->articleRepository->create($values, $tag, $this->user, new Entities\ArticleEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
 

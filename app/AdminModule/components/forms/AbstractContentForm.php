@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Components\Forms;
 
-use App\Model\Crud;
+use App\Model\Repositories;
 use App\Model\Entities;
 use App\Model\Exceptions;
 use Nette;
@@ -15,21 +15,21 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
     /** @var ITranslator */
     protected $translator;
 
-    /** @var Crud\TagCrud */
-    protected $tagCrud;
+    /** @var Repositories\TagRepository */
+    protected $tagRepository;
 
     /** @var Entities\UserEntity */
     protected $user;
 
     public function __construct(
         ITranslator $translator,
-        Crud\TagCrud $tagCrud,
+        Repositories\TagRepository $tagRepository,
         Entities\UserEntity $user
     ) {
         parent::__construct();
 
         $this->translator = $translator;
-        $this->tagCrud    = $tagCrud;
+        $this->tagRepository    = $tagRepository;
         $this->user       = $user;
     }
 
@@ -63,7 +63,7 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
     protected function getSelectedTag(Form $form)
     {
         $tagId = $form->getHttpData(Form::DATA_LINE, 'tagId');
-        $tag   = $tagId ? $this->tagCrud->getById($tagId) : null;
+        $tag   = $tagId ? $this->tagRepository->getById($tagId) : null;
 
         if (!$tag) {
             throw new Exceptions\MissingTagException(
@@ -80,7 +80,7 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
     protected function getTags()
     {
         $tags = array();
-        foreach ($this->tagCrud->getAll() as $tag) {
+        foreach ($this->tagRepository->getAll() as $tag) {
             $tags[$tag->id] = $tag->name;
         }
 

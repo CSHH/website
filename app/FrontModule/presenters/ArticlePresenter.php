@@ -17,7 +17,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
      */
     public function actionDefault($tagSlug)
     {
-        $this->articles = $this->runActionDefault($this->articleCrud, $tagSlug, 10);
+        $this->articles = $this->runActionDefault($this->articleRepository, $tagSlug, 10);
     }
 
     public function renderDefault()
@@ -37,7 +37,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
 
         $this->throw404IfNoTagOrSlug($tag, $slug);
 
-        $article = $this->articleCrud->getByTagAndSlug($tag, $slug);
+        $article = $this->articleRepository->getByTagAndSlug($tag, $slug);
 
         if (!$article) {
             $this->throw404();

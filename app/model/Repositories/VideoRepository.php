@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Crud;
+namespace App\Model\Repositories;
 
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Entities;
@@ -16,7 +16,7 @@ use HeavenProject\Utils\Slugger;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 
-class VideoCrud extends BaseCrud
+class VideoRepository extends BaseRepository
 {
     use DuplicityChecker;
 

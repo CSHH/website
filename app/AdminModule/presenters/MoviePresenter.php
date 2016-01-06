@@ -20,7 +20,7 @@ final class MoviePresenter extends SharedContentPresenter
     public function actionForm($id = null)
     {
         if ($id !== null) {
-            $item = $this->wikiCrud->getById($id);
+            $item = $this->wikiRepository->getById($id);
             $user = $this->getLoggedUser();
             if (!$item || $item->type !== Entities\WikiEntity::TYPE_MOVIE || $item->createdBy->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
@@ -33,7 +33,7 @@ final class MoviePresenter extends SharedContentPresenter
 
     public function actionDefault()
     {
-        $items = $this->wikiCrud->getAllByUserForPage($this->page, 10, $this->getLoggedUser(), Entities\WikiEntity::TYPE_MOVIE);
+        $items = $this->wikiRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser(), Entities\WikiEntity::TYPE_MOVIE);
         $this->preparePaginator($items->count(), 10);
         $this->items = $items;
     }
@@ -50,8 +50,8 @@ final class MoviePresenter extends SharedContentPresenter
     {
         return new Forms\WikiForm(
             $this->translator,
-            $this->tagCrud,
-            $this->wikiCrud,
+            $this->tagRepository,
+            $this->wikiRepository,
             $this->getLoggedUser(),
             Entities\WikiEntity::TYPE_MOVIE,
             $this->item

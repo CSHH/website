@@ -20,7 +20,7 @@ final class VideoPresenter extends SingleUserContentPresenter
     public function actionForm($id = null)
     {
         if ($id !== null) {
-            $item = $this->videoCrud->getById($id);
+            $item = $this->videoRepository->getById($id);
             $user = $this->getLoggedUser();
             if (!$item || $item->user->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
@@ -33,7 +33,7 @@ final class VideoPresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $items = $this->videoCrud->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
+        $items = $this->videoRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
         $this->preparePaginator($items->count(), 10);
         $this->items = $items;
     }
@@ -50,8 +50,8 @@ final class VideoPresenter extends SingleUserContentPresenter
     {
         return new Forms\VideoForm(
             $this->translator,
-            $this->tagCrud,
-            $this->videoCrud,
+            $this->tagRepository,
+            $this->videoRepository,
             $this->getLoggedUser(),
             $this->item
         );
