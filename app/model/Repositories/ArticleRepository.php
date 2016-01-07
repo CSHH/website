@@ -99,7 +99,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllForPage($page, $limit, $activeOnly = false)
     {
-        return $this->doGetAllFoPage(Entities\ArticleEntity::getClassName(), $page, $limit, $activeOnly);
+        return $this->doGetAllForPage(Entities\ArticleEntity::getClassName(), $page, $limit, $activeOnly);
     }
 
     /**
