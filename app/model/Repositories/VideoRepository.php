@@ -13,8 +13,6 @@ use Nette\Utils\ArrayHash;
 use Nette\Utils\Strings;
 use Nette\Localization\ITranslator;
 use HeavenProject\Utils\Slugger;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 
 class VideoRepository extends SingleUserContentRepository
 {
@@ -163,6 +161,26 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  Entities\TagEntity $tag
+     * @param  string $name
+     * @return Entities\VideoEntity|null
+     */
+    public function getByTagAndName(Entities\TagEntity $tag, $name)
+    {
+        return $this->doGetByTagAndName(Entities\VideoEntity::getClassName(), $tag, $name);
+    }
+
+    /**
+     * @param  Entities\TagEntity $tag
+     * @param  string $slug
+     * @return Entities\VideoEntity|null
+     */
+    public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
+    {
+        return $this->doGetByTagAndSlug(Entities\VideoEntity::getClassName(), $tag, $slug);
+    }
+
+    /**
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
@@ -183,58 +201,6 @@ class VideoRepository extends SingleUserContentRepository
     public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
     {
         return $this->doGetAllByUserForPage(Entities\VideoEntity::getClassName(), $page, $limit, $user);
-    }
-
-    /**
-     * @param  Entities\TagEntity $tag
-     * @param  string $name
-     * @return Entities\VideoEntity|null
-     */
-    public function getByTagAndName(Entities\TagEntity $tag, $name)
-    {
-        try {
-            return $this->dao->createQueryBuilder()
-                ->select('v')
-                ->from(Entities\VideoEntity::getClassName(), 'v')
-                ->join('v.tag', 't')
-                ->where('t.id = :tagId AND v.name = :name')
-                ->setParameters(array(
-                    'tagId' => $tag->id,
-                    'name'  => $name,
-                ))
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
-    }
-
-    /**
-     * @param  Entities\TagEntity $tag
-     * @param  string $slug
-     * @return Entities\VideoEntity|null
-     */
-    public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
-    {
-        try {
-            return $this->dao->createQueryBuilder()
-                ->select('v')
-                ->from(Entities\VideoEntity::getClassName(), 'v')
-                ->join('v.tag', 't')
-                ->where('t.id = :tagId AND v.slug = :slug')
-                ->setParameters(array(
-                    'tagId' => $tag->id,
-                    'slug'  => $slug,
-                ))
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
     }
 
     /**

@@ -5,8 +5,6 @@ namespace App\Model\Repositories;
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use HeavenProject\Utils\Slugger;
 use Kdyby\Doctrine\EntityDao;
@@ -114,6 +112,26 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  Entities\TagEntity          $tag
+     * @param  string                      $name
+     * @return Entities\ArticleEntity|null
+     */
+    public function getByTagAndName(Entities\TagEntity $tag, $name)
+    {
+        return $this->doGetByTagAndName(Entities\ArticleEntity::getClassName(), $tag, $name);
+    }
+
+    /**
+     * @param  Entities\TagEntity          $tag
+     * @param  string                      $slug
+     * @return Entities\ArticleEntity|null
+     */
+    public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
+    {
+        return $this->doGetByTagAndSlug(Entities\ArticleEntity::getClassName(), $tag, $slug);
+    }
+
+    /**
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
@@ -134,58 +152,6 @@ class ArticleRepository extends SingleUserContentRepository
     public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
     {
         return $this->doGetAllByUserForPage(Entities\ArticleEntity::getClassName(), $page, $limit, $user);
-    }
-
-    /**
-     * @param  Entities\TagEntity          $tag
-     * @param  string                      $name
-     * @return Entities\ArticleEntity|null
-     */
-    public function getByTagAndName(Entities\TagEntity $tag, $name)
-    {
-        try {
-            return $this->dao->createQueryBuilder()
-                ->select('a')
-                ->from(Entities\ArticleEntity::getClassName(), 'a')
-                ->join('a.tag', 't')
-                ->where('t.id = :tagId AND a.name = :name')
-                ->setParameters(array(
-                    'tagId' => $tag->id,
-                    'name'  => $name,
-                ))
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
-    }
-
-    /**
-     * @param  Entities\TagEntity          $tag
-     * @param  string                      $slug
-     * @return Entities\ArticleEntity|null
-     */
-    public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
-    {
-        try {
-            return $this->dao->createQueryBuilder()
-                ->select('a')
-                ->from(Entities\ArticleEntity::getClassName(), 'a')
-                ->join('a.tag', 't')
-                ->where('t.id = :tagId AND a.slug = :slug')
-                ->setParameters(array(
-                    'tagId' => $tag->id,
-                    'slug'  => $slug,
-                ))
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
     }
 
     /**
