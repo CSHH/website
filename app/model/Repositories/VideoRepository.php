@@ -16,7 +16,7 @@ use HeavenProject\Utils\Slugger;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 
-class VideoRepository extends BaseRepository
+class VideoRepository extends SingleUserContentRepository
 {
     use DuplicityChecker;
 
@@ -25,9 +25,6 @@ class VideoRepository extends BaseRepository
 
     /** @var ITranslator */
     private $translator;
-
-    /** @var EntityManager */
-    private $em;
 
     /**
      * @param string        $vimeoOembedEndpoint
@@ -41,11 +38,10 @@ class VideoRepository extends BaseRepository
         ITranslator $translator,
         EntityManager $em
     ) {
-        parent::__construct($dao);
+        parent::__construct($dao, $em);
 
         $this->vimeoOembedEndpoint = $vimeoOembedEndpoint;
         $this->translator          = $translator;
-        $this->em                  = $em;
     }
 
     public function create(
@@ -147,6 +143,49 @@ class VideoRepository extends BaseRepository
     }
 
     /**
+     * @param  int       $page
+     * @param  int       $limit
+     * @param  bool      $activeOnly
+     * @return Paginator
+     */
+    public function getAllForPage($page, $limit, $activeOnly = false)
+    {
+        return $this->doGetAllForPage(Entities\VideoEntity::getClassName(), $page, $limit, $activeOnly);
+    }
+
+    /**
+     * @param  Entities\TagEntity     $tag
+     * @return Entities\VideoEntity[]
+     */
+    public function getAllByTag(Entities\TagEntity $tag)
+    {
+        return $this->doGetAllByTag(Entities\VideoEntity::getClassName(), $tag);
+    }
+
+    /**
+     * @param  int                $page
+     * @param  int                $limit
+     * @param  Entities\TagEntity $tag
+     * @param  bool               $activeOnly
+     * @return Paginator
+     */
+    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $activeOnly = false)
+    {
+        return $this->doGetAllByTagForPage(Entities\VideoEntity::getClassName(), $page, $limit, $tag, $activeOnly);
+    }
+
+    /**
+     * @param  int                 $page
+     * @param  int                 $limit
+     * @param  Entities\UserEntity $user
+     * @return Paginator
+     */
+    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
+    {
+        return $this->doGetAllByUserForPage(Entities\VideoEntity::getClassName(), $page, $limit, $user);
+    }
+
+    /**
      * @param  Entities\TagEntity $tag
      * @param  string $name
      * @return Entities\VideoEntity|null
@@ -196,94 +235,6 @@ class VideoRepository extends BaseRepository
         } catch (NoResultException $e) {
             return null;
         }
-    }
-
-    /**
-     * @param  int       $page
-     * @param  int       $limit
-     * @param  bool      $activeOnly
-     * @return Paginator
-     */
-    public function getAllForPage($page, $limit, $activeOnly = false)
-    {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('v')
-            ->from(Entities\VideoEntity::getClassName(), 'v');
-
-        if ($activeOnly) {
-            $qb->where('v.isActive = :state')
-                ->setParameter('state', true);
-        }
-
-        $qb->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
-    }
-
-    /**
-     * @param  int                $page
-     * @param  int                $limit
-     * @param  Entities\TagEntity $tag
-     * @param  bool               $activeOnly
-     * @return Paginator
-     */
-    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $activeOnly = false)
-    {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('v')
-            ->from(Entities\VideoEntity::getClassName(), 'v')
-            ->join('v.tag', 't')
-            ->where('t.id = :tagId');
-
-        $params = array('tagId' => $tag->id);
-
-        if ($activeOnly) {
-            $qb->andWhere('v.isActive = :state');
-            $params['state'] = true;
-        }
-
-        $qb->setParameters($params)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
-    }
-
-    /**
-     * @param  Entities\TagEntity     $tag
-     * @return Entities\VideoEntity[]
-     */
-    public function getAllByTag(Entities\TagEntity $tag)
-    {
-        return $this->dao->createQueryBuilder()
-            ->select('v')
-            ->from(Entities\VideoEntity::getClassName(), 'v')
-            ->join('v.tag', 't')
-            ->where('t.id = :tagId')
-            ->setParameter('tagId', $tag->id)
-            ->getQuery()
-            ->getResult();
-    }
-
-    /**
-     * @param  int                 $page
-     * @param  int                 $limit
-     * @param  Entities\UserEntity $user
-     * @return Paginator
-     */
-    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
-    {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('v')
-            ->from(Entities\VideoEntity::getClassName(), 'v')
-            ->join('v.user', 'u')
-            ->where('u.id = :userId')
-            ->setParameter('userId', $user->id)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
     }
 
     /**

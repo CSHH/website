@@ -14,25 +14,21 @@ use Kdyby\Doctrine\EntityManager;
 use Nette\Localization\ITranslator;
 use Nette\Utils\ArrayHash;
 
-class ArticleRepository extends BaseRepository
+class ArticleRepository extends SingleUserContentRepository
 {
     use DuplicityChecker;
 
     /** @var ITranslator */
     private $translator;
 
-    /** @var EntityManager */
-    private $em;
-
     public function __construct(
         EntityDao $dao,
         ITranslator $translator,
         EntityManager $em
     ) {
-        parent::__construct($dao);
+        parent::__construct($dao, $em);
 
         $this->translator = $translator;
-        $this->em         = $em;
     }
 
     public function create(
@@ -105,19 +101,16 @@ class ArticleRepository extends BaseRepository
      */
     public function getAllForPage($page, $limit, $activeOnly = false)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('a')
-            ->from(Entities\ArticleEntity::getClassName(), 'a');
+        return $this->doGetAllFoPage(Entities\ArticleEntity::getClassName(), $page, $limit, $activeOnly);
+    }
 
-        if ($activeOnly) {
-            $qb->where('a.isActive = :state')
-                ->setParameter('state', true);
-        }
-
-        $qb->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
+    /**
+     * @param  Entities\TagEntity       $tag
+     * @return Entities\ArticleEntity[]
+     */
+    public function getAllByTag(Entities\TagEntity $tag)
+    {
+        return $this->doGetAllByTag(Entities\ArticleEntity::getClassName(), $tag);
     }
 
     /**
@@ -129,40 +122,18 @@ class ArticleRepository extends BaseRepository
      */
     public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('a')
-            ->from(Entities\ArticleEntity::getClassName(), 'a')
-            ->join('a.tag', 't')
-            ->where('t.id = :tagId');
-
-        $params = array('tagId' => $tag->id);
-
-        if ($activeOnly) {
-            $qb->andWhere('a.isActive = :state');
-            $params['state'] = true;
-        }
-
-        $qb->setParameters($params)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
+        return $this->doGetAllByTagForPage(Entities\ArticleEntity::getClassName(), $page, $limit, $tag, $activeOnly);
     }
 
     /**
-     * @param  Entities\TagEntity       $tag
-     * @return Entities\ArticleEntity[]
+     * @param  int                 $page
+     * @param  int                 $limit
+     * @param  Entities\UserEntity $user
+     * @return Paginator
      */
-    public function getAllByTag(Entities\TagEntity $tag)
+    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
     {
-        return $this->dao->createQueryBuilder()
-            ->select('a')
-            ->from(Entities\ArticleEntity::getClassName(), 'a')
-            ->join('a.tag', 't')
-            ->where('t.id = :tagId')
-            ->setParameter('tagId', $tag->id)
-            ->getQuery()
-            ->getResult();
+        return $this->doGetAllByUserForPage(Entities\ArticleEntity::getClassName(), $page, $limit, $user);
     }
 
     /**
@@ -252,25 +223,5 @@ class ArticleRepository extends BaseRepository
             ->setParameter('userId', $user->id)
             ->getQuery()
             ->getResult();
-    }
-
-    /**
-     * @param  int                 $page
-     * @param  int                 $limit
-     * @param  Entities\UserEntity $user
-     * @return Paginator
-     */
-    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
-    {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('a')
-            ->from(Entities\ArticleEntity::getClassName(), 'a')
-            ->join('a.user', 'u')
-            ->where('u.id = :userId')
-            ->setParameter('userId', $user->id)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
     }
 }

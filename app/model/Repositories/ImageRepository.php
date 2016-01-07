@@ -8,11 +8,8 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 use Kdyby\Doctrine\EntityDao;
 use HeavenProject\FileManagement\FileManager;
 
-class ImageRepository extends BaseRepository
+class ImageRepository extends SingleUserContentRepository
 {
-    /** @var EntityManager */
-    private $em;
-
     /** @var EntityDao */
     private $fileDao;
 
@@ -28,11 +25,10 @@ class ImageRepository extends BaseRepository
      */
     public function __construct($wwwDir, $uploadDir, EntityDao $dao, EntityDao $fileDao, EntityManager $em)
     {
-        parent::__construct($dao);
+        parent::__construct($dao, $em);
 
         $this->uploadDir = $wwwDir . $uploadDir;
         $this->fileDao   = $fileDao;
-        $this->em        = $em;
     }
 
     public function uploadImages(
@@ -63,19 +59,16 @@ class ImageRepository extends BaseRepository
      */
     public function getAllForPage($page, $limit, $activeOnly = false)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('i')
-            ->from(Entities\ImageEntity::getClassName(), 'i');
+        return $this->doGetAllForPage(Entities\ImageEntity::getClassName(), $page, $limit, $activeOnly);
+    }
 
-        if ($activeOnly) {
-            $qb->where('i.isActive = :state')
-                ->setParameter('state', true);
-        }
-
-        $qb->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
+    /**
+     * @param  Entities\TagEntity     $tag
+     * @return Entities\ImageEntity[]
+     */
+    public function getAllByTag(Entities\TagEntity $tag)
+    {
+        return $this->doGetAllByTag(Entities\ImageEntity::getClassName(), $tag);
     }
 
     /**
@@ -87,40 +80,7 @@ class ImageRepository extends BaseRepository
      */
     public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('i')
-            ->from(Entities\ImageEntity::getClassName(), 'i')
-            ->join('i.tag', 't')
-            ->where('t.id = :tagId');
-
-        $params = array('tagId' => $tag->id);
-
-        if ($activeOnly) {
-            $qb->andWhere('i.isActive = :state');
-            $params['state'] = true;
-        }
-
-        $qb->setParameters($params)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
-    }
-
-    /**
-     * @param  Entities\TagEntity     $tag
-     * @return Entities\ImageEntity[]
-     */
-    public function getAllByTag(Entities\TagEntity $tag)
-    {
-        return $this->dao->createQueryBuilder()
-            ->select('i')
-            ->from(Entities\ImageEntity::getClassName(), 'i')
-            ->join('i.tag', 't')
-            ->where('t.id = :tagId')
-            ->setParameter('tagId', $tag->id)
-            ->getQuery()
-            ->getResult();
+        return $this->doGetAllByTagForPage(Entities\ImageEntity::getClassName(), $page, $limit, $tag, $activeOnly);
     }
 
     /**
@@ -131,15 +91,6 @@ class ImageRepository extends BaseRepository
      */
     public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('i')
-            ->from(Entities\ImageEntity::getClassName(), 'i')
-            ->join('i.user', 'u')
-            ->where('u.id = :userId')
-            ->setParameter('userId', $user->id)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
+        return $this->doGetAllByUserForPage(Entities\ImageEntity::getClassName(), $page, $limit, $user);
     }
 }
