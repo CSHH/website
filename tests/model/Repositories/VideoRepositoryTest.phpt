@@ -135,6 +135,48 @@ class VideoRepositoryTest extends Tester\TestCase
 
         Assert::true($repo->getAllForPage(1, 10, true) instanceof Paginator);
     }
+
+    public function testGetAllByTag()
+    {
+        $query = $this->query;
+        $query->shouldReceive('getResult')
+            ->once()
+            ->andReturn(array());
+
+        $qb = $this->qb;
+        $qb->shouldReceive('select')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('from')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('join')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('where')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setParameter')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('getQuery')
+            ->once()
+            ->andReturn($query);
+
+        $dao = $this->dao;
+        $dao->shouldReceive('createQueryBuilder')
+            ->once()
+            ->andReturn($qb);
+
+        $repo = new AppRepositories\VideoRepository(
+            'vimeoOembedEndpointMock',
+            $dao,
+            $this->translator,
+            $this->em
+        );
+
+        Assert::type('array', $repo->getAllByTag(new AppEntities\TagEntity));
+    }
 }
 
 $testCase = new VideoRepositoryTest;
