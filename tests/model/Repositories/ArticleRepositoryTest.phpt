@@ -228,6 +228,73 @@ class ArticleRepositoryTest extends Tester\TestCase
         );
     }
 
+    public function testGetByTagAndNameAndThrowNonUniqueResultException()
+    {
+        $repo = $this->prepareRepositoryForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
+
+        Assert::null($repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
+    }
+
+    public function testGetByTagAndNameAndThrowNoResultException()
+    {
+        $repo = $this->prepareRepositoryForDetailToThrowException('Doctrine\ORM\NoResultException');
+
+        Assert::null($repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
+    }
+
+    public function testGetByTagAndSlugAndThrowNonUniqueResultException()
+    {
+        $repo = $this->prepareRepositoryForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
+
+        Assert::null($repo->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
+    }
+
+    public function testGetByTagAndSlugAndThrowNoResultException()
+    {
+        $repo = $this->prepareRepositoryForDetailToThrowException('Doctrine\ORM\NoResultException');
+
+        Assert::null($repo->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
+    }
+
+    private function prepareRepositoryForDetailToThrowException($class)
+    {
+        $query = $this->query;
+        $query->shouldReceive('getSingleResult')
+            ->once()
+            ->andThrow($class);
+
+        $qb = $this->qb;
+        $qb->shouldReceive('select')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('from')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('join')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('where')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setParameters')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('getQuery')
+            ->once()
+            ->andReturn($query);
+
+        $dao = $this->dao;
+        $dao->shouldReceive('createQueryBuilder')
+            ->once()
+            ->andReturn($qb);
+
+        return new AppRepositories\ArticleRepository(
+            $dao,
+            $this->translator,
+            $this->em
+        );
+    }
+
     public function testGetAllByTagForPage()
     {
         $query = $this->query;
