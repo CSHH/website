@@ -133,6 +133,47 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         Assert::type('array', $repo->getAllByTag(new AppEntities\TagEntity));
     }
+
+    public function testGetByTagAndName()
+    {
+        $query = $this->query;
+        $query->shouldReceive('getSingleResult')
+            ->once()
+            ->andReturn(new AppEntities\ArticleEntity);
+
+        $qb = $this->getQueryBuilderMock($query);
+        $qb->shouldReceive('select')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('from')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('join')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('where')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setParameters')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('getQuery')
+            ->once()
+            ->andReturn($query);
+
+        $dao = $this->dao;
+        $dao->shouldReceive('createQueryBuilder')
+            ->once()
+            ->andReturn($qb);
+
+        $repo = new AppRepositories\ArticleRepository(
+            $dao,
+            $this->translator,
+            $this->em
+        );
+
+        Assert::true($repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill') instanceof AppEntities\ArticleEntity);
+    }
 }
 
 $testCase = new ArticleRepositoryTest;
