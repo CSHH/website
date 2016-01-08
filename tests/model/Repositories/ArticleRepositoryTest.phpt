@@ -136,6 +136,20 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     public function testGetByTagAndName()
     {
+        $repo = $this->prepareRepositoryForDetail();
+
+        Assert::true($repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill') instanceof AppEntities\ArticleEntity);
+    }
+
+    public function testGetByTagAndSlug()
+    {
+        $repo = $this->prepareRepositoryForDetail();
+
+        Assert::true($repo->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill') instanceof AppEntities\ArticleEntity);
+    }
+
+    private function prepareRepositoryForDetail()
+    {
         $query = $this->query;
         $query->shouldReceive('getSingleResult')
             ->once()
@@ -166,13 +180,11 @@ class ArticleRepositoryTest extends Tester\TestCase
             ->once()
             ->andReturn($qb);
 
-        $repo = new AppRepositories\ArticleRepository(
+        return new AppRepositories\ArticleRepository(
             $dao,
             $this->translator,
             $this->em
         );
-
-        Assert::true($repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill') instanceof AppEntities\ArticleEntity);
     }
 }
 
