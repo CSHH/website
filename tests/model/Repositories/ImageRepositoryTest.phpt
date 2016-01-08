@@ -1,0 +1,93 @@
+<?php
+
+namespace AppTests\Model\Repositories;
+
+use App\Model\Entities as AppEntities;
+use App\Model\Repositories as AppRepositories;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Mockery as m;
+use Tester;
+use Tester\Assert;
+
+require_once __DIR__ . '/../../bootstrap.php';
+
+class ImageRepositoryTest extends Tester\TestCase
+{
+    private $dao;
+    private $em;
+    private $qb;
+    private $query;
+
+    private function getEntityDaoMock()
+    {
+        return m::mock('Kdyby\Doctrine\EntityDao');
+    }
+
+    private function getEntityManagerMock()
+    {
+        return m::mock('Kdyby\Doctrine\EntityManager');
+    }
+
+    private function getQueryBuilderMock()
+    {
+        return m::mock('Kdyby\Doctrine\QueryBuilder');
+    }
+
+    private function getQueryMock()
+    {
+        return m::mock('Doctrine\ORM\AbstractQuery');
+    }
+
+    protected function setUp()
+    {
+        $this->dao   = $this->getEntityDaoMock();
+        $this->em    = $this->getEntityManagerMock();
+        $this->qb    = $this->getQueryBuilderMock();
+        $this->query = $this->getQueryMock();
+    }
+
+    protected function tearDown()
+    {
+        m::close();
+    }
+
+    public function testGetAllForPage()
+    {
+        $query = $this->query;
+
+        $qb = $this->qb;
+        $qb->shouldReceive('select')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('from')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setFirstResult')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setMaxResults')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('getQuery')
+            ->once()
+            ->andReturn($query);
+
+        $dao = $this->dao;
+        $dao->shouldReceive('createQueryBuilder')
+            ->once()
+            ->andReturn($qb);
+
+        $repo = new AppRepositories\ImageRepository(
+            'wwwDirMock',
+            'uploadDirMock',
+            $dao,
+            $dao,
+            $this->em
+        );
+
+        Assert::true($repo->getAllForPage(1, 10) instanceof Paginator);
+    }
+}
+
+$testCase = new ImageRepositoryTest;
+$testCase->run();
