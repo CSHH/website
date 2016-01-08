@@ -100,7 +100,7 @@ class ArticleRepositoryTest extends Tester\TestCase
             ->once()
             ->andReturn(array());
 
-        $qb = $this->getQueryBuilderMock($query);
+        $qb = $this->qb;
         $qb->shouldReceive('select')
             ->once()
             ->andReturnSelf();
@@ -155,7 +155,7 @@ class ArticleRepositoryTest extends Tester\TestCase
             ->once()
             ->andReturn(new AppEntities\ArticleEntity);
 
-        $qb = $this->getQueryBuilderMock($query);
+        $qb = $this->qb;
         $qb->shouldReceive('select')
             ->once()
             ->andReturnSelf();
@@ -185,6 +185,50 @@ class ArticleRepositoryTest extends Tester\TestCase
             $this->translator,
             $this->em
         );
+    }
+
+    public function testGetAllByTagForPage()
+    {
+        $query = $this->query;
+
+        $qb = $this->qb;
+        $qb->shouldReceive('select')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('from')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('join')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('where')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setParameters')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setFirstResult')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setMaxResults')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('getQuery')
+            ->once()
+            ->andReturn($query);
+
+        $dao = $this->dao;
+        $dao->shouldReceive('createQueryBuilder')
+            ->once()
+            ->andReturn($qb);
+
+        $repo = new AppRepositories\ArticleRepository(
+            $dao,
+            $this->translator,
+            $this->em
+        );
+
+        Assert::true($repo->getAllByTagForPage(1, 10, new AppEntities\TagEntity) instanceof Paginator);
     }
 }
 
