@@ -177,6 +177,60 @@ class VideoRepositoryTest extends Tester\TestCase
 
         Assert::type('array', $repo->getAllByTag(new AppEntities\TagEntity));
     }
+
+    public function testGetByTagAndName()
+    {
+        $repo = $this->prepareRepositoryForDetail();
+
+        Assert::true($repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill') instanceof AppEntities\VideoEntity);
+    }
+
+    public function testGetByTagAndSlug()
+    {
+        $repo = $this->prepareRepositoryForDetail();
+
+        Assert::true($repo->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill') instanceof AppEntities\VideoEntity);
+    }
+
+    private function prepareRepositoryForDetail()
+    {
+        $query = $this->query;
+        $query->shouldReceive('getSingleResult')
+            ->once()
+            ->andReturn(new AppEntities\VideoEntity);
+
+        $qb = $this->qb;
+        $qb->shouldReceive('select')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('from')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('join')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('where')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setParameters')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('getQuery')
+            ->once()
+            ->andReturn($query);
+
+        $dao = $this->dao;
+        $dao->shouldReceive('createQueryBuilder')
+            ->once()
+            ->andReturn($qb);
+
+        return new AppRepositories\VideoRepository(
+            'vimeoOembedEndpointMock',
+            $dao,
+            $this->translator,
+            $this->em
+        );
+    }
 }
 
 $testCase = new VideoRepositoryTest;
