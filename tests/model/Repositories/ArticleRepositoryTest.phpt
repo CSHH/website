@@ -2,8 +2,8 @@
 
 namespace AppTests\Model\Repositories;
 
-use App\Model\Entities\TagEntity;
-use App\Model\Repositories\ArticleRepository;
+use App\Model\Entities as AppEntities;
+use App\Model\Repositories as AppRepositories;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Mockery as m;
 use Tester;
@@ -46,11 +46,11 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     protected function setUp()
     {
-        $this->query      = $this->getQueryMock();
-        $this->qb         = $this->getQueryBuilderMock();
         $this->dao        = $this->getEntityDaoMock();
-        $this->translator = $this->getTranslatorMock();
         $this->em         = $this->getEntityManagerMock();
+        $this->qb         = $this->getQueryBuilderMock();
+        $this->query      = $this->getQueryMock();
+        $this->translator = $this->getTranslatorMock();
     }
 
     protected function tearDown()
@@ -84,7 +84,7 @@ class ArticleRepositoryTest extends Tester\TestCase
             ->once()
             ->andReturn($qb);
 
-        $repo = new ArticleRepository(
+        $repo = new AppRepositories\ArticleRepository(
             $dao,
             $this->translator,
             $this->em
@@ -125,13 +125,13 @@ class ArticleRepositoryTest extends Tester\TestCase
             ->once()
             ->andReturn($qb);
 
-        $repo = new ArticleRepository(
+        $repo = new AppRepositories\ArticleRepository(
             $dao,
             $this->translator,
             $this->em
         );
 
-        Assert::type('array', $repo->getAllByTag(new TagEntity));
+        Assert::type('array', $repo->getAllByTag(new AppEntities\TagEntity));
     }
 }
 
