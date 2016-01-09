@@ -20,9 +20,14 @@
     </h1>
 
     <div>
-        <a n:if="$user->isLoggedIn()" n:href=":Admin:Homepage:default">Uživatelská sekce</a>
-        <a n:if="$user->isLoggedIn()" n:href=":Admin:Settings:me">Já</a>
-        <a n:if="$user->isLoggedIn()" n:href=":Admin:Sign:out">Odhlásit</a>
+        {if $user->isLoggedIn()}
+            <a n:href=":Admin:Homepage:default">Uživatelská sekce</a>
+            <a n:href=":Admin:Settings:me">Já</a>
+            <a n:href=":Admin:Sign:out">Odhlásit</a>
+        {else}
+            <a n:href=":Admin:Sign:in">Přihlásit</a>
+            <a n:href=":Admin:Sign:up">Registrovat</a>
+        {/if}
     </div>
 
     <div>
