@@ -110,7 +110,7 @@ App\Model\Entities\ArticleEntity:
         "slug (unique)": "<slug()>"
         "perex": "<paragraph(2)>"
         "text": "<paragraph(100)>"
-        "isActive": "80%? true : false"
+        "isActive": "80%? 1 : 0"
 App\Model\Entities\FileEntity:
     "file_halo_of_the_sun":
         "year": "1970"
@@ -125,7 +125,7 @@ App\Model\Entities\ImageEntity:
         "user": @user*
         "name (unique)": "50%? <sentence(3)>"
         "file": @file_halo_of_the_sun
-        "isActive": "80%? true : false"
+        "isActive": "80%? 1 : 0"
 App\Model\Entities\VideoEntity:
     "video_{1..100}":
         "tag": "90%? @tag_silent* : @tag_nezaraditelne"
@@ -134,7 +134,7 @@ App\Model\Entities\VideoEntity:
         "slug (unique)": "<slug()>"
         "src": ""
         "type": "50%? youtube : vimeo"
-        "isActive": "80%? true : false"
+        "isActive": "80%? 1 : 0"
 App\Model\Entities\WikiEntity:
     "wiki_game_{1..100}":
         "tag": @tag_silent*
@@ -172,5 +172,3 @@ App\Model\Entities\WikiEntity:
         "perex": "<paragraph(2)>"
         "text": "<paragraph(100)>"
         "type": "book"
-
-#        "type": "<randomElement(array('game', 'movie', 'book'))>"

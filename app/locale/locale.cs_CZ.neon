@@ -73,6 +73,7 @@ error:
     missing_tag: 'Záznam nelze zařadit do neexistující kategorie.'
     invalid_video_url: 'Byla zadána nesprávná url videa.'
     invalid_youtube_video_url: 'Pokud vkládáte odkaz na video z Youtube.com, použijte k tomuto účelu prosím odkaz z adresního řádku prohlížeče.'
+    page_not_found: 'Požadovanou stránku nebo záznam nebylo možné nalézt.'
 
 sign:
     password_changed_sign_in: 'Heslo bylo změněno. Přihlašte se prosím.'
@@ -94,6 +95,7 @@ sign:
     new_password_request_email_sent: 'Na zadanou adresu byl odeslán e-mail.'
     sign_up_request: 'Registrace'
     sign_up_email_sent: 'Na zadanou adresu byl zaslán e-mail, pomocí kterého můžete registraci dokončit.'
+    session_expired: 'Došlo k odhlášení z důvodu neaktivity.'
 
 item:
     does_not_exist: 'Neexistující položka.'
@@ -103,6 +105,10 @@ item:
     images_uploaded: 'Obrázky byly úspěšně nahrány.'
 
 duplicity:
-    article_name: 'Článek s tímto názvem již existuje.'
     article_tag_and_name: 'Článek s tímto názvem ve zvolené kategorii již existuje.'
     article_tag_and_slug: 'Název tohoto článku se buď přímo shoduje nebo je příliž podobný s některými již existujícími články v této kategorii. Pokuste se prosím zvolit název, který bude více jednoznačný.'
+    video_tag_and_name: 'Video s tímto názvem ve zvolené kategorii již existuje.'
+    video_tag_and_slug: 'Název tohoto videa se buď přímo shoduje nebo je příliž podobný s některými již existujícími videi v této kategorii. Pokuste se prosím zvolit název, který bude více jednoznačný.'
+
+settings:
+    changed_successfully: 'Nastavení bylo úspěšně uloženo.'

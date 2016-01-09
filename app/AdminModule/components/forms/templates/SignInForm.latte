@@ -1,0 +1,13 @@
+{form form}
+
+    {include 'include/errors.latte', form => $form}
+
+    {include 'include/email.latte', _form => $form}
+
+    {include 'include/password.latte', _form => $form}
+
+    {include 'include/remember.latte', _form => $form}
+
+    {include 'include/submit.latte', _form => $form}
+
+{/form}

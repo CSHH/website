@@ -1,0 +1,13 @@
+{form form}
+
+    {include 'include/errors.latte', form => $form}
+
+    {include 'include/tags.latte'}
+
+    {include 'include/name.latte', _form => $form}
+
+    {include 'include/url.latte', _form => $form}
+
+    {include 'include/submit.latte', _form => $form}
+
+{/form}
