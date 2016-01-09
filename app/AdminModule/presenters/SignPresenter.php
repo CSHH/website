@@ -94,7 +94,7 @@ final class SignPresenter extends BasePresenter
      */
     public function actionPassword($uid, $token)
     {
-        //$this->checkLogin();
+        $this->checkLogin();
 
         if (empty($uid) || empty($token)) {
             $this->redirect('Sign:in');
