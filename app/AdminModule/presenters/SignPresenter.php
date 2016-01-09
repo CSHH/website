@@ -127,7 +127,7 @@ final class SignPresenter extends BasePresenter
         return new Forms\SignUpForm(
             $this->translator,
             $this->userRepository,
-            new Authenticator($this->userRepository),
+            new Authenticator($this->translator, $this->userRepository),
             $this->mailer,
             $this->contactEmail
         );
