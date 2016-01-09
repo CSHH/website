@@ -71,8 +71,10 @@ class UserRepository extends BaseRepository
         ArrayHash $values,
         Entities\UserEntity $user
     ) {
-        $user->setValues($values);
         $pass = $values->password;
+        unset($values->password);
+
+        $user->setValues($values);
 
         $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'email', $user->email);
         if ($e && $e->id !== $user->id) {
@@ -80,7 +82,8 @@ class UserRepository extends BaseRepository
         }
 
         if ($pass) {
-            $this->updatePassword($user, $pass, true);
+            $user->salt     = $this->generateSalt();
+            $user->password = Passwords::hash($pass . $user->salt);
         }
 
         $this->em->persist($user);
