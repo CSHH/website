@@ -62,6 +62,34 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * @param  ArrayHash                             $values
+     * @param  Entities\UserEntity                   $user
+     * @throws PossibleUniqueKeyDuplicationException
+     * @return Entities\UserEntity
+     */
+    public function updateProfileSettings(
+        ArrayHash $values,
+        Entities\UserEntity $user
+    ) {
+        $user->setValues($values);
+        $pass = $values->password;
+
+        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'email', $user->email);
+        if ($e && $e->id !== $user->id) {
+            throw new PossibleUniqueKeyDuplicationException('Uživatel s tímto e-mailem je u nás již registrován. Použijte prosím jinou e-mailovou adresu.');
+        }
+
+        if ($pass) {
+            $this->updatePassword($user, $pass, true);
+        }
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return $user;
+    }
+
+    /**
      * @param  string                   $email
      * @return Entities\UserEntity|null
      */
