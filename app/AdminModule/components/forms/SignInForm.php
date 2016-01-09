@@ -80,7 +80,9 @@ class SignInForm extends Nette\Application\UI\Control
             $form->addError($e->getMessage());
         }
 
-        $p->redirect('Homepage:default');
+        if ($p->getUser()->isLoggedIn()) {
+            $p->redirect('Homepage:default');
+        }
     }
 
     public function render()
