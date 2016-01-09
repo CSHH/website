@@ -4,7 +4,7 @@
 
 {foreach $videos as $video}
 
-    <p>{$video->name}</p>
+    <p>{if !$video->isActive}&times;{/if} {$video->name}</p>
 
 {/foreach}
 
