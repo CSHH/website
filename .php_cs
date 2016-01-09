@@ -1,9 +1,11 @@
 <?php
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
+    ->files()
+    ->name('*.phpt')
     ->exclude('tmp')
-    ->in(__DIR__.'/app')
-    ->in(__DIR__.'/tests');
+    ->in(__DIR__ . '/app')
+    ->in(__DIR__ . '/tests');
 
 return Symfony\CS\Config\Config::create()
     ->setUsingCache(true)
