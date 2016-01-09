@@ -92,6 +92,29 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  Entities\ArticleEntity $e
+     * @return Entities\ArticleEntity
+     */
+    public function activate(Entities\ArticleEntity $e)
+    {
+        $e->isActive = true;
+
+        $this->em->persist($e);
+        $this->em->flush();
+
+        return $e;
+    }
+
+    /**
+     * @param  Entities\ArticleEntity $e
+     */
+    public function delete(Entities\ArticleEntity $e)
+    {
+        $this->em->remove($e);
+        $this->em->flush();
+    }
+
+    /**
      * @param  int       $page
      * @param  int       $limit
      * @param  bool      $activeOnly

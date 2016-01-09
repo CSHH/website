@@ -5,7 +5,11 @@
 {foreach $articles as $article}
 
     <div>
-        <h2><a n:href="detail, tagSlug => $article->tag->slug, slug => $article->slug">{$article->id}. {$article->name}</a></h2>
+        <h2><a n:href="detail, tagSlug => $article->tag->slug, slug => $article->slug">{if !$article->isActive}&times;{/if} {$article->id}. {$article->name}</a></h2>
+        {if !$article->isActive}
+            <a n:href="activate!, articleId => $article->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+            <a n:href="delete!, articleId => $article->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+        {/if}
         <p>{$article->perex}</p>
     </div>
 

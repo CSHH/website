@@ -23,4 +23,38 @@ final class GalleryPresenter extends SingleUserContentPresenter
 
         $this->template->images = $this->images;
     }
+
+    /**
+     * @param int $imageId
+     */
+    public function handleActivate($imageId)
+    {
+        $image = $imageId ? $this->imageRepository->getById($imageId) : null;
+
+        if (!$image) {
+            $this->throw404();
+        }
+
+        $this->imageRepository->activate($image);
+
+        $this->flashMessage($this->translator->translate('locale.item.activated'));
+        $this->redirect('this');
+    }
+
+    /**
+     * @param int $imageId
+     */
+    public function handleDelete($imageId)
+    {
+        $image = $imageId ? $this->imageRepository->getById($imageId) : null;
+
+        if (!$image) {
+            $this->throw404();
+        }
+
+        $this->imageRepository->delete($image);
+
+        $this->flashMessage($this->translator->translate('locale.item.deleted'));
+        $this->redirect('this');
+    }
 }

@@ -141,6 +141,29 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  Entities\VideoEntity $e
+     * @return Entities\VideoEntity
+     */
+    public function activate(Entities\VideoEntity $e)
+    {
+        $e->isActive = true;
+
+        $this->em->persist($e);
+        $this->em->flush();
+
+        return $e;
+    }
+
+    /**
+     * @param  Entities\VideoEntity $e
+     */
+    public function delete(Entities\VideoEntity $e)
+    {
+        $this->em->remove($e);
+        $this->em->flush();
+    }
+
+    /**
      * @param  int       $page
      * @param  int       $limit
      * @param  bool      $activeOnly
