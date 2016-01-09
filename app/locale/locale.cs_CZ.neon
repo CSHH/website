@@ -103,6 +103,7 @@ item:
     updated: 'Položka byla úspěšně upravena.'
     deleted: 'Položka byla úspěšně smazána.'
     images_uploaded: 'Obrázky byly úspěšně nahrány.'
+    activated: 'Položka byla úspěšně aktivována.'
 
 duplicity:
     article_tag_and_name: 'Článek s tímto názvem ve zvolené kategorii již existuje.'
@@ -112,3 +113,6 @@ duplicity:
 
 settings:
     changed_successfully: 'Nastavení bylo úspěšně uloženo.'
+
+alert:
+    question: 'Jste si jistí?'
