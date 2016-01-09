@@ -21,6 +21,7 @@
 
     <div>
         <a n:if="$user->isLoggedIn()" n:href=":Admin:Homepage:default">Uživatelská sekce</a>
+        <a n:if="$user->isLoggedIn()" n:href=":Admin:Settings:me">Já</a>
         <a n:if="$user->isLoggedIn()" n:href=":Admin:Sign:out">Odhlásit</a>
     </div>
 
