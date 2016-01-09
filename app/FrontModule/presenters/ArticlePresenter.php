@@ -50,4 +50,38 @@ final class ArticlePresenter extends SingleUserContentPresenter
     {
         $this->template->article = $this->article;
     }
+
+    /**
+     * @param int $articleId
+     */
+    public function handleActivate($articleId)
+    {
+        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
+
+        if (!$article) {
+            $this->throw404();
+        }
+
+        $this->articleRepository->activate($article);
+
+        $this->flashMessage($this->translator->translate('locale.item.activated'));
+        $this->redirect('this');
+    }
+
+    /**
+     * @param int $articleId
+     */
+    public function handleDelete($articleId)
+    {
+        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
+
+        if (!$article) {
+            $this->throw404();
+        }
+
+        $this->articleRepository->delete($article);
+
+        $this->flashMessage($this->translator->translate('locale.item.deleted'));
+        $this->redirect('this');
+    }
 }
