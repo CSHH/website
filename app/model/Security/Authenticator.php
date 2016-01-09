@@ -2,6 +2,7 @@
 
 namespace App\Model\Security;
 
+use App\Model\Entities;
 use App\Model\Repositories;
 use Nette;
 use Nette\Localization\ITranslator;
@@ -57,6 +58,15 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
             $this->userRepository->updatePassword($user, $user->password);
         }
 
+        return $this->updateIdentity($user);
+    }
+
+    /**
+     * @param  Entities\UserEntity $user
+     * @return Nette\Security\Identity
+     */
+    public function updateIdentity(Entities\UserEntity $user)
+    {
         $data = array(
             'username'        => $user->username,
             'email'           => $user->email,
