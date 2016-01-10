@@ -57,4 +57,14 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
 
         return $u->loggedIn ? $this->userRepository->getById($u->id) : null;
     }
+
+    /**
+     * @return bool
+     */
+    protected function canAccess()
+    {
+        $user = $this->getLoggedUser();
+
+        return $user && $user->role > Entities\UserEntity::ROLE_USER;
+    }
 }

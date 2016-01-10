@@ -2,7 +2,6 @@
 
 namespace App\FrontModule\Presenters;
 
-use App\Model\Entities;
 use App\Model\Repositories;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -31,15 +30,5 @@ abstract class SingleUserContentPresenter extends PageablePresenter
         $this->tag = $tag;
 
         return $items;
-    }
-
-    /**
-     * @return bool
-     */
-    protected function canAccess()
-    {
-        $user = $this->getLoggedUser();
-
-        return $user && $user->role > Entities\UserEntity::ROLE_USER;
     }
 }
