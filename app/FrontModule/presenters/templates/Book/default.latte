@@ -5,7 +5,7 @@
 {foreach $wikis as $wiki}
 
     <div>
-        <h2><a n:href="detail, tagSlug => $wiki->tag->slug, slug => $wiki->slug">{$wiki->id}. {$wiki->name}</a></h2>
+        <h2><a n:href="detail, tagSlug => $wiki->tag->slug, slug => $wiki->slug">{if !$wiki->isActive}&times;{/if} {$wiki->id}. {$wiki->name}</a></h2>
         <p>{$wiki->perex}</p>
     </div>
 
