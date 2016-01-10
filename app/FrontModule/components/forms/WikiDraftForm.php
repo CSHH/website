@@ -66,7 +66,7 @@ class WikiDraftForm extends Nette\Application\UI\Control
         $form->addTextArea('text', 'locale.form.text')
             ->setRequired('locale.form.text_required');
 
-        $form->addHidden('start_time', date('Y-m-d H:i:s'));
+        $form->addHidden('startTime', date('Y-m-d H:i:s'));
 
         if ($this->item) {
             $form->autoFill($this->item);
