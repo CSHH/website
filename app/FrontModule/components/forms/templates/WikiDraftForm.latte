@@ -1,0 +1,18 @@
+{form form}
+
+    {foreach $form->errors as $error}
+        <div>{$error}</div>
+    {/foreach}
+
+    <div>
+        {label text /}
+        {input text}
+    </div>
+
+    {input start_time}
+
+    <div>
+        {input submit}
+    </div>
+
+{/form}
