@@ -8,9 +8,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
-    /** @var Repositories\UserRepository @inject */
-    public $userRepository;
-
     /**
      * @param  Repositories\BaseRepository $repository
      * @param  string        $tagSlug
@@ -34,16 +31,6 @@ abstract class SingleUserContentPresenter extends PageablePresenter
         $this->tag = $tag;
 
         return $items;
-    }
-
-    /**
-     * @return Entities\UserEntity|null
-     */
-    protected function getLoggedUser()
-    {
-        $u = $this->getUser();
-
-        return $u->loggedIn ? $this->userRepository->getById($u->id) : null;
     }
 
     /**
