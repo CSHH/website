@@ -63,10 +63,15 @@ class WikiForm extends AbstractContentForm
             $tag    = $this->getSelectedTag($form);
 
             if ($this->item) {
-                $ent = $this->wikiRepository->update($values, $tag, $this->user, $this->type, $this->item);
-                $p->flashMessage($this->translator->translate('locale.item.updated'));
+                if ($this->item->isActive) {
+                    // save draft
+                    dump('draft');exit;
+                } else {
+                    $ent = $this->wikiRepository->update($values, $tag, $this->user, $this->type, $this->item);
+                    $p->flashMessage($this->translator->translate('locale.item.updated'));
+                }
             } else {
-                $ent = $this->wikiRepository->create($values, $tag, $this->user, $this->type, new Entities\WikiEntity);
+                $ent = $this->wikiRepository->create($values, $tag, $this->type, new Entities\WikiEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
 

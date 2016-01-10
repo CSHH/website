@@ -67,8 +67,8 @@ class WikiRepository extends BaseRepository
             );
         }
 
-        $e->tag       = $tag;
         $e->createdBy = $user;
+        $e->tag       = $tag;
         $e->type      = $type;
 
         $this->em->persist($e);
@@ -80,7 +80,6 @@ class WikiRepository extends BaseRepository
     /**
      * @param  ArrayHash $values
      * @param  Entities\TagEntity $tag
-     * @param  Entities\UserEntity $user
      * @param  string $type
      * @param  Entities\WikiEntity $e
      * @throws PossibleUniqueKeyDuplicationException
@@ -89,7 +88,7 @@ class WikiRepository extends BaseRepository
     public function update(
         ArrayHash $values,
         Entities\TagEntity $tag,
-        Entities\UserEntity $user,
+        $type,
         Entities\WikiEntity $e
     ) {
         $e->setValues($values);
@@ -108,9 +107,8 @@ class WikiRepository extends BaseRepository
             );
         }
 
-        $e->tag           = $tag;
-        $e->lastUpdatedBy = $user;
-        $e->type          = $type;
+        $e->tag  = $tag;
+        $e->type = $type;
 
         $this->em->persist($e);
         $this->em->flush();
