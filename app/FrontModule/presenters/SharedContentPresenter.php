@@ -3,9 +3,13 @@
 namespace App\FrontModule\Presenters;
 
 use App\Model\Entities;
+use App\Model\Repositories;
 
 abstract class SharedContentPresenter extends PageablePresenter
 {
+    /** @var Repositories\WikiDraftRepository @inject */
+    public $wikiDraftRepository;
+
     /** @var Entities\WikiEntity[] */
     protected $wikis;
 
