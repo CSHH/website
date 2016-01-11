@@ -38,6 +38,8 @@ class VideoForm extends AbstractContentForm
 
         $form->addText('url', 'locale.form.video_source_url')
             ->setRequired('locale.form.video_source_url_required');
+
+        $this->tryAutoFill($form, $this->item);
     }
 
     public function formSucceeded(Form $form)

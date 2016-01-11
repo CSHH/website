@@ -66,6 +66,8 @@ class WikiForm extends AbstractContentForm
             ->setRequired('locale.form.text_required');
 
         $form->addHidden('startTime', date('Y-m-d H:i:s'));
+
+        $this->tryAutoFill($form, $this->item);
     }
 
     public function formSucceeded(Form $form)

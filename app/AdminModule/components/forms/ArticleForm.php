@@ -40,6 +40,8 @@ class ArticleForm extends AbstractContentForm
 
         $form->addTextArea('text', 'locale.form.text')
             ->setRequired('locale.form.text_required');
+
+        $this->tryAutoFill($form, $this->item);
     }
 
     public function formSucceeded(Form $form)
