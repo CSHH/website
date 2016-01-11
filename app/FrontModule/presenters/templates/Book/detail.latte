@@ -1,5 +1,11 @@
 {block content}
 
+<div>
+    <a nhre="#">Upravit</a>
+</div>
+
 <h1 n:block="title">{$wiki->name}</h1>
 
 <div>{$wiki->text|noescape}</div>
+
+{control form}
