@@ -1,23 +1,33 @@
 <?php
 
-namespace App\AdminModule\Components\Forms;
+namespace App\FrontModule\Components\Forms;
 
 use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
 use App\Model\Exceptions;
+use Nette;
 use Nette\Application\UI\Form;
-use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Nette\Utils\DateTime;
+use Tracy;
 
-class WikiForm extends AbstractContentForm
+class WikiDraftForm extends Nette\Application\UI\Control
 {
+    /** @var ITranslator */
+    private $translator;
+
+    /** @var Repositories\TagRepository */
+    private $tagRepository;
+
     /** @var Repositories\WikiRepository */
     private $wikiRepository;
 
     /** @var Repositories\WikiDraftRepository */
     private $wikiDraftRepository;
+
+    /** @var Entities\UserEntity */
+    private $user;
 
     /** @var string */
     private $type;
@@ -46,28 +56,38 @@ class WikiForm extends AbstractContentForm
         $type,
         Entities\WikiEntity $item = null
     ) {
-        parent::__construct($translator, $tagRepository, $user);
-
+        $this->translator     = $translator;
+        $this->tagRepository  = $tagRepository;
         $this->wikiRepository = $wikiRepository;
         $this->wikiDraftRepository = $wikiDraftRepository;
-        $this->type     = $type;
-        $this->item     = $item;
+        $this->user           = $user;
+        $this->type           = $type;
+        $this->item           = $item;
     }
 
-    protected function configure(Form $form)
+    /**
+     * @return Form
+     */
+    public function createComponentForm()
     {
-        $form->addText('name', 'locale.form.name')
-            ->setRequired('locale.form.name_required');
+        $form = new Form;
 
-        $form->addTextArea('perex', 'locale.form.perex')
-            ->setRequired('locale.form.perex_required');
+        $form->setTranslator($this->translator);
 
         $form->addTextArea('text', 'locale.form.text')
             ->setRequired('locale.form.text_required');
 
         $form->addHidden('startTime', date('Y-m-d H:i:s'));
 
-        $this->tryAutoFill($form, $this->item);
+        if ($this->item) {
+            $form->autoFill($this->item);
+        }
+
+        $form->onSuccess[] = array($this, 'formSucceeded');
+
+        $form->addSubmit('submit', 'locale.form.save');
+
+        return $form;
     }
 
     public function formSucceeded(Form $form)
@@ -75,38 +95,23 @@ class WikiForm extends AbstractContentForm
         try {
             $p      = $this->getPresenter();
             $values = $form->getValues();
-            $tag    = $this->getSelectedTag($form);
 
-            if ($this->item) {
+            $latest = $this->wikiDraftRepository->getLatestByWiki($this->item);
+            $start  = DateTime::from($values->startTime);
 
-                if ($this->item->isActive) {
-
-                    $latest = $this->wikiDraftRepository->getLatestByWiki($this->item);
-                    $start  = DateTime::from($values->startTime);
-
-                    if ($latest && $start < $latest->createdAt) {
-                        throw new Exceptions\WikiDraftConflictException(
-                            $this->translator->translate('locale.error.newer_draft_created_meanwhile')
-                        );
-                    }
-
-                    unset($values->name);
-                    unset($values->perex);
-                    unset($values->startTime);
-
-                    $this->wikiDraftRepository->create($values, $this->user, $this->item, new Entities\WikiDraftEntity);
-                    $ent = $this->item;
-                    $p->flashMessage($this->translator->translate('locale.item.updated'));
-
-                } else {
-                    $ent = $this->wikiRepository->update($values, $tag, $this->user, $this->type, $this->item);
-                    $p->flashMessage($this->translator->translate('locale.item.updated'));
-                }
-
-            } else {
-                $ent = $this->wikiRepository->create($values, $tag, $this->type, new Entities\WikiEntity);
-                $p->flashMessage($this->translator->translate('locale.item.created'));
+            if ($latest && $start < $latest->createdAt) {
+                throw new Exceptions\WikiDraftConflictException(
+                    $this->translator->translate('locale.error.newer_draft_created_meanwhile')
+                );
             }
+
+            unset($values->name);
+            unset($values->perex);
+            unset($values->startTime);
+
+            $this->wikiDraftRepository->create($values, $this->user, $this->item, new Entities\WikiDraftEntity);
+            $ent = $this->item;
+            $p->flashMessage($this->translator->translate('locale.item.updated'));
 
         } catch (Exceptions\WikiDraftConflictException $e) {
             $this->newerDraftExists = true;
@@ -131,13 +136,32 @@ class WikiForm extends AbstractContentForm
         }
     }
 
-    /**
-     * @param ITemplate $template
-     */
-    protected function insideRender(ITemplate $template)
+    public function render()
     {
+        $template = $this->getTemplate();
+
+        $template->setFile(__DIR__ . '/templates/WikiDraftForm.latte');
+
         $template->latestDraft = $this->newerDraftExists
             ? $this->wikiDraftRepository->getLatestByWiki($this->item)
             : null;
+
+        $template->render();
+    }
+
+    /**
+     * @param Form $form
+     * @param \Exception $e
+     * @param string $output
+     */
+    private function addFormError(Form $form, \Exception $e, $output = null)
+    {
+        Tracy\Debugger::barDump($e->getMessage());
+        Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
+
+        $form->addError($output
+            ? $this->translator->translate('locale.error.occurred')
+            : $e->getMessage()
+        );
     }
 }

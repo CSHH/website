@@ -74,6 +74,7 @@ error:
     invalid_video_url: 'Byla zadána nesprávná url videa.'
     invalid_youtube_video_url: 'Pokud vkládáte odkaz na video z Youtube.com, použijte k tomuto účelu prosím odkaz z adresního řádku prohlížeče.'
     page_not_found: 'Požadovanou stránku nebo záznam nebylo možné nalézt.'
+    newer_draft_created_meanwhile: 'Během vytváření Vašich úprav byla někým jiným uložena nová verze. Její podoba je zobrazena níže. Pokuste se prosím o synchronizaci obou textů.'
 
 sign:
     password_changed_sign_in: 'Heslo bylo změněno. Přihlašte se prosím.'

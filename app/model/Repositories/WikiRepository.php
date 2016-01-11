@@ -67,8 +67,8 @@ class WikiRepository extends BaseRepository
             );
         }
 
-        $e->tag       = $tag;
         $e->createdBy = $user;
+        $e->tag       = $tag;
         $e->type      = $type;
 
         $this->em->persist($e);
@@ -80,7 +80,6 @@ class WikiRepository extends BaseRepository
     /**
      * @param  ArrayHash $values
      * @param  Entities\TagEntity $tag
-     * @param  Entities\UserEntity $user
      * @param  string $type
      * @param  Entities\WikiEntity $e
      * @throws PossibleUniqueKeyDuplicationException
@@ -89,7 +88,7 @@ class WikiRepository extends BaseRepository
     public function update(
         ArrayHash $values,
         Entities\TagEntity $tag,
-        Entities\UserEntity $user,
+        $type,
         Entities\WikiEntity $e
     ) {
         $e->setValues($values);
@@ -108,9 +107,8 @@ class WikiRepository extends BaseRepository
             );
         }
 
-        $e->tag           = $tag;
-        $e->lastUpdatedBy = $user;
-        $e->type          = $type;
+        $e->tag  = $tag;
+        $e->type = $type;
 
         $this->em->persist($e);
         $this->em->flush();
@@ -122,39 +120,24 @@ class WikiRepository extends BaseRepository
      * @param  int       $page
      * @param  int       $limit
      * @param  string    $type
+     * @param  bool      $activeOnly
      * @return Paginator
      */
-    public function getAllForPage($page, $limit, $type)
+    public function getAllForPage($page, $limit, $type, $activeOnly = false)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('w')
             ->from(Entities\WikiEntity::getClassName(), 'w')
-            ->where('w.type = :type')
-            ->setParameter('type', $type)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+            ->where('w.type = :type');
 
-        return new Paginator($qb->getQuery());
-    }
+        $params = array('type' => $type);
 
-    /**
-     * @param  int                $page
-     * @param  int                $limit
-     * @param  Entities\TagEntity $tag
-     * @param  string             $type
-     * @return Paginator
-     */
-    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $type)
-    {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
-            ->join('w.tag', 't')
-            ->where('t.id = :tagId AND w.type = :type')
-            ->setParameters(array(
-                'tagId' => $tag->id,
-                'type'  => $type,
-            ))
+        if ($activeOnly) {
+            $qb->andWhere('w.isActive = :state');
+            $params['state'] = true;
+        }
+
+        $qb->setParameters($params)
             ->setFirstResult($page * $limit - $limit)
             ->setMaxResults($limit);
 
@@ -287,6 +270,39 @@ class WikiRepository extends BaseRepository
         } catch (NoResultException $e) {
             return null;
         }
+    }
+
+    /**
+     * @param  int                $page
+     * @param  int                $limit
+     * @param  Entities\TagEntity $tag
+     * @param  string             $type
+     * @param  bool               $activeOnly
+     * @return Paginator
+     */
+    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $type, $activeOnly = false)
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::getClassName(), 'w')
+            ->join('w.tag', 't')
+            ->where('t.id = :tagId AND w.type = :type');
+
+        $params = array(
+            'tagId' => $tag->id,
+            'type'  => $type,
+        );
+
+        if ($activeOnly) {
+            $qb->andWhere('w.isActive = :state');
+            $params['state'] = true;
+        }
+
+        $qb->setParameters($params)
+            ->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($qb->getQuery());
     }
 
     /**

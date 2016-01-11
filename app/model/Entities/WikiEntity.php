@@ -118,6 +118,13 @@ class WikiEntity extends BaseEntity
      */
     protected $type;
 
+    /**
+     * @ORM\Column(type="boolean")
+     *
+     * @var bool
+     */
+    protected $isActive = false;
+
     public function __construct()
     {
         parent::__construct();

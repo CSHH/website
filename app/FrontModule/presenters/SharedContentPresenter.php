@@ -3,9 +3,13 @@
 namespace App\FrontModule\Presenters;
 
 use App\Model\Entities;
+use App\Model\Repositories;
 
 abstract class SharedContentPresenter extends PageablePresenter
 {
+    /** @var Repositories\WikiDraftRepository @inject */
+    public $wikiDraftRepository;
+
     /** @var Entities\WikiEntity[] */
     protected $wikis;
 
@@ -24,7 +28,7 @@ abstract class SharedContentPresenter extends PageablePresenter
 
         $wiki = $this->wikiRepository->getByTagAndSlug($tag, $slug);
 
-        if (!$wiki) {
+        if ((!$wiki || !$wiki->isActive) && !$this->canAccess()) {
             $this->throw404();
         }
 
@@ -45,9 +49,11 @@ abstract class SharedContentPresenter extends PageablePresenter
     {
         $tag = $this->getTag($tagSlug);
 
+        $state = !$this->canAccess();
+
         $wikis = $tag
-            ? $this->wikiRepository->getAllByTagForPage($this->page, $limit, $tag, $type)
-            : $this->wikiRepository->getAllForPage($this->page, $limit, $type);
+            ? $this->wikiRepository->getAllByTagForPage($this->page, $limit, $tag, $type, $state)
+            : $this->wikiRepository->getAllForPage($this->page, $limit, $type, $state);
 
         $this->preparePaginator($wikis->count(), $limit);
 

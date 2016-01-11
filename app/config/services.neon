@@ -13,4 +13,5 @@ services:
         %vimeoOembedEndpoint%,
         @doctrine.dao(App\Model\Entities\VideoEntity)
     )
+    - App\Model\Repositories\WikiDraftRepository(@doctrine.dao(App\Model\Entities\WikiDraftEntity))
     - App\Model\Repositories\WikiRepository(@doctrine.dao(App\Model\Entities\WikiEntity))

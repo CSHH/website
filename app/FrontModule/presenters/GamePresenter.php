@@ -2,6 +2,7 @@
 
 namespace App\FrontModule\Presenters;
 
+use App\FrontModule\Components\Forms;
 use App\Model\Entities;
 
 final class GamePresenter extends SharedContentPresenter
@@ -12,5 +13,21 @@ final class GamePresenter extends SharedContentPresenter
     public function actionDefault($tagSlug)
     {
         $this->runActionDefault($tagSlug, 10, Entities\WikiEntity::TYPE_GAME);
+    }
+
+    /**
+     * @return Forms\WikiDraftForm
+     */
+    protected function createComponentForm()
+    {
+        return new Forms\WikiDraftForm(
+            $this->translator,
+            $this->tagRepository,
+            $this->wikiRepository,
+            $this->wikiDraftRepository,
+            $this->getLoggedUser(),
+            Entities\WikiEntity::TYPE_GAME,
+            $this->wiki
+        );
     }
 }
