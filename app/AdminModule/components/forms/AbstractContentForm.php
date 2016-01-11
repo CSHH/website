@@ -45,15 +45,22 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
 
         $this->configure($form);
 
-        if (isset($this->item) && $this->item) {
-            $form->autoFill($this->item);
-        }
-
         $form->onSuccess[] = array($this, 'formSucceeded');
 
         $form->addSubmit('submit', 'locale.form.save');
 
         return $form;
+    }
+
+    /**
+     * @param Form $form
+     * @param Entities\BaseEntity $item
+     */
+    protected function tryAutoFill(Form $form, Entities\BaseEntity $item = null)
+    {
+        if ($item) {
+            $form->autoFill($item);
+        }
     }
 
     /**
