@@ -7,6 +7,7 @@ use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
 use App\Model\Exceptions;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Nette\Utils\DateTime;
 
@@ -23,6 +24,9 @@ class WikiForm extends AbstractContentForm
 
     /** @var Entities\WikiEntity */
     private $item;
+
+    /** @var bool */
+    private $newerDraftExists = false;
 
     /**
      * @param ITranslator $translator
@@ -103,6 +107,7 @@ class WikiForm extends AbstractContentForm
             }
 
         } catch (Exceptions\WikiDraftConflictException $e) {
+            $this->newerDraftExists = true;
             $this->addFormError($form, $e);
 
         } catch (Exceptions\MissingTagException $e) {
@@ -122,5 +127,15 @@ class WikiForm extends AbstractContentForm
         if (!empty($ent)) {
             $p->redirect('this');
         }
+    }
+
+    /**
+     * @param ITemplate $template
+     */
+    protected function insideRender(ITemplate $template)
+    {
+        $template->latestDraft = $this->newerDraftExists
+            ? $this->wikiDraftRepository->getLatestByWiki($this->item)
+            : null;
     }
 }
