@@ -9,10 +9,16 @@
         {input text}
     </div>
 
-    {input start_time}
+    {input startTime}
 
     <div>
         {input submit}
     </div>
 
 {/form}
+
+<div n:if="$latestDraft">
+
+    {$latestDraft->text|noescape}
+
+</div>
