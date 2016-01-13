@@ -1,6 +1,6 @@
 {block content}
 
-{if $item->isActive}
+{if $item && $item->isActive}
 
     {control wikiDraftForm}
 
