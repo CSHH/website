@@ -74,6 +74,9 @@ class WikiDraftForm extends Nette\Application\UI\Control
 
         $form->setTranslator($this->translator);
 
+        $form->addTextArea('perex', 'locale.form.perex')
+            ->setRequired('locale.form.perex_required');
+
         $form->addTextArea('text', 'locale.form.text')
             ->setRequired('locale.form.text_required');
 
@@ -106,7 +109,6 @@ class WikiDraftForm extends Nette\Application\UI\Control
             }
 
             unset($values->name);
-            unset($values->perex);
             unset($values->startTime);
 
             $this->wikiDraftRepository->create($values, $this->user, $this->item, new Entities\WikiDraftEntity);

@@ -91,7 +91,6 @@ class WikiForm extends AbstractContentForm
                     }
 
                     unset($values->name);
-                    unset($values->perex);
                     unset($values->startTime);
 
                     $this->wikiDraftRepository->create($values, $this->user, $this->item, new Entities\WikiDraftEntity);

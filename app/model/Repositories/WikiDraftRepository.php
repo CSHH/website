@@ -5,10 +5,6 @@ namespace App\Model\Repositories;
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\Tools\Pagination\Paginator;
-use HeavenProject\Utils\Slugger;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Localization\ITranslator;
@@ -51,20 +47,6 @@ class WikiDraftRepository extends BaseRepository
         Entities\WikiDraftEntity $e
     ) {
         $e->setValues($values);
-
-        /*if ($this->getByTagAndNameAndType($tag, $values->name, $type)) {
-            throw new PossibleUniqueKeyDuplicationException(
-                $this->translator->translate('locale.duplicity.article_tag_and_name')
-            );
-        }
-
-        $e->slug = $e->slug ?: Slugger::slugify($e->name);
-
-        if ($this->getByTagAndSlugAndType($tag, $e->slug, $type)) {
-            throw new PossibleUniqueKeyDuplicationException(
-                $this->translator->translate('locale.duplicity.article_tag_and_slug')
-            );
-        }*/
 
         $e->wiki      = $wiki;
         $e->user      = $user;
