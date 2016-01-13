@@ -2,7 +2,8 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\AdminModule\Components\Forms;
+use App\AdminModule\Components\Forms\WikiForm;
+use App\FrontModule\Components\Forms\WikiDraftForm;
 use App\Model\Entities;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -31,6 +32,11 @@ final class GamePresenter extends SharedContentPresenter
         }
     }
 
+    public function renderForm()
+    {
+        $this->template->item = $this->item;
+    }
+
     public function actionDefault()
     {
         $items = $this->wikiRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser(), Entities\WikiEntity::TYPE_GAME);
@@ -44,11 +50,27 @@ final class GamePresenter extends SharedContentPresenter
     }
 
     /**
-     * @return Forms\WikiForm
+     * @return WikiForm
      */
-    protected function createComponentForm()
+    protected function createComponentWikiForm()
     {
-        return new Forms\WikiForm(
+        return new WikiForm(
+            $this->translator,
+            $this->tagRepository,
+            $this->wikiRepository,
+            $this->wikiDraftRepository,
+            $this->getLoggedUser(),
+            Entities\WikiEntity::TYPE_GAME,
+            $this->item
+        );
+    }
+
+    /**
+     * @return WikiDraftForm
+     */
+    protected function createComponentWikiDraftForm()
+    {
+        return new WikiDraftForm(
             $this->translator,
             $this->tagRepository,
             $this->wikiRepository,

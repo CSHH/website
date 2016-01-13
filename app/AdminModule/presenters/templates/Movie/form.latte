@@ -1,3 +1,11 @@
 {block content}
 
-{control form}
+{if $item->isActive}
+
+    {control wikiDraftForm}
+
+{else}
+
+    {control wikiForm}
+
+{/if}
