@@ -108,6 +108,15 @@ class UserRepository extends BaseRepository
     }
 
     /**
+     * @param Entities\UserEntity $e
+     */
+    public function delete(Entities\UserEntity $e)
+    {
+        $this->em->remove($e);
+        $this->em->flush();
+    }
+
+    /**
      * @param  string                   $email
      * @return Entities\UserEntity|null
      */
