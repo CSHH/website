@@ -56,7 +56,9 @@ class UserRepository extends BaseRepository
         }
 
         $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'email', $user->email);
-        if ($e) {
+        if ($e && $this->isActivationLimitExpired($e->tokenCreatedAt)) {
+            $this->delete($e);
+        } elseif ($e) {
             throw new PossibleUniqueKeyDuplicationException(
                 $this->translator->translate('locale.duplicity.registration_email')
             );
