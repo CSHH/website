@@ -111,6 +111,8 @@ duplicity:
     article_tag_and_slug: 'Název tohoto článku se buď přímo shoduje nebo je příliž podobný s některými již existujícími články v této kategorii. Pokuste se prosím zvolit název, který bude více jednoznačný.'
     video_tag_and_name: 'Video s tímto názvem ve zvolené kategorii již existuje.'
     video_tag_and_slug: 'Název tohoto videa se buď přímo shoduje nebo je příliž podobný s některými již existujícími videi v této kategorii. Pokuste se prosím zvolit název, který bude více jednoznačný.'
+    registration_username: 'Uživatel s tímto uživatelským jménem je u nás již registrován. Použijte prosím jiné uživatelské jméno.'
+    registration_email: 'Uživatel s tímto e-mailem je u nás již registrován. Použijte prosím jinou e-mailovou adresu.'
 
 settings:
     changed_successfully: 'Nastavení bylo úspěšně uloženo.'
