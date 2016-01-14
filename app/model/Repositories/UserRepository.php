@@ -10,6 +10,7 @@ use App\Model\Exceptions\UserNotFoundException;
 use App\Model\Security\Authenticator;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
+use Nette\Localization\ITranslator;
 use Nette\Security\Passwords;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\DateTime;
@@ -19,16 +20,21 @@ class UserRepository extends BaseRepository
 {
     use DuplicityChecker;
 
+    /** @var ITranslator */
+    private $translator;
+
     /** @var EntityManager */
     private $em;
 
     public function __construct(
         EntityDao $dao,
+        ITranslator $translator,
         EntityManager $em
     ) {
         parent::__construct($dao);
 
-        $this->em = $em;
+        $this->translator = $translator;
+        $this->em         = $em;
     }
 
     /**
@@ -42,9 +48,18 @@ class UserRepository extends BaseRepository
         $user->setValues($values);
         $pass = $values->password;
 
+        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'username', $user->username);
+        if ($e) {
+            throw new PossibleUniqueKeyDuplicationException(
+                $this->translator->translate('locale.duplicity.registration_username')
+            );
+        }
+
         $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'email', $user->email);
         if ($e) {
-            throw new PossibleUniqueKeyDuplicationException('Uživatel s tímto e-mailem je u nás již registrován. Použijte prosím jinou e-mailovou adresu.');
+            throw new PossibleUniqueKeyDuplicationException(
+                $this->translator->translate('locale.duplicity.registration_email')
+            );
         }
 
         $time = new DateTime;
