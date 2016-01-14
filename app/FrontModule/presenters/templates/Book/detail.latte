@@ -1,6 +1,6 @@
 {block content}
 
-<div>
+<div n:if="$wiki->isActive">
     <a nhre="#">Upravit</a>
 </div>
 
@@ -8,4 +8,8 @@
 
 <div>{$wiki->text|noescape}</div>
 
-{control form}
+{if $wiki->isActive}
+
+    {control form}
+
+{/if}

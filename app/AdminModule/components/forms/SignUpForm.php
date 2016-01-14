@@ -70,6 +70,10 @@ class SignUpForm extends Nette\Application\UI\Control
             ->addRule($form::EMAIL, 'locale.form.email_not_in_order')
             ->setRequired('locale.form.email_address');
 
+        $form->addText('forename', 'locale.form.forename');
+
+        $form->addText('surname', 'locale.form.surname');
+
         $form->addPassword('password', 'locale.form.password')
             ->setRequired('locale.form.password_required');
 
@@ -110,16 +114,19 @@ class SignUpForm extends Nette\Application\UI\Control
                 $this->translator->translate('locale.sign.sign_up_email_sent'),
                 FlashType::SUCCESS
             );
+
         } catch (FormSentBySpamException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
+
         } catch (PossibleUniqueKeyDuplicationException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
+
         } catch (\Exception $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
@@ -127,7 +134,9 @@ class SignUpForm extends Nette\Application\UI\Control
             $form->addError($this->translator->translate('locale.error.occurred'));
         }
 
-        $p->redirect('Homepage:default');
+        if (!empty($user)) {
+            $p->redirect('Homepage:default');
+        }
     }
 
     public function render()

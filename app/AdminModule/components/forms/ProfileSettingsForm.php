@@ -69,6 +69,10 @@ class ProfileSettingsForm extends Nette\Application\UI\Control
             ->addRule($form::EMAIL, 'locale.form.email_not_in_order')
             ->setRequired('locale.form.email_address');
 
+        $form->addText('forename', 'locale.form.forename');
+
+        $form->addText('surname', 'locale.form.surname');
+
         $form->addPassword('password', 'locale.form.password');
 
         $form->addPassword('password_confirm', 'locale.form.password_confirm')

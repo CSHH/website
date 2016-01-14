@@ -28,6 +28,13 @@ class WikiDraftEntity extends BaseEntity
     protected $user;
 
     /**
+     * @ORM\Column(type="string")
+     *
+     * @var string
+     */
+    protected $perex;
+
+    /**
      * @ORM\Column(type="text")
      *
      * @var string
