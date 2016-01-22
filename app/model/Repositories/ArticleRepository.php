@@ -184,15 +184,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllInactiveForPage($page, $limit)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('e')
-            ->from(Entities\ArticleEntity::getClassName(), 'e')
-            ->where('e.isActive = :state')
-            ->setParameter('state', false)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
+        return $this->doGetAllInactiveForPage(Entities\ArticleEntity::getClassName(), $page, $limit);
     }
 
     /**
@@ -203,19 +195,6 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('e')
-            ->from(Entities\ArticleEntity::getClassName(), 'e')
-            ->join('e.tag', 't')
-            ->where('t.id = :tagId')
-            ->andWhere('e.isActive = :state')
-            ->setParameters(array(
-                'tagId' => $tag->id,
-                'state' => false,
-            ))
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
-
-        return new Paginator($qb->getQuery());
+        return $this->doGetAllInactiveByTagForPage(Entities\ArticleEntity::getClassName(), $page, $limit, $tag);
     }
 }
