@@ -2,6 +2,14 @@
 
 {block content}
 
+<div>
+    {if $inactiveOnly}
+        <a n:href="this">Zobrazit vše</a>
+    {else}
+        <a href="{plink this}?inactiveOnly">Zobrazit pouze neschválené</a>
+    {/if}
+</div>
+
 {foreach $articles as $article}
 
     <div>

@@ -12,19 +12,24 @@ final class ArticlePresenter extends SingleUserContentPresenter
     /** @var Entities\ArticleEntity */
     private $article;
 
+    /** @var bool */
+    private $inactiveOnly = false;
+
     /**
      * @param string $tagSlug
      */
     public function actionDefault($tagSlug)
     {
-        $this->articles = $this->runActionDefault($this->articleRepository, $tagSlug, 10);
+        $this->inactiveOnly = $this->getHttpRequest()->getQuery('inactiveOnly') === '' ? true : false;
+        $this->articles     = $this->runActionDefault($this->articleRepository, $tagSlug, 10, $this->inactiveOnly);
     }
 
     public function renderDefault()
     {
         parent::runRenderDefault();
 
-        $this->template->articles = $this->articles;
+        $this->template->inactiveOnly = $this->inactiveOnly;
+        $this->template->articles     = $this->articles;
     }
 
     /**

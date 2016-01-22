@@ -9,19 +9,29 @@ abstract class SingleUserContentPresenter extends PageablePresenter
 {
     /**
      * @param  Repositories\BaseRepository $repository
-     * @param  string        $tagSlug
-     * @param  int           $limit
+     * @param  string                      $tagSlug
+     * @param  int                         $limit
+     * @param  bool                        $inactiveOnly
      * @return Paginator
      */
-    protected function runActionDefault(Repositories\BaseRepository $repository, $tagSlug, $limit)
+    protected function runActionDefault(Repositories\BaseRepository $repository, $tagSlug, $limit, $inactiveOnly)
     {
         $tag = $this->getTag($tagSlug);
 
-        $state = !$this->canAccess();
+        $canAccess = $this->canAccess();
 
-        $items = $tag
-            ? $repository->getAllByTagForPage($this->page, $limit, $tag, $state)
-            : $repository->getAllForPage($this->page, $limit, $state);
+        if ($canAccess && $inactiveOnly) {
+            $items = $tag
+                ? $repository->getAllInactiveByTagForPage($this->page, $limit, $tag)
+                : $repository->getAllInactiveForPage($this->page, $limit);
+
+        } else {
+            $state = !$canAccess;
+
+            $items = $tag
+                ? $repository->getAllByTagForPage($this->page, $limit, $tag, $state)
+                : $repository->getAllForPage($this->page, $limit, $state);
+        }
 
         $this->preparePaginator($items->count(), $limit);
 
