@@ -2,13 +2,7 @@
 
 {block content}
 
-<div>
-    {if $inactiveOnly}
-        <a n:href="this">Zobrazit vše</a>
-    {else}
-        <a href="{plink this}?inactiveOnly">Zobrazit pouze neschválené</a>
-    {/if}
-</div>
+{include '../include/activitySwitch.latte'}
 
 {foreach $articles as $article}
 

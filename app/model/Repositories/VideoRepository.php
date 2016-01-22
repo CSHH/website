@@ -227,6 +227,48 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  int       $page
+     * @param  int       $limit
+     * @return Paginator
+     */
+    public function getAllInactiveForPage($page, $limit)
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('e')
+            ->from(Entities\VideoEntity::getClassName(), 'e')
+            ->where('e.isActive = :state')
+            ->setParameter('state', false)
+            ->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($qb->getQuery());
+    }
+
+    /**
+     * @param  int                $page
+     * @param  int                $limit
+     * @param  Entities\TagEntity $tag
+     * @return Paginator
+     */
+    public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('e')
+            ->from(Entities\VideoEntity::getClassName(), 'e')
+            ->join('e.tag', 't')
+            ->where('t.id = :tagId')
+            ->andWhere('e.isActive = :state')
+            ->setParameters(array(
+                'tagId' => $tag->id,
+                'state' => false,
+            ))
+            ->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($qb->getQuery());
+    }
+
+    /**
      * @param  string $pageUrl
      * @throws InvalidVideoUrlException
      * @return string

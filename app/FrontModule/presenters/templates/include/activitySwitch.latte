@@ -1,0 +1,7 @@
+<div>
+    {if $inactiveOnly}
+        <a n:href="this">Zobrazit vše</a>
+    {else}
+        <a href="{plink this}?inactiveOnly">Zobrazit pouze neschválené</a>
+    {/if}
+</div>
