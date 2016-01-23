@@ -4,13 +4,9 @@ namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
 use App\Model\Entities;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {
-    /** @var Paginator */
-    private $items;
-
     /** @var Entities\BaseEntity */
     private $item;
 
@@ -33,14 +29,7 @@ final class VideoPresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $items = $this->videoRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
-        $this->preparePaginator($items->count(), 10);
-        $this->items = $items;
-    }
-
-    public function renderDefault()
-    {
-        $this->template->items = $this->items;
+        $this->runActionDefault($this->videoRepository, 10, $this->getLoggedUser());
     }
 
     /**
