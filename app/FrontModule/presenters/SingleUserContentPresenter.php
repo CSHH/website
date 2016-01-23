@@ -7,8 +7,11 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
+    /** @var string @persistent */
+    public $inactiveOnly = 'no';
+
     /** @var bool */
-    protected $inactiveOnly = false;
+    protected $displayInactiveOnly = false;
 
     /**
      * @param  Repositories\BaseRepository $repository
@@ -18,13 +21,15 @@ abstract class SingleUserContentPresenter extends PageablePresenter
      */
     protected function runActionDefault(Repositories\BaseRepository $repository, $tagSlug, $limit)
     {
-        $this->inactiveOnly = $this->displayInactiveOnly();
+        if ($this->inactiveOnly === 'yes') {
+            $this->displayInactiveOnly = true;
+        }
 
         $tag = $this->getTag($tagSlug);
 
         $this->canAccess = $this->canAccess();
 
-        if ($this->canAccess && $this->inactiveOnly) {
+        if ($this->canAccess && $this->displayInactiveOnly) {
             $items = $tag
                 ? $repository->getAllInactiveByTagForPage($this->page, $limit, $tag)
                 : $repository->getAllInactiveForPage($this->page, $limit);
@@ -50,15 +55,7 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     {
         parent::runRenderDefault();
 
-        $this->template->inactiveOnly = $this->inactiveOnly;
+        $this->template->inactiveOnly = $this->displayInactiveOnly;
         $this->template->canAccess    = $this->canAccess;
-    }
-
-    /**
-     * @return bool
-     */
-    private function displayInactiveOnly()
-    {
-        return $this->getHttpRequest()->getQuery('inactiveOnly') === '' ? true : false;
     }
 }
