@@ -22,15 +22,15 @@ abstract class SingleUserContentPresenter extends PageablePresenter
 
         $tag = $this->getTag($tagSlug);
 
-        $canAccess = $this->canAccess();
+        $this->canAccess = $this->canAccess();
 
-        if ($canAccess && $this->inactiveOnly) {
+        if ($this->canAccess && $this->inactiveOnly) {
             $items = $tag
                 ? $repository->getAllInactiveByTagForPage($this->page, $limit, $tag)
                 : $repository->getAllInactiveForPage($this->page, $limit);
 
         } else {
-            $state = !$canAccess;
+            $state = !$this->canAccess;
 
             $items = $tag
                 ? $repository->getAllByTagForPage($this->page, $limit, $tag, $state)
@@ -51,6 +51,7 @@ abstract class SingleUserContentPresenter extends PageablePresenter
         parent::runRenderDefault();
 
         $this->template->inactiveOnly = $this->inactiveOnly;
+        $this->template->canAccess    = $this->canAccess;
     }
 
     /**

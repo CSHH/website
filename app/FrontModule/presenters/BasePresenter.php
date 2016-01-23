@@ -27,6 +27,9 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
     /** @var Repositories\TagRepository @inject */
     public $tagRepository;
 
+    /** @var bool */
+    protected $canAccess = false;
+
     protected function startup()
     {
         parent::startup();
