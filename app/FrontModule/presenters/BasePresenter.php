@@ -18,9 +18,6 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
     /** @var Repositories\VideoRepository @inject */
     public $videoRepository;
 
-    /** @var Repositories\UserRepository @inject */
-    public $userRepository;
-
     /** @var Repositories\WikiRepository @inject */
     public $wikiRepository;
 
@@ -49,16 +46,6 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
         $this->template->tagRepository     = $this->tagRepository;
 
         $this->template->uploadDir = $this->context->parameters['uploadDir'];
-    }
-
-    /**
-     * @return Entities\UserEntity|null
-     */
-    protected function getLoggedUser()
-    {
-        $u = $this->getUser();
-
-        return $u->loggedIn ? $this->userRepository->getById($u->id) : null;
     }
 
     /**

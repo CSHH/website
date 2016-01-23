@@ -2,15 +2,11 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\Repositories;
 use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use Nette\Security\IUserStorage;
 
 abstract class SecurePresenter extends BasePresenter
 {
-    /** @var Repositories\UserRepository @inject */
-    public $userRepository;
-
     protected function startup()
     {
         parent::startup();
@@ -24,13 +20,5 @@ abstract class SecurePresenter extends BasePresenter
 
         $ext = new FormExtendingMethods;
         $ext->registerMethods();
-    }
-
-    /**
-     * @return Entities\UserEntity
-     */
-    protected function getLoggedUser()
-    {
-        return $this->userRepository->getById($this->getUser()->id);
     }
 }
