@@ -8,8 +8,11 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
+    /** @var string @persistent */
+    public $inactiveOnly = 'no';
+
     /** @var bool */
-    private $inactiveOnly = false;
+    private $displayInactiveOnly = false;
 
     /** @var bool */
     private $canAccess = false;
@@ -24,11 +27,13 @@ abstract class SingleUserContentPresenter extends PageablePresenter
      */
     protected function runActionDefault(Repositories\BaseRepository $repository, $limit, Entities\UserEntity $user)
     {
-        $this->inactiveOnly = $this->displayInactiveOnly();
+        if ($this->inactiveOnly === 'yes') {
+            $this->displayInactiveOnly = true;
+        }
 
         $this->canAccess = $this->canAccess();
 
-        if ($this->canAccess && $this->inactiveOnly) {
+        if ($this->canAccess && $this->displayInactiveOnly) {
             $this->items = $repository->getAllInactiveForPage($this->page, $limit);
         } else {
             $this->items = $repository->getAllByUserForPage($this->page, $limit, $user);
@@ -39,16 +44,8 @@ abstract class SingleUserContentPresenter extends PageablePresenter
 
     public function renderDefault()
     {
-        $this->template->inactiveOnly = $this->inactiveOnly;
+        $this->template->inactiveOnly = $this->displayInactiveOnly;
         $this->template->canAccess    = $this->canAccess;
         $this->template->items        = $this->items;
-    }
-
-    /**
-     * @return bool
-     */
-    private function displayInactiveOnly()
-    {
-        return $this->getHttpRequest()->getQuery('inactiveOnly') === '' ? true : false;
     }
 }

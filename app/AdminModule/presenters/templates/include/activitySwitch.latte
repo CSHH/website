@@ -1,7 +1,7 @@
 <div n:if="$canAccess">
     {if $inactiveOnly}
-        <a n:href="this">Zobrazit pouze moje</a>
+        <a n:href="this, page => 1, inactiveOnly => 'no'">Zobrazit pouze moje vlastní</a>
     {else}
-        <a href="{plink this}?inactiveOnly">Zobrazit pouze neschválené</a>
+        <a n:href="this, inactiveOnly => 'yes'">Zobrazit pouze neschválené</a>
     {/if}
 </div>
