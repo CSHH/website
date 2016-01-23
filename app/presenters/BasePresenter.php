@@ -31,4 +31,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
         return $u->loggedIn ? $this->userRepository->getById($u->id) : null;
     }
+
+    /**
+     * @return bool
+     */
+    protected function canAccess()
+    {
+        $user = $this->getLoggedUserEntity();
+
+        return $user && $user->role > Entities\UserEntity::ROLE_USER;
+    }
 }

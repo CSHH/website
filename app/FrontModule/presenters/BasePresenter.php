@@ -3,7 +3,6 @@
 namespace App\FrontModule\Presenters;
 
 use App;
-use App\Model\Entities;
 use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use App\Model\Repositories;
 
@@ -46,15 +45,5 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
         $this->template->tagRepository     = $this->tagRepository;
 
         $this->template->uploadDir = $this->context->parameters['uploadDir'];
-    }
-
-    /**
-     * @return bool
-     */
-    protected function canAccess()
-    {
-        $user = $this->getLoggedUserEntity();
-
-        return $user && $user->role > Entities\UserEntity::ROLE_USER;
     }
 }

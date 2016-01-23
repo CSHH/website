@@ -51,14 +51,4 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     {
         return $this->getHttpRequest()->getQuery('inactiveOnly') === '' ? true : false;
     }
-
-    /**
-     * @return bool
-     */
-    private function canAccess()
-    {
-        $user = $this->getLoggedUserEntity();
-
-        return $user && $user->role > Entities\UserEntity::ROLE_USER;
-    }
 }
