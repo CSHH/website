@@ -53,7 +53,7 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
      */
     protected function canAccess()
     {
-        $user = $this->getLoggedUser();
+        $user = $this->getLoggedUserEntity();
 
         return $user && $user->role > Entities\UserEntity::ROLE_USER;
     }

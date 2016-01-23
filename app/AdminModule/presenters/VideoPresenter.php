@@ -17,7 +17,7 @@ final class VideoPresenter extends SingleUserContentPresenter
     {
         if ($id !== null) {
             $item = $this->videoRepository->getById($id);
-            $user = $this->getLoggedUser();
+            $user = $this->getLoggedUserEntity();
             if (!$item || $item->user->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
                 $this->redirect('Video:default');
@@ -29,7 +29,7 @@ final class VideoPresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $this->runActionDefault($this->videoRepository, 10, $this->getLoggedUser());
+        $this->runActionDefault($this->videoRepository, 10, $this->getLoggedUserEntity());
     }
 
     /**
@@ -41,7 +41,7 @@ final class VideoPresenter extends SingleUserContentPresenter
             $this->translator,
             $this->tagRepository,
             $this->videoRepository,
-            $this->getLoggedUser(),
+            $this->getLoggedUserEntity(),
             $this->item
         );
     }

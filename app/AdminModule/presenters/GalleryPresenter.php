@@ -8,7 +8,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
 {
     public function actionDefault()
     {
-        $this->runActionDefault($this->imageRepository, 10, $this->getLoggedUser());
+        $this->runActionDefault($this->imageRepository, 10, $this->getLoggedUserEntity());
     }
 
     /**
@@ -20,7 +20,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
             $this->translator,
             $this->tagRepository,
             $this->imageRepository,
-            $this->getLoggedUser()
+            $this->getLoggedUserEntity()
         );
     }
 }

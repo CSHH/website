@@ -25,7 +25,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     /**
      * @return Entities\UserEntity|null
      */
-    protected function getLoggedUser()
+    protected function getLoggedUserEntity()
     {
         $u = $this->getUser();
 

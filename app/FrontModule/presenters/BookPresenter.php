@@ -25,7 +25,7 @@ final class BookPresenter extends SharedContentPresenter
             $this->tagRepository,
             $this->wikiRepository,
             $this->wikiDraftRepository,
-            $this->getLoggedUser(),
+            $this->getLoggedUserEntity(),
             Entities\WikiEntity::TYPE_BOOK,
             $this->wiki
         );

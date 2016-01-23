@@ -22,7 +22,7 @@ final class MoviePresenter extends SharedContentPresenter
     {
         if ($id !== null) {
             $item = $this->wikiRepository->getById($id);
-            $user = $this->getLoggedUser();
+            $user = $this->getLoggedUserEntity();
             if (!$item || $item->type !== Entities\WikiEntity::TYPE_MOVIE || $item->createdBy->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
                 $this->redirect('Movie:default');
@@ -39,7 +39,7 @@ final class MoviePresenter extends SharedContentPresenter
 
     public function actionDefault()
     {
-        $items = $this->wikiRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser(), Entities\WikiEntity::TYPE_MOVIE);
+        $items = $this->wikiRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUserEntity(), Entities\WikiEntity::TYPE_MOVIE);
         $this->preparePaginator($items->count(), 10);
         $this->items = $items;
     }
@@ -58,7 +58,7 @@ final class MoviePresenter extends SharedContentPresenter
             $this->translator,
             $this->tagRepository,
             $this->wikiRepository,
-            $this->getLoggedUser(),
+            $this->getLoggedUserEntity(),
             Entities\WikiEntity::TYPE_MOVIE,
             $this->item
         );
@@ -74,7 +74,7 @@ final class MoviePresenter extends SharedContentPresenter
             $this->tagRepository,
             $this->wikiRepository,
             $this->wikiDraftRepository,
-            $this->getLoggedUser(),
+            $this->getLoggedUserEntity(),
             Entities\WikiEntity::TYPE_MOVIE,
             $this->item
         );

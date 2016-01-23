@@ -57,7 +57,7 @@ abstract class SingleUserContentPresenter extends PageablePresenter
      */
     private function canAccess()
     {
-        $user = $this->getLoggedUser();
+        $user = $this->getLoggedUserEntity();
 
         return $user && $user->role > Entities\UserEntity::ROLE_USER;
     }

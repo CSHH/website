@@ -25,7 +25,7 @@ final class GamePresenter extends SharedContentPresenter
             $this->tagRepository,
             $this->wikiRepository,
             $this->wikiDraftRepository,
-            $this->getLoggedUser(),
+            $this->getLoggedUserEntity(),
             Entities\WikiEntity::TYPE_GAME,
             $this->wiki
         );
