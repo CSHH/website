@@ -13,7 +13,12 @@
             <a n:href="activate!, articleId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
             <a n:href="delete!, articleId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
         {/if}
-        <a n:href="form, id => $item->id">{$item->name}</a>
+
+        {if $item->user->id === $user->id}
+            <a n:href="form, id => $item->id">{$item->name}</a>
+        {else}
+            <a n:href="detail, id => $item->id">{$item->name}</a>
+        {/if}
     </div>
 
 {/foreach}

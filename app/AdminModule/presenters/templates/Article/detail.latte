@@ -1,0 +1,10 @@
+{block content}
+
+<h1>{$item->name}</h1>
+
+{if !$item->isActive}
+    <a n:href="activate!, articleId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+    <a n:href="delete!, articleId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+{/if}
+
+<div>{$item->text|noescape}</div>

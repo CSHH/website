@@ -33,6 +33,26 @@ final class ArticlePresenter extends SingleUserContentPresenter
     }
 
     /**
+     * @param int $id
+     */
+    public function actionDetail($id)
+    {
+        $item = $id ? $this->articleRepository->getById($id) : null;
+
+        if (!$item) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('Article:default');
+        }
+
+        $this->item = $item;
+    }
+
+    public function renderDetail()
+    {
+        $this->template->item = $this->item;
+    }
+
+    /**
      * @return Forms\ArticleForm
      */
     protected function createComponentForm()
