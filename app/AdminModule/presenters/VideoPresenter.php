@@ -45,4 +45,40 @@ final class VideoPresenter extends SingleUserContentPresenter
             $this->item
         );
     }
+
+    /**
+     * @param int $videoId
+     */
+    public function handleActivate($videoId)
+    {
+        $video = $videoId ? $this->videoRepository->getById($videoId) : null;
+
+        if (!$video) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('this');
+        }
+
+        $this->videoRepository->activate($video);
+
+        $this->flashMessage($this->translator->translate('locale.item.activated'));
+        $this->redirect('this');
+    }
+
+    /**
+     * @param int $videoId
+     */
+    public function handleDelete($videoId)
+    {
+        $video = $videoId ? $this->videoRepository->getById($videoId) : null;
+
+        if (!$video) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('this');
+        }
+
+        $this->videoRepository->delete($video);
+
+        $this->flashMessage($this->translator->translate('locale.item.deleted'));
+        $this->redirect('this');
+    }
 }

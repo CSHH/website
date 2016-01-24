@@ -9,6 +9,10 @@
 {foreach $items as $item}
 
     <div>
+        {if $canAccess && !$item->isActive}
+            <a n:href="activate!, articleId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+            <a n:href="delete!, articleId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+        {/if}
         <a n:href="form, id => $item->id">{$item->name}</a>
     </div>
 

@@ -11,6 +11,10 @@
     {var $description = $item->name ?: $item->tag->name}
 
     <img src="{$basePath}{$uploadDir . '/' . $item->file->getFilePath()|thumb:100:100}" title="{$description}" alt="{$description}">
+    {if $canAccess && !$item->isActive}
+        <a n:href="activate!, imageId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+        <a n:href="delete!, imageId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+    {/if}
 
 {/foreach}
 
