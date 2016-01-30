@@ -205,8 +205,7 @@ abstract class SingleUserContentRepository extends BaseRepository
             ->select('e')
             ->from($className, 'e')
             ->join('e.tag', 't')
-            ->where('t.id = :tagId')
-            ->andWhere('e.isActive = :state')
+            ->where('t.id = :tagId AND e.isActive = :state')
             ->setParameters(array(
                 'tagId' => $tag->id,
                 'state' => false,
