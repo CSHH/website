@@ -470,6 +470,50 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         Assert::true($repo->getAllInactiveForPage(1, 10) instanceof Paginator);
     }
+
+    public function testGetAllInactiveByTagForPage()
+    {
+        $query = $this->query;
+
+        $qb = $this->qb;
+        $qb->shouldReceive('select')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('from')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('join')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('where')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setParameters')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setFirstResult')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('setMaxResults')
+            ->once()
+            ->andReturnSelf();
+        $qb->shouldReceive('getQuery')
+            ->once()
+            ->andReturn($query);
+
+        $dao = $this->dao;
+        $dao->shouldReceive('createQueryBuilder')
+            ->once()
+            ->andReturn($qb);
+
+        $repo = new AppRepositories\ArticleRepository(
+            $dao,
+            $this->translator,
+            $this->em
+        );
+
+        Assert::true($repo->getAllInactiveByTagForPage(1, 10, new AppEntities\TagEntity) instanceof Paginator);
+    }
 }
 
 $testCase = new ArticleRepositoryTest;
