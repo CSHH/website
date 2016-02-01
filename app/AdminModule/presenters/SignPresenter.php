@@ -3,7 +3,6 @@
 namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
-use App\Model\Repositories;
 use App\Model\Entities;
 use App\Model\Exceptions\ActivationLimitExpiredException;
 use App\Model\Exceptions\UserNotFoundException;
@@ -16,9 +15,6 @@ final class SignPresenter extends BasePresenter
 {
     /** @var IMailer @inject */
     public $mailer;
-
-    /** @var Repositories\UserRepository @inject */
-    public $userRepository;
 
     /** @var string */
     protected $appDir;

@@ -3,23 +3,12 @@
 namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 final class GalleryPresenter extends SingleUserContentPresenter
 {
-    /** @var Paginator */
-    private $items;
-
     public function actionDefault()
     {
-        $items = $this->imageRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
-        $this->preparePaginator($items->count(), 10);
-        $this->items = $items;
-    }
-
-    public function renderDefault()
-    {
-        $this->template->items = $this->items;
+        $this->runActionDefault($this->imageRepository, 10, $this->getLoggedUserEntity());
     }
 
     /**
@@ -31,7 +20,43 @@ final class GalleryPresenter extends SingleUserContentPresenter
             $this->translator,
             $this->tagRepository,
             $this->imageRepository,
-            $this->getLoggedUser()
+            $this->getLoggedUserEntity()
         );
+    }
+
+    /**
+     * @param int $imageId
+     */
+    public function handleActivate($imageId)
+    {
+        $image = $imageId ? $this->imageRepository->getById($imageId) : null;
+
+        if (!$image) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('this');
+        }
+
+        $this->imageRepository->activate($image);
+
+        $this->flashMessage($this->translator->translate('locale.item.activated'));
+        $this->redirect('this');
+    }
+
+    /**
+     * @param int $imageId
+     */
+    public function handleDelete($imageId)
+    {
+        $image = $imageId ? $this->imageRepository->getById($imageId) : null;
+
+        if (!$image) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('this');
+        }
+
+        $this->imageRepository->delete($image);
+
+        $this->flashMessage($this->translator->translate('locale.item.deleted'));
+        $this->redirect('this');
     }
 }

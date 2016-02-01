@@ -39,6 +39,7 @@
 	},
 	"autoload-dev": {
 		"classmap": [
+			"app",
 			"tests/include"
 		]
 	}

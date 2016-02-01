@@ -17,7 +17,7 @@ final class SettingsPresenter extends SecurePresenter
             $this->userRepository,
             new Authenticator($this->translator, $this->userRepository),
             $this->getUser()->getStorage(),
-            $this->getLoggedUser()
+            $this->getLoggedUserEntity()
         );
     }
 }

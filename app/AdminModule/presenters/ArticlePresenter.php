@@ -4,13 +4,9 @@ namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
 use App\Model\Entities;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 final class ArticlePresenter extends SingleUserContentPresenter
 {
-    /** @var Paginator */
-    private $items;
-
     /** @var Entities\BaseEntity */
     private $item;
 
@@ -21,7 +17,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
     {
         if ($id !== null) {
             $item = $this->articleRepository->getById($id);
-            $user = $this->getLoggedUser();
+            $user = $this->getLoggedUserEntity();
             if (!$item || $item->user->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
                 $this->redirect('Article:default');
@@ -33,14 +29,27 @@ final class ArticlePresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $items = $this->articleRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
-        $this->preparePaginator($items->count(), 10);
-        $this->items = $items;
+        $this->runActionDefault($this->articleRepository, 10, $this->getLoggedUserEntity());
     }
 
-    public function renderDefault()
+    /**
+     * @param int $id
+     */
+    public function actionDetail($id)
     {
-        $this->template->items = $this->items;
+        $item = $id ? $this->articleRepository->getById($id) : null;
+
+        if (!$item) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('Article:default');
+        }
+
+        $this->item = $item;
+    }
+
+    public function renderDetail()
+    {
+        $this->template->item = $this->item;
     }
 
     /**
@@ -52,8 +61,44 @@ final class ArticlePresenter extends SingleUserContentPresenter
             $this->translator,
             $this->tagRepository,
             $this->articleRepository,
-            $this->getLoggedUser(),
+            $this->getLoggedUserEntity(),
             $this->item
         );
+    }
+
+    /**
+     * @param int $articleId
+     */
+    public function handleActivate($articleId)
+    {
+        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
+
+        if (!$article) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('this');
+        }
+
+        $this->articleRepository->activate($article);
+
+        $this->flashMessage($this->translator->translate('locale.item.activated'));
+        $this->redirect('this');
+    }
+
+    /**
+     * @param int $articleId
+     */
+    public function handleDelete($articleId)
+    {
+        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
+
+        if (!$article) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('this');
+        }
+
+        $this->articleRepository->delete($article);
+
+        $this->flashMessage($this->translator->translate('locale.item.deleted'));
+        $this->redirect('this');
     }
 }

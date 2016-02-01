@@ -4,13 +4,9 @@ namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
 use App\Model\Entities;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {
-    /** @var Paginator */
-    private $items;
-
     /** @var Entities\BaseEntity */
     private $item;
 
@@ -21,7 +17,7 @@ final class VideoPresenter extends SingleUserContentPresenter
     {
         if ($id !== null) {
             $item = $this->videoRepository->getById($id);
-            $user = $this->getLoggedUser();
+            $user = $this->getLoggedUserEntity();
             if (!$item || $item->user->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
                 $this->redirect('Video:default');
@@ -33,14 +29,7 @@ final class VideoPresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $items = $this->videoRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser());
-        $this->preparePaginator($items->count(), 10);
-        $this->items = $items;
-    }
-
-    public function renderDefault()
-    {
-        $this->template->items = $this->items;
+        $this->runActionDefault($this->videoRepository, 10, $this->getLoggedUserEntity());
     }
 
     /**
@@ -52,8 +41,44 @@ final class VideoPresenter extends SingleUserContentPresenter
             $this->translator,
             $this->tagRepository,
             $this->videoRepository,
-            $this->getLoggedUser(),
+            $this->getLoggedUserEntity(),
             $this->item
         );
+    }
+
+    /**
+     * @param int $videoId
+     */
+    public function handleActivate($videoId)
+    {
+        $video = $videoId ? $this->videoRepository->getById($videoId) : null;
+
+        if (!$video) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('this');
+        }
+
+        $this->videoRepository->activate($video);
+
+        $this->flashMessage($this->translator->translate('locale.item.activated'));
+        $this->redirect('this');
+    }
+
+    /**
+     * @param int $videoId
+     */
+    public function handleDelete($videoId)
+    {
+        $video = $videoId ? $this->videoRepository->getById($videoId) : null;
+
+        if (!$video) {
+            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+            $this->redirect('this');
+        }
+
+        $this->videoRepository->delete($video);
+
+        $this->flashMessage($this->translator->translate('locale.item.deleted'));
+        $this->redirect('this');
     }
 }

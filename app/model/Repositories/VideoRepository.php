@@ -227,6 +227,27 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  int       $page
+     * @param  int       $limit
+     * @return Paginator
+     */
+    public function getAllInactiveForPage($page, $limit)
+    {
+        return $this->doGetAllInactiveForPage(Entities\VideoEntity::getClassName(), $page, $limit);
+    }
+
+    /**
+     * @param  int                $page
+     * @param  int                $limit
+     * @param  Entities\TagEntity $tag
+     * @return Paginator
+     */
+    public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
+    {
+        return $this->doGetAllInactiveByTagForPage(Entities\VideoEntity::getClassName(), $page, $limit, $tag);
+    }
+
+    /**
      * @param  string $pageUrl
      * @throws InvalidVideoUrlException
      * @return string

@@ -2,6 +2,8 @@
 
 {block content}
 
+{include '../include/activitySwitch.latte'}
+
 {foreach $images as $image}
 
     {var $description = $image->name ?: $image->tag->name}

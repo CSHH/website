@@ -22,7 +22,7 @@ final class BookPresenter extends SharedContentPresenter
     {
         if ($id !== null) {
             $item = $this->wikiRepository->getById($id);
-            $user = $this->getLoggedUser();
+            $user = $this->getLoggedUserEntity();
             if (!$item || $item->type !== Entities\WikiEntity::TYPE_BOOK || $item->createdBy->id !== $user->id) {
                 $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
                 $this->redirect('Book:default');
@@ -39,7 +39,7 @@ final class BookPresenter extends SharedContentPresenter
 
     public function actionDefault()
     {
-        $items = $this->wikiRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUser(), Entities\WikiEntity::TYPE_BOOK);
+        $items = $this->wikiRepository->getAllByUserForPage($this->page, 10, $this->getLoggedUserEntity(), Entities\WikiEntity::TYPE_BOOK);
         $this->preparePaginator($items->count(), 10);
         $this->items = $items;
     }
@@ -58,7 +58,7 @@ final class BookPresenter extends SharedContentPresenter
             $this->translator,
             $this->tagRepository,
             $this->wikiRepository,
-            $this->getLoggedUser(),
+            $this->getLoggedUserEntity(),
             Entities\WikiEntity::TYPE_BOOK,
             $this->item
         );
@@ -74,7 +74,7 @@ final class BookPresenter extends SharedContentPresenter
             $this->tagRepository,
             $this->wikiRepository,
             $this->wikiDraftRepository,
-            $this->getLoggedUser(),
+            $this->getLoggedUserEntity(),
             Entities\WikiEntity::TYPE_BOOK,
             $this->item
         );

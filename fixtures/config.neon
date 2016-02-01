@@ -132,15 +132,16 @@ App\Model\Entities\VideoEntity:
         "user": @user*
         "name (unique)": "<sentence(3)>"
         "slug (unique)": "<slug()>"
+        "url": ""
         "src": ""
         "type": "50%? youtube : vimeo"
         "isActive": "80%? 1 : 0"
 App\Model\Entities\WikiEntity:
     "wiki_game_{1..100}":
         "tag": @tag_silent*
-        "related": []
-        "contributors": []
-        "drafts": []
+        "related": "80%? <numberBetween(1, 5)>x @wiki_game_*"
+        "contributors": "80%? <numberBetween(5, 25)>x @user*"
+        "drafts": "<numberBetween(5, 25)>x @wiki_draft_game_*"
         "createdBy": @user*
         "lastUpdatedBy": @user*
         "name (unique)": "<sentence(3)>"
@@ -149,11 +150,13 @@ App\Model\Entities\WikiEntity:
         "text": "<paragraph(100)>"
         "type": "game"
         "isActive": "80%? 1 : 0"
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
+        "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
     "wiki_movie_{1..100}":
         "tag": "50%? @tag_silent_hill : @tag_movie_silent_hill_revelation"
-        "related": []
-        "contributors": []
-        "drafts": []
+        "related": "80%? <numberBetween(1, 5)>x @wiki_movie_*"
+        "contributors": "80%? <numberBetween(5, 25)>x @user*"
+        "drafts": "<numberBetween(5, 25)>x @wiki_draft_movie_*"
         "createdBy": @user*
         "lastUpdatedBy": @user*
         "name (unique)": "<sentence(3)>"
@@ -162,11 +165,13 @@ App\Model\Entities\WikiEntity:
         "text": "<paragraph(100)>"
         "type": "movie"
         "isActive": "80%? 1 : 0"
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
+        "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
     "wiki_book_{1..100}":
         "tag": @tag_book_*
-        "related": []
-        "contributors": []
-        "drafts": []
+        "related": "80%? <numberBetween(1, 5)>x @wiki_book_*"
+        "contributors": "80%? <numberBetween(5, 25)>x @user*"
+        "drafts": "<numberBetween(5, 25)>x @wiki_draft_book_*"
         "createdBy": @user*
         "lastUpdatedBy": @user*
         "name (unique)": "<sentence(3)>"
@@ -175,3 +180,24 @@ App\Model\Entities\WikiEntity:
         "text": "<paragraph(100)>"
         "type": "book"
         "isActive": "80%? 1 : 0"
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
+        "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
+App\Model\Entities\WikiDraftEntity:
+    "wiki_draft_game_{1..50}":
+        "wiki": @wiki_game_*
+        "user": @user*
+        "perex": "<paragraph(2)>"
+        "text": "<paragraph(100)>"
+        "createdAt": "<dateTimeBetween('2000-07-01 00:00:01', '2000-12-31 23:59:59')>"
+    "wiki_draft_movie_{1..50}":
+        "wiki": @wiki_movie_*
+        "user": @user*
+        "perex": "<paragraph(2)>"
+        "text": "<paragraph(100)>"
+        "createdAt": "<dateTimeBetween('2000-07-01 00:00:01', '2000-12-31 23:59:59')>"
+    "wiki_draft_book_{1..50}":
+        "wiki": @wiki_book_*
+        "user": @user*
+        "perex": "<paragraph(2)>"
+        "text": "<paragraph(100)>"
+        "createdAt": "<dateTimeBetween('2000-07-01 00:00:01', '2000-12-31 23:59:59')>"
