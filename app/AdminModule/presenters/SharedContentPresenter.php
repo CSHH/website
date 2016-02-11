@@ -3,68 +3,48 @@
 namespace App\AdminModule\Presenters;
 
 use App\Model\Entities;
-use App\Model\Repositories;
 
 abstract class SharedContentPresenter extends PageablePresenter
 {
-    /** @var Repositories\WikiDraftRepository @inject */
-    public $wikiDraftRepository;
+    /** @var string @persistent */
+    public $inactiveOnly = 'no';
 
     /** @var Entities\WikiEntity[] */
     protected $wikis;
 
-    /** @var Entities\WikiEntity */
-    protected $wiki;
+    /** @var bool */
+    private $displayInactiveOnly = false;
+
+    /** @var bool */
+    private $canAccess = false;
 
     /**
-     * @param string $tagSlug
-     * @param string $slug
-     */
-    public function actionDetail($tagSlug, $slug)
-    {
-        $tag = $this->getTag($tagSlug);
-
-        $this->throw404IfNoTagOrSlug($tag, $slug);
-
-        $wiki = $this->wikiRepository->getByTagAndSlug($tag, $slug);
-
-        if (!$wiki) {
-            $this->throw404();
-        }
-
-        $this->wiki = $wiki;
-    }
-
-    public function renderDetail()
-    {
-        $this->template->wiki = $this->wiki;
-    }
-
-    /**
-     * @param string $tagSlug
      * @param int    $limit
      * @param string $type
      */
-    protected function runActionDefault($tagSlug, $limit, $type)
+    protected function runActionDefault($limit, $type)
     {
-        $tag = $this->getTag($tagSlug);
+        if ($this->inactiveOnly === 'yes') {
+            $this->displayInactiveOnly = true;
+        }
 
-        $wikis = $tag
-            ? $this->wikiRepository->getAllByTagForPage($this->page, $limit, $tag, $type)
-            : $this->wikiRepository->getAllForPage($this->page, $limit, $type);
+        $this->canAccess = $this->canAccess();
 
-        $this->preparePaginator($wikis->count(), $limit);
+        if ($this->canAccess && $this->displayInactiveOnly) {
+            $this->wikis = $this->wikiRepository->getAllWithDraftsForPage($this->page, $limit, $type);
+        } else {
+            $this->wikis = $this->wikiRepository->getAllByUserForPage($this->page, $limit, $this->getLoggedUserEntity(), $type);
+        }
 
-        $this->throw404IfNoItemsOnPage($wikis, $tag);
-
-        $this->wikis = $wikis;
-        $this->tag   = $tag;
+        $this->preparePaginator($this->wikis ? $this->wikis->count() : 0, $limit);
     }
 
     public function renderDefault()
     {
         parent::runRenderDefault();
 
-        $this->template->wikis = $this->wikis;
+        $this->template->inactiveOnly = $this->displayInactiveOnly;
+        $this->template->canAccess    = $this->canAccess;
+        $this->template->items        = $this->wikis;
     }
 }
