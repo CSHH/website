@@ -2,9 +2,7 @@
 
 {include '../include/activitySwitch.latte'}
 
-<div>
-    <a n:href="form">Nové video</a>
-</div>
+{include '../include/new.latte', label => 'Nové video'}
 
 {foreach $items as $item}
 
