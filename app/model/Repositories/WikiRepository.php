@@ -382,4 +382,38 @@ class WikiRepository extends BaseRepository
 
         return $res;
     }
+
+    /**
+     * @param  Entities\WikiEntity      $e
+     * @param  Entities\WikiDraftEntity $draft
+     * @return Entities\WikiEntity
+     */
+    public function updateWithDraft(
+        Entities\WikiEntity $e,
+        Entities\WikiDraftEntity $draft
+    ) {
+        $e->perex         = $draft->perex;
+        $e->text          = $draft->text;
+        $e->lastUpdatedBy = $draft->user;
+        $e->updatedAt     = $draft->createdAt;
+
+        foreach (array_reverse($e->drafts->toArray()) as $d) {
+            if ($draft->id < $d->id) {
+                break;
+            }
+
+            if ($e->contributors->contains($d->user) === false) {
+                $e->contributors->add($d->user);
+            }
+
+            $e->drafts->removeElement($d);
+
+            $this->em->remove($d);
+        }
+
+        $this->em->persist($e);
+        $this->em->flush();
+
+        return $e;
+    }
 }
