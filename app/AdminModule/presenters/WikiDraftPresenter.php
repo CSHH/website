@@ -60,17 +60,13 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function handleActivate($wikiId, $id)
     {
-        $this->wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+        $wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
 
-        if (!$this->wikiDraft || $this->wikiDraft->wiki->id != $wikiId) {
+        if (!$wikiDraft || $wikiDraft->wiki->id != $wikiId) {
             $this->redirect('Homepage:default');
         }
 
-        $this->wikiRepository->updateWithDraft(
-            $this->wikiDraft->wiki,
-            $this->wikiDraft
-        );
-
+        $this->wikiRepository->updateWithDraft($wikiDraft->wiki, $wikiDraft);
         $this->redirect('Homepage:default');
     }
 
@@ -80,10 +76,13 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function handleDelete($wikiId, $id)
     {
-        $this->wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+        $wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
 
-        if (!$this->wikiDraft || $this->wikiDraft->wiki->id != $wikiId) {
+        if (!$wikiDraft || $wikiDraft->wiki->id != $wikiId) {
             $this->redirect('Homepage:default');
         }
+
+        $this->wikiDraftRepository->delete($wikiDraft);
+        $this->redirect('default', array('wikiId' => $wikiId));
     }
 }
