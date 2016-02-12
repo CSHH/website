@@ -1,8 +1,8 @@
 {block content}
 
 <div>
-    <a href="#">Povolit</a>
-    <a href="#">Smazat</a>
+    <a n:href="activate!, wikiId => $draft->wiki->id, id => $draft->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+    <a n:href="delete!, wikiId => $draft->wiki->id, id => $draft->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
 </div>
 
 <div>{$draft->perex|noescape}</div>

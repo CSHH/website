@@ -53,4 +53,37 @@ final class WikiDraftPresenter extends SharedContentPresenter
     {
         $this->template->draft = $this->wikiDraft;
     }
+
+    /**
+     * @param int $wikiId
+     * @param int $id
+     */
+    public function handleActivate($wikiId, $id)
+    {
+        $this->wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+
+        if (!$this->wikiDraft || $this->wikiDraft->wiki->id != $wikiId) {
+            $this->redirect('Homepage:default');
+        }
+
+        $this->wikiRepository->updateWithDraft(
+            $this->wikiDraft->wiki,
+            $this->wikiDraft
+        );
+
+        $this->redirect('Homepage:default');
+    }
+
+    /**
+     * @param int $wikiId
+     * @param int $id
+     */
+    public function handleDelete($wikiId, $id)
+    {
+        $this->wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+
+        if (!$this->wikiDraft || $this->wikiDraft->wiki->id != $wikiId) {
+            $this->redirect('Homepage:default');
+        }
+    }
 }
