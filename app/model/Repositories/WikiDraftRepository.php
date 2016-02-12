@@ -59,6 +59,15 @@ class WikiDraftRepository extends BaseRepository
     }
 
     /**
+     * @param Entities\WikiDraftEntity $e
+     */
+    public function delete(Entities\WikiDraftEntity $e)
+    {
+        $this->em->remove($e);
+        $this->em->flush();
+    }
+
+    /**
      * @param  Entities\WikiEntity $wiki
      * @return Entities\WikiDraftEntity|null
      */
