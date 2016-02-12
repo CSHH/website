@@ -4,7 +4,11 @@
 
         <div>
 
-            {if $item->drafts->count()}
+            {var $draftCount = $item->drafts->count()}
+
+            {if $draftCount}
+
+                <span>{$draftCount}</span>
 
                 <a n:href="WikiDraft:default, wikiId => $item->id">{$item->name}</a>
 
