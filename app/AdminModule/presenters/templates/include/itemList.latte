@@ -1,0 +1,25 @@
+{if $items}
+
+    {foreach $items as $item}
+
+        <div>
+
+            {var $draftCount = $item->drafts->count()}
+
+            {if $draftCount}
+
+                <span>{$draftCount}</span>
+
+                <a n:href="WikiDraft:default, wikiId => $item->id">{$item->name}</a>
+
+            {else}
+
+                <a n:href="form, id => $item->id">{$item->name}</a>
+
+            {/if}
+
+        </div>
+
+    {/foreach}
+
+{/if}

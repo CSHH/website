@@ -1,0 +1,9 @@
+{block content}
+
+{foreach $wiki->drafts as $draft}
+
+    <div>
+        <a n:href="detail, wikiId => $wiki->id, id => $draft->id">Úprava z {$draft->createdAt->format('Y-m-d')}, v {$draft->createdAt->format('H:i:s')}, od {$draft->user->username}</a>
+    </div>
+
+{/foreach}

@@ -1,15 +1,15 @@
 {block content}
 
-<div>
-    <a n:href="form">Nový článek</a>
+<div n:if="$canAccess">
+    {if $inactiveOnly}
+        <a n:href="this, page => 1, inactiveOnly => 'no'">Zobrazit moje vlastní neschválené</a>
+    {else}
+        <a n:href="this, inactiveOnly => 'yes'">Zobrazit rozpracované</a>
+    {/if}
 </div>
 
-{foreach $items as $item}
+{include '../include/new.latte', label => 'Nový článek'}
 
-    <div>
-        <a n:href="form, id => $item->id">{$item->name}</a>
-    </div>
-
-{/foreach}
+{include '../include/itemList.latte'}
 
 {control vp}

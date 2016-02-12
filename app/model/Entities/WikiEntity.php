@@ -64,6 +64,7 @@ class WikiEntity extends BaseEntity
 
     /**
      * @ORM\OneToMany(targetEntity="WikiDraftEntity", mappedBy="wiki")
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      *
      * @var ArrayCollection
      */

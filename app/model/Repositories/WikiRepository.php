@@ -328,4 +328,92 @@ class WikiRepository extends BaseRepository
 
         return new Paginator($qb->getQuery());
     }
+
+    /**
+     * @param  int            $page
+     * @param  int            $limit
+     * @param  string         $type
+     * @return Paginator|null
+     */
+    public function getAllWithDraftsForPage($page, $limit, $type)
+    {
+        $wikiIds = $this->getIdListOfWikisThatHaveDrafts();
+
+        if (!$wikiIds) {
+            return null;
+        }
+
+        $qb = $this->dao->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::getClassName(), 'w')
+            ->leftJoin('w.drafts', 'd')
+            ->where('w.type = :type');
+
+        $qb->andWhere(
+            $qb->expr()->in('w.id', $wikiIds)
+        );
+
+        $qb->setParameter('type', $type)
+            ->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
+
+        return new Paginator($qb->getQuery());
+    }
+
+    /**
+     * @return array
+     */
+    public function getIdListOfWikisThatHaveDrafts()
+    {
+        $qb = $this->dao->createQueryBuilder();
+        $qb->select('w.id')
+            ->from(Entities\WikiDraftEntity::getClassName(), 'd')
+            ->leftJoin('d.wiki', 'w')
+            ->distinct('w.id')
+            ->where(
+                $qb->expr()->isNotNull('w.id')
+            );
+
+        $res = array();
+
+        foreach ($qb->getQuery()->getResult() as $i) {
+            $res[] = $i['id'];
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param  Entities\WikiEntity      $e
+     * @param  Entities\WikiDraftEntity $draft
+     * @return Entities\WikiEntity
+     */
+    public function updateWithDraft(
+        Entities\WikiEntity $e,
+        Entities\WikiDraftEntity $draft
+    ) {
+        $e->perex         = $draft->perex;
+        $e->text          = $draft->text;
+        $e->lastUpdatedBy = $draft->user;
+        $e->updatedAt     = $draft->createdAt;
+
+        foreach (array_reverse($e->drafts->toArray()) as $d) {
+            if ($draft->id < $d->id) {
+                break;
+            }
+
+            if ($e->contributors->contains($d->user) === false) {
+                $e->contributors->add($d->user);
+            }
+
+            $e->drafts->removeElement($d);
+
+            $this->em->remove($d);
+        }
+
+        $this->em->persist($e);
+        $this->em->flush();
+
+        return $e;
+    }
 }
