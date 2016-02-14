@@ -11,7 +11,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     public $inactiveOnly = 'no';
 
     /** @var Entities\WikiEntity[] */
-    protected $wikis;
+    protected $items;
 
     /** @var Entities\BaseEntity */
     protected $item;
@@ -59,12 +59,12 @@ abstract class SharedContentPresenter extends PageablePresenter
         $this->canAccess = $this->canAccess();
 
         if ($this->canAccess && $this->displayInactiveOnly) {
-            $this->wikis = $this->wikiRepository->getAllWithDraftsForPage($this->page, $limit, $type);
+            $this->items = $this->wikiRepository->getAllWithDraftsForPage($this->page, $limit, $type);
         } else {
-            $this->wikis = $this->wikiRepository->getAllByUserForPage($this->page, $limit, $this->getLoggedUserEntity(), $type);
+            $this->items = $this->wikiRepository->getAllByUserForPage($this->page, $limit, $this->getLoggedUserEntity(), $type);
         }
 
-        $this->preparePaginator($this->wikis ? $this->wikis->count() : 0, $limit);
+        $this->preparePaginator($this->items ? $this->items->count() : 0, $limit);
     }
 
     public function renderDefault()
@@ -73,7 +73,7 @@ abstract class SharedContentPresenter extends PageablePresenter
 
         $this->template->inactiveOnly = $this->displayInactiveOnly;
         $this->template->canAccess    = $this->canAccess;
-        $this->template->items        = $this->wikis;
+        $this->template->items        = $this->items;
     }
 
     /**
