@@ -2,8 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\AdminModule\Components\Forms\WikiForm;
-use App\FrontModule\Components\Forms\WikiDraftForm;
+use App\AdminModule\Components\Forms;
 use App\Model\Entities;
 
 final class BookPresenter extends SharedContentPresenter
@@ -22,33 +21,18 @@ final class BookPresenter extends SharedContentPresenter
     }
 
     /**
-     * @return WikiForm
+     * @return Forms\WikiForm
      */
     protected function createComponentWikiForm()
     {
-        return new WikiForm(
-            $this->translator,
-            $this->tagRepository,
-            $this->wikiRepository,
-            $this->getLoggedUserEntity(),
-            Entities\WikiEntity::TYPE_BOOK,
-            $this->item
-        );
+        return $this->runCreateComponentWikiForm(Entities\WikiEntity::TYPE_BOOK);
     }
 
     /**
-     * @return WikiDraftForm
+     * @return Forms\WikiDraftForm
      */
     protected function createComponentWikiDraftForm()
     {
-        return new WikiDraftForm(
-            $this->translator,
-            $this->tagRepository,
-            $this->wikiRepository,
-            $this->wikiDraftRepository,
-            $this->getLoggedUserEntity(),
-            Entities\WikiEntity::TYPE_BOOK,
-            $this->item
-        );
+        return $this->runCreateComponentWikiDraftForm(Entities\WikiEntity::TYPE_BOOK);
     }
 }

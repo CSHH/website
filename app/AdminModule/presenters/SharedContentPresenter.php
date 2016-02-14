@@ -2,6 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
+use App\AdminModule\Components\Forms;
 use App\Model\Entities;
 
 abstract class SharedContentPresenter extends PageablePresenter
@@ -73,5 +74,38 @@ abstract class SharedContentPresenter extends PageablePresenter
         $this->template->inactiveOnly = $this->displayInactiveOnly;
         $this->template->canAccess    = $this->canAccess;
         $this->template->items        = $this->wikis;
+    }
+
+    /**
+     * @param  string $type
+     * @return Forms\WikiForm
+     */
+    protected function runCreateComponentWikiForm($type)
+    {
+        return new Forms\WikiForm(
+            $this->translator,
+            $this->tagRepository,
+            $this->wikiRepository,
+            $this->getLoggedUserEntity(),
+            $type,
+            $this->item
+        );
+    }
+
+    /**
+     * @param  string $type
+     * @return Forms\WikiDraftForm
+     */
+    protected function runCreateComponentWikiDraftForm($type)
+    {
+        return new Forms\WikiDraftForm(
+            $this->translator,
+            $this->tagRepository,
+            $this->wikiRepository,
+            $this->wikiDraftRepository,
+            $this->getLoggedUserEntity(),
+            $type,
+            $this->item
+        );
     }
 }
