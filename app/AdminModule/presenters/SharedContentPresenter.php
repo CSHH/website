@@ -69,8 +69,6 @@ abstract class SharedContentPresenter extends PageablePresenter
 
     public function renderDefault()
     {
-        parent::runRenderDefault();
-
         $this->template->inactiveOnly = $this->displayInactiveOnly;
         $this->template->canAccess    = $this->canAccess;
         $this->template->items        = $this->items;
