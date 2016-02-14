@@ -19,6 +19,25 @@ abstract class SharedContentPresenter extends PageablePresenter
     private $canAccess = false;
 
     /**
+     * @param string $type
+     * @param string $redirect
+     * @param int    $id
+     */
+    protected function runActionForm($type, $redirect, $id = null)
+    {
+        if ($id !== null) {
+            $item = $this->wikiRepository->getById($id);
+            $user = $this->getLoggedUserEntity();
+            if (!$item || $item->type !== $type || $item->createdBy->id !== $user->id) {
+                $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
+                $this->redirect($redirect);
+            }
+
+            $this->item = $item;
+        }
+    }
+
+    /**
      * @param int    $limit
      * @param string $type
      */

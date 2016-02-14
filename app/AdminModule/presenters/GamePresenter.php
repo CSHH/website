@@ -16,16 +16,7 @@ final class GamePresenter extends SharedContentPresenter
      */
     public function actionForm($id = null)
     {
-        if ($id !== null) {
-            $item = $this->wikiRepository->getById($id);
-            $user = $this->getLoggedUserEntity();
-            if (!$item || $item->type !== Entities\WikiEntity::TYPE_GAME || $item->createdBy->id !== $user->id) {
-                $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
-                $this->redirect('Game:default');
-            }
-
-            $this->item = $item;
-        }
+        $this->runActionForm(Entities\WikiEntity::TYPE_GAME, 'Game:default', $id);
     }
 
     public function renderForm()
