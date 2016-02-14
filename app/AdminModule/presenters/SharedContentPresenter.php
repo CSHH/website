@@ -12,6 +12,9 @@ abstract class SharedContentPresenter extends PageablePresenter
     /** @var Entities\WikiEntity[] */
     protected $wikis;
 
+    /** @var Entities\BaseEntity */
+    protected $item;
+
     /** @var bool */
     private $displayInactiveOnly = false;
 
@@ -35,6 +38,11 @@ abstract class SharedContentPresenter extends PageablePresenter
 
             $this->item = $item;
         }
+    }
+
+    public function renderForm()
+    {
+        $this->template->item = $this->item;
     }
 
     /**

@@ -8,20 +8,12 @@ use App\Model\Entities;
 
 final class MoviePresenter extends SharedContentPresenter
 {
-    /** @var Entities\BaseEntity */
-    private $item;
-
     /**
      * @param int $id
      */
     public function actionForm($id = null)
     {
         $this->runActionForm(Entities\WikiEntity::TYPE_MOVIE, 'Movie:default', $id);
-    }
-
-    public function renderForm()
-    {
-        $this->template->item = $this->item;
     }
 
     public function actionDefault()
