@@ -3,25 +3,9 @@
 namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
-use App\Model\Entities;
 
 abstract class SharedContentPresenter extends PageablePresenter
 {
-    /** @var string @persistent */
-    public $inactiveOnly = 'no';
-
-    /** @var Entities\WikiEntity[] */
-    protected $items;
-
-    /** @var Entities\BaseEntity */
-    protected $item;
-
-    /** @var bool */
-    private $displayInactiveOnly = false;
-
-    /** @var bool */
-    private $canAccess = false;
-
     /**
      * @param string $type
      * @param string $redirect
