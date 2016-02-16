@@ -3,14 +3,31 @@
 namespace App\AdminModule\Presenters;
 
 use App\Components\Controls;
+use App\Model\Entities;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class PageablePresenter extends SecurePresenter
 {
     /** @var int @persistent */
     public $page = 1;
 
+    /** @var string @persistent */
+    public $inactiveOnly = 'no';
+
     /** @var Controls\VisualPaginator */
     protected $vp;
+
+    /** @var Paginator */
+    protected $items;
+
+    /** @var Entities\BaseEntity */
+    protected $item;
+
+    /** @var bool */
+    protected $displayInactiveOnly = false;
+
+    /** @var bool */
+    protected $canAccess = false;
 
     /**
      * @return Controls\VisualPaginator
