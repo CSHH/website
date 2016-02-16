@@ -38,9 +38,7 @@ abstract class SharedContentPresenter extends PageablePresenter
      */
     protected function runActionDefault($limit, $type)
     {
-        if ($this->inactiveOnly === 'yes') {
-            $this->displayInactiveOnly = true;
-        }
+        $this->checkIfDisplayInactiveOnly();
 
         $this->canAccess = $this->canAccess();
 
