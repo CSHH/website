@@ -11,11 +11,23 @@ abstract class PageablePresenter extends SecurePresenter
     /** @var int @persistent */
     public $page = 1;
 
+    /** @var string @persistent */
+    public $inactiveOnly = 'no';
+
     /** @var Controls\VisualPaginator */
     protected $vp;
 
-    /** @var Entities\TagEntity */
-    protected $tag;
+    /** @var Paginator */
+    protected $items;
+
+    /** @var Entities\BaseEntity */
+    protected $item;
+
+    /** @var bool */
+    protected $displayInactiveOnly = false;
+
+    /** @var bool */
+    protected $canAccess = false;
 
     /**
      * @return Controls\VisualPaginator
@@ -38,39 +50,20 @@ abstract class PageablePresenter extends SecurePresenter
         $p->setPage($this->page);
     }
 
-    protected function runRenderDefault()
+    /**
+     * @param string $message
+     * @param string $redirect
+     */
+    protected function flashWithRedirect($message = '', $redirect = 'this')
     {
-        $this->template->tag = $this->tag;
+        $this->flashMessage($message);
+        $this->redirect($redirect);
     }
 
-    /**
-     * @param  string                  $tagSlug
-     * @return Entities\TagEntity|null
-     */
-    protected function getTag($tagSlug)
+    protected function checkIfDisplayInactiveOnly()
     {
-        return $tagSlug ? $this->tagRepository->getBySlug($tagSlug) : null;
-    }
-
-    /**
-     * @param Entities\TagEntity $tag
-     * @param string             $slug
-     */
-    protected function throw404IfNoTagOrSlug(Entities\TagEntity $tag, $slug)
-    {
-        if (!$tag || !$slug) {
-            $this->throw404();
-        }
-    }
-
-    /**
-     * @param Paginator          $items
-     * @param Entities\TagEntity $tag
-     */
-    protected function throw404IfNoItemsOnPage(Paginator $items, Entities\TagEntity $tag = null)
-    {
-        if ($tag && !$items || $this->page > $this->vp->getPaginator()->getLastPage()) {
-            $this->throw404();
+        if ($this->inactiveOnly === 'yes') {
+            $this->displayInactiveOnly = true;
         }
     }
 }
