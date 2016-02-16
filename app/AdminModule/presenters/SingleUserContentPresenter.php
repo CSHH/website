@@ -38,9 +38,7 @@ abstract class SingleUserContentPresenter extends PageablePresenter
      */
     protected function runActionDefault(Repositories\BaseRepository $repository, $limit, Entities\UserEntity $user)
     {
-        if ($this->inactiveOnly === 'yes') {
-            $this->displayInactiveOnly = true;
-        }
+        $this->checkIfDisplayInactiveOnly();
 
         $this->canAccess = $this->canAccess();
 
