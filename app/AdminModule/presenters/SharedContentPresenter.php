@@ -33,8 +33,10 @@ abstract class SharedContentPresenter extends PageablePresenter
             $item = $this->wikiRepository->getById($id);
             $user = $this->getLoggedUserEntity();
             if (!$item || $item->type !== $type || $item->createdBy->id !== $user->id) {
-                $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
-                $this->redirect($redirect);
+                $this->flashWithRedirect(
+                    $this->translator->translate('locale.item.does_not_exist'),
+                    $redirect
+                );
             }
 
             $this->item = $item;
