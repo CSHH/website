@@ -4,25 +4,9 @@ namespace App\AdminModule\Presenters;
 
 use App\Model\Entities;
 use App\Model\Repositories;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
-    /** @var string @persistent */
-    public $inactiveOnly = 'no';
-
-    /** @var Entities\BaseEntity */
-    protected $item;
-
-    /** @var Paginator */
-    private $items;
-
-    /** @var bool */
-    private $displayInactiveOnly = false;
-
-    /** @var bool */
-    private $canAccess = false;
-
     /**
      * @param Repositories\BaseRepository $repository
      * @param string                      $redirect
