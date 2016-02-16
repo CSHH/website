@@ -129,14 +129,4 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     {
         return $itemId ? $repository->getById($itemId) : null;
     }
-
-    /**
-     * @param string $message
-     * @param string $redirect
-     */
-    protected function flashWithRedirect($message = '', $redirect = 'this')
-    {
-        $this->flashMessage($message);
-        $this->redirect($redirect);
-    }
 }
