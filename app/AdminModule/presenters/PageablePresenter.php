@@ -59,4 +59,11 @@ abstract class PageablePresenter extends SecurePresenter
         $this->flashMessage($message);
         $this->redirect($redirect);
     }
+
+    protected function checkIfDisplayInactiveOnly()
+    {
+        if ($this->inactiveOnly === 'yes') {
+            $this->displayInactiveOnly = true;
+        }
+    }
 }
