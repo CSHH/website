@@ -11,14 +11,41 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     /** @var string @persistent */
     public $inactiveOnly = 'no';
 
+    /** @var Entities\BaseEntity */
+    protected $item;
+
+    /** @var Paginator */
+    private $items;
+
     /** @var bool */
     private $displayInactiveOnly = false;
 
     /** @var bool */
     private $canAccess = false;
 
-    /** @var Paginator */
-    private $items;
+    /**
+     * @param Repositories\BaseRepository $repository
+     * @param string                      $redirect
+     * @param int                         $id
+     */
+    protected function runActionForm(
+        Repositories\BaseRepository $repository,
+        $redirect,
+        $id = null
+    ) {
+        if ($id !== null) {
+            $item = $this->getItem($id, $repository);
+            $user = $this->getLoggedUserEntity();
+            if (!$item || $item->user->id !== $user->id) {
+                $this->flashWithRedirect(
+                    $this->translator->translate('locale.item.does_not_exist'),
+                    $redirect
+                );
+            }
+
+            $this->item = $item;
+        }
+    }
 
     /**
      * @param  Repositories\BaseRepository $repository
@@ -47,5 +74,69 @@ abstract class SingleUserContentPresenter extends PageablePresenter
         $this->template->inactiveOnly = $this->displayInactiveOnly;
         $this->template->canAccess    = $this->canAccess;
         $this->template->items        = $this->items;
+    }
+
+    /**
+     * @param int                         $itemId
+     * @param Repositories\BaseRepository $repository
+     */
+    protected function runHandleActivate($itemId, Repositories\BaseRepository $repository)
+    {
+        $item = $this->getItem($itemId, $repository);
+
+        $this->checkItemAndFlashWithRedirectIfNull($item);
+
+        $repository->activate($item);
+
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
+    }
+
+    /**
+     * @param int                         $itemId
+     * @param Repositories\BaseRepository $repository
+     */
+    protected function runHandleDelete($itemId, Repositories\BaseRepository $repository)
+    {
+        $item = $this->getItem($itemId, $repository);
+
+        $this->checkItemAndFlashWithRedirectIfNull($item);
+
+        $repository->delete($item);
+
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
+    }
+
+    /**
+     * @param Entities\BaseEntity $item
+     * @param string              $redirect
+     */
+    protected function checkItemAndFlashWithRedirectIfNull(Entities\BaseEntity $item = null, $redirect = 'this')
+    {
+        if ($item === null) {
+            $this->flashWithRedirect(
+                $this->translator->translate('locale.item.does_not_exist'),
+                $redirect
+            );
+        }
+    }
+
+    /**
+     * @param  int                         $itemId
+     * @param  Repositories\BaseRepository $repository
+     * @return Entities\BaseEntity|null
+     */
+    protected function getItem($itemId, Repositories\BaseRepository $repository)
+    {
+        return $itemId ? $repository->getById($itemId) : null;
+    }
+
+    /**
+     * @param string $message
+     * @param string $redirect
+     */
+    protected function flashWithRedirect($message = '', $redirect = 'this')
+    {
+        $this->flashMessage($message);
+        $this->redirect($redirect);
     }
 }

@@ -3,28 +3,15 @@
 namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
-use App\Model\Entities;
 
 final class ArticlePresenter extends SingleUserContentPresenter
 {
-    /** @var Entities\BaseEntity */
-    private $item;
-
     /**
      * @param int $id
      */
     public function actionForm($id = null)
     {
-        if ($id !== null) {
-            $item = $this->articleRepository->getById($id);
-            $user = $this->getLoggedUserEntity();
-            if (!$item || $item->user->id !== $user->id) {
-                $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
-                $this->redirect('Article:default');
-            }
-
-            $this->item = $item;
-        }
+        $this->runActionForm($this->articleRepository, 'Article:default', $id);
     }
 
     public function actionDefault()
@@ -37,12 +24,9 @@ final class ArticlePresenter extends SingleUserContentPresenter
      */
     public function actionDetail($id)
     {
-        $item = $id ? $this->articleRepository->getById($id) : null;
+        $item = $this->getItem($id, $this->articleRepository);
 
-        if (!$item) {
-            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
-            $this->redirect('Article:default');
-        }
+        $this->checkItemAndFlashWithRedirectIfNull($item, 'Article:default');
 
         $this->item = $item;
     }
@@ -50,6 +34,22 @@ final class ArticlePresenter extends SingleUserContentPresenter
     public function renderDetail()
     {
         $this->template->item = $this->item;
+    }
+
+    /**
+     * @param int $articleId
+     */
+    public function handleActivate($articleId)
+    {
+        $this->runHandleActivate($articleId, $this->articleRepository);
+    }
+
+    /**
+     * @param int $articleId
+     */
+    public function handleDelete($articleId)
+    {
+        $this->runHandleDelete($articleId, $this->articleRepository);
     }
 
     /**
@@ -64,41 +64,5 @@ final class ArticlePresenter extends SingleUserContentPresenter
             $this->getLoggedUserEntity(),
             $this->item
         );
-    }
-
-    /**
-     * @param int $articleId
-     */
-    public function handleActivate($articleId)
-    {
-        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
-
-        if (!$article) {
-            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
-            $this->redirect('this');
-        }
-
-        $this->articleRepository->activate($article);
-
-        $this->flashMessage($this->translator->translate('locale.item.activated'));
-        $this->redirect('this');
-    }
-
-    /**
-     * @param int $articleId
-     */
-    public function handleDelete($articleId)
-    {
-        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
-
-        if (!$article) {
-            $this->flashMessage($this->translator->translate('locale.item.does_not_exist'));
-            $this->redirect('this');
-        }
-
-        $this->articleRepository->delete($article);
-
-        $this->flashMessage($this->translator->translate('locale.item.deleted'));
-        $this->redirect('this');
     }
 }
