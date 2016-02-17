@@ -64,8 +64,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
 
         $this->articleRepository->activate($article);
 
-        $this->flashMessage($this->translator->translate('locale.item.activated'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
     }
 
     /**
@@ -81,7 +80,6 @@ final class ArticlePresenter extends SingleUserContentPresenter
 
         $this->articleRepository->delete($article);
 
-        $this->flashMessage($this->translator->translate('locale.item.deleted'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
     }
 }

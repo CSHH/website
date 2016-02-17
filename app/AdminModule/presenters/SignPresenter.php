@@ -38,9 +38,7 @@ final class SignPresenter extends BasePresenter
     public function actionOut()
     {
         $this->getUser()->logout();
-
-        $this->flashMessage('Byl/a jste odhlášen/a.');
-        $this->redirect('Sign:in');
+        $this->flashWithRedirect('Byl/a jste odhlášen/a.', 'Sign:in');
     }
 
     /**
@@ -108,12 +106,12 @@ final class SignPresenter extends BasePresenter
             }
 
             $this->userRepository->checkForTokenExpiration($this->e, $token);
+
         } catch (UserNotFoundException $e) {
-            $this->flashMessage($e->getMessage());
-            $this->redirect('Sign:in');
+            $this->flashWithRedirect($e->getMessage(), 'Sign:in');
+
         } catch (ActivationLimitExpiredException $e) {
-            $this->flashMessage($e->getMessage());
-            $this->redirect('Sign:in');
+            $this->flashWithRedirect($e->getMessage(), 'Sign:in');
         }
     }
 

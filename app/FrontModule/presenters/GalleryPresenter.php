@@ -37,8 +37,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
 
         $this->imageRepository->activate($image);
 
-        $this->flashMessage($this->translator->translate('locale.item.activated'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
     }
 
     /**
@@ -54,7 +53,6 @@ final class GalleryPresenter extends SingleUserContentPresenter
 
         $this->imageRepository->delete($image);
 
-        $this->flashMessage($this->translator->translate('locale.item.deleted'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
     }
 }
