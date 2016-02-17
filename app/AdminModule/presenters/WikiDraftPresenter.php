@@ -24,7 +24,7 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function actionDefault($wikiId)
     {
-        $this->wiki = $wikiId ? $this->wikiRepository->getById($wikiId) : null;
+        $this->wiki = $this->getItem($wikiId, $this->wikiRepository);
 
         if (!$this->wiki) {
             $this->redirect('Homepage:default');
@@ -42,7 +42,7 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function actionDetail($wikiId, $id)
     {
-        $this->wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+        $this->wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
 
         if (!$this->wikiDraft || $this->wikiDraft->wiki->id != $wikiId) {
             $this->redirect('Homepage:default');
@@ -60,7 +60,7 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function handleActivate($wikiId, $id)
     {
-        $wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+        $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
 
         if (!$wikiDraft || $wikiDraft->wiki->id != $wikiId) {
             $this->redirect('Homepage:default');
@@ -76,7 +76,7 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function handleDelete($wikiId, $id)
     {
-        $wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+        $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
 
         if (!$wikiDraft || $wikiDraft->wiki->id != $wikiId) {
             $this->redirect('Homepage:default');
