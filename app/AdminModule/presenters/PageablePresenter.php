@@ -58,16 +58,6 @@ abstract class PageablePresenter extends SecurePresenter
         $p->setPage($this->page);
     }
 
-    /**
-     * @param string $message
-     * @param string $redirect
-     */
-    protected function flashWithRedirect($message = '', $redirect = 'this')
-    {
-        $this->flashMessage($message);
-        $this->redirect($redirect);
-    }
-
     protected function checkIfDisplayInactiveOnly()
     {
         if ($this->inactiveOnly === 'yes') {
