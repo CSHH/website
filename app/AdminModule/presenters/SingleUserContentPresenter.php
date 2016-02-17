@@ -94,14 +94,4 @@ abstract class SingleUserContentPresenter extends PageablePresenter
             );
         }
     }
-
-    /**
-     * @param  int                         $itemId
-     * @param  Repositories\BaseRepository $repository
-     * @return Entities\BaseEntity|null
-     */
-    protected function getItem($itemId, Repositories\BaseRepository $repository)
-    {
-        return $itemId ? $repository->getById($itemId) : null;
-    }
 }
