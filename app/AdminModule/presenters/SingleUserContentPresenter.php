@@ -51,13 +51,6 @@ abstract class SingleUserContentPresenter extends PageablePresenter
         $this->preparePaginator($this->items->count(), $limit);
     }
 
-    public function renderDefault()
-    {
-        $this->template->inactiveOnly = $this->displayInactiveOnly;
-        $this->template->canAccess    = $this->canAccess;
-        $this->template->items        = $this->items;
-    }
-
     /**
      * @param int                         $itemId
      * @param Repositories\BaseRepository $repository
