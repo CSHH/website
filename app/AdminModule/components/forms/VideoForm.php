@@ -28,7 +28,7 @@ class VideoForm extends AbstractContentForm
         parent::__construct($translator, $tagRepository, $user);
 
         $this->videoRepository = $videoRepository;
-        $this->item      = $item;
+        $this->item            = $item;
     }
 
     protected function configure(Form $form)

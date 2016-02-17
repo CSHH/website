@@ -60,18 +60,21 @@ final class SignPresenter extends BasePresenter
         try {
             $this->userRepository->unlock($userId, $token);
             $this->flashMessage('Váš účet byl úspěšně aktivován. Přihlašte se prosím.');
+
         } catch (UserNotFoundException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $this->flashMessage($e->getMessage(), FlashType::WARNING);
             $this->redirect('Homepage:default');
+
         } catch (ActivationLimitExpiredException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $this->flashMessage($e->getMessage(), FlashType::WARNING);
             $this->redirect('Homepage:default');
+
         } catch (\Exception $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);

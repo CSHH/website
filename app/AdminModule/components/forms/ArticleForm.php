@@ -27,7 +27,7 @@ class ArticleForm extends AbstractContentForm
         parent::__construct($translator, $tagRepository, $user);
 
         $this->articleRepository = $articleRepository;
-        $this->item        = $item;
+        $this->item              = $item;
     }
 
     protected function configure(Form $form)

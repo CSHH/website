@@ -32,11 +32,11 @@ class SignUpForm extends Nette\Application\UI\Control
     private $contactEmail;
 
     /**
-     * @param ITranslator    $translator
-     * @param Repositories\UserRepository  $userRepository
-     * @param IAuthenticator $authenticator
-     * @param IMailer        $mailer
-     * @param string         $contactEmail
+     * @param ITranslator                 $translator
+     * @param Repositories\UserRepository $userRepository
+     * @param IAuthenticator              $authenticator
+     * @param IMailer                     $mailer
+     * @param string                      $contactEmail
      */
     public function __construct(
         ITranslator $translator,
@@ -47,11 +47,11 @@ class SignUpForm extends Nette\Application\UI\Control
     ) {
         parent::__construct();
 
-        $this->translator    = $translator;
-        $this->userRepository      = $userRepository;
-        $this->authenticator = $authenticator;
-        $this->mailer        = $mailer;
-        $this->contactEmail  = $contactEmail;
+        $this->translator     = $translator;
+        $this->userRepository = $userRepository;
+        $this->authenticator  = $authenticator;
+        $this->mailer         = $mailer;
+        $this->contactEmail   = $contactEmail;
     }
 
     /**
@@ -96,8 +96,7 @@ class SignUpForm extends Nette\Application\UI\Control
     public function formSucceeded(Form $form)
     {
         try {
-            $p = $this->getPresenter();
-
+            $p      = $this->getPresenter();
             $values = $form->getValues();
 
             if (strlen($values->__anti) > 0) {
