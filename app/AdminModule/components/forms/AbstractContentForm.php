@@ -28,9 +28,9 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
     ) {
         parent::__construct();
 
-        $this->translator = $translator;
-        $this->tagRepository    = $tagRepository;
-        $this->user       = $user;
+        $this->translator    = $translator;
+        $this->tagRepository = $tagRepository;
+        $this->user          = $user;
     }
 
     /**
