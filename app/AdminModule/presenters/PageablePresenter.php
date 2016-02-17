@@ -29,6 +29,13 @@ abstract class PageablePresenter extends SecurePresenter
     /** @var bool */
     protected $canAccess = false;
 
+    public function renderDefault()
+    {
+        $this->template->inactiveOnly = $this->displayInactiveOnly;
+        $this->template->canAccess    = $this->canAccess;
+        $this->template->items        = $this->items;
+    }
+
     /**
      * @return Controls\VisualPaginator
      */
