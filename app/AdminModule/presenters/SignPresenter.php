@@ -29,8 +29,10 @@ final class SignPresenter extends BasePresenter
     {
         parent::startup();
 
-        $this->appDir       = $this->context->parameters['appDir'];
-        $this->contactEmail = $this->context->parameters['contactEmail'];
+        $parameters = $this->context->parameters;
+
+        $this->appDir       = $parameters['appDir'];
+        $this->contactEmail = $parameters['contactEmail'];
     }
 
     public function actionOut()
