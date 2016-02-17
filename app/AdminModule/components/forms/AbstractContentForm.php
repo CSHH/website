@@ -7,7 +7,6 @@ use App\Model\Entities;
 use App\Model\Exceptions;
 use Nette;
 use Nette\Application\UI\Form;
-use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Tracy;
 
@@ -121,16 +120,7 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
 
         $template->tags = $this->getTags();
 
-        $this->insideRender($template);
-
         $template->render();
-    }
-
-    /**
-     * @param ITemplate $template
-     */
-    protected function insideRender(ITemplate $template)
-    {
     }
 
     /**
