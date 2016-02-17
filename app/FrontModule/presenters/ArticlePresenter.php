@@ -56,7 +56,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
      */
     public function handleActivate($articleId)
     {
-        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
+        $article = $this->getItem($articleId, $this->articleRepository);
 
         if (!$article) {
             $this->throw404();
@@ -72,7 +72,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
      */
     public function handleDelete($articleId)
     {
-        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
+        $article = $this->getItem($articleId, $this->articleRepository);
 
         if (!$article) {
             $this->throw404();

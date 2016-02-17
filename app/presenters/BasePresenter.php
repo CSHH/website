@@ -29,7 +29,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     {
         $u = $this->getUser();
 
-        return $u->loggedIn ? $this->userRepository->getById($u->id) : null;
+        return $u->isLoggedIn()
+            ? $this->getItem($u->id, $this->userRepository)
+            : null;
     }
 
     /**

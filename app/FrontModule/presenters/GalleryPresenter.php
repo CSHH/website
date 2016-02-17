@@ -29,7 +29,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
      */
     public function handleActivate($imageId)
     {
-        $image = $imageId ? $this->imageRepository->getById($imageId) : null;
+        $image = $this->getItem($imageId, $this->imageRepository);
 
         if (!$image) {
             $this->throw404();
@@ -45,7 +45,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
      */
     public function handleDelete($imageId)
     {
-        $image = $imageId ? $this->imageRepository->getById($imageId) : null;
+        $image = $this->getItem($imageId, $this->imageRepository);
 
         if (!$image) {
             $this->throw404();

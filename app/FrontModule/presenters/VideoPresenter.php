@@ -29,7 +29,7 @@ final class VideoPresenter extends SingleUserContentPresenter
      */
     public function handleActivate($videoId)
     {
-        $video = $videoId ? $this->videoRepository->getById($videoId) : null;
+        $video = $this->getItem($videoId, $this->videoRepository);
 
         if (!$video) {
             $this->throw404();
@@ -45,7 +45,7 @@ final class VideoPresenter extends SingleUserContentPresenter
      */
     public function handleDelete($videoId)
     {
-        $video = $videoId ? $this->videoRepository->getById($videoId) : null;
+        $video = $this->getItem($videoId, $this->videoRepository);
 
         if (!$video) {
             $this->throw404();
