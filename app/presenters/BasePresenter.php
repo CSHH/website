@@ -41,4 +41,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
         return $user && $user->role > Entities\UserEntity::ROLE_USER;
     }
+
+    /**
+     * @param string $message
+     * @param string $redirect
+     */
+    protected function flashWithRedirect($message = '', $redirect = 'this')
+    {
+        $this->flashMessage($message);
+        $this->redirect($redirect);
+    }
 }
