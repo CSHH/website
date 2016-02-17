@@ -51,13 +51,6 @@ abstract class SharedContentPresenter extends PageablePresenter
         $this->preparePaginator($this->items ? $this->items->count() : 0, $limit);
     }
 
-    public function renderDefault()
-    {
-        $this->template->inactiveOnly = $this->displayInactiveOnly;
-        $this->template->canAccess    = $this->canAccess;
-        $this->template->items        = $this->items;
-    }
-
     /**
      * @param  string $type
      * @return Forms\WikiForm
