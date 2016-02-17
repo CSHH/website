@@ -4,6 +4,7 @@ namespace App\AdminModule\Presenters;
 
 use App\Components\Controls;
 use App\Model\Entities;
+use App\Model\Repositories;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class PageablePresenter extends SecurePresenter
@@ -72,5 +73,15 @@ abstract class PageablePresenter extends SecurePresenter
         if ($this->inactiveOnly === 'yes') {
             $this->displayInactiveOnly = true;
         }
+    }
+
+    /**
+     * @param  int                         $itemId
+     * @param  Repositories\BaseRepository $repository
+     * @return Entities\BaseEntity|null
+     */
+    protected function getItem($itemId, Repositories\BaseRepository $repository)
+    {
+        return $itemId ? $repository->getById($itemId) : null;
     }
 }
