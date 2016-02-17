@@ -51,4 +51,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->flashMessage($message);
         $this->redirect($redirect);
     }
+
+    /**
+     * @param  int                         $itemId
+     * @param  Repositories\BaseRepository $repository
+     * @return Entities\BaseEntity|null
+     */
+    protected function getItem($itemId, Repositories\BaseRepository $repository)
+    {
+        return $itemId ? $repository->getById($itemId) : null;
+    }
 }
