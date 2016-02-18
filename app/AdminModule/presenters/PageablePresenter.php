@@ -2,20 +2,16 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Components\Controls;
 use App\Model\Entities;
+use App\Presenters\PageableTrait;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class PageablePresenter extends SecurePresenter
 {
-    /** @var int @persistent */
-    public $page = 1;
+    use PageableTrait;
 
     /** @var string @persistent */
     public $inactiveOnly = 'no';
-
-    /** @var Controls\VisualPaginator */
-    protected $vp;
 
     /** @var Paginator */
     protected $items;
@@ -34,27 +30,6 @@ abstract class PageablePresenter extends SecurePresenter
         $this->template->inactiveOnly = $this->displayInactiveOnly;
         $this->template->canAccess    = $this->canAccess;
         $this->template->items        = $this->items;
-    }
-
-    /**
-     * @return Controls\VisualPaginator
-     */
-    protected function createComponentVp()
-    {
-        return $this->vp;
-    }
-
-    /**
-     * @param int $itemCount
-     * @param int $limit
-     */
-    protected function preparePaginator($itemCount, $limit)
-    {
-        $this->vp = new Controls\VisualPaginator($this->page);
-        $p        = $this->vp->getPaginator();
-        $p->setItemCount($itemCount);
-        $p->setItemsPerPage($limit);
-        $p->setPage($this->page);
     }
 
     protected function checkIfDisplayInactiveOnly()
