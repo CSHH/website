@@ -4,12 +4,15 @@ namespace App\Model\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby;
+use Kdyby\Doctrine\Entities\Attributes\Identifier;
 
 /**
  * @ORM\MappedSuperclass()
  */
 abstract class BaseEntity extends Kdyby\Doctrine\Entities\BaseEntity
 {
+    use Identifier;
+
     /**
      * @param  array|\Traversable             $values
      * @throws Nette\InvalidArgumentException

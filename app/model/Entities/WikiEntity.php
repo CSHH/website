@@ -4,7 +4,6 @@ namespace App\Model\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
@@ -13,7 +12,6 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  */
 class WikiEntity extends BaseEntity
 {
-    use Identifier;
     use Timestampable;
 
     /** @var string */

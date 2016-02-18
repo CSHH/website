@@ -5,7 +5,6 @@ namespace App\Model\Entities;
 use Doctrine\ORM\Mapping as ORM;
 use HeavenProject\FileManagement\FileEntityInterface;
 use HeavenProject\FileManagement\FileEntityTrait;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
@@ -14,7 +13,6 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  */
 class FileEntity extends BaseEntity implements FileEntityInterface
 {
-    use Identifier;
     use FileEntityTrait;
     use Timestampable;
 

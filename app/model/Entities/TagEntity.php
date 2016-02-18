@@ -3,7 +3,6 @@
 namespace App\Model\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
@@ -12,7 +11,6 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  */
 class TagEntity extends BaseEntity
 {
-    use Identifier;
     use Timestampable;
 
     /**
