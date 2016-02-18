@@ -3,16 +3,13 @@
 namespace App\Model\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="`user`")
  */
-class UserEntity extends BaseEntity
+class UserEntity extends TimestampableEntity
 {
-    use Timestampable;
-
     /** @var int */
     const ROLE_ADMINISTRATOR = 99;
     /** @var int */

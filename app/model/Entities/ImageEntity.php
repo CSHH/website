@@ -3,16 +3,13 @@
 namespace App\Model\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="`image`")
  */
-class ImageEntity extends BaseEntity
+class ImageEntity extends TimestampableEntity
 {
-    use Timestampable;
-
     /**
      * @ORM\ManyToOne(targetEntity="TagEntity")
      *

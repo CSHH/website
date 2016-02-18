@@ -4,16 +4,13 @@ namespace App\Model\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="`wiki`")
  */
-class WikiEntity extends BaseEntity
+class WikiEntity extends TimestampableEntity
 {
-    use Timestampable;
-
     /** @var string */
     const TYPE_GAME = 'game';
     /** @var string */
