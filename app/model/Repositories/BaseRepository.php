@@ -5,6 +5,7 @@ namespace App\Model\Repositories;
 use App\Model\Entities;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
+use Kdyby\Doctrine\QueryBuilder;
 
 abstract class BaseRepository
 {
@@ -64,5 +65,16 @@ abstract class BaseRepository
     {
         $em->remove($e);
         $em->flush();
+    }
+
+    /**
+     * @param  QueryBuilder $qb
+     * @param  int          $page
+     * @param  int          $limit
+     */
+    protected function preparePagination(QueryBuilder $qb, $page, $limit)
+    {
+        $qb->setFirstResult($page * $limit - $limit)
+            ->setMaxResults($limit);
     }
 }
