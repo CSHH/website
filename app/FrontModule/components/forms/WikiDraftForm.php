@@ -39,13 +39,13 @@ class WikiDraftForm extends Nette\Application\UI\Control
     private $newerDraftExists = false;
 
     /**
-     * @param ITranslator $translator
-     * @param Repositories\TagRepository $tagRepository
-     * @param Repositories\WikiRepository $wikiRepository
+     * @param ITranslator                      $translator
+     * @param Repositories\TagRepository       $tagRepository
+     * @param Repositories\WikiRepository      $wikiRepository
      * @param Repositories\WikiDraftRepository $wikiDraftRepository
-     * @param Entities\UserEntity $user
-     * @param string $type
-     * @param Entities\WikiEntity $item
+     * @param Entities\UserEntity              $user
+     * @param string                           $type
+     * @param Entities\WikiEntity              $item
      */
     public function __construct(
         ITranslator $translator,
@@ -56,13 +56,13 @@ class WikiDraftForm extends Nette\Application\UI\Control
         $type,
         Entities\WikiEntity $item = null
     ) {
-        $this->translator     = $translator;
-        $this->tagRepository  = $tagRepository;
-        $this->wikiRepository = $wikiRepository;
+        $this->translator          = $translator;
+        $this->tagRepository       = $tagRepository;
+        $this->wikiRepository      = $wikiRepository;
         $this->wikiDraftRepository = $wikiDraftRepository;
-        $this->user           = $user;
-        $this->type           = $type;
-        $this->item           = $item;
+        $this->user                = $user;
+        $this->type                = $type;
+        $this->item                = $item;
     }
 
     /**

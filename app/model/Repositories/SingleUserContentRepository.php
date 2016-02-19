@@ -41,8 +41,7 @@ abstract class SingleUserContentRepository extends BaseRepository
                 ->setParameter('state', true);
         }
 
-        $qb->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+        $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
     }
@@ -145,9 +144,9 @@ abstract class SingleUserContentRepository extends BaseRepository
             $params['state'] = true;
         }
 
-        $qb->setParameters($params)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+        $qb->setParameters($params);
+
+        $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
     }
@@ -166,9 +165,9 @@ abstract class SingleUserContentRepository extends BaseRepository
             ->from($className, 'e')
             ->join('e.user', 'u')
             ->where('u.id = :userId')
-            ->setParameter('userId', $user->id)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+            ->setParameter('userId', $user->id);
+
+        $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
     }
@@ -185,9 +184,9 @@ abstract class SingleUserContentRepository extends BaseRepository
             ->select('e')
             ->from($className, 'e')
             ->where('e.isActive = :state')
-            ->setParameter('state', false)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+            ->setParameter('state', false);
+
+        $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
     }
@@ -209,9 +208,9 @@ abstract class SingleUserContentRepository extends BaseRepository
             ->setParameters(array(
                 'tagId' => $tag->id,
                 'state' => false,
-            ))
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+            ));
+
+        $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
     }

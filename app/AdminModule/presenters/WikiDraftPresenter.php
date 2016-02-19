@@ -24,7 +24,7 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function actionDefault($wikiId)
     {
-        $this->wiki = $wikiId ? $this->wikiRepository->getById($wikiId) : null;
+        $this->wiki = $this->getItem($wikiId, $this->wikiRepository);
 
         if (!$this->wiki) {
             $this->redirect('Homepage:default');
@@ -42,11 +42,9 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function actionDetail($wikiId, $id)
     {
-        $this->wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+        $this->wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
 
-        if (!$this->wikiDraft || $this->wikiDraft->wiki->id != $wikiId) {
-            $this->redirect('Homepage:default');
-        }
+        $this->checkWikiDraft($this->wikiDraft, $wikiId);
     }
 
     public function renderDetail()
@@ -60,11 +58,9 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function handleActivate($wikiId, $id)
     {
-        $wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+        $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
 
-        if (!$wikiDraft || $wikiDraft->wiki->id != $wikiId) {
-            $this->redirect('Homepage:default');
-        }
+        $this->checkWikiDraft($wikiDraft, $wikiId);
 
         $this->wikiRepository->updateWithDraft($wikiDraft->wiki, $wikiDraft);
         $this->redirect('Homepage:default');
@@ -76,13 +72,22 @@ final class WikiDraftPresenter extends SharedContentPresenter
      */
     public function handleDelete($wikiId, $id)
     {
-        $wikiDraft = $id ? $this->wikiDraftRepository->getById($id) : null;
+        $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
 
-        if (!$wikiDraft || $wikiDraft->wiki->id != $wikiId) {
-            $this->redirect('Homepage:default');
-        }
+        $this->checkWikiDraft($wikiDraft, $wikiId);
 
         $this->wikiDraftRepository->delete($wikiDraft);
         $this->redirect('default', array('wikiId' => $wikiId));
+    }
+
+    /**
+     * @param Entities\WikiDraftEntity $wikiDraft
+     * @param int                      $wikiId
+     */
+    private function checkWikiDraft(Entities\WikiDraftEntity $wikiDraft, $wikiId)
+    {
+        if (!$wikiDraft || $wikiDraft->wiki->id != $wikiId) {
+            $this->redirect('Homepage:default');
+        }
     }
 }

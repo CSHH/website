@@ -14,7 +14,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     protected function runActionForm($type, $redirect, $id = null)
     {
         if ($id !== null) {
-            $item = $this->wikiRepository->getById($id);
+            $item = $this->getItem($id, $this->wikiRepository);
             $user = $this->getLoggedUserEntity();
             if (!$item || $item->type !== $type || $item->createdBy->id !== $user->id) {
                 $this->flashWithRedirect(
@@ -49,13 +49,6 @@ abstract class SharedContentPresenter extends PageablePresenter
         }
 
         $this->preparePaginator($this->items ? $this->items->count() : 0, $limit);
-    }
-
-    public function renderDefault()
-    {
-        $this->template->inactiveOnly = $this->displayInactiveOnly;
-        $this->template->canAccess    = $this->canAccess;
-        $this->template->items        = $this->items;
     }
 
     /**

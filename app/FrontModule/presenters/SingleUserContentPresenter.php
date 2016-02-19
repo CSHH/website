@@ -3,15 +3,12 @@
 namespace App\FrontModule\Presenters;
 
 use App\Model\Repositories;
+use App\Presenters\ActivityTrait;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
-    /** @var string @persistent */
-    public $inactiveOnly = 'no';
-
-    /** @var bool */
-    protected $displayInactiveOnly = false;
+    use ActivityTrait;
 
     /**
      * @param  Repositories\BaseRepository $repository
@@ -21,9 +18,7 @@ abstract class SingleUserContentPresenter extends PageablePresenter
      */
     protected function runActionDefault(Repositories\BaseRepository $repository, $tagSlug, $limit)
     {
-        if ($this->inactiveOnly === 'yes') {
-            $this->displayInactiveOnly = true;
-        }
+        $this->checkIfDisplayInactiveOnly();
 
         $tag = $this->getTag($tagSlug);
 

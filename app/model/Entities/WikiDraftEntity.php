@@ -3,7 +3,6 @@
 namespace App\Model\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
 
 /**
  * @ORM\Entity
@@ -11,8 +10,6 @@ use Kdyby\Doctrine\Entities\Attributes\Identifier;
  */
 class WikiDraftEntity extends BaseEntity
 {
-    use Identifier;
-
     /**
      * @ORM\ManyToOne(targetEntity="WikiEntity")
      *

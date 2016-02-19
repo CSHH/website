@@ -22,7 +22,7 @@ class GalleryForm extends AbstractContentForm
     ) {
         parent::__construct($translator, $tagRepository, $user);
 
-        $this->imageRepository  = $imageRepository;
+        $this->imageRepository = $imageRepository;
     }
 
     protected function configure(Form $form)

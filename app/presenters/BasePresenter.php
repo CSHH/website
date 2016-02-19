@@ -29,7 +29,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     {
         $u = $this->getUser();
 
-        return $u->loggedIn ? $this->userRepository->getById($u->id) : null;
+        return $u->isLoggedIn()
+            ? $this->getItem($u->id, $this->userRepository)
+            : null;
     }
 
     /**
@@ -40,5 +42,25 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $user = $this->getLoggedUserEntity();
 
         return $user && $user->role > Entities\UserEntity::ROLE_USER;
+    }
+
+    /**
+     * @param string $message
+     * @param string $redirect
+     */
+    protected function flashWithRedirect($message = '', $redirect = 'this')
+    {
+        $this->flashMessage($message);
+        $this->redirect($redirect);
+    }
+
+    /**
+     * @param  int                         $itemId
+     * @param  Repositories\BaseRepository $repository
+     * @return Entities\BaseEntity|null
+     */
+    protected function getItem($itemId, Repositories\BaseRepository $repository)
+    {
+        return $itemId ? $repository->getById($itemId) : null;
     }
 }

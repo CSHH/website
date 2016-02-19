@@ -29,7 +29,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
      */
     public function handleActivate($imageId)
     {
-        $image = $imageId ? $this->imageRepository->getById($imageId) : null;
+        $image = $this->getItem($imageId, $this->imageRepository);
 
         if (!$image) {
             $this->throw404();
@@ -37,8 +37,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
 
         $this->imageRepository->activate($image);
 
-        $this->flashMessage($this->translator->translate('locale.item.activated'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
     }
 
     /**
@@ -46,7 +45,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
      */
     public function handleDelete($imageId)
     {
-        $image = $imageId ? $this->imageRepository->getById($imageId) : null;
+        $image = $this->getItem($imageId, $this->imageRepository);
 
         if (!$image) {
             $this->throw404();
@@ -54,7 +53,6 @@ final class GalleryPresenter extends SingleUserContentPresenter
 
         $this->imageRepository->delete($image);
 
-        $this->flashMessage($this->translator->translate('locale.item.deleted'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
     }
 }

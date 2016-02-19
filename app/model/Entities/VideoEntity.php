@@ -3,18 +3,13 @@
 namespace App\Model\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
-use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="`video`")
  */
-class VideoEntity extends BaseEntity
+class VideoEntity extends TimestampableEntity
 {
-    use Identifier;
-    use Timestampable;
-
     /** @var string */
     const TYPE_YOUTUBE = 'youtube';
     /** @var string */

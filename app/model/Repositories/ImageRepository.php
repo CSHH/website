@@ -45,8 +45,7 @@ class ImageRepository extends SingleUserContentRepository
                 $e->user = $user;
                 $e->tag  = $tag;
 
-                $this->em->persist($e);
-                $this->em->flush();
+                $this->persistAndFlush($this->em, $e);
             }
         }
     }
@@ -59,8 +58,7 @@ class ImageRepository extends SingleUserContentRepository
     {
         $e->isActive = true;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -73,8 +71,7 @@ class ImageRepository extends SingleUserContentRepository
         $file    = $e->file;
         $e->file = null;
 
-        $this->em->remove($e);
-        $this->em->flush();
+        $this->removeAndFlush($this->em, $e);
 
         $fm = new FileManager($this->em, $this->fileDao, $this->uploadDir);
         $fm->removeFile($file);

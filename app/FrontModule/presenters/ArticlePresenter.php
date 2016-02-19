@@ -56,7 +56,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
      */
     public function handleActivate($articleId)
     {
-        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
+        $article = $this->getItem($articleId, $this->articleRepository);
 
         if (!$article) {
             $this->throw404();
@@ -64,8 +64,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
 
         $this->articleRepository->activate($article);
 
-        $this->flashMessage($this->translator->translate('locale.item.activated'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
     }
 
     /**
@@ -73,7 +72,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
      */
     public function handleDelete($articleId)
     {
-        $article = $articleId ? $this->articleRepository->getById($articleId) : null;
+        $article = $this->getItem($articleId, $this->articleRepository);
 
         if (!$article) {
             $this->throw404();
@@ -81,7 +80,6 @@ final class ArticlePresenter extends SingleUserContentPresenter
 
         $this->articleRepository->delete($article);
 
-        $this->flashMessage($this->translator->translate('locale.item.deleted'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
     }
 }

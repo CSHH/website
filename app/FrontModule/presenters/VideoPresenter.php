@@ -29,7 +29,7 @@ final class VideoPresenter extends SingleUserContentPresenter
      */
     public function handleActivate($videoId)
     {
-        $video = $videoId ? $this->videoRepository->getById($videoId) : null;
+        $video = $this->getItem($videoId, $this->videoRepository);
 
         if (!$video) {
             $this->throw404();
@@ -37,8 +37,7 @@ final class VideoPresenter extends SingleUserContentPresenter
 
         $this->videoRepository->activate($video);
 
-        $this->flashMessage($this->translator->translate('locale.item.activated'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
     }
 
     /**
@@ -46,7 +45,7 @@ final class VideoPresenter extends SingleUserContentPresenter
      */
     public function handleDelete($videoId)
     {
-        $video = $videoId ? $this->videoRepository->getById($videoId) : null;
+        $video = $this->getItem($videoId, $this->videoRepository);
 
         if (!$video) {
             $this->throw404();
@@ -54,7 +53,6 @@ final class VideoPresenter extends SingleUserContentPresenter
 
         $this->videoRepository->delete($video);
 
-        $this->flashMessage($this->translator->translate('locale.item.deleted'));
-        $this->redirect('this');
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
     }
 }

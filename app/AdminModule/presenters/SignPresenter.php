@@ -29,16 +29,16 @@ final class SignPresenter extends BasePresenter
     {
         parent::startup();
 
-        $this->appDir       = $this->context->parameters['appDir'];
-        $this->contactEmail = $this->context->parameters['contactEmail'];
+        $parameters = $this->context->parameters;
+
+        $this->appDir       = $parameters['appDir'];
+        $this->contactEmail = $parameters['contactEmail'];
     }
 
     public function actionOut()
     {
         $this->getUser()->logout();
-
-        $this->flashMessage('Byl/a jste odhlášen/a.');
-        $this->redirect('Sign:in');
+        $this->flashWithRedirect('Byl/a jste odhlášen/a.', 'Sign:in');
     }
 
     /**
@@ -60,18 +60,21 @@ final class SignPresenter extends BasePresenter
         try {
             $this->userRepository->unlock($userId, $token);
             $this->flashMessage('Váš účet byl úspěšně aktivován. Přihlašte se prosím.');
+
         } catch (UserNotFoundException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $this->flashMessage($e->getMessage(), FlashType::WARNING);
             $this->redirect('Homepage:default');
+
         } catch (ActivationLimitExpiredException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $this->flashMessage($e->getMessage(), FlashType::WARNING);
             $this->redirect('Homepage:default');
+
         } catch (\Exception $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
@@ -106,12 +109,12 @@ final class SignPresenter extends BasePresenter
             }
 
             $this->userRepository->checkForTokenExpiration($this->e, $token);
+
         } catch (UserNotFoundException $e) {
-            $this->flashMessage($e->getMessage());
-            $this->redirect('Sign:in');
+            $this->flashWithRedirect($e->getMessage(), 'Sign:in');
+
         } catch (ActivationLimitExpiredException $e) {
-            $this->flashMessage($e->getMessage());
-            $this->redirect('Sign:in');
+            $this->flashWithRedirect($e->getMessage(), 'Sign:in');
         }
     }
 

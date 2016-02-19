@@ -52,8 +52,7 @@ class WikiDraftRepository extends BaseRepository
         $e->user      = $user;
         $e->createdAt = new DateTime;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -63,8 +62,7 @@ class WikiDraftRepository extends BaseRepository
      */
     public function delete(Entities\WikiDraftEntity $e)
     {
-        $this->em->remove($e);
-        $this->em->flush();
+        $this->removeAndFlush($this->em, $e);
     }
 
     /**

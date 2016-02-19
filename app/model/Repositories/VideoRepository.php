@@ -85,8 +85,7 @@ class VideoRepository extends SingleUserContentRepository
         $e->tag  = $tag;
         $e->user = $user;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -134,8 +133,7 @@ class VideoRepository extends SingleUserContentRepository
         $e->tag  = $tag;
         $e->user = $user;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -148,8 +146,7 @@ class VideoRepository extends SingleUserContentRepository
     {
         $e->isActive = true;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -159,8 +156,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function delete(Entities\VideoEntity $e)
     {
-        $this->em->remove($e);
-        $this->em->flush();
+        $this->removeAndFlush($this->em, $e);
     }
 
     /**

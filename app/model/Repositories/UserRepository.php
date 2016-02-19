@@ -72,8 +72,7 @@ class UserRepository extends BaseRepository
 
         $user->password = Passwords::hash($pass . $user->salt);
 
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $user);
 
         return $user;
     }
@@ -103,8 +102,7 @@ class UserRepository extends BaseRepository
             $user->password = Passwords::hash($pass . $user->salt);
         }
 
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $user);
 
         return $user;
     }
@@ -114,8 +112,7 @@ class UserRepository extends BaseRepository
      */
     public function delete(Entities\UserEntity $e)
     {
-        $this->em->remove($e);
-        $this->em->flush();
+        $this->removeAndFlush($this->em, $e);
     }
 
     /**
@@ -144,8 +141,7 @@ class UserRepository extends BaseRepository
             $e->isAuthenticated = true;
         }
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
     }
 
     /**
@@ -218,8 +214,7 @@ class UserRepository extends BaseRepository
         $user->tokenCreatedAt  = null;
         $user->isAuthenticated = true;
 
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $user);
     }
 
     /**
@@ -252,8 +247,7 @@ class UserRepository extends BaseRepository
         $e->token          = $token;
         $e->tokenCreatedAt = new DateTime;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $token;
     }

@@ -47,11 +47,11 @@ class SignResetForm extends Nette\Application\UI\Control
     ) {
         parent::__construct();
 
-        $this->translator   = $translator;
-        $this->appDir       = $appDir;
-        $this->contactEmail = $contactEmail;
-        $this->userRepository     = $userRepository;
-        $this->mailer       = $mailer;
+        $this->translator     = $translator;
+        $this->appDir         = $appDir;
+        $this->contactEmail   = $contactEmail;
+        $this->userRepository = $userRepository;
+        $this->mailer         = $mailer;
     }
 
     /**
@@ -81,8 +81,7 @@ class SignResetForm extends Nette\Application\UI\Control
     public function formSucceeded(Form $form)
     {
         try {
-            $p = $this->getPresenter();
-
+            $p      = $this->getPresenter();
             $values = $form->getValues();
 
             if (strlen($values->__anti) > 0) {
@@ -118,16 +117,19 @@ class SignResetForm extends Nette\Application\UI\Control
                 $this->translator->translate('locale.sign.new_password_request_email_sent'),
                 FlashType::INFO
             );
+
         } catch (FormSentBySpamException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($e->getMessage());
+
         } catch (UserNotFoundException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
 
             $form->addError($this->translator->translate('locale.error.occurred'));
+
         } catch (\PDOException $e) {
             Tracy\Debugger::barDump($e->getMessage());
             Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);

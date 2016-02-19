@@ -3,18 +3,13 @@
 namespace App\Model\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
-use Kdyby\Doctrine\Entities\Attributes\Identifier;
-use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="`image`")
  */
-class ImageEntity extends BaseEntity
+class ImageEntity extends TimestampableEntity
 {
-    use Identifier;
-    use Timestampable;
-
     /**
      * @ORM\ManyToOne(targetEntity="TagEntity")
      *

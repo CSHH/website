@@ -71,8 +71,7 @@ class WikiRepository extends BaseRepository
         $e->tag       = $tag;
         $e->type      = $type;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -110,8 +109,7 @@ class WikiRepository extends BaseRepository
         $e->tag  = $tag;
         $e->type = $type;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -137,9 +135,9 @@ class WikiRepository extends BaseRepository
             $params['state'] = true;
         }
 
-        $qb->setParameters($params)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+        $qb->setParameters($params);
+
+        $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
     }
@@ -298,9 +296,9 @@ class WikiRepository extends BaseRepository
             $params['state'] = true;
         }
 
-        $qb->setParameters($params)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+        $qb->setParameters($params);
+
+        $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
     }
@@ -322,9 +320,9 @@ class WikiRepository extends BaseRepository
             ->setParameters(array(
                 'userId' => $user->id,
                 'type'   => $type,
-            ))
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+            ));
+
+        $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
     }
@@ -353,9 +351,9 @@ class WikiRepository extends BaseRepository
             $qb->expr()->in('w.id', $wikiIds)
         );
 
-        $qb->setParameter('type', $type)
-            ->setFirstResult($page * $limit - $limit)
-            ->setMaxResults($limit);
+        $qb->setParameter('type', $type);
+
+        $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
     }
@@ -411,8 +409,7 @@ class WikiRepository extends BaseRepository
             $this->em->remove($d);
         }
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }

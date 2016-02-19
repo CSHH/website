@@ -21,12 +21,12 @@ class WikiForm extends AbstractContentForm
     private $item;
 
     /**
-     * @param ITranslator $translator
-     * @param Repositories\TagRepository $tagRepository
+     * @param ITranslator                 $translator
+     * @param Repositories\TagRepository  $tagRepository
      * @param Repositories\WikiRepository $wikiRepository
-     * @param Entities\UserEntity $user
-     * @param string $type
-     * @param Entities\WikiEntity $item
+     * @param Entities\UserEntity         $user
+     * @param string                      $type
+     * @param Entities\WikiEntity         $item
      */
     public function __construct(
         ITranslator $translator,
