@@ -156,8 +156,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function delete(Entities\VideoEntity $e)
     {
-        $this->em->remove($e);
-        $this->em->flush();
+        $this->removeAndFlush($this->em, $e);
     }
 
     /**

@@ -71,8 +71,7 @@ class ImageRepository extends SingleUserContentRepository
         $file    = $e->file;
         $e->file = null;
 
-        $this->em->remove($e);
-        $this->em->flush();
+        $this->removeAndFlush($this->em, $e);
 
         $fm = new FileManager($this->em, $this->fileDao, $this->uploadDir);
         $fm->removeFile($file);

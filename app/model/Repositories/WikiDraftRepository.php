@@ -62,8 +62,7 @@ class WikiDraftRepository extends BaseRepository
      */
     public function delete(Entities\WikiDraftEntity $e)
     {
-        $this->em->remove($e);
-        $this->em->flush();
+        $this->removeAndFlush($this->em, $e);
     }
 
     /**

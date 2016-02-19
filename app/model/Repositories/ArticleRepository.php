@@ -107,8 +107,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function delete(Entities\ArticleEntity $e)
     {
-        $this->em->remove($e);
-        $this->em->flush();
+        $this->removeAndFlush($this->em, $e);
     }
 
     /**
