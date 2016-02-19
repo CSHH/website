@@ -54,8 +54,7 @@ class ArticleRepository extends SingleUserContentRepository
         $e->tag  = $tag;
         $e->user = $user;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -85,8 +84,7 @@ class ArticleRepository extends SingleUserContentRepository
         $e->tag  = $tag;
         $e->user = $user;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -99,8 +97,7 @@ class ArticleRepository extends SingleUserContentRepository
     {
         $e->isActive = true;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }

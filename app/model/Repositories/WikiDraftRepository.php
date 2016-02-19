@@ -52,8 +52,7 @@ class WikiDraftRepository extends BaseRepository
         $e->user      = $user;
         $e->createdAt = new DateTime;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }

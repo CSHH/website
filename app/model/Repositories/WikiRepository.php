@@ -71,8 +71,7 @@ class WikiRepository extends BaseRepository
         $e->tag       = $tag;
         $e->type      = $type;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -110,8 +109,7 @@ class WikiRepository extends BaseRepository
         $e->tag  = $tag;
         $e->type = $type;
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
@@ -411,8 +409,7 @@ class WikiRepository extends BaseRepository
             $this->em->remove($d);
         }
 
-        $this->em->persist($e);
-        $this->em->flush();
+        $this->persistAndFlush($this->em, $e);
 
         return $e;
     }
