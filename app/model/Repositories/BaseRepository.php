@@ -55,4 +55,14 @@ abstract class BaseRepository
         $em->persist($e);
         $em->flush();
     }
+
+    /**
+     * @param EntityManager       $em
+     * @param Entities\BaseEntity $e
+     */
+    protected function removeAndFlush(EntityManager $em, Entities\BaseEntity $e)
+    {
+        $em->remove($e);
+        $em->flush();
+    }
 }
