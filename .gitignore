@@ -5,6 +5,8 @@
 composer
 composer.phar
 
+phing.phar
+
 !.gitignore
 !.htaccess
 
