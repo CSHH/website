@@ -1,135 +1,40 @@
-# Silent Hill
+# Czech Silent Hill Heaven
 
-Renovace webové stránky [silent-hill.cz](http://silent-hill.cz).
-
-## Požadavky
-
-* Git
-* Apche 2
-* MySQL
-* PHP
-
-## Instalace (pro Debian GNU/Linux a odvozené distribuce)
-
-* Repozitář
-* Composer a stažení závislostí
-* Databáze
-* Virtuální server
-* Konfigurace aplikace a inicializace
-
-### Repozitář
-
-Stažení Git repozitáře
-
-```bash
-$ git clone git@bitbucket.org:heavenproject/silenthill.git
-```
-
-### Composer a stažení závislostí
-
-Přemístit se do adresáře repozitáře
-
-```bash
-$ cd ./silenthill/
-```
-
-Stažení Composeru a nastavení práv pro spuštění
-
-```bash
-$ curl -sS https://getcomposer.org/installer > composer.phar
-$ chmod a+x ./composer.phar
-```
-
-Stažení PHP závislostí
-
-```bash
-$ ./composer.phar install
-```
-
-### Databáze
-
-Přihlášení se do MySQL shellu
-
-```bash
-$ mysql -u <jméno> -p
-```
-
-K zadání hesla pro MySQL budete vyzvání po zadání příkazu výše.
-
-Vytvoření databáze (v mysql shellu)
-
-```mysql
-mysql> CREATE DATABASE IF NOT EXISTS `silenthill` CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci';
-```
-
-### Virtuální server
-
-Otevřít soubor `/etc/hosts` a na nový řádek přidat záznam `127.0.0.1    silenthill` (oddělení musí být provedeno tabulátorem).
-
-Vytvořit si soubor pro konfiguraci nového virtuálního serveru
-
-```bash
-$ sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/silenthill.conf
-```
-
-Uvnitř tohoto souboru nastavit následující položky
-
-```apache2
-ServerName silenthill
-
-DocumentRoot /cesta/do/adresare/s/weby/silenthill/www
-
-<Directory "/cesta/do/adresare/s/weby/silenthill/www">
-    Options FollowSymlinks
-    AllowOverride All
-    Require all granted
-</Directory>
-
-ErrorLog ${APACHE_LOG_DIR}/silenthill/error.log
-CustomLog ${APACHE_LOG_DIR}/silenthill/access.log combined
-```
-Vytvoření logovacího adresáře pro virtuální server
+## Repozitář
 
 ```
-$ sudo mkdir /var/log/apache2/silenthill/
+git clone git@bitbucket.org:heavenproject/silenthill.git silent-hill.local
+cd silent-hill.local
 ```
 
-Aktivace virtualního serveru
+## Databáze
 
-```bash
-$ sudo a2ensite silenthill
-```
+`cp ./app/config/config.local.neon.dist ./app/config/config.local.neon`
 
-Restart web serveru
+V souboru `./app/config/config.local.neon` nastavit tyto parametry: `dbname`, `user` a `password`.
 
-```bash
-$ sudo service apache2 restart
-```
+## Composer
 
-### Konfigurace aplikace a inicializace
+`curl -sS https://getcomposer.org/installer | php`
 
-Vytvoření lokálního konfiguračního souboru
+Bude pak k dispozici jako `./composer.phar`.
+
+## Phing
 
 ```
-$ cp ./app/config/config.local.template.neon ./app/config/config.local.neon
+curl -sS http://www.phing.info/get/phing-latest.phar > phing.phar
+chmod +x phing.phar
 ```
 
-V souboru `./app/config/config.local.neon` nastavit tyto parametry:
+Bude pak k dispozici jako `./phing.phar`.
 
-```
-dbname: silenthill
-user: user
-password: password
-```
+Pro účely vývoje použijte příkaz `./phing.phar init+fixtures`, který aplikaci inicializuje a do databáze nahraje testovací data (fixtury).
 
-Nastavení práv pro adresáře
+## Uživatelé
 
-```bash
-$ chmod 0777 ./temp/cache/ ./temp/sessions/ ./log/
-```
+Po aplikaci fixtur bude k dispozici jeden uživatel:
 
-Databázové migrace
+### Administrátor:
 
-```
-./console migrations:migrate
-```
+* email: john.doe@example.com
+* heslo: admin
