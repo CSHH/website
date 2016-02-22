@@ -2,19 +2,15 @@
 
 namespace App\AdminModule\Components\Forms;
 
+use App\Components\Forms\AbstractForm;
 use HeavenProject\Utils\FlashType;
-use Nette;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
-use Tracy;
 
-class SignInForm extends Nette\Application\UI\Control
+class SignInForm extends AbstractForm
 {
-    /** @var ITranslator */
-    private $translator;
-
     /** @var IAuthenticator */
     private $authenticator;
 
@@ -22,21 +18,13 @@ class SignInForm extends Nette\Application\UI\Control
         ITranslator $translator,
         IAuthenticator $authenticator
     ) {
-        parent::__construct();
+        parent::__construct($translator);
 
-        $this->translator    = $translator;
         $this->authenticator = $authenticator;
     }
 
-    /**
-     * @return Form
-     */
-    public function createComponentForm()
+    protected function configure(Form $form)
     {
-        $form = new Form;
-
-        $form->setTranslator($this->translator);
-
         $form->addText('email', 'locale.form.email')
             ->addRule($form::EMAIL, 'locale.form.email_not_in_order')
             ->setRequired('locale.form.email_required');
@@ -46,52 +34,36 @@ class SignInForm extends Nette\Application\UI\Control
 
         $form->addCheckbox('remember', 'locale.form.remember');
 
-        $form->onSuccess[] = array($this, 'formSucceeded');
-
         $form->addSubmit('submit', 'locale.form.sign_in');
-
-        return $form;
     }
 
     public function formSucceeded(Form $form)
     {
         try {
-            $p = $this->getPresenter();
-
+            $p      = $this->getPresenter();
+            $u      = $p->getUser();
             $values = $form->getValues();
 
-            $p->getUser()->setAuthenticator($this->authenticator);
+            $u->setAuthenticator($this->authenticator);
 
             if ($values->remember) {
-                $p->getUser()->setExpiration('14 days', false);
+                $u->setExpiration('14 days', false);
             } else {
-                $p->getUser()->setExpiration('60 minutes', true);
+                $u->setExpiration('60 minutes', true);
             }
 
-            $p->getUser()->login($values->email, $values->password);
+            $u->login($values->email, $values->password);
             $p->flashMessage(
                 $this->translator->translate('locale.sign.in'),
                 FlashType::INFO
             );
 
         } catch (AuthenticationException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->addError($e->getMessage());
+            $this->addFormError($form, $e);
         }
 
-        if ($p->getUser()->isLoggedIn()) {
+        if ($u->isLoggedIn()) {
             $p->redirect('Homepage:default');
         }
-    }
-
-    public function render()
-    {
-        $template = $this->getTemplate();
-
-        $template->setFile(__DIR__ . '/templates/SignInForm.latte');
-
-        $template->render();
     }
 }

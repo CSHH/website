@@ -2,22 +2,18 @@
 
 namespace App\AdminModule\Components\Forms;
 
+use App\Components\Forms\AbstractForm;
 use App\Model\Repositories;
 use App\Model\Entities;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Security\Authenticator;
 use HeavenProject\Utils\FlashType;
-use Nette;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 use Nette\Http\UserStorage;
-use Tracy;
 
-class ProfileSettingsForm extends Nette\Application\UI\Control
+class ProfileSettingsForm extends AbstractForm
 {
-    /** @var ITranslator */
-    private $translator;
-
     /** @var Repositories\UserRepository */
     private $userRepository;
 
@@ -44,24 +40,16 @@ class ProfileSettingsForm extends Nette\Application\UI\Control
         UserStorage $userStorage,
         Entities\UserEntity $item
     ) {
-        parent::__construct();
+        parent::__construct($translator);
 
-        $this->translator     = $translator;
         $this->userRepository = $userRepository;
         $this->authenticator  = $authenticator;
         $this->userStorage    = $userStorage;
         $this->item           = $item;
     }
 
-    /**
-     * @return Form
-     */
-    public function createComponentForm()
+    protected function configure(Form $form)
     {
-        $form = new Form;
-
-        $form->setTranslator($this->translator);
-
         $form->addText('username', 'locale.form.username')
             ->setRequired('locale.form.username_required');
 
@@ -80,13 +68,9 @@ class ProfileSettingsForm extends Nette\Application\UI\Control
             ->addConditionOn($form['password'], $form::FILLED, 'locale.form.password_confirm_required')
             ->addRule($form::EQUAL, 'locale.form.password_equal', $form['password']);
 
-        $form->autoFill($this->item);
-
-        $form->onSuccess[] = array($this, 'formSucceeded');
-
         $form->addSubmit('submit', 'locale.form.save');
 
-        return $form;
+        $this->tryAutoFill($form, $this->item);
     }
 
     public function formSucceeded(Form $form)
@@ -106,27 +90,16 @@ class ProfileSettingsForm extends Nette\Application\UI\Control
             );
 
         } catch (PossibleUniqueKeyDuplicationException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->addError($e->getMessage());
+            $this->addFormError($form, $e);
 
         } catch (\Exception $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->addError($this->translator->translate('locale.error.occurred'));
+            $this->addFormError(
+                $form,
+                $e,
+                $this->translator->translate('locale.error.occurred')
+            );
         }
 
         $p->redirect('this');
-    }
-
-    public function render()
-    {
-        $template = $this->getTemplate();
-
-        $template->setFile(__DIR__ . '/templates/ProfileSettingsForm.latte');
-
-        $template->render();
     }
 }

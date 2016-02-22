@@ -2,20 +2,16 @@
 
 namespace App\AdminModule\Components\Forms;
 
+use App\Components\Forms\AbstractForm;
 use App\Model\Repositories;
 use App\Model\Entities;
 use App\Model\Exceptions\PossibleUniqueKeyDuplicationException;
 use HeavenProject\Utils\FlashType;
-use Nette;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
-use Tracy;
 
-class SignPasswordForm extends Nette\Application\UI\Control
+class SignPasswordForm extends AbstractForm
 {
-    /** @var ITranslator */
-    private $translator;
-
     /** @var Repositories\UserRepository */
     private $userRepository;
 
@@ -27,22 +23,14 @@ class SignPasswordForm extends Nette\Application\UI\Control
         Repositories\UserRepository $userRepository,
         Entities\UserEntity $item
     ) {
-        parent::__construct();
+        parent::__construct($translator);
 
-        $this->translator     = $translator;
         $this->userRepository = $userRepository;
         $this->item           = $item;
     }
 
-    /**
-     * @return Form
-     */
-    public function createComponentForm()
+    protected function configure(Form $form)
     {
-        $form = new Form;
-
-        $form->setTranslator($this->translator);
-
         $form->addPassword('password', 'locale.form.password_new')
             ->setRequired('locale.form.password_new_required');
 
@@ -51,46 +39,33 @@ class SignPasswordForm extends Nette\Application\UI\Control
             ->setRequired('locale.form.password_new_confirm_required')
             ->setOmitted();
 
-        $form->onSuccess[] = array($this, 'formSucceeded');
-
         $form->addSubmit('submit', 'locale.form.submit_change_password');
-
-        return $form;
     }
 
     public function formSucceeded(Form $form)
     {
         try {
-            $p = $this->getPresenter();
-
+            $p      = $this->getPresenter();
             $values = $form->getValues();
 
             $this->userRepository->updatePassword($this->item, $values->password, true);
 
-            $p->flashMessage($this->translator->translate('locale.sign.password_changed_sign_in'), FlashType::INFO);
+            $p->flashMessage(
+                $this->translator->translate('locale.sign.password_changed_sign_in'),
+                FlashType::INFO
+            );
 
         } catch (PossibleUniqueKeyDuplicationException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->getPresenter()->flashMessage($e->getMessage(), FlashType::WARNING);
+            $this->addFormError($form, $e);
 
         } catch (\PDOException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->getPresenter()->flashMessage($this->translator->translate('locale.error.occurred'), FlashType::WARNING);
+            $this->addFormError(
+                $form,
+                $e,
+                $this->translator->translate('locale.error.occurred')
+            );
         }
 
         $p->redirect('Sign:in');
-    }
-
-    public function render()
-    {
-        $template = $this->getTemplate();
-
-        $template->setFile(__DIR__ . '/templates/SignPasswordForm.latte');
-
-        $template->render();
     }
 }

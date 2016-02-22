@@ -2,23 +2,19 @@
 
 namespace App\AdminModule\Components\Forms;
 
+use App\Components\Forms\AbstractForm;
 use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Exceptions\FormSentBySpamException;
 use HeavenProject\Utils\FlashType;
-use Nette;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
 use Nette\Security\IAuthenticator;
-use Tracy;
 
-class SignUpForm extends Nette\Application\UI\Control
+class SignUpForm extends AbstractForm
 {
-    /** @var ITranslator */
-    private $translator;
-
     /** @var Repositories\UserRepository */
     private $userRepository;
 
@@ -45,24 +41,16 @@ class SignUpForm extends Nette\Application\UI\Control
         IMailer $mailer,
         $contactEmail
     ) {
-        parent::__construct();
+        parent::__construct($translator);
 
-        $this->translator     = $translator;
         $this->userRepository = $userRepository;
         $this->authenticator  = $authenticator;
         $this->mailer         = $mailer;
         $this->contactEmail   = $contactEmail;
     }
 
-    /**
-     * @return Form
-     */
-    public function createComponentForm()
+    protected function configure(Form $form)
     {
-        $form = new Form;
-
-        $form->setTranslator($this->translator);
-
         $form->addText('username', 'locale.form.username')
             ->setRequired('locale.form.username_required');
 
@@ -82,15 +70,10 @@ class SignUpForm extends Nette\Application\UI\Control
             ->setRequired('locale.form.password_confirm_required')
             ->setOmitted();
 
-        // Antispam
         $form->addText('__anti', '__Anti', null)
             ->setAttribute('style', 'display: none;');
 
-        $form->onSuccess[] = array($this, 'formSucceeded');
-
         $form->addSubmit('submit', 'locale.form.submit_sign_up');
-
-        return $form;
     }
 
     public function formSucceeded(Form $form)
@@ -115,36 +98,22 @@ class SignUpForm extends Nette\Application\UI\Control
             );
 
         } catch (FormSentBySpamException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->addError($e->getMessage());
+            $this->addFormError($form, $e);
 
         } catch (PossibleUniqueKeyDuplicationException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->addError($e->getMessage());
+            $this->addFormError($form, $e);
 
         } catch (\Exception $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->addError($this->translator->translate('locale.error.occurred'));
+            $this->addFormError(
+                $form,
+                $e,
+                $this->translator->translate('locale.error.occurred')
+            );
         }
 
         if (!empty($user)) {
             $p->redirect('Homepage:default');
         }
-    }
-
-    public function render()
-    {
-        $template = $this->getTemplate();
-
-        $template->setFile(__DIR__ . '/templates/SignUpForm.latte');
-
-        $template->render();
     }
 
     /**
