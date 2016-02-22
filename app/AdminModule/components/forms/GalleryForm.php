@@ -27,6 +27,8 @@ class GalleryForm extends AbstractContentForm
 
     protected function configure(Form $form)
     {
+        parent::configure($form);
+
         $form->addUpload('images', 'locale.form.images', true)
             ->setRequired('locale.form.images_required');
     }

@@ -33,6 +33,8 @@ class VideoForm extends AbstractContentForm
 
     protected function configure(Form $form)
     {
+        parent::configure($form);
+
         $form->addText('name', 'locale.form.name')
             ->setRequired('locale.form.name_required');
 
