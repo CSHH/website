@@ -42,4 +42,12 @@
 		<chmod file="./www/upload" mode="0777"/>
 	</target>
 
+	<target name="test">
+		<exec passthru="true" command="./vendor/bin/tester tests/ -p php -c tests/php.ini"/>
+	</target>
+
+	<target name="test+coverage">
+		<exec passthru="true" command="./vendor/bin/tester tests/ -p php -c tests/php.ini-coverage --coverage coverage.html --coverage-src app/"/>
+	</target>
+
 </project>
