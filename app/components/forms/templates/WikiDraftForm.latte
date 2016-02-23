@@ -1,0 +1,19 @@
+{form form}
+
+    {include 'include/errors.latte', form => $form}
+
+    {include 'include/perex.latte', _form => $form}
+
+    {include 'include/text.latte', _form => $form}
+
+    {include 'include/startTime.latte', _form => $form}
+
+    {include 'include/submit.latte', _form => $form}
+
+{/form}
+
+<div n:if="$latestDraft">
+
+    {$latestDraft->text|noescape}
+
+</div>

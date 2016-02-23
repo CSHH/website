@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AdminModule\Components\Forms;
+namespace App\Components\Forms;
 
 use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
@@ -9,38 +9,25 @@ use App\Model\Exceptions;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 
-class WikiForm extends AbstractContentForm
+class ArticleForm extends AbstractContentForm
 {
-    /** @var Repositories\WikiRepository */
-    private $wikiRepository;
+    /** @var Repositories\ArticleRepository */
+    private $articleRepository;
 
-    /** @var string */
-    private $type;
-
-    /** @var Entities\WikiEntity */
+    /** @var Entities\ArticleEntity */
     private $item;
 
-    /**
-     * @param ITranslator                 $translator
-     * @param Repositories\TagRepository  $tagRepository
-     * @param Repositories\WikiRepository $wikiRepository
-     * @param Entities\UserEntity         $user
-     * @param string                      $type
-     * @param Entities\WikiEntity         $item
-     */
     public function __construct(
         ITranslator $translator,
         Repositories\TagRepository $tagRepository,
-        Repositories\WikiRepository $wikiRepository,
+        Repositories\ArticleRepository $articleRepository,
         Entities\UserEntity $user,
-        $type,
-        Entities\WikiEntity $item = null
+        Entities\ArticleEntity $item = null
     ) {
         parent::__construct($translator, $tagRepository, $user);
 
-        $this->wikiRepository = $wikiRepository;
-        $this->type           = $type;
-        $this->item           = $item;
+        $this->articleRepository = $articleRepository;
+        $this->item              = $item;
     }
 
     protected function configure(Form $form)
@@ -67,11 +54,10 @@ class WikiForm extends AbstractContentForm
             $tag    = $this->getSelectedTag($form);
 
             if ($this->item) {
-                $ent = $this->wikiRepository->update($values, $tag, $this->type, $this->item);
+                $ent = $this->articleRepository->update($values, $tag, $this->user, $this->item);
                 $p->flashMessage($this->translator->translate('locale.item.updated'));
-
             } else {
-                $ent = $this->wikiRepository->create($values, $tag, $this->user, $this->type, new Entities\WikiEntity);
+                $ent = $this->articleRepository->create($values, $tag, $this->user, new Entities\ArticleEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
 

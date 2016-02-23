@@ -1,18 +1,19 @@
 <?php
 
-namespace App\AdminModule\Components\Forms;
+namespace App\Components\Forms;
 
 use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
+use App\Model\Exceptions\InvalidVideoUrlException;
 use App\Model\Entities;
 use App\Model\Exceptions;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 
-class ArticleForm extends AbstractContentForm
+class VideoForm extends AbstractContentForm
 {
-    /** @var Repositories\ArticleRepository */
-    private $articleRepository;
+    /** @var Repositories\VideoRepository */
+    private $videoRepository;
 
     /** @var Entities\ArticleEntity */
     private $item;
@@ -20,14 +21,14 @@ class ArticleForm extends AbstractContentForm
     public function __construct(
         ITranslator $translator,
         Repositories\TagRepository $tagRepository,
-        Repositories\ArticleRepository $articleRepository,
+        Repositories\VideoRepository $videoRepository,
         Entities\UserEntity $user,
-        Entities\ArticleEntity $item = null
+        Entities\VideoEntity $item = null
     ) {
         parent::__construct($translator, $tagRepository, $user);
 
-        $this->articleRepository = $articleRepository;
-        $this->item              = $item;
+        $this->videoRepository = $videoRepository;
+        $this->item            = $item;
     }
 
     protected function configure(Form $form)
@@ -37,11 +38,8 @@ class ArticleForm extends AbstractContentForm
         $form->addText('name', 'locale.form.name')
             ->setRequired('locale.form.name_required');
 
-        $form->addTextArea('perex', 'locale.form.perex')
-            ->setRequired('locale.form.perex_required');
-
-        $form->addTextArea('text', 'locale.form.text')
-            ->setRequired('locale.form.text_required');
+        $form->addText('url', 'locale.form.video_source_url')
+            ->setRequired('locale.form.video_source_url_required');
 
         $this->tryAutoFill($form, $this->item);
     }
@@ -54,10 +52,10 @@ class ArticleForm extends AbstractContentForm
             $tag    = $this->getSelectedTag($form);
 
             if ($this->item) {
-                $ent = $this->articleRepository->update($values, $tag, $this->user, $this->item);
+                $ent = $this->videoRepository->update($values, $tag, $this->user, $this->item);
                 $p->flashMessage($this->translator->translate('locale.item.updated'));
             } else {
-                $ent = $this->articleRepository->create($values, $tag, $this->user, new Entities\ArticleEntity);
+                $ent = $this->videoRepository->create($values, $tag, $this->user, new Entities\VideoEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
 
@@ -65,6 +63,9 @@ class ArticleForm extends AbstractContentForm
             $this->addFormError($form, $e);
 
         } catch (PossibleUniqueKeyDuplicationException $e) {
+            $this->addFormError($form, $e);
+
+        } catch (InvalidVideoUrlException $e) {
             $this->addFormError($form, $e);
 
         } catch (\Exception $e) {
