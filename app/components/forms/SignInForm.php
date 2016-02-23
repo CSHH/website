@@ -1,8 +1,7 @@
 <?php
 
-namespace App\AdminModule\Components\Forms;
+namespace App\Components\Forms;
 
-use App\Components\Forms\AbstractForm;
 use HeavenProject\Utils\FlashType;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;

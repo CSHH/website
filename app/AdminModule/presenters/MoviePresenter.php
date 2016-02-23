@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\AdminModule\Components\Forms;
+use App\Components\Forms;
 use App\Model\Entities;
 
 final class MoviePresenter extends SharedContentPresenter

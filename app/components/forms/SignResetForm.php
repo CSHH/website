@@ -1,8 +1,7 @@
 <?php
 
-namespace App\AdminModule\Components\Forms;
+namespace App\Components\Forms;
 
-use App\Components\Forms\AbstractForm;
 use App\Model\Repositories;
 use App\Model\Exceptions\FormSentBySpamException;
 use App\Model\Exceptions\UserNotFoundException;

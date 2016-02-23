@@ -1,8 +1,8 @@
 <?php
 
-namespace App\FrontModule\Components\Forms;
+namespace App\Components\Forms;
 
-use App\AdminModule\Components\Forms\AbstractContentForm;
+use App\Components\Forms\AbstractContentForm;
 use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
