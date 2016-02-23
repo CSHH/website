@@ -1,24 +1,14 @@
 {form form}
 
-    {foreach $form->errors as $error}
-        <div>{$error}</div>
-    {/foreach}
+    {include 'include/errors.latte', form => $form}
 
-    <div>
-        {label perex /}
-        {input perex}
-    </div>
+    {include 'include/perex.latte', _form => $form}
 
-    <div>
-        {label text /}
-        {input text}
-    </div>
+    {include 'include/text.latte', _form => $form}
 
-    {input startTime}
+    {include 'include/startTime.latte', _form => $form}
 
-    <div>
-        {input submit}
-    </div>
+    {include 'include/submit.latte', _form => $form}
 
 {/form}
 
