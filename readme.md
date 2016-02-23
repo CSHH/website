@@ -30,6 +30,10 @@ Bude pak k dispozici jako `./phing.phar`.
 
 Pro účely vývoje použijte příkaz `./phing.phar init+fixtures`, který aplikaci inicializuje a do databáze nahraje testovací data (fixtury).
 
+## Bower
+
+`npm install -g bower` popř. `sudo npm install -g bower`
+
 ## Uživatelé
 
 Po aplikaci fixtur bude k dispozici jeden uživatel:
