@@ -76,19 +76,19 @@ class UserEntity extends TimestampableEntity
      *
      * @var string
      */
-    public $token;
+    protected $token;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      *
      * @var \DateTime
      */
-    public $tokenCreatedAt;
+    protected $tokenCreatedAt;
 
     /**
      * @ORM\Column(type="boolean")
      *
      * @var bool
      */
-    public $isAuthenticated = false;
+    protected $isAuthenticated = false;
 }

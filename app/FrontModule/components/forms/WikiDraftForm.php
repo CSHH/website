@@ -2,32 +2,23 @@
 
 namespace App\FrontModule\Components\Forms;
 
+use App\AdminModule\Components\Forms\AbstractContentForm;
 use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
 use App\Model\Exceptions;
-use Nette;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Nette\Utils\DateTime;
-use Tracy;
 
-class WikiDraftForm extends Nette\Application\UI\Control
+class WikiDraftForm extends AbstractContentForm
 {
-    /** @var ITranslator */
-    private $translator;
-
-    /** @var Repositories\TagRepository */
-    private $tagRepository;
-
     /** @var Repositories\WikiRepository */
     private $wikiRepository;
 
     /** @var Repositories\WikiDraftRepository */
     private $wikiDraftRepository;
-
-    /** @var Entities\UserEntity */
-    private $user;
 
     /** @var string */
     private $type;
@@ -56,23 +47,17 @@ class WikiDraftForm extends Nette\Application\UI\Control
         $type,
         Entities\WikiEntity $item = null
     ) {
-        $this->translator          = $translator;
-        $this->tagRepository       = $tagRepository;
+        parent::__construct($translator, $tagRepository, $user);
+
         $this->wikiRepository      = $wikiRepository;
         $this->wikiDraftRepository = $wikiDraftRepository;
-        $this->user                = $user;
         $this->type                = $type;
         $this->item                = $item;
     }
 
-    /**
-     * @return Form
-     */
-    public function createComponentForm()
+    protected function configure(Form $form)
     {
-        $form = new Form;
-
-        $form->setTranslator($this->translator);
+        parent::configure($form);
 
         $form->addTextArea('perex', 'locale.form.perex')
             ->setRequired('locale.form.perex_required');
@@ -82,15 +67,7 @@ class WikiDraftForm extends Nette\Application\UI\Control
 
         $form->addHidden('startTime', date('Y-m-d H:i:s'));
 
-        if ($this->item) {
-            $form->autoFill($this->item);
-        }
-
-        $form->onSuccess[] = array($this, 'formSucceeded');
-
-        $form->addSubmit('submit', 'locale.form.save');
-
-        return $form;
+        $this->tryAutoFill($form, $this->item);
     }
 
     public function formSucceeded(Form $form)
@@ -138,32 +115,10 @@ class WikiDraftForm extends Nette\Application\UI\Control
         }
     }
 
-    public function render()
+    protected function insideRender(ITemplate $template)
     {
-        $template = $this->getTemplate();
-
-        $template->setFile(__DIR__ . '/templates/WikiDraftForm.latte');
-
         $template->latestDraft = $this->newerDraftExists
             ? $this->wikiDraftRepository->getLatestByWiki($this->item)
             : null;
-
-        $template->render();
-    }
-
-    /**
-     * @param Form $form
-     * @param \Exception $e
-     * @param string $output
-     */
-    private function addFormError(Form $form, \Exception $e, $output = null)
-    {
-        Tracy\Debugger::barDump($e->getMessage());
-        Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-        $form->addError($output
-            ? $this->translator->translate('locale.error.occurred')
-            : $e->getMessage()
-        );
     }
 }

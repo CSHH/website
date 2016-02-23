@@ -52,19 +52,6 @@ class ImageRepository extends SingleUserContentRepository
 
     /**
      * @param  Entities\ImageEntity $e
-     * @return Entities\ImageEntity
-     */
-    public function activate(Entities\ImageEntity $e)
-    {
-        $e->isActive = true;
-
-        $this->persistAndFlush($this->em, $e);
-
-        return $e;
-    }
-
-    /**
-     * @param  Entities\ImageEntity $e
      */
     public function delete(Entities\ImageEntity $e)
     {

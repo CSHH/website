@@ -2,23 +2,19 @@
 
 namespace App\AdminModule\Components\Forms;
 
+use App\Components\Forms\AbstractForm;
 use App\Model\Repositories;
 use App\Model\Exceptions\FormSentBySpamException;
 use App\Model\Exceptions\UserNotFoundException;
 use HeavenProject\Utils\FlashType;
 use Latte;
-use Nette;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
-use Tracy;
 
-class SignResetForm extends Nette\Application\UI\Control
+class SignResetForm extends AbstractForm
 {
-    /** @var ITranslator */
-    private $translator;
-
     /** @var string */
     private $appDir;
 
@@ -32,11 +28,11 @@ class SignResetForm extends Nette\Application\UI\Control
     private $mailer;
 
     /**
-     * @param ITranslator   $translator
-     * @param string        $appDir
-     * @param string        $contactEmail
+     * @param ITranslator                 $translator
+     * @param string                      $appDir
+     * @param string                      $contactEmail
      * @param Repositories\UserRepository $userRepository
-     * @param IMailer       $mailer
+     * @param IMailer                     $mailer
      */
     public function __construct(
         ITranslator $translator,
@@ -45,37 +41,24 @@ class SignResetForm extends Nette\Application\UI\Control
         Repositories\UserRepository $userRepository,
         IMailer $mailer
     ) {
-        parent::__construct();
+        parent::__construct($translator);
 
-        $this->translator     = $translator;
         $this->appDir         = $appDir;
         $this->contactEmail   = $contactEmail;
         $this->userRepository = $userRepository;
         $this->mailer         = $mailer;
     }
 
-    /**
-     * @return Form
-     */
-    public function createComponentForm()
+    protected function configure(Form $form)
     {
-        $form = new Form;
-
-        $form->setTranslator($this->translator);
-
         $form->addText('email', 'locale.form.email')
             ->addRule($form::EMAIL, 'locale.form.email_not_in_order')
             ->setRequired('locale.form.email_required');
 
-        // Antispam
         $form->addText('__anti', '__Anti', null)
             ->setAttribute('style', 'display: none;');
 
-        $form->onSuccess[] = array($this, 'formSucceeded');
-
         $form->addSubmit('submit', 'locale.form.send');
-
-        return $form;
     }
 
     public function formSucceeded(Form $form)
@@ -119,34 +102,24 @@ class SignResetForm extends Nette\Application\UI\Control
             );
 
         } catch (FormSentBySpamException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->addError($e->getMessage());
+            $this->addFormError($form, $e);
 
         } catch (UserNotFoundException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->addError($this->translator->translate('locale.error.occurred'));
+            $this->addFormError(
+                $form,
+                $e,
+                $this->translator->translate('locale.error.occurred')
+            );
 
         } catch (\PDOException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $form->addError($this->translator->translate('locale.error.occurred'));
+            $this->addFormError(
+                $form,
+                $e,
+                $this->translator->translate('locale.error.occurred')
+            );
         }
 
         $p->redirect('Sign:in');
-    }
-
-    public function render()
-    {
-        $template = $this->getTemplate();
-
-        $template->setFile(__DIR__ . '/templates/SignResetForm.latte');
-
-        $template->render();
     }
 
     /**

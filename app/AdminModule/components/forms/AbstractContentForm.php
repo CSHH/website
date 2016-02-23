@@ -2,19 +2,16 @@
 
 namespace App\AdminModule\Components\Forms;
 
+use App\Components\Forms\AbstractForm;
 use App\Model\Repositories;
 use App\Model\Entities;
 use App\Model\Exceptions;
-use Nette;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
-use Tracy;
 
-abstract class AbstractContentForm extends Nette\Application\UI\Control
+abstract class AbstractContentForm extends AbstractForm
 {
-    /** @var ITranslator */
-    protected $translator;
-
     /** @var Repositories\TagRepository */
     protected $tagRepository;
 
@@ -26,44 +23,19 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
         Repositories\TagRepository $tagRepository,
         Entities\UserEntity $user
     ) {
-        parent::__construct();
+        parent::__construct($translator);
 
-        $this->translator    = $translator;
         $this->tagRepository = $tagRepository;
         $this->user          = $user;
     }
 
-    /**
-     * @return Form
-     */
-    public function createComponentForm()
+    protected function configure(Form $form)
     {
-        $form = new Form;
-
-        $form->setTranslator($this->translator);
-
-        $this->configure($form);
-
-        $form->onSuccess[] = array($this, 'formSucceeded');
-
         $form->addSubmit('submit', 'locale.form.save');
-
-        return $form;
     }
 
     /**
-     * @param Form $form
-     * @param Entities\BaseEntity $item
-     */
-    protected function tryAutoFill(Form $form, Entities\BaseEntity $item = null)
-    {
-        if ($item) {
-            $form->autoFill($item);
-        }
-    }
-
-    /**
-     * @param  Form $form
+     * @param  Form                           $form
      * @throws Exceptions\MissingTagException
      * @return Entities\TagEntity|null
      */
@@ -94,42 +66,8 @@ abstract class AbstractContentForm extends Nette\Application\UI\Control
         return $tags;
     }
 
-    /**
-     * @param Form $form
-     * @param \Exception $e
-     * @param string $output
-     */
-    protected function addFormError(Form $form, \Exception $e, $output = null)
+    protected function insideRender(ITemplate $template)
     {
-        Tracy\Debugger::barDump($e->getMessage());
-        Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-        $form->addError($output
-            ? $this->translator->translate('locale.error.occurred')
-            : $e->getMessage()
-        );
-    }
-
-    public function render()
-    {
-        $template = $this->getTemplate();
-
-        $exploded = explode('\\', static::class);
-
-        $template->setFile(__DIR__ . '/templates/' . array_pop($exploded) . '.latte');
-
         $template->tags = $this->getTags();
-
-        $template->render();
     }
-
-    /**
-     * @param Form $form
-     */
-    abstract protected function configure(Form $form);
-
-    /**
-     * @param Form $form
-     */
-    abstract public function formSucceeded(Form $form);
 }
