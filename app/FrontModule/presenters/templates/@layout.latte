@@ -83,9 +83,7 @@
     {include content}
 
     {block scripts}
-        <script src="{$basePath}/bower_components/jquery/dist/jquery.js"></script>
-        <script src="{$basePath}/bower_components/nette-forms/src/assets/netteForms.js"></script>
-        <script src="{$basePath}/js/main.js"></script>
+        {include '../../../presenters/templates/include/js.latte'}
     {/block}
 </body>
 </html>
