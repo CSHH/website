@@ -24,6 +24,19 @@ abstract class SingleUserContentRepository extends BaseRepository
     }
 
     /**
+     * @param  Entities\BaseEntity $e
+     * @return Entities\BaseEntity
+     */
+    public function activate(Entities\BaseEntity $e)
+    {
+        $e->isActive = true;
+
+        $this->persistAndFlush($this->em, $e);
+
+        return $e;
+    }
+
+    /**
      * @param  string    $className
      * @param  int       $page
      * @param  int       $limit
