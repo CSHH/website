@@ -3,9 +3,14 @@
 namespace App\AdminModule\Presenters;
 
 use App\AdminModule\Components\Forms;
+use App\FrontModule\Components\Forms\WikiDraftForm;
+use App\Model\Repositories;
 
 abstract class SharedContentPresenter extends PageablePresenter
 {
+    /** @var Repositories\WikiDraftRepository @inject */
+    public $wikiDraftRepository;
+
     /**
      * @param string $type
      * @param string $redirect
@@ -73,7 +78,7 @@ abstract class SharedContentPresenter extends PageablePresenter
      */
     protected function runCreateComponentWikiDraftForm($type)
     {
-        return new Forms\WikiDraftForm(
+        return new WikiDraftForm(
             $this->translator,
             $this->tagRepository,
             $this->wikiRepository,
