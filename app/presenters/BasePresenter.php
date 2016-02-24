@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use App\Model\Entities;
 use App\Model\Repositories;
 use Nette;
@@ -62,5 +63,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     protected function getItem($itemId, Repositories\BaseRepository $repository)
     {
         return $itemId ? $repository->getById($itemId) : null;
+    }
+
+    protected function registerFormExtendingMethods()
+    {
+        $ext = new FormExtendingMethods;
+        $ext->registerMethods();
     }
 }
