@@ -6,6 +6,7 @@ use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Entities;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Exceptions\InvalidVideoUrlException;
+use App\Model\Videos;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
@@ -69,12 +70,14 @@ class VideoRepository extends SingleUserContentRepository
         if (Strings::contains($url, Entities\VideoEntity::TYPE_YOUTUBE . '.com')) {
             $e->type = Entities\VideoEntity::TYPE_YOUTUBE;
             $e->url = $url ?: null;
-            $e->src = $url ? $this->getYoutubeVideoSrc($url) : null;
+            $video = new Videos\Youtube($this->translator);
+            $e->src = $url ? $video->getVideoSrc($url) : null;
 
         } elseif (Strings::contains($url, Entities\VideoEntity::TYPE_VIMEO . '.com')) {
             $e->type = Entities\VideoEntity::TYPE_VIMEO;
             $e->url = $url ?: null;
-            $e->src = $url ? $this->getVimeoVideoSrc($url) : null;
+            $video = new Videos\Vimeo($this->vimeoOembedEndpoint);
+            $e->src = $url ? $video->getVideoSrc($url) : null;
 
         } else {
             throw new InvalidVideoUrlException(
@@ -117,12 +120,14 @@ class VideoRepository extends SingleUserContentRepository
         if (Strings::contains($url, Entities\VideoEntity::TYPE_YOUTUBE . '.com')) {
             $e->type = Entities\VideoEntity::TYPE_YOUTUBE;
             $e->url = $url ?: null;
-            $e->src = $url ? $this->getYoutubeVideoSrc($url) : null;
+            $video = new Videos\Youtube($this->translator);
+            $e->src = $url ? $video->getVideoSrc($url) : null;
 
         } elseif (Strings::contains($url, Entities\VideoEntity::TYPE_VIMEO . '.com')) {
             $e->type = Entities\VideoEntity::TYPE_VIMEO;
             $e->url = $url ?: null;
-            $e->src = $url ? $this->getVimeoVideoSrc($url) : null;
+            $video = new Videos\Vimeo($this->vimeoOembedEndpoint);
+            $e->src = $url ? $video->getVideoSrc($url) : null;
 
         } else {
             throw new InvalidVideoUrlException(
@@ -228,47 +233,5 @@ class VideoRepository extends SingleUserContentRepository
     public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
         return $this->doGetAllInactiveByTagForPage(Entities\VideoEntity::getClassName(), $page, $limit, $tag);
-    }
-
-    /**
-     * @param  string $pageUrl
-     * @throws InvalidVideoUrlException
-     * @return string
-     */
-    private function getYoutubeVideoSrc($pageUrl)
-    {
-        $key = 'watch?v=';
-
-        if (!Strings::contains($pageUrl, $key)) {
-            throw new InvalidVideoUrlException(
-                $this->translator->translate('locale.error.invalid_youtube_video_url')
-            );
-        }
-
-        return str_replace($key, 'embed/', $pageUrl);
-    }
-
-    /**
-     * @param  string $pageUrl
-     * @return string
-     */
-    private function getVimeoVideoSrc($pageUrl)
-    {
-        $url = $this->vimeoOembedEndpoint . '?url=' . rawurlencode($pageUrl);
-
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 30);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        $result = curl_exec($curl);
-        curl_close($curl);
-
-        $xml = simplexml_load_string($result);
-
-        $iframe = (string) $xml->html;
-
-        $part = substr($iframe, strpos($iframe, 'src="') + 5);
-
-        return substr($part, 0, strpos($part, '"'));
     }
 }
