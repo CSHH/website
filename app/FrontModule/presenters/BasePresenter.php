@@ -3,7 +3,6 @@
 namespace App\FrontModule\Presenters;
 
 use App;
-use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use App\Model\Repositories;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
@@ -30,8 +29,7 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
     {
         parent::startup();
 
-        $ext = new FormExtendingMethods;
-        $ext->registerMethods();
+        $this->registerFormExtendingMethods();
     }
 
     protected function beforeRender()
