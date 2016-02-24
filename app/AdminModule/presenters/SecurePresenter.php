@@ -2,7 +2,6 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use Nette\Security\IUserStorage;
 
 abstract class SecurePresenter extends BasePresenter
@@ -18,7 +17,6 @@ abstract class SecurePresenter extends BasePresenter
             $this->redirect('Sign:in');
         }
 
-        $ext = new FormExtendingMethods;
-        $ext->registerMethods();
+        $this->registerFormExtendingMethods();
     }
 }
