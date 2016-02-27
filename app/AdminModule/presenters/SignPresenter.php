@@ -47,15 +47,8 @@ final class SignPresenter extends BasePresenter
      */
     public function actionUnlock($userId, $token)
     {
-        $userId = $userId ?: null;
-        if (empty($userId)) {
-            $this->redirect('Homepage:default');
-        }
-
-        $token = $token ?: null;
-        if (empty($token)) {
-            $this->redirect('Homepage:default');
-        }
+        $this->checkParameterAndRedirectIfNull($userId);
+        $this->checkParameterAndRedirectIfNull($token);
 
         try {
             $this->userRepository->unlock($userId, $token);
@@ -175,5 +168,16 @@ final class SignPresenter extends BasePresenter
     {
         Tracy\Debugger::barDump($message);
         Tracy\Debugger::log($message, $type);
+    }
+
+    /**
+     * @param mixed $param
+     */
+    private function checkParameterAndRedirectIfNull($param)
+    {
+        $p = $param ?: null;
+        if (!$p) {
+            $this->redirect('Homepage:default');
+        }
     }
 }
