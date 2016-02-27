@@ -7,9 +7,9 @@ use App\Model\Entities;
 use App\Model\Exceptions\ActivationLimitExpiredException;
 use App\Model\Exceptions\UserNotFoundException;
 use App\Model\Security\Authenticator;
+use App\Model\Logging\Logger;
 use HeavenProject\Utils\FlashType;
 use Nette\Mail\IMailer;
-use Tracy;
 
 final class SignPresenter extends BasePresenter
 {
@@ -47,40 +47,24 @@ final class SignPresenter extends BasePresenter
      */
     public function actionUnlock($userId, $token)
     {
-        $userId = $userId ?: null;
-        if (empty($userId)) {
-            $this->redirect('Homepage:default');
-        }
-
-        $token = $token ?: null;
-        if (empty($token)) {
-            $this->redirect('Homepage:default');
-        }
+        $this->checkParameterAndRedirectIfNull($userId);
+        $this->checkParameterAndRedirectIfNull($token);
 
         try {
             $this->userRepository->unlock($userId, $token);
             $this->flashMessage('Váš účet byl úspěšně aktivován. Přihlašte se prosím.');
 
         } catch (UserNotFoundException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $this->flashMessage($e->getMessage(), FlashType::WARNING);
-            $this->redirect('Homepage:default');
+            Logger::log($e->getMessage());
+            $this->flashTypeWithRedirect($e->getMessage(), FlashType::WARNING, 'Homepage:default');
 
         } catch (ActivationLimitExpiredException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $this->flashMessage($e->getMessage(), FlashType::WARNING);
-            $this->redirect('Homepage:default');
+            Logger::log($e->getMessage());
+            $this->flashTypeWithRedirect($e->getMessage(), FlashType::WARNING, 'Homepage:default');
 
         } catch (\Exception $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $this->flashMessage('Došlo k chybě.', FlashType::WARNING);
-            $this->redirect('Homepage:default');
+            Logger::log($e->getMessage());
+            $this->flashTypeWithRedirect('Došlo k chybě.', FlashType::WARNING, 'Homepage:default');
         }
 
         $this->redirect('Homepage:default');
@@ -172,6 +156,17 @@ final class SignPresenter extends BasePresenter
     private function checkLogin()
     {
         if ($this->getUser()->isLoggedIn()) {
+            $this->redirect('Homepage:default');
+        }
+    }
+
+    /**
+     * @param mixed $param
+     */
+    private function checkParameterAndRedirectIfNull($param)
+    {
+        $p = $param ?: null;
+        if (!$p) {
             $this->redirect('Homepage:default');
         }
     }

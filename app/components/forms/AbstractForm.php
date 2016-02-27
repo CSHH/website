@@ -3,12 +3,12 @@
 namespace App\Components\Forms;
 
 use App\Model\Entities;
+use App\Model\Logging\Logger;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Nette\Reflection\ClassType;
-use Tracy;
 
 abstract class AbstractForm extends Nette\Application\UI\Control
 {
@@ -50,16 +50,6 @@ abstract class AbstractForm extends Nette\Application\UI\Control
     }
 
     /**
-     * @param string $message
-     * @param string $type
-     */
-    protected function log($message, $type = Tracy\Debugger::EXCEPTION)
-    {
-        Tracy\Debugger::barDump($message);
-        Tracy\Debugger::log($message, $type);
-    }
-
-    /**
      * @param Form       $form
      * @param \Exception $e
      * @param string     $output
@@ -68,7 +58,7 @@ abstract class AbstractForm extends Nette\Application\UI\Control
     {
         $msg = $e->getMessage();
 
-        $this->log($msg);
+        Logger::log($msg);
 
         $form->addError(
             $output
