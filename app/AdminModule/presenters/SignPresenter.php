@@ -7,9 +7,9 @@ use App\Model\Entities;
 use App\Model\Exceptions\ActivationLimitExpiredException;
 use App\Model\Exceptions\UserNotFoundException;
 use App\Model\Security\Authenticator;
+use App\Model\Logging\Logger;
 use HeavenProject\Utils\FlashType;
 use Nette\Mail\IMailer;
-use Tracy;
 
 final class SignPresenter extends BasePresenter
 {
@@ -55,15 +55,15 @@ final class SignPresenter extends BasePresenter
             $this->flashMessage('Váš účet byl úspěšně aktivován. Přihlašte se prosím.');
 
         } catch (UserNotFoundException $e) {
-            $this->log($e->getMessage());
+            Logger::log($e->getMessage());
             $this->flashTypeWithRedirect($e->getMessage(), FlashType::WARNING, 'Homepage:default');
 
         } catch (ActivationLimitExpiredException $e) {
-            $this->log($e->getMessage());
+            Logger::log($e->getMessage());
             $this->flashTypeWithRedirect($e->getMessage(), FlashType::WARNING, 'Homepage:default');
 
         } catch (\Exception $e) {
-            $this->log($e->getMessage());
+            Logger::log($e->getMessage());
             $this->flashTypeWithRedirect('Došlo k chybě.', FlashType::WARNING, 'Homepage:default');
         }
 
@@ -158,16 +158,6 @@ final class SignPresenter extends BasePresenter
         if ($this->getUser()->isLoggedIn()) {
             $this->redirect('Homepage:default');
         }
-    }
-
-    /**
-     * @param string $message
-     * @param string $type
-     */
-    private function log($message, $type = Tracy\Debugger::EXCEPTION)
-    {
-        Tracy\Debugger::barDump($message);
-        Tracy\Debugger::log($message, $type);
     }
 
     /**
