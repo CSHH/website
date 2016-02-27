@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
 use App\Model\Entities;
 use App\Model\Repositories;
+use HeavenProject\Utils\FlashType;
 use Nette;
 use Nette\Localization\ITranslator;
 
@@ -52,6 +53,17 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     protected function flashWithRedirect($message = '', $redirect = 'this')
     {
         $this->flashMessage($message);
+        $this->redirect($redirect);
+    }
+
+    /**
+     * @param string $message
+     * @param string $type
+     * @param string $redirect
+     */
+    protected function flashTypeWithRedirect($message = '', $type = FlashType::INFO, $redirect = 'this')
+    {
+        $this->flashMessage($message, $type);
         $this->redirect($redirect);
     }
 
