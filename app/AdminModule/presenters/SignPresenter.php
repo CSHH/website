@@ -62,25 +62,16 @@ final class SignPresenter extends BasePresenter
             $this->flashMessage('Váš účet byl úspěšně aktivován. Přihlašte se prosím.');
 
         } catch (UserNotFoundException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $this->flashMessage($e->getMessage(), FlashType::WARNING);
-            $this->redirect('Homepage:default');
+            $this->log($e->getMessage());
+            $this->flashTypeWithRedirect($e->getMessage(), FlashType::WARNING, 'Homepage:default');
 
         } catch (ActivationLimitExpiredException $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $this->flashMessage($e->getMessage(), FlashType::WARNING);
-            $this->redirect('Homepage:default');
+            $this->log($e->getMessage());
+            $this->flashTypeWithRedirect($e->getMessage(), FlashType::WARNING, 'Homepage:default');
 
         } catch (\Exception $e) {
-            Tracy\Debugger::barDump($e->getMessage());
-            Tracy\Debugger::log($e->getMessage(), Tracy\Debugger::EXCEPTION);
-
-            $this->flashMessage('Došlo k chybě.', FlashType::WARNING);
-            $this->redirect('Homepage:default');
+            $this->log($e->getMessage());
+            $this->flashTypeWithRedirect('Došlo k chybě.', FlashType::WARNING, 'Homepage:default');
         }
 
         $this->redirect('Homepage:default');
@@ -174,5 +165,15 @@ final class SignPresenter extends BasePresenter
         if ($this->getUser()->isLoggedIn()) {
             $this->redirect('Homepage:default');
         }
+    }
+
+    /**
+     * @param string $message
+     * @param string $type
+     */
+    private function log($message, $type = Tracy\Debugger::EXCEPTION)
+    {
+        Tracy\Debugger::barDump($message);
+        Tracy\Debugger::log($message, $type);
     }
 }
