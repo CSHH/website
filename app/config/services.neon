@@ -15,3 +15,6 @@ services:
     )
     - App\Model\Repositories\WikiDraftRepository(@doctrine.dao(App\Model\Entities\WikiDraftEntity))
     - App\Model\Repositories\WikiRepository(@doctrine.dao(App\Model\Entities\WikiEntity))
+
+    menuControl:
+        implement: App\Components\Controls\MenuControlInterface
