@@ -3,9 +3,13 @@
 namespace App\FrontModule\Presenters;
 
 use App\Model\Entities;
+use App\Model\Repositories;
 
 final class GalleryPresenter extends SingleUserContentPresenter
 {
+    /** @var Repositories\ImageRepository @inject */
+    public $imageRepository;
+
     /** @var Entities\ImageEntity[] */
     private $images;
 
@@ -21,7 +25,8 @@ final class GalleryPresenter extends SingleUserContentPresenter
     {
         parent::runRenderDefault();
 
-        $this->template->images = $this->images;
+        $this->template->images    = $this->images;
+        $this->template->uploadDir = $this->context->parameters['uploadDir'];
     }
 
     /**

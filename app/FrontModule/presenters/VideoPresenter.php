@@ -3,9 +3,13 @@
 namespace App\FrontModule\Presenters;
 
 use App\Model\Entities;
+use App\Model\Repositories;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {
+    /** @var Repositories\VideoRepository @inject */
+    public $videoRepository;
+
     /** @var Entities\VideoEntity[] */
     private $videos;
 

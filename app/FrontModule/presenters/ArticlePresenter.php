@@ -3,9 +3,13 @@
 namespace App\FrontModule\Presenters;
 
 use App\Model\Entities;
+use App\Model\Repositories;
 
 final class ArticlePresenter extends SingleUserContentPresenter
 {
+    /** @var Repositories\ArticleRepository @inject */
+    public $articleRepository;
+
     /** @var Entities\ArticleEntity[] */
     private $articles;
 

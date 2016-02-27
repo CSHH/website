@@ -7,6 +7,9 @@ use App\Model\Repositories;
 
 abstract class SharedContentPresenter extends PageablePresenter
 {
+    /** @var Repositories\WikiRepository @inject */
+    public $wikiRepository;
+
     /** @var Repositories\WikiDraftRepository @inject */
     public $wikiDraftRepository;
 
