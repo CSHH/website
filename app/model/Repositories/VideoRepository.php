@@ -67,23 +67,7 @@ class VideoRepository extends SingleUserContentRepository
 
         $url = $e->url;
 
-        if (Strings::contains($url, Entities\VideoEntity::TYPE_YOUTUBE . '.com')) {
-            $e->type = Entities\VideoEntity::TYPE_YOUTUBE;
-            $e->url = $url ?: null;
-            $video = new Videos\Youtube($this->translator);
-            $e->src = $url ? $video->getVideoSrc($url) : null;
-
-        } elseif (Strings::contains($url, Entities\VideoEntity::TYPE_VIMEO . '.com')) {
-            $e->type = Entities\VideoEntity::TYPE_VIMEO;
-            $e->url = $url ?: null;
-            $video = new Videos\Vimeo($this->vimeoOembedEndpoint);
-            $e->src = $url ? $video->getVideoSrc($url) : null;
-
-        } else {
-            throw new InvalidVideoUrlException(
-                $this->translator->translate('locale.error.invalid_video_url')
-            );
-        }
+        $this->processVideo($e, $url);
 
         $e->tag  = $tag;
         $e->user = $user;
@@ -117,23 +101,7 @@ class VideoRepository extends SingleUserContentRepository
 
         $url = $e->url;
 
-        if (Strings::contains($url, Entities\VideoEntity::TYPE_YOUTUBE . '.com')) {
-            $e->type = Entities\VideoEntity::TYPE_YOUTUBE;
-            $e->url = $url ?: null;
-            $video = new Videos\Youtube($this->translator);
-            $e->src = $url ? $video->getVideoSrc($url) : null;
-
-        } elseif (Strings::contains($url, Entities\VideoEntity::TYPE_VIMEO . '.com')) {
-            $e->type = Entities\VideoEntity::TYPE_VIMEO;
-            $e->url = $url ?: null;
-            $video = new Videos\Vimeo($this->vimeoOembedEndpoint);
-            $e->src = $url ? $video->getVideoSrc($url) : null;
-
-        } else {
-            throw new InvalidVideoUrlException(
-                $this->translator->translate('locale.error.invalid_video_url')
-            );
-        }
+        $this->processVideo($e, $url);
 
         $e->tag  = $tag;
         $e->user = $user;
@@ -233,5 +201,41 @@ class VideoRepository extends SingleUserContentRepository
     public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
         return $this->doGetAllInactiveByTagForPage(Entities\VideoEntity::getClassName(), $page, $limit, $tag);
+    }
+
+    /**
+     * @param  Entities\VideoEntity     $e
+     * @param  string                   $url
+     * @throws InvalidVideoUrlException
+     */
+    private function processVideo(Entities\VideoEntity $e, $url)
+    {
+        if (Strings::contains($url, Entities\VideoEntity::TYPE_YOUTUBE . '.com')) {
+            $e->type = Entities\VideoEntity::TYPE_YOUTUBE;
+            $e->url  = $url ?: null;
+
+            if ($url) {
+                $video  = new Videos\Youtube($this->translator);
+                $e->src = $video->getVideoSrc($url);
+            } else {
+                $e->src = null;
+            }
+
+        } elseif (Strings::contains($url, Entities\VideoEntity::TYPE_VIMEO . '.com')) {
+            $e->type = Entities\VideoEntity::TYPE_VIMEO;
+            $e->url  = $url ?: null;
+
+            if ($url) {
+                $video  = new Videos\Vimeo($this->vimeoOembedEndpoint);
+                $e->src = $video->getVideoSrc($url);
+            } else {
+                $e->src = null;
+            }
+
+        } else {
+            throw new InvalidVideoUrlException(
+                $this->translator->translate('locale.error.invalid_video_url')
+            );
+        }
     }
 }
