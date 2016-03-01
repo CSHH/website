@@ -5,7 +5,7 @@ namespace App\Components\Controls;
 use Nette\Application\UI\Control;
 use Nette\Utils\Paginator;
 
-class VisualPaginator extends Control
+class VisualPaginatorControl extends Control
 {
     /** @var int */
     private $page;
@@ -59,7 +59,7 @@ class VisualPaginator extends Control
 
         $this->template->steps     = $steps;
         $this->template->paginator = $paginator;
-        $this->template->setFile(__DIR__ . '/templates/VisualPaginator.latte');
+        $this->template->setFile(__DIR__ . '/templates/VisualPaginatorControl.latte');
         $this->template->render();
     }
 
