@@ -2,7 +2,8 @@
 	"name": "cshh-website",
 	"dependencies": {
 		"jquery": "1.12.1",
-		"nette-forms": "2.3.8"
+		"nette-forms": "2.3.8",
+		"nette.ajax.js": "2.1.0"
 	},
 	"private": true
 }
