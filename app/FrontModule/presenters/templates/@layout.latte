@@ -6,8 +6,11 @@
 
     <title>{ifset title}{include title|striptags} | {/ifset}Czech Silent Hill Heaven</title>
 
-    <link rel="stylesheet" href="{$basePath}/css/style.css">
-    <link rel="shortcut icon" href="{$basePath}/favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{asset $basePath . '/css/common.css'}">
+    <link rel="stylesheet" href="{asset $basePath . '/css/front.css'}">
+    <link rel="stylesheet" href="{asset $basePath . '/css/theme-fog.css'}">
+    <link rel="shortcut icon" href="{asset $basePath . '/favicon.ico'}">
 
     {block head}{/block}
 </head>
@@ -15,24 +18,62 @@
 <body>
     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
-    <h1>
-        <a n:href="Homepage:default">Czech Silent Hill Heaven</a>
-    </h1>
+    <nav id="top-nav-bar">
 
-    <div>
-        {if $user->isLoggedIn()}
-            <a n:href=":Admin:Homepage:default">Uživatelská sekce</a>
-            <a n:href=":Admin:Settings:me">Já</a>
-            <a n:href=":Admin:Sign:out">Odhlásit</a>
-        {else}
-            <a n:href=":Admin:Sign:in">Přihlásit</a>
-            <a n:href=":Admin:Sign:up">Registrovat</a>
-        {/if}
+        <h1 id="theme-selector">
+            <a n:href="Homepage:default">Czech Silent Hill Heaven</a>
+        </h1>
+
+        <div id="nav-bar-items">
+            {if $user->isLoggedIn()}
+                <a n:href=":Admin:Homepage:default">Uživatelská sekce</a>
+                <a n:href=":Admin:Settings:me">Já</a>
+                <a n:href=":Admin:Sign:out">Odhlásit</a>
+            {else}
+                <a n:href=":Admin:Sign:in">Přihlásit</a>
+                <a n:href=":Admin:Sign:up">Registrovat</a>
+            {/if}
+        </div>
+
+        <div class="clear-both"></div>
+
+    </nav>
+
+    <div id="bg-body-wrapper" style="background-image: url({asset $basePath . '/images/bg-fog.jpg'})">
+
+        <a id="bg-body-wrapper-gap" n:href="Homepage:default"></a>
+
+        <div id="body-wrapper">
+
+            <nav id="menu">
+
+                {control menuControl}
+
+            </nav>
+
+            <div id="content">
+
+                {include content}
+
+            </div>
+
+            <div class="clear-both"></div>
+
+        </div>
+
     </div>
 
-    {control menuControl}
+    <div id="footer">
 
-    {include content}
+        <div class="github">
+
+            <a href="https://github.com/CSHH" target="_blank">
+                <img src="{asset $basePath . '/images/github.svg'}">
+            </a>
+
+        </div>
+
+    </div>
 
     {block scripts}
         {include '../../../presenters/templates/include/js.latte'}

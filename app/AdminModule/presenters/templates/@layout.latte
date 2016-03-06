@@ -6,8 +6,10 @@
 
     <title>{ifset title}{include title|striptags} | {/ifset}Czech Silent Hill Heaven</title>
 
-    <link rel="stylesheet" href="{$basePath}/css/style.css">
-    <link rel="shortcut icon" href="{$basePath}/favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{asset $basePath . '/css/common.css'}">
+    <link rel="stylesheet" href="{asset $basePath . '/css/admin.css'}">
+    <link rel="shortcut icon" href="{asset $basePath . '/favicon.ico'}">
 
     {block head}{/block}
 </head>
@@ -15,22 +17,27 @@
 <body>
     <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
-    <h1>
-        <a n:href=":Front:Homepage:default">Czech Silent Hill Heaven</a>
-    </h1>
+    <nav id="top-nav-bar">
 
-    <div>
-        {if $user->isLoggedIn()}
+        <h1 class="theme-selector">
+            <a n:href=":Front:Homepage:default">Czech Silent Hill Heaven</a>
+        </h1>
+
+        <div id="nav-bar-items">
             <a n:href="Homepage:default">Uživatelská sekce</a>
             <a n:href="Settings:me">Já</a>
             <a n:href="Sign:out">Odhlásit</a>
-        {else}
-            <a n:href="Sign:in">Přihlásit</a>
-            <a n:href="Sign:up">Registrovat</a>
-        {/if}
-    </div>
+        </div>
 
-    {include content}
+        <div class="clear-both"></div>
+
+    </nav>
+
+    <div>
+
+        {include content}
+
+    </div>
 
     {block scripts}
         {include '../../../presenters/templates/include/js.latte'}
