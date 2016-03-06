@@ -1,49 +1,57 @@
-<div>
+{var $tags = $tagRepository->getAll()}
 
-    {var $tags = $tagRepository->getAll()}
-
-    <ul>
-        <li><a href="{plink Game:default}">{_}locale.sections.games{/_}</a></li>
+<ul>
+    <li>
+        <a href="{plink Game:default}">{_}locale.sections.games{/_}</a>
         <ul>
             <li n:foreach="$tags as $tag" n:if="$wikiRepository->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_GAME)">
-                <a href="{plink Game:default, tagSlug => $tag->slug}">{$tag->name}</a>
+                <a href="{plink Game:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
+    </li>
 
-        <li><a href="{plink Movie:default}">{_}locale.sections.movies{/_}</a></li>
+    <li>
+        <a href="{plink Movie:default}">{_}locale.sections.movies{/_}</a>
         <ul>
             <li n:foreach="$tags as $tag" n:if="$wikiRepository->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_MOVIE)">
-                <a href="{plink Movie:default, tagSlug => $tag->slug}">{$tag->name}</a>
+                <a href="{plink Movie:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
+    </li>
 
-        <li><a href="{plink Book:default}">{_}locale.sections.books{/_}</a></li>
+    <li>
+        <a href="{plink Book:default}">{_}locale.sections.books{/_}</a>
         <ul>
             <li n:foreach="$tags as $tag" n:if="$wikiRepository->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_BOOK)">
-                <a href="{plink Book:default, tagSlug => $tag->slug}">{$tag->name}</a>
+                <a href="{plink Book:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
+    </li>
 
-        <li><a href="{plink Article:default}">{_}locale.sections.articles{/_}</a></li>
+    <li>
+        <a href="{plink Article:default}">{_}locale.sections.articles{/_}</a>
         <ul>
             <li n:foreach="$tags as $tag" n:if="$articleRepository->getAllByTag($tag)">
-                <a href="{plink Article:default, tagSlug => $tag->slug}">{$tag->name}</a>
+                <a href="{plink Article:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
+    </li>
 
-        <li><a href="{plink Gallery:default}">{_}locale.sections.galleries{/_}</a></li>
+    <li>
+        <a href="{plink Gallery:default}">{_}locale.sections.galleries{/_}</a>
         <ul>
             <li n:foreach="$tags as $tag" n:if="$imageRepository->getAllByTag($tag)">
-                <a href="{plink Gallery:default, tagSlug => $tag->slug}">{$tag->name}</a>
+                <a href="{plink Gallery:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
+    </li>
 
-        <li><a href="{plink Video:default}">{_}locale.sections.videos{/_}</a></li>
+    <li>
+        <a href="{plink Video:default}">{_}locale.sections.videos{/_}</a>
         <ul>
             <li n:foreach="$tags as $tag" n:if="$videoRepository->getAllByTag($tag)">
-                <a href="{plink Video:default, tagSlug => $tag->slug}">{$tag->name}</a>
+                <a href="{plink Video:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
-    </ul>
-
-</div>
+    </li>
+</ul>
