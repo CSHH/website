@@ -15,11 +15,11 @@
 </head>
 
 <body>
-    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+    {include '../../../presenters/templates/include/flashes.latte'}
 
     <nav id="top-nav-bar">
 
-        <h1 class="theme-selector">
+        <h1 id="theme-selector">
             <a n:href=":Front:Homepage:default">Czech Silent Hill Heaven</a>
         </h1>
 
