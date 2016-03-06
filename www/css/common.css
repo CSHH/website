@@ -1,0 +1,39 @@
+body {
+    margin: 0;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+#top-nav-bar {
+    width: auto;
+    height: 50px;
+    background-color: #111;
+}
+
+#top-nav-bar #theme-selector {
+    float: left;
+    margin: 0;
+    margin-left: 25px;
+    font-size: 20px;
+    line-height: 50px;
+}
+
+#top-nav-bar #nav-bar-items {
+    float: right;
+    margin: 0;
+    margin-right: 25px;
+    font-size: 20px;
+    line-height: 50px;
+}
+
+#top-nav-bar a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.clear-both {
+    clear: both;
+}
