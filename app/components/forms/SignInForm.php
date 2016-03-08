@@ -4,6 +4,7 @@ namespace App\Components\Forms;
 
 use HeavenProject\Utils\FlashType;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
@@ -59,10 +60,16 @@ class SignInForm extends AbstractForm
 
         } catch (AuthenticationException $e) {
             $this->addFormError($form, $e);
+            $this->redrawControl('formErrors');
         }
 
         if ($u->isLoggedIn()) {
             $p->redirect('Homepage:default');
         }
+    }
+
+    protected function insideRender(ITemplate $template)
+    {
+        $template->form = $this->form;
     }
 }
