@@ -6,34 +6,13 @@ use App\Components\Forms;
 use App\Model\Entities;
 use App\Model\Exceptions\ActivationLimitExpiredException;
 use App\Model\Exceptions\UserNotFoundException;
-use App\Model\Security\Authenticator;
 use App\Model\Logging\Logger;
 use HeavenProject\Utils\FlashType;
-use Nette\Mail\IMailer;
 
 final class SignPresenter extends BasePresenter
 {
-    /** @var IMailer @inject */
-    public $mailer;
-
-    /** @var string */
-    protected $appDir;
-
-    /** @var string */
-    protected $contactEmail;
-
     /** @var Entities\UserEntity */
     protected $e;
-
-    protected function startup()
-    {
-        parent::startup();
-
-        $parameters = $this->context->parameters;
-
-        $this->appDir       = $parameters['appDir'];
-        $this->contactEmail = $parameters['contactEmail'];
-    }
 
     public function actionOut()
     {
@@ -100,45 +79,6 @@ final class SignPresenter extends BasePresenter
         } catch (ActivationLimitExpiredException $e) {
             $this->flashWithRedirect($e->getMessage(), 'Sign:in');
         }
-    }
-
-    /**
-     * @return Forms\SignUpForm
-     */
-    protected function createComponentSignUpForm()
-    {
-        return new Forms\SignUpForm(
-            $this->translator,
-            $this->userRepository,
-            new Authenticator($this->translator, $this->userRepository),
-            $this->mailer,
-            $this->contactEmail
-        );
-    }
-
-    /**
-     * @return Forms\SignInForm
-     */
-    protected function createComponentSignInForm()
-    {
-        return new Forms\SignInForm(
-            $this->translator,
-            new Authenticator($this->translator, $this->userRepository)
-        );
-    }
-
-    /**
-     * @return Forms\SignResetForm
-     */
-    protected function createComponentSignResetForm()
-    {
-        return new Forms\SignResetForm(
-            $this->translator,
-            $this->appDir,
-            $this->contactEmail,
-            $this->userRepository,
-            $this->mailer
-        );
     }
 
     /**
