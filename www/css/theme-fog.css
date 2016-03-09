@@ -1,3 +1,7 @@
+a {
+    color: #03f;
+}
+
 #menu ul li a {
     color: #fff;
     background-color: #03f;
@@ -5,4 +9,12 @@
 
 #menu ul li a:hover {
     background-color: #01f;
+}
+
+.listing-item-header a {
+    color: #03f;
+}
+
+.listing-item-header a:hover {
+    color: #01f;
 }

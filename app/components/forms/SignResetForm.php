@@ -8,6 +8,7 @@ use App\Model\Exceptions\UserNotFoundException;
 use HeavenProject\Utils\FlashType;
 use Latte;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
@@ -102,6 +103,7 @@ class SignResetForm extends AbstractForm
 
         } catch (FormSentBySpamException $e) {
             $this->addFormError($form, $e);
+            $this->redrawControl('formErrors');
 
         } catch (UserNotFoundException $e) {
             $this->addFormError(
@@ -109,6 +111,7 @@ class SignResetForm extends AbstractForm
                 $e,
                 $this->translator->translate('locale.error.occurred')
             );
+            $this->redrawControl('formErrors');
 
         } catch (\PDOException $e) {
             $this->addFormError(
@@ -116,9 +119,15 @@ class SignResetForm extends AbstractForm
                 $e,
                 $this->translator->translate('locale.error.occurred')
             );
+            $this->redrawControl('formErrors');
         }
 
-        $p->redirect('Sign:in');
+        $p->redirect(':Front:Homepage:default');
+    }
+
+    protected function insideRender(ITemplate $template)
+    {
+        $template->form = $this->form;
     }
 
     /**

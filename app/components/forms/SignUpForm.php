@@ -7,6 +7,7 @@ use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Exceptions\FormSentBySpamException;
 use HeavenProject\Utils\FlashType;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
@@ -98,9 +99,11 @@ class SignUpForm extends AbstractForm
 
         } catch (FormSentBySpamException $e) {
             $this->addFormError($form, $e);
+            $this->redrawControl('formErrors');
 
         } catch (PossibleUniqueKeyDuplicationException $e) {
             $this->addFormError($form, $e);
+            $this->redrawControl('formErrors');
 
         } catch (\Exception $e) {
             $this->addFormError(
@@ -108,11 +111,17 @@ class SignUpForm extends AbstractForm
                 $e,
                 $this->translator->translate('locale.error.occurred')
             );
+            $this->redrawControl('formErrors');
         }
 
         if (!empty($user)) {
             $p->redirect('Homepage:default');
         }
+    }
+
+    protected function insideRender(ITemplate $template)
+    {
+        $template->form = $this->form;
     }
 
     /**

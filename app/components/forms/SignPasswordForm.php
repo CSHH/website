@@ -65,6 +65,6 @@ class SignPasswordForm extends AbstractForm
             );
         }
 
-        $p->redirect('Sign:in');
+        $p->redirect(':Front:Homepage:default');
     }
 }

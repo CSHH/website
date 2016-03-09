@@ -14,7 +14,7 @@ abstract class SecurePresenter extends BasePresenter
             if ($this->getUser()->getLogoutReason() === IUserStorage::INACTIVITY) {
                 $this->flashMessage($this->translator->translate('locale.sign.session_expired'));
             }
-            $this->redirect('Sign:in');
+            $this->redirect(':Front:Homepage:default');
         }
 
         $this->registerFormExtendingMethods();

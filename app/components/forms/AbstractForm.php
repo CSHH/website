@@ -15,11 +15,15 @@ abstract class AbstractForm extends Nette\Application\UI\Control
     /** @var ITranslator */
     protected $translator;
 
+    /** @var Form */
+    protected $form;
+
     public function __construct(ITranslator $translator)
     {
         parent::__construct();
 
         $this->translator = $translator;
+        $this->form       = new Form;
     }
 
     /**
@@ -27,7 +31,7 @@ abstract class AbstractForm extends Nette\Application\UI\Control
      */
     public function createComponentForm()
     {
-        $form = new Form;
+        $form = $this->form;
 
         $form->setTranslator($this->translator);
 

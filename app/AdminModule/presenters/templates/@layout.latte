@@ -6,7 +6,7 @@
 
     <title>{ifset title}{include title|striptags} | {/ifset}Czech Silent Hill Heaven</title>
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{asset $basePath . '/css/common.css'}">
     <link rel="stylesheet" href="{asset $basePath . '/css/admin.css'}">
     <link rel="shortcut icon" href="{asset $basePath . '/favicon.ico'}">
@@ -39,8 +39,8 @@
 
     </div>
 
-    {block scripts}
-        {include '../../../presenters/templates/include/js.latte'}
-    {/block}
+    {include '../../../presenters/templates/include/js.latte'}
+
+    {block scripts}{/block}
 </body>
 </html>

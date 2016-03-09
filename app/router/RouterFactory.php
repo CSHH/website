@@ -42,10 +42,7 @@ class RouterFactory
         $router[] = new Route('uzivatelska-sekce/drafty', 'Admin:WikiDraft:default');
         $router[] = new Route('uzivatelska-sekce/drafty/detail', 'Admin:WikiDraft:detail');
         $router[] = new Route('uzivatelska-sekce/ja', 'Admin:Settings:me');
-        $router[] = new Route('uzivatelska-sekce/prihlasit', 'Admin:Sign:in');
         $router[] = new Route('uzivatelska-sekce/odhlasit', 'Admin:Sign:out');
-        $router[] = new Route('uzivatelska-sekce/registrovat', 'Admin:Sign:up');
-        $router[] = new Route('uzivatelska-sekce/zapomenute-heslo', 'Admin:Sign:reset');
         $router[] = new Route('autentizace/zadat-heslo', 'Admin:Sign:password');
         $router[] = new Route('autentizace/aktivovat-ucet', 'Admin:Sign:unlock');
 
