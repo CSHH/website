@@ -10,6 +10,10 @@ $(function() {
         });
     })();
 
+    (function() {
+        CKEDITOR.replaceAll('editor');
+    })();
+
     $.nette.ext({
         load: function() {
             $('.flash, .form-error').find('.close').click(function() {
