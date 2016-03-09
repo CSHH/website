@@ -2,6 +2,10 @@ a {
     color: #03f;
 }
 
+#bg-body-wrapper {
+    background-color: #fff;
+}
+
 #menu ul li a {
     color: #fff;
     background-color: #03f;
