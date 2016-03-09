@@ -2,13 +2,17 @@ a {
     color: #f10;
 }
 
+#bg-body-wrapper {
+    background-color: #000;
+}
+
 #menu ul li a {
     color: #fff;
     background-color: #f10;
 }
 
 #menu ul li a:hover {
-    background-color: #c1f;
+    background-color: #c10;
 }
 
 .listing-item-header a {
@@ -16,5 +20,5 @@ a {
 }
 
 .listing-item-header a:hover {
-    color: #c1f;
+    color: #c10;
 }
