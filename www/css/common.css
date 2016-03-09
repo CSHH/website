@@ -184,3 +184,18 @@ hr {
 .gallery-image:hover .activation-bar {
     display: block;
 }
+
+label,
+input[type=text],
+input[type=password],
+input[type=submit] {
+    margin: 0px 20px 10px 20px;
+}
+
+input[type=text],
+input[type=password] {
+    width: 448px;
+    padding: 5px;
+    border: 1px solid #999;
+    /*font-family: 'Open Sans Condensed', sans-serif;*/
+}
