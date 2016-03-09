@@ -144,3 +144,39 @@ hr {
 .activation-links {
     margin-bottom: 10px;
 }
+
+.gallery-image {
+    float: left;
+    width: 160px;
+    height: 160px;
+}
+
+.gallery-image .gallery-image-link {
+    display: block;
+    height: 100%;
+}
+
+.activation-bar {
+    display: none;
+    position: relative;
+    bottom: 25%;
+    height: 25%;
+    text-align: center;
+    background-color: #000;
+    /*opacity: 0.5;*/
+}
+
+.activation-bar a {
+    margin: 0 5px;
+    color: #fff;
+    line-height: 40px;
+    text-decoration: none;
+}
+
+.activation-bar a:hover {
+    text-decoration: underline;
+}
+
+.gallery-image:hover .activation-bar {
+    display: block;
+}

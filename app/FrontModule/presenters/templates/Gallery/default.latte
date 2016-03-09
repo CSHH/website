@@ -7,13 +7,35 @@
 {foreach $images as $image}
 
     {var $description = $image->name ?: $image->tag->name}
+    {var $filePath = $basePath . $uploadDir . '/' . $image->file->getFilePath()}
 
-    <img src="{$basePath}{$uploadDir . '/' . $image->file->getFilePath()|thumb:100:100}" title="{$description}" alt="{$description}">
-    {if !$image->isActive}
-        <a n:href="activate!, imageId => $image->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
-        <a n:href="delete!, imageId => $image->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
-    {/if}
+    <div class="gallery-image">
+
+        <a class="gallery-image-link" href="{$filePath}" data-lightbox="gallery" data-title="{$description}">
+            <img src="{$filePath|thumb:160:160}" title="{$description}" alt="{$description}">
+        </a>
+
+        <div class="activation-bar" n:if="!$image->isActive">
+            <a n:href="activate!, imageId => $image->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+            <a n:href="delete!, imageId => $image->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+        </div>
+
+    </div>
 
 {/foreach}
 
+<div class="clear-left"></div>
+
 {control vp}
+
+{/block}
+
+
+
+{block scripts}
+
+<script>
+    lightbox.option({
+        'wrapAround': true
+    });
+</script>
