@@ -17,7 +17,7 @@ final class SignPresenter extends BasePresenter
     public function actionOut()
     {
         $this->getUser()->logout();
-        $this->flashWithRedirect('Byl/a jste odhlášen/a.', 'Sign:in');
+        $this->flashWithRedirect('Byl/a jste odhlášen/a.', ':Front:Homepage:default');
     }
 
     /**
@@ -59,7 +59,7 @@ final class SignPresenter extends BasePresenter
         $this->checkLogin();
 
         if (empty($uid) || empty($token)) {
-            $this->redirect('Sign:in');
+            $this->redirect(':Front:Homepage:default');
         }
 
         $this->flashMessage('Zadejte prosím své nové heslo.');
@@ -74,10 +74,10 @@ final class SignPresenter extends BasePresenter
             $this->userRepository->checkForTokenExpiration($this->e, $token);
 
         } catch (UserNotFoundException $e) {
-            $this->flashWithRedirect($e->getMessage(), 'Sign:in');
+            $this->flashWithRedirect($e->getMessage(), ':Front:Homepage:default');
 
         } catch (ActivationLimitExpiredException $e) {
-            $this->flashWithRedirect($e->getMessage(), 'Sign:in');
+            $this->flashWithRedirect($e->getMessage(), ':Front:Homepage:default');
         }
     }
 

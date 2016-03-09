@@ -122,7 +122,7 @@ class SignResetForm extends AbstractForm
             $this->redrawControl('formErrors');
         }
 
-        $p->redirect('Sign:in');
+        $p->redirect(':Front:Homepage:default');
     }
 
     protected function insideRender(ITemplate $template)
