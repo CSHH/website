@@ -6,12 +6,23 @@
 
     <title>{ifset title}{include title|striptags} | {/ifset}Czech Silent Hill Heaven</title>
 
+    <script>
+        var App = App || {};
+        App.BASE_PATH = {$basePath};
+    </script>
+
+    {* must be here for the theme to load sooner *}
+    <script src="{asset $basePath . '/bower_components/jquery/dist/jquery.js'}"></script>
+    <script src="{asset $basePath . '/js/themes.js'}"></script>
+
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{asset $basePath . '/bower_components/lightbox2/dist/css/lightbox.css'}">
     <link rel="stylesheet" href="{asset $basePath . '/css/common.css'}">
     <link rel="stylesheet" href="{asset $basePath . '/css/front.css'}">
-    <link rel="stylesheet" href="{asset $basePath . '/css/theme-fog.css'}">
     <link rel="shortcut icon" href="{asset $basePath . '/favicon.ico'}">
+
+    {* do not use asset macro for this one *}
+    <link id="theme-stylesheet" rel="stylesheet" href="{$basePath}/css/theme-fog.css">
 
     {block head}{/block}
 </head>
@@ -21,7 +32,7 @@
 
     <nav id="top-nav-bar">
 
-        <div id="theme-selector">
+        <div id="theme-switch" class="pointer">
             Téma
         </div>
 
@@ -84,7 +95,6 @@
         {control signResetForm}
     {/if}
 
-    <script src="{asset $basePath . '/bower_components/jquery/dist/jquery.js'}"></script>
     <script src="{asset $basePath . '/bower_components/nette-forms/src/assets/netteForms.js'}"></script>
     <script src="{asset $basePath . '/bower_components/nette.ajax.js/nette.ajax.js'}"></script>
     <script src="{asset $basePath . '/bower_components/lightbox2/dist/js/lightbox.js'}"></script>
