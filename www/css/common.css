@@ -1,5 +1,9 @@
-body {
+* {
     margin: 0;
+    padding: 0;
+}
+
+body {
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 15px;
     line-height: 1.6;
@@ -16,7 +20,7 @@ body {
 
 #top-nav-bar #theme-switch {
     float: left;
-    margin: 0;
+    /*margin: 0;*/
     margin-left: 25px;
     font-size: 20px;
     line-height: 50px;
@@ -24,7 +28,7 @@ body {
 
 #top-nav-bar #nav-bar-items {
     float: right;
-    margin: 0;
+    /*margin: 0;*/
     margin-right: 25px;
     font-size: 20px;
     line-height: 50px;
@@ -91,7 +95,7 @@ body {
 }
 
 hr {
-    margin: 0;
+    /*margin: 0;*/
     border: none;
     border-top: 1px solid #ccc;
 }
@@ -125,7 +129,7 @@ hr {
 }
 
 .listing-item-header {
-    margin: 0;
+    /*margin: 0;*/
 }
 
 .listing-item-header.not-public a {
