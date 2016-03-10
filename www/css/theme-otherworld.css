@@ -12,7 +12,7 @@ a {
 }
 
 #menu ul li a:hover {
-    background-color: #c10;
+    background-color: #910;
 }
 
 .listing-item-header a {
@@ -20,5 +20,5 @@ a {
 }
 
 .listing-item-header a:hover {
-    color: #c10;
+    color: #910;
 }
