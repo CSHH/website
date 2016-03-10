@@ -38,12 +38,12 @@
 
         <div id="nav-bar-items">
             {if $user->isLoggedIn()}
-                <a n:href=":Admin:Homepage:default">Uživatelská sekce</a>
-                <a n:href=":Admin:Settings:me">Já</a>
-                <a n:href=":Admin:Sign:out">Odhlásit</a>
+                <a class="item" n:href=":Admin:Homepage:default">Uživatelská sekce</a>
+                <a class="item" n:href=":Admin:Settings:me">Já</a>
+                <a class="item" n:href=":Admin:Sign:out">Odhlásit</a>
             {else}
-                <span class="pointer" data-modal-target="sign-in-form">Přihlásit</span>
-                <span class="pointer" data-modal-target="sign-up-form">Registrovat</span>
+                <span class="item pointer" data-modal-target="sign-in-form">Přihlásit</span>
+                <span class="item pointer" data-modal-target="sign-up-form">Registrovat</span>
             {/if}
         </div>
 
