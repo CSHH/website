@@ -14,7 +14,7 @@ body {
     background-color: #111;
 }
 
-#top-nav-bar #theme-selector {
+#top-nav-bar #theme-switch {
     float: left;
     margin: 0;
     margin-left: 25px;
