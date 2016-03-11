@@ -7,13 +7,23 @@
 {foreach $items as $item}
 
     {var $description = $item->name ?: $item->tag->name}
+    {var $filePath = $basePath . $uploadDir . '/' . $item->file->getFilePath()}
 
-    <img src="{$basePath}{$uploadDir . '/' . $item->file->getFilePath()|thumb:100:100}" title="{$description}" alt="{$description}">
-    {if $canAccess && !$item->isActive}
-        <a n:href="activate!, imageId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
-        <a n:href="delete!, imageId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
-    {/if}
+    <div class="gallery-image">
+
+        <a class="gallery-image-link" href="{$filePath}">
+            <img src="{$filePath|thumb:160:160}" title="{$description}" alt="{$description}">
+        </a>
+
+        <div class="activation-bar" n:if="$canAccess && !$item->isActive">
+            <a n:href="activate!, imageId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+            <a n:href="delete!, imageId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+        </div>
+
+    </div>
 
 {/foreach}
+
+<div class="clear-left"></div>
 
 {control vp}
