@@ -11,6 +11,10 @@ body {
     background-color: #fff;
 }
 
+a {
+    outline: none;
+}
+
 #top-nav-bar {
     width: auto;
     height: 50px;
