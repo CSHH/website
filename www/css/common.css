@@ -24,7 +24,6 @@ a {
 
 #top-nav-bar #theme-switch {
     float: left;
-    /*margin: 0;*/
     margin-left: 25px;
     font-size: 20px;
     line-height: 50px;
@@ -32,7 +31,6 @@ a {
 
 #top-nav-bar #nav-bar-items {
     float: right;
-    /*margin: 0;*/
     margin-right: 25px;
     font-size: 20px;
     line-height: 50px;
@@ -103,7 +101,6 @@ a {
 }
 
 hr {
-    /*margin: 0;*/
     border: none;
     border-top: 1px solid #ccc;
 }
@@ -134,10 +131,6 @@ hr {
 
 .danger {
     background-color: #f10;
-}
-
-.listing-item-header {
-    /*margin: 0;*/
 }
 
 .listing-item-header.not-public a {
@@ -179,7 +172,6 @@ hr {
     height: 25%;
     text-align: center;
     background-color: #000;
-    /*opacity: 0.5;*/
 }
 
 .activation-bar a {
@@ -209,7 +201,6 @@ input[type=password] {
     width: 448px;
     padding: 5px;
     border: 1px solid #999;
-    /*font-family: 'Open Sans Condensed', sans-serif;*/
 }
 
 #paginator {
