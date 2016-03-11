@@ -1,1 +1,13 @@
+#content {
+    margin: auto;
+    margin-top: 20px;
+    width: 1000px;
+}
 
+a {
+    color: #03f;
+}
+
+a:hover {
+    color: #01f;
+}
