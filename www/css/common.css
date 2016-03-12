@@ -109,6 +109,18 @@ a {
     border: 1px solid #ccc;
 }
 
+.modal .submit input {
+    margin: 10px 0;
+    padding: 10px;
+    border: none;
+    color: #fff;
+    background-color: #0c0;
+}
+
+.modal .submit {
+    text-align: center;
+}
+
 .modal-links-wrapper {
     text-align: center;
 }
@@ -117,11 +129,18 @@ a {
     margin: 0 5px;
 }
 
-.close {
-    /*font-size: 35px;
-    line-height: 0.5;*/
+.modal .header {
+    font-size: 20px;
+    line-height: 50px;
+    float: left;
+    margin-left: 20px;
+}
+
+.modal .close {
+    font-size: 50px;
+    line-height: 50px;
     float: right;
-    /*padding: 10px;*/
+    margin-right: 20px;
 }
 
 hr {
@@ -163,7 +182,7 @@ hr {
 }
 
 .success {
-    background-color: #0f0;
+    background-color: #0c0;
 }
 
 .info {
