@@ -69,6 +69,46 @@
     background-color: #111;
 }
 
-#footer .github {
+#footer #github {
     text-align: center;
+}
+
+#footer #github img {
+    width: 24px;
+}
+
+#footer-navigation {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#footer-navigation a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #fff;
+}
+
+#facebook {
+    margin: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 10px;
+    color: #fff;
+}
+
+#facebook a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#copyright {
+    width: 1000px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#copyright p {
+    text-align: center;
+    font-size: 10px;
+    color: #fff;
 }
