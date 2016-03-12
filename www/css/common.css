@@ -156,6 +156,7 @@ hr {
 
 .form-error .close {
     font-size: 25px;
+    margin-right: 0;
 }
 
 .flash {
@@ -171,6 +172,7 @@ hr {
 
 .flash .close {
     font-size: 25px;
+    float: right;
 }
 
 .success,
