@@ -1,10 +1,6 @@
 {form form, class => 'ajax modal', data-modal => 'sign-reset-form'}
 
-    <span class="close pointer">&times;</span>
-
-    <div class="clear-right"></div>
-
-    <hr>
+    {include 'include/modalFormHeader.latte'}
 
     {snippet formErrors}
 
@@ -19,8 +15,8 @@
         {include 'include/submit.latte', _form => $form}
 
         <div class="modal-links-wrapper">
-            <span class="item pointer" data-modal-target="sign-in-form">Přihlásit</span>
-            <span class="item pointer" data-modal-target="sign-up-form">Registrovat</span>
+            {include 'include/switchToSignInForm.latte'}
+            {include 'include/switchToSignUpForm.latte'}
         </div>
 
     </div>
