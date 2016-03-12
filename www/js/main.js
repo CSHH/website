@@ -32,7 +32,7 @@ $(function() {
             }
         });
 
-        $('.close').click(function() {
+        $('.modal > .close').click(function() {
             $('.modal').removeClass('active');
             $('#black-filter').removeClass('active');
             $('body').css('overflow', 'auto');
