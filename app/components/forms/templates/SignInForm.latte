@@ -12,15 +12,21 @@
 
     {/snippet}
 
-    {include 'include/email.latte', _form => $form}
+    <div class="form-container">
 
-    {include 'include/password.latte', _form => $form}
+        {include 'include/email.latte', _form => $form}
 
-    {include 'include/remember.latte', _form => $form}
+        {include 'include/password.latte', _form => $form}
 
-    {include 'include/submit.latte', _form => $form}
+        {include 'include/remember.latte', _form => $form}
 
-    <span class="pointer" data-modal-target="sign-up-form">Registrovat</span>
-    <span class="pointer" data-modal-target="sign-reset-form">Zapomenuté heslo</span>
+        {include 'include/submit.latte', _form => $form}
+
+        <div class="modal-links-wrapper">
+            <span class="item pointer" data-modal-target="sign-up-form">Registrovat</span>
+            <span class="item pointer" data-modal-target="sign-reset-form">Zapomenuté heslo</span>
+        </div>
+
+    </div>
 
 {/form}

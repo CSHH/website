@@ -12,20 +12,29 @@
 
     {/snippet}
 
-    {include 'include/username.latte', _form => $form}
+    <div class="form-container">
 
-    {include 'include/email.latte', _form => $form}
+        {include 'include/username.latte', _form => $form}
 
-    {include 'include/forename.latte', _form => $form}
+        {include 'include/email.latte', _form => $form}
 
-    {include 'include/surname.latte', _form => $form}
+        {include 'include/forename.latte', _form => $form}
 
-    {include 'include/password.latte', _form => $form}
+        {include 'include/surname.latte', _form => $form}
 
-    {include 'include/passwordConfirm.latte', _form => $form}
+        {include 'include/password.latte', _form => $form}
 
-    {include 'include/antiSpam.latte', _form => $form}
+        {include 'include/passwordConfirm.latte', _form => $form}
 
-    {include 'include/submit.latte', _form => $form}
+        {include 'include/antiSpam.latte', _form => $form}
+
+        {include 'include/submit.latte', _form => $form}
+
+        <div class="modal-links-wrapper">
+            <span class="item pointer" data-modal-target="sign-in-form">Přihlásit</span>
+            <span class="item pointer" data-modal-target="sign-reset-form">Zapomenuté heslo</span>
+        </div>
+
+    </div>
 
 {/form}

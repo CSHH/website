@@ -77,6 +77,10 @@ a {
     z-index: 200;
 }
 
+.form-container {
+    margin: 20px;
+}
+
 .modal {
     display: none;
 }
@@ -91,6 +95,26 @@ a {
     margin: auto;
     background-color: #fff;
     z-index: 300;
+}
+
+.modal label {
+    color: #111;
+}
+
+.modal input[type=text],
+.modal input[type=password] {
+    width: 448px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+.modal-links-wrapper {
+    text-align: center;
+}
+
+.modal-links-wrapper .item {
+    margin: 0 5px;
 }
 
 .close {
@@ -208,20 +232,6 @@ hr {
 
 .gallery-image:hover .activation-bar {
     display: block;
-}
-
-label,
-input[type=text],
-input[type=password],
-input[type=submit] {
-    margin: 0px 20px 10px 20px;
-}
-
-input[type=text],
-input[type=password] {
-    width: 448px;
-    padding: 5px;
-    border: 1px solid #999;
 }
 
 #paginator {

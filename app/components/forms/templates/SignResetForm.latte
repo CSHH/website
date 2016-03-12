@@ -12,8 +12,17 @@
 
     {/snippet}
 
-    {include 'include/email.latte', _form => $form}
+    <div class="form-container">
 
-    {include 'include/submit.latte', _form => $form}
+        {include 'include/email.latte', _form => $form}
+
+        {include 'include/submit.latte', _form => $form}
+
+        <div class="modal-links-wrapper">
+            <span class="item pointer" data-modal-target="sign-in-form">Přihlásit</span>
+            <span class="item pointer" data-modal-target="sign-up-form">Registrovat</span>
+        </div>
+
+    </div>
 
 {/form}
