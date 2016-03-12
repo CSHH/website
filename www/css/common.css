@@ -74,7 +74,7 @@ a {
     left: 0;
     background-color: #000;
     opacity: 0.75;
-    z-index: 100;
+    z-index: 200;
 }
 
 .modal {
@@ -90,14 +90,14 @@ a {
     width: 500px;
     margin: auto;
     background-color: #fff;
-    z-index: 200;
+    z-index: 300;
 }
 
 .close {
-    font-size: 35px;
-    line-height: 0.5;
+    /*font-size: 35px;
+    line-height: 0.5;*/
     float: right;
-    padding: 10px;
+    /*padding: 10px;*/
 }
 
 hr {
@@ -105,15 +105,36 @@ hr {
     border-top: 1px solid #ccc;
 }
 
-.flash {
+.form-error {
+    height: 50px;
+    line-height: 50px;
     text-align: center;
+}
+
+.form-error .close {
+    font-size: 25px;
+}
+
+.flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    z-index: 200;
+}
+
+.flash .close {
+    font-size: 25px;
 }
 
 .success,
 .info,
 .warning,
 .danger {
-    padding: 10px 25px;
+    padding: 0 25px;
     color: #fff;
 }
 
