@@ -246,6 +246,11 @@ hr {
     height: 160px;
 }
 
+.gallery-image img {
+    width: 160px;
+    height: 160px;
+}
+
 .gallery-image .gallery-image-link {
     display: block;
     height: 100%;
