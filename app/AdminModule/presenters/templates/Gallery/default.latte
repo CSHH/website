@@ -1,8 +1,9 @@
 {block content}
 
-{include '../include/activitySwitch.latte'}
-
-{include '../include/new.latte', label => 'Nahrát obrázky'}
+<div id="top-buttons-bar">
+    {include '../include/new.latte', label => 'Nahrát obrázky'}
+    {include '../include/activitySwitch.latte', state => $inactiveOnly, all => 'Zobrazit pouze moje vlastní', inactiveOnly => 'Zobrazit pouze neschválené'}
+</div>
 
 {foreach $items as $item}
 

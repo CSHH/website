@@ -8,7 +8,6 @@ body {
     font-size: 15px;
     line-height: 1.6;
     color: #333;
-    background-color: #fff;
 }
 
 a {
@@ -74,7 +73,11 @@ a {
     left: 0;
     background-color: #000;
     opacity: 0.75;
-    z-index: 100;
+    z-index: 200;
+}
+
+.form-container {
+    margin: 20px;
 }
 
 .modal {
@@ -90,14 +93,74 @@ a {
     width: 500px;
     margin: auto;
     background-color: #fff;
-    z-index: 200;
+    z-index: 300;
 }
 
-.close {
-    font-size: 35px;
-    line-height: 0.5;
-    float: right;
+label {
+    color: #111;
+}
+
+select {
+    width: 1000px;
+}
+
+textarea {
+    height: 75px;
+}
+
+textarea,
+input[type=text],
+input[type=password] {
+    width: 988px;
+}
+
+select,
+textarea,
+input[type=text],
+input[type=password] {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+}
+
+.modal input[type=text],
+.modal input[type=password] {
+    width: 448px;
+}
+
+.submit input {
+    margin: 10px 0;
     padding: 10px;
+    border: none;
+    color: #fff;
+    background-color: #090;
+}
+
+.modal .submit {
+    text-align: center;
+}
+
+.modal-links-wrapper {
+    text-align: center;
+}
+
+.modal-links-wrapper .item {
+    margin: 0 5px;
+}
+
+.modal .header {
+    font-size: 20px;
+    line-height: 50px;
+    float: left;
+    margin-left: 20px;
+}
+
+.modal .close {
+    font-size: 35px;
+    line-height: 50px;
+    float: right;
+    margin-right: 20px;
 }
 
 hr {
@@ -105,20 +168,43 @@ hr {
     border-top: 1px solid #ccc;
 }
 
-.flash {
+.form-error {
+    height: 50px;
+    line-height: 50px;
     text-align: center;
+}
+
+.form-error .close {
+    font-size: 25px;
+    margin-right: 0;
+}
+
+.flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    z-index: 200;
+}
+
+.flash .close {
+    font-size: 25px;
+    float: right;
 }
 
 .success,
 .info,
 .warning,
 .danger {
-    padding: 10px 25px;
+    padding: 0 25px;
     color: #fff;
 }
 
 .success {
-    background-color: #0f0;
+    background-color: #090;
 }
 
 .info {
@@ -187,20 +273,6 @@ hr {
 
 .gallery-image:hover .activation-bar {
     display: block;
-}
-
-label,
-input[type=text],
-input[type=password],
-input[type=submit] {
-    margin: 0px 20px 10px 20px;
-}
-
-input[type=text],
-input[type=password] {
-    width: 448px;
-    padding: 5px;
-    border: 1px solid #999;
 }
 
 #paginator {

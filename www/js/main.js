@@ -32,7 +32,7 @@ $(function() {
             }
         });
 
-        $('.close').click(function() {
+        $('.modal > .close').click(function() {
             $('.modal').removeClass('active');
             $('#black-filter').removeClass('active');
             $('body').css('overflow', 'auto');
@@ -53,5 +53,13 @@ $(function() {
             });
         }
     })();
+
+    $.nette.ext({
+        load: function() {
+            $('.flash, .form-error').find('.close').click(function() {
+                $(this).parent().remove();
+            });
+        }
+    });
 
 });

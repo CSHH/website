@@ -1,3 +1,4 @@
-{foreach $form->errors as $error}
-    <div class="danger">{$error}</div>
-{/foreach}
+<div n:foreach="$form->errors as $error" class="form-error danger">
+    {$error}
+    <span class="close pointer">&times;</span>
+</div>

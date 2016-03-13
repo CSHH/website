@@ -1,14 +1,9 @@
 {block content}
 
-<div n:if="$canAccess">
-    {if $inactiveOnly}
-        <a n:href="this, page => 1, inactiveOnly => 'no'">Zobrazit moje vlastní neschválené</a>
-    {else}
-        <a n:href="this, inactiveOnly => 'yes'">Zobrazit rozpracované</a>
-    {/if}
+<div id="top-buttons-bar">
+    {include '../include/new.latte', label => 'Nový článek'}
+    {include '../include/activitySwitch.latte', state => $inactiveOnly, all => 'Zobrazit moje vlastní neschválené', inactiveOnly => 'Zobrazit rozpracované'}
 </div>
-
-{include '../include/new.latte', label => 'Nový článek'}
 
 {include '../include/itemList.latte'}
 

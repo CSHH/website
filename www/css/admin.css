@@ -11,3 +11,38 @@ a {
 a:hover {
     color: #01f;
 }
+
+#top-buttons-bar {
+    height: 35px;
+    margin-bottom: 20px;
+}
+
+.new-item,
+.activity-switch {
+    float: left;
+    line-height: 35px;
+    padding: 0 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.new-item:hover {
+    color: #fff;
+}
+
+.activity-switch {
+    margin-left: 10px;
+}
+
+.activity-switch a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.new-item {
+    background-color: #090;
+}
+
+.activity-switch {
+    background-color: #03f;
+}

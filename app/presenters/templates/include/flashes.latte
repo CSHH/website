@@ -1,1 +1,4 @@
-<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
+    {$flash->message}
+    <span class="close pointer">&times;</span>
+</div>
