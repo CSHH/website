@@ -96,20 +96,40 @@ a {
     z-index: 300;
 }
 
-.modal label {
+label {
     color: #111;
 }
 
-.modal input[type=text],
-.modal input[type=password] {
-    width: 448px;
+select {
+    width: 1000px;
+}
+
+textarea {
+    height: 75px;
+}
+
+textarea,
+input[type=text],
+input[type=password] {
+    width: 988px;
+}
+
+select,
+textarea,
+input[type=text],
+input[type=password] {
     padding: 5px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     background-color: #eee;
 }
 
-.modal .submit input {
+.modal input[type=text],
+.modal input[type=password] {
+    width: 448px;
+}
+
+.submit input {
     margin: 10px 0;
     padding: 10px;
     border: none;
