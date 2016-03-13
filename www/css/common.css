@@ -107,6 +107,7 @@ a {
     padding: 5px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
+    background-color: #eee;
 }
 
 .modal .submit input {
@@ -114,7 +115,7 @@ a {
     padding: 10px;
     border: none;
     color: #fff;
-    background-color: #0c0;
+    background-color: #090;
 }
 
 .modal .submit {
@@ -137,7 +138,7 @@ a {
 }
 
 .modal .close {
-    font-size: 50px;
+    font-size: 35px;
     line-height: 50px;
     float: right;
     margin-right: 20px;
@@ -184,7 +185,7 @@ hr {
 }
 
 .success {
-    background-color: #0c0;
+    background-color: #090;
 }
 
 .info {
