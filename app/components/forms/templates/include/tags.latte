@@ -1,8 +1,15 @@
 <div>
-    <label>
-        {_}locale.form.tag{/_}
+
+    <div>
+        <label>
+            {_}locale.form.tag{/_}
+        </label>
+    </div>
+
+    <div>
         <select name="tagId">
             <option n:foreach="$tags as $id => $name" value="{$id}">{$name}</option>
         </select>
-    </label>
+    </div>
+
 </div>
