@@ -39,7 +39,10 @@
 
     </div>
 
-    {include '../../../presenters/templates/include/js.latte'}
+    <script src="{asset $basePath . '/bower_components/jquery/dist/jquery.js'}"></script>
+    <script src="{asset $basePath . '/bower_components/nette-forms/src/assets/netteForms.js'}"></script>
+    <script src="{asset $basePath . '/bower_components/nette.ajax.js/nette.ajax.js'}"></script>
+    <script src="{asset $basePath . '/js/main.js'}"></script>
 
     {block scripts}{/block}
 </body>
