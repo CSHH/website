@@ -1,4 +1,5 @@
-CKEDITOR.editorConfig = function( config ) {
+CKEDITOR.editorConfig = function(config) {
+
 	config.toolbarGroups = [
 		{ name: 'styles', groups: [ 'styles' ] },
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
@@ -16,4 +17,12 @@ CKEDITOR.editorConfig = function( config ) {
 	];
 
 	config.removeButtons = 'Subscript,Superscript,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Scayt,Anchor,Image,Table,HorizontalRule,SpecialChar,Source,Outdent,Indent,Blockquote,About,Styles';
+
+	config.removePlugins = 'elementspath';
+
+	config.resize_enabled = false;
+
+	config.format_tags = 'p;h2;h3;h4;h5;h6';
+
+	config.language = 'cs';
 };
