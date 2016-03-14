@@ -1,7 +1,7 @@
 #content {
+    width: 1000px;
     margin: auto;
     margin-top: 20px;
-    width: 1000px;
 }
 
 a {
@@ -45,4 +45,54 @@ a:hover {
 
 .activity-switch {
     background-color: #03f;
+}
+
+#dashboard-menu {
+    width: 1000px;
+    height: 25px;
+    margin-top: 25px;
+}
+
+#dashboard-menu .menu-item {
+    float: left;
+    display: block;
+    width: 166.666666667px;
+    height: 25px;
+    text-align: center;
+    font-size: 25px;
+    line-height: 25px;
+    color: #03f;
+}
+
+#dashboard-menu .menu-item:hover {
+    color: #01f;
+}
+
+#dashboard-header {
+    text-align: center;
+    font-size: 50px;
+    line-height: 100px;
+}
+
+#top-menu {
+    width: 1000px;
+    height: 35px;
+    margin-bottom: 20px;
+}
+
+#top-menu .menu-item {
+    float: left;
+    display: block;
+    width: 166.666666667px;
+    height: 35px;
+    text-align: center;
+    font-size: 15px;
+    line-height: 35px;
+    color: #03f;
+    background-color: #ccc;
+}
+
+#top-menu .menu-item:hover {
+    color: #01f;
+    background-color: #aaa;
 }
