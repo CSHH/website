@@ -96,3 +96,13 @@ a:hover {
     color: #01f;
     background-color: #aaa;
 }
+
+.gallery-image {
+    width: 166.666666667px;
+    height: 166.666666667px;
+}
+
+.gallery-image img {
+    width: 166.666666667px;
+    height: 166.666666667px;
+}
