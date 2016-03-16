@@ -40,6 +40,7 @@
 		<chmod file="./temp/sessions" mode="0777"/>
 		<chmod file="./www/thumbs" mode="0777"/>
 		<chmod file="./www/upload" mode="0777"/>
+		<chmod file="./www/video_thumbnails" mode="0777"/>
 	</target>
 
 	<target name="test">
