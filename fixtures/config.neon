@@ -127,15 +127,26 @@ App\Model\Entities\ImageEntity:
         "file": @file_halo_of_the_sun
         "isActive": "80%? 1 : 0"
 App\Model\Entities\VideoEntity:
-    "video_{1..100}":
+    "video_youtube_{1..50}":
         "tag": "90%? @tag_silent* : @tag_nezaraditelne"
         "user": @user*
         "name (unique)": "<sentence(3)>"
         "slug (unique)": "<slug()>"
-        "url": ""
-        "src": ""
-        "type": "50%? youtube : vimeo"
+        "url": "https://www.youtube.com/watch?v=TwlErFw6PCA"
+        "src": "https://www.youtube.com/embed/TwlErFw6PCA"
+        "type": "youtube"
         "isActive": "80%? 1 : 0"
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
+    "video_vimeo_{1..50}":
+        "tag": "90%? @tag_silent* : @tag_nezaraditelne"
+        "user": @user*
+        "name (unique)": "<sentence(3)>"
+        "slug (unique)": "<slug()>"
+        "url": "https://vimeo.com/20712083"
+        "src": "https://player.vimeo.com/video/20712083"
+        "type": "vimeo"
+        "isActive": "80%? 1 : 0"
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
 App\Model\Entities\WikiEntity:
     "wiki_game_{1..100}":
         "tag": @tag_silent*
