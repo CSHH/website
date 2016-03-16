@@ -14,6 +14,9 @@ final class VideoPresenter extends SingleUserContentPresenter
     /** @var Entities\VideoEntity[] */
     private $videos;
 
+    /** @var Entities\VideoEntity */
+    private $video;
+
     /**
      * @param string $tagSlug
      */
@@ -30,6 +33,30 @@ final class VideoPresenter extends SingleUserContentPresenter
 
         $this->template->videos         = $this->videos;
         $this->template->videoThumbnail = new VideoThumbnail($parameters['wwwDir'], $parameters['videoThumbnailsDir'], $parameters['vimeoOembedEndpoint']);
+    }
+
+    /**
+     * @param string $tagSlug
+     * @param string $slug
+     */
+    public function actionDetail($tagSlug, $slug)
+    {
+        $tag = $this->getTag($tagSlug);
+
+        $this->throw404IfNoTagOrSlug($tag, $slug);
+
+        $video = $this->videoRepository->getByTagAndSlug($tag, $slug);
+
+        if ((!$video || !$video->isActive) && !$this->canAccess()) {
+            $this->throw404();
+        }
+
+        $this->video = $video;
+    }
+
+    public function renderDetail()
+    {
+        $this->template->video = $this->video;
     }
 
     /**

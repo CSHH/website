@@ -26,6 +26,7 @@ class RouterFactory
         $router[] = new Route('clanky/<tagSlug>/<slug>', 'Front:Article:detail');
         $router[] = new Route('galerie[/<tagSlug>]', 'Front:Gallery:default');
         $router[] = new Route('videa[/<tagSlug>]', 'Front:Video:default');
+        $router[] = new Route('videa[/<tagSlug>]/<slug>', 'Front:Video:detail');
         $router[] = new Route('uzivatelska-sekce', 'Admin:Homepage:default');
         $router[] = new Route('uzivatelska-sekce/hry', 'Admin:Game:default');
         $router[] = new Route('uzivatelska-sekce/hry/formular', 'Admin:Game:form');
