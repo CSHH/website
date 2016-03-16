@@ -4,6 +4,7 @@ namespace App\FrontModule\Presenters;
 
 use App\Model\Entities;
 use App\Model\Repositories;
+use App\Model\Videos\VideoThumbnail;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {
@@ -18,14 +19,17 @@ final class VideoPresenter extends SingleUserContentPresenter
      */
     public function actionDefault($tagSlug)
     {
-        $this->videos = $this->runActionDefault($this->videoRepository, $tagSlug, 10);
+        $this->videos = $this->runActionDefault($this->videoRepository, $tagSlug, 54);
     }
 
     public function renderDefault()
     {
         parent::runRenderDefault();
 
-        $this->template->videos = $this->videos;
+        $parameters = $this->context->parameters;
+
+        $this->template->videos         = $this->videos;
+        $this->template->videoThumbnail = new VideoThumbnail($parameters['wwwDir'], $parameters['videoThumbnailsDir'], $parameters['vimeoOembedEndpoint']);
     }
 
     /**

@@ -6,14 +6,36 @@
 
 {foreach $videos as $video}
 
-    <div>
-        <h2><span>{if !$video->isActive}&times;{/if} {$video->id}. {$video->name}</span></h2>
+    {var $description = $video->name ?: $video->tag->name}
+
+    <div class="gallery-image">
+
+        <a class="gallery-image-link" href="{$video->url}" data-lightbox="gallery" data-title="{$description}">
+            <img src="{$videoThumbnail->getThumbnailImage($video)|thumb:320:320}" title="{$description}" alt="{$description}">
+        </a>
+
+        {*<h2><span>{if !$video->isActive}&times;{/if} {$video->id}. {$video->name}</span></h2>
         {if !$video->isActive}
             <a n:href="activate!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
             <a n:href="delete!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
-        {/if}
+        {/if}*}
+
     </div>
 
 {/foreach}
 
+<div class="clear-left"></div>
+
 {control vp}
+
+{/block}
+
+
+
+{block scripts}
+
+<script>
+    lightbox.option({
+        'wrapAround': true
+    });
+</script>
