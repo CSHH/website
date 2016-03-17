@@ -7,13 +7,4 @@
     <a n:href="delete!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
 {/if}
 
-<iframe
-    width="960"
-    height="540"
-    src="{$video->src}"
-    frameborder="0"
-    title="{$video->name}"
-    webkitallowfullscreen
-    mozallowfullscreen
-    allowfullscreen
-></iframe>
+{include '../../../../presenters/templates/include/video.latte', width => 960, height => 540, src => $video->src, title => $video->name}
