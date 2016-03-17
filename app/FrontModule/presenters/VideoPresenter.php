@@ -4,6 +4,7 @@ namespace App\FrontModule\Presenters;
 
 use App\Model\Entities;
 use App\Model\Repositories;
+use App\Model\Videos\VideoThumbnail;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {
@@ -13,19 +14,49 @@ final class VideoPresenter extends SingleUserContentPresenter
     /** @var Entities\VideoEntity[] */
     private $videos;
 
+    /** @var Entities\VideoEntity */
+    private $video;
+
     /**
      * @param string $tagSlug
      */
     public function actionDefault($tagSlug)
     {
-        $this->videos = $this->runActionDefault($this->videoRepository, $tagSlug, 10);
+        $this->videos = $this->runActionDefault($this->videoRepository, $tagSlug, 54);
     }
 
     public function renderDefault()
     {
         parent::runRenderDefault();
 
-        $this->template->videos = $this->videos;
+        $parameters = $this->context->parameters;
+
+        $this->template->videos         = $this->videos;
+        $this->template->videoThumbnail = new VideoThumbnail($parameters['wwwDir'], $parameters['videoThumbnailsDir'], $parameters['vimeoOembedEndpoint']);
+    }
+
+    /**
+     * @param string $tagSlug
+     * @param string $slug
+     */
+    public function actionDetail($tagSlug, $slug)
+    {
+        $tag = $this->getTag($tagSlug);
+
+        $this->throw404IfNoTagOrSlug($tag, $slug);
+
+        $video = $this->videoRepository->getByTagAndSlug($tag, $slug);
+
+        if ((!$video || !$video->isActive) && !$this->canAccess()) {
+            $this->throw404();
+        }
+
+        $this->video = $video;
+    }
+
+    public function renderDetail()
+    {
+        $this->template->video = $this->video;
     }
 
     /**

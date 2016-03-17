@@ -6,14 +6,23 @@
 
 {foreach $videos as $video}
 
-    <div>
-        <h2><span>{if !$video->isActive}&times;{/if} {$video->id}. {$video->name}</span></h2>
-        {if !$video->isActive}
+    {var $description = $video->name ?: $video->tag->name}
+
+    <div class="gallery-image">
+
+        <a class="gallery-image-link" n:href="detail, tagSlug => $video->tag->slug, slug => $video->slug">
+            <img src="{$videoThumbnail->getThumbnailImage($video)|thumb:320:320}" title="{$description}" alt="{$description}">
+        </a>
+
+        <div class="activation-bar" n:if="!$video->isActive">
             <a n:href="activate!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
             <a n:href="delete!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
-        {/if}
+        </div>
+
     </div>
 
 {/foreach}
+
+<div class="clear-left"></div>
 
 {control vp}

@@ -9,12 +9,25 @@
 
 {foreach $items as $item}
 
-    <div>
-        <a n:href="form, id => $item->id">{$item->name}</a>
-        {if $canAccess && !$item->isActive}
+    {var $description = $item->name ?: $item->tag->name}
+
+    <div class="gallery-image">
+
+        {if $item->user->id === $user->id}
+            <a class="gallery-image-link" n:href="form, id => $item->id">
+                <img src="{$videoThumbnail->getThumbnailImage($item)|thumb:320:320}" title="{$description}" alt="{$description}">
+            </a>
+        {else}
+            <a class="gallery-image-link" n:href="detail, id => $item->id">
+                <img src="{$videoThumbnail->getThumbnailImage($item)|thumb:320:320}" title="{$description}" alt="{$description}">
+            </a>
+        {/if}
+
+        <div class="activation-bar" n:if="!$item->isActive">
             <a n:href="activate!, videoId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
             <a n:href="delete!, videoId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
-        {/if}
+        </div>
+
     </div>
 
 {/foreach}

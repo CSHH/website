@@ -3,6 +3,7 @@
 namespace App\AdminModule\Presenters;
 
 use App\Components\Forms;
+use App\Model\Videos\VideoThumbnail;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {
@@ -14,9 +15,40 @@ final class VideoPresenter extends SingleUserContentPresenter
         $this->runActionForm($this->videoRepository, 'Video:default', $id);
     }
 
+    public function renderForm()
+    {
+        $this->template->item = $this->item;
+    }
+
     public function actionDefault()
     {
         $this->runActionDefault($this->videoRepository, 10, $this->getLoggedUserEntity());
+    }
+
+    public function renderDefault()
+    {
+        parent::renderDefault();
+
+        $parameters = $this->context->parameters;
+
+        $this->template->videoThumbnail = new VideoThumbnail($parameters['wwwDir'], $parameters['videoThumbnailsDir'], $parameters['vimeoOembedEndpoint']);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function actionDetail($id)
+    {
+        $item = $this->getItem($id, $this->videoRepository);
+
+        $this->checkItemAndFlashWithRedirectIfNull($item, 'Video:default');
+
+        $this->item = $item;
+    }
+
+    public function renderDetail()
+    {
+        $this->template->item = $this->item;
     }
 
     /**

@@ -1,3 +1,7 @@
 {block content}
 
+{include '../include/topMenu.latte'}
+
 {control form}
+
+{include '../../../../presenters/templates/include/video.latte', width => 960, height => 540, src => $item->src, title => $item->name}

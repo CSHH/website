@@ -31,10 +31,12 @@ config.local.neon
 /tests/tmp/*
 !/tests/tmp/.gitkeep
 
-/www/upload/*
-!/www/upload/.gitkeep
 /www/thumbs/*
 !/www/thumbs/.gitkeep
+/www/upload/*
+!/www/upload/.gitkeep
+/www/video_thumbnails/*
+!/www/video_thumbnails/.gitkeep
 
 output/
 
