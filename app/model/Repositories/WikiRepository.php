@@ -5,6 +5,7 @@ namespace App\Model\Repositories;
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
+use App\Model\Utils\InputTextPurifier;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -24,6 +25,9 @@ class WikiRepository extends BaseRepository
     /** @var EntityManager */
     private $em;
 
+    /** @var InputTextPurifier */
+    private $inputTextPurifier;
+
     public function __construct(
         EntityDao $dao,
         ITranslator $translator,
@@ -31,8 +35,9 @@ class WikiRepository extends BaseRepository
     ) {
         parent::__construct($dao);
 
-        $this->translator = $translator;
-        $this->em         = $em;
+        $this->translator        = $translator;
+        $this->em                = $em;
+        $this->inputTextPurifier = new InputTextPurifier;
     }
 
     /**
@@ -67,6 +72,7 @@ class WikiRepository extends BaseRepository
             );
         }
 
+        $e->text      = $this->inputTextPurifier->purify($values->text);
         $e->createdBy = $user;
         $e->tag       = $tag;
         $e->type      = $type;
@@ -106,6 +112,7 @@ class WikiRepository extends BaseRepository
             );
         }
 
+        $e->text = $this->inputTextPurifier->purify($values->text);
         $e->tag  = $tag;
         $e->type = $type;
 
@@ -391,7 +398,7 @@ class WikiRepository extends BaseRepository
         Entities\WikiDraftEntity $draft
     ) {
         $e->perex         = $draft->perex;
-        $e->text          = $draft->text;
+        $e->text          = $this->inputTextPurifier->purify($draft->text);
         $e->lastUpdatedBy = $draft->user;
         $e->updatedAt     = $draft->createdAt;
 
