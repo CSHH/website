@@ -5,6 +5,7 @@ namespace App\Model\Repositories;
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
+use App\Model\Utils\InputTextPurifier;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use HeavenProject\Utils\Slugger;
 use Kdyby\Doctrine\EntityDao;
@@ -19,6 +20,9 @@ class ArticleRepository extends SingleUserContentRepository
     /** @var ITranslator */
     private $translator;
 
+    /** @var InputTextPurifier */
+    private $inputTextPurifier;
+
     public function __construct(
         EntityDao $dao,
         ITranslator $translator,
@@ -26,7 +30,8 @@ class ArticleRepository extends SingleUserContentRepository
     ) {
         parent::__construct($dao, $em);
 
-        $this->translator = $translator;
+        $this->translator        = $translator;
+        $this->inputTextPurifier = new InputTextPurifier;
     }
 
     public function create(
@@ -51,6 +56,7 @@ class ArticleRepository extends SingleUserContentRepository
             );
         }
 
+        $e->text = $this->inputTextPurifier->purify($values->text);
         $e->tag  = $tag;
         $e->user = $user;
 
@@ -81,6 +87,7 @@ class ArticleRepository extends SingleUserContentRepository
             );
         }
 
+        $e->text = $this->inputTextPurifier->purify($values->text);
         $e->tag  = $tag;
         $e->user = $user;
 
