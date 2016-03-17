@@ -5,10 +5,10 @@ $(function() {
             { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
             { name: 'links', groups: [ 'links' ] },
             { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+            { name: 'insert', groups: [ 'insert' ] },
             { name: 'tools', groups: [ 'tools' ] },
             { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
             { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-            { name: 'insert', groups: [ 'insert' ] },
             { name: 'forms', groups: [ 'forms' ] },
             { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
             { name: 'others', groups: [ 'others' ] },
@@ -16,7 +16,7 @@ $(function() {
             { name: 'about', groups: [ 'about' ] }
         ];
 
-        config.removeButtons = 'Subscript,Superscript,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Scayt,Anchor,Image,Table,HorizontalRule,SpecialChar,Source,Outdent,Indent,Blockquote,About,Styles';
+        config.removeButtons = 'Subscript,Superscript,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Scayt,Anchor,Table,HorizontalRule,SpecialChar,Source,Outdent,Indent,Blockquote,About,Styles';
 
         config.removePlugins = 'elementspath';
 
