@@ -189,7 +189,7 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
-     * @return Entities\ArticleEntities[]
+     * @return Entities\ArticleEntity[]
      */
     public function getAllNews()
     {
@@ -211,7 +211,7 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
-     * @return Entities\ArticleEntities[]
+     * @return Entities\ArticleEntity[]
      */
     public function getLatestArticles()
     {

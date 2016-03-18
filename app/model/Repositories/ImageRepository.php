@@ -129,14 +129,13 @@ class ImageRepository extends SingleUserContentRepository
     }
 
     /**
-     * @return Entities\ImageEntities[]
+     * @return Entities\ImageEntity[]
      */
     public function getLatestImages()
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('e')
             ->from(Entities\ImageEntity::getClassName(), 'e')
-            ->join('e.tag', 't')
             ->where('e.isActive = :state')
             ->orderBy('e.updatedAt', 'DESC')
             ->setFirstResult(0)
