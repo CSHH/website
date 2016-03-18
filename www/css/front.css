@@ -135,3 +135,37 @@
     color: #000;
     font-weight: bold;
 }
+
+#chatbox {
+    float: left;
+    width: 170px;
+    height: 380px;
+    margin-right: 20px;
+}
+
+#latest-articles {
+    float: left;
+    width: 375px;
+    height: 380px;
+    margin-right: 20px;
+    overflow-y: scroll;
+}
+
+#news {
+    float: left;
+    width: 375px;
+    height: 380px;
+    overflow-y: scroll;
+}
+
+#latest-images {
+    display: block;
+    width: 960px;
+    margin-top: 20px;
+}
+
+#latest-videos {
+    display: block;
+    width: 960px;
+    margin-top: 20px;
+}

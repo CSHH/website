@@ -1,1 +1,50 @@
 {block content}
+
+<iframe id="chatbox" src="http://www.blueboard.cz/shoutboard.php?hid=7rt6vchbr4x9b0urcnu48rp6d2od0r" frameborder="0">
+    <a href="http://www.blueboard.cz/shoutboard.php?hid=7rt6vchbr4x9b0urcnu48rp6d2od0r">ShoutBoard od BlueBoard.cz</a>
+</iframe>
+
+<div id="latest-articles">
+    <div n:foreach="$latestArticles as $article">
+        <h3>{$article->name}</h3>
+        <div>{$article->perex}</div>
+        <div>
+            <a n:href="Article:detail, tagSlug => $article->tag->slug, slug => $article->slug">Celý článek &gt;&gt;</a>
+        </div>
+    </div>
+</div>
+
+<div id="news">
+    <div n:foreach="$news as $n">
+        <h3>{$n->name}</h3>
+        <div>{$n->perex}</div>
+        <div>
+            <a n:href="Article:detail, tagSlug => $n->tag->slug, slug => $n->slug">Celý článek &gt;&gt;</a>
+        </div>
+    </div>
+</div>
+
+<div class="clear-left"></div>
+
+<div id="latest-images">
+    <div n:foreach="$latestImages as $image" class="gallery-image">
+        {var $description = $image->name ?: $image->tag->name}
+        {var $filePath = $basePath . $uploadDir . '/' . $image->file->getFilePath()}
+        <a class="gallery-image-link" href="{$filePath}" data-lightbox="gallery" data-title="{$description}">
+            <img src="{$filePath|thumb:320:320}" title="{$description}" alt="{$description}">
+        </a>
+    </div>
+</div>
+
+<div class="clear-left"></div>
+
+<div id="latest-videos">
+    <div n:foreach="$latestVideos as $video" class="gallery-image">
+        {var $description = $video->name ?: $video->tag->name}
+        <a class="gallery-image-link" n:href="Video:detail, tagSlug => $video->tag->slug, slug => $video->slug">
+            <img src="{$videoThumbnail->getThumbnailImage($video)|thumb:320:320}" title="{$description}" alt="{$description}">
+        </a>
+    </div>
+</div>
+
+<div class="clear-left"></div>
