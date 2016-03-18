@@ -8,7 +8,7 @@ $(function() {
         $container[0].style.display = 'block';
 
         $container.find('.confirmation-button').click(function() {
-            document.cookie = cookieName + '=' + true + '; expires=Fri, 31 Dec 9999 23:59:59 GMT';
+            document.cookie = cookieName + '=' + true + '; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT';
             $container.fadeOut();
         });
     }
