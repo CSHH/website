@@ -420,4 +420,50 @@ class WikiRepository extends BaseRepository
 
         return $e;
     }
+
+    /**
+     * @return Entities\WikiEntity[]
+     */
+    public function getLatestGames()
+    {
+        return $this->getLatestByType(Entities\WikiEntity::TYPE_GAME);
+    }
+
+    /**
+     * @return Entities\WikiEntity[]
+     */
+    public function getLatestMovies()
+    {
+        return $this->getLatestByType(Entities\WikiEntity::TYPE_MOVIE);
+    }
+
+    /**
+     * @return Entities\WikiEntity[]
+     */
+    public function getLatestBooks()
+    {
+        return $this->getLatestByType(Entities\WikiEntity::TYPE_BOOK);
+    }
+
+    /**
+     * @param  string                $type
+     * @return Entities\WikiEntity[]
+     */
+    private function getLatestByType($type)
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('e')
+            ->from(Entities\WikiEntity::getClassName(), 'e')
+            ->where('e.isActive = :state AND e.type = :type')
+            ->orderBy('e.updatedAt', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(10)
+            ->setParameters(array(
+                'state' => true,
+                'type'  => $type,
+            ));
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }
