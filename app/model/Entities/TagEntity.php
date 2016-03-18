@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class TagEntity extends TimestampableEntity
 {
+    /** @var int */
+    const NEWS_ID = 1;
+
     /**
      * @ORM\Column(type="string", unique=true)
      *

@@ -24,6 +24,9 @@ App\Model\Entities\UserEntity:
         "tokenCreatedAt": null
         "isAuthenticated": true
 App\Model\Entities\TagEntity:
+    "tag_article_novinky":
+        "name": "Novinky"
+        "slug": "novinky"
     "tag_article_povidky":
         "name": "Povídky"
         "slug": "povidky"
@@ -36,9 +39,6 @@ App\Model\Entities\TagEntity:
     "tag_article_navody":
         "name": "Návody"
         "slug": "navody"
-    "tag_article_novinky":
-        "name": "Novinky"
-        "slug": "novinky"
     "tag_movie_silent_hill_revelation":
         "name": "Silent Hill Revelation"
         "slug": "silent-hill-revelation"

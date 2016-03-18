@@ -135,3 +135,121 @@
     color: #000;
     font-weight: bold;
 }
+
+#chatbox {
+    float: left;
+    width: 170px;
+    margin-right: 20px;
+}
+
+#chatbox h2 {
+    text-align: center;
+}
+
+#chatbox .box {
+    width: 170px;
+    height: 380px;
+}
+
+#latest-articles {
+    float: left;
+    width: 375px;
+    margin-right: 20px;
+}
+
+#latest-articles h2 {
+    text-align: center;
+}
+
+#latest-articles .box {
+    height: 380px;
+    padding-right: 20px;
+    overflow-y: scroll;
+}
+
+#news {
+    float: left;
+    width: 375px;
+}
+
+#news h2 {
+    text-align: center;
+}
+
+#news .box {
+    height: 380px;
+    padding-right: 20px;
+    overflow-y: scroll;
+}
+
+#latest-images {
+    display: block;
+    width: 960px;
+    margin-top: 20px;
+}
+
+#latest-videos {
+    display: block;
+    width: 960px;
+    margin-top: 20px;
+}
+
+#latest-games {
+    float: left;
+    width: 306.666666667px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+#latest-games h2 {
+    text-align: center;
+}
+
+#latest-games .box {
+    height: 380px;
+    padding-right: 20px;
+    overflow-y: scroll;
+}
+
+#latest-movies {
+    float: left;
+    width: 306.666666667px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+#latest-movies h2 {
+    text-align: center;
+}
+
+#latest-movies .box {
+    height: 380px;
+    padding-right: 20px;
+    overflow-y: scroll;
+}
+
+#latest-books {
+    float: left;
+    width: 306.666666667px;
+    margin-top: 20px;
+}
+
+#latest-books h2 {
+    text-align: center;
+}
+
+#latest-books .box {
+    height: 380px;
+    padding-right: 20px;
+    overflow-y: scroll;
+}
+
+.homepage-section-header {
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.homepage-section-header.gap {
+    margin-top: 10px;
+}
