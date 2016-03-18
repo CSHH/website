@@ -48,3 +48,35 @@
 </div>
 
 <div class="clear-left"></div>
+
+<div id="latest-games">
+    <div n:foreach="$latestGames as $game">
+        <h3>{$game->name}</h3>
+        <div>{$game->perex}</div>
+        <div>
+            <a n:href="Game:detail, tagSlug => $game->tag->slug, slug => $game->slug">Celý článek &gt;&gt;</a>
+        </div>
+    </div>
+</div>
+
+<div id="latest-movies">
+    <div n:foreach="$latestMovies as $movie">
+        <h3>{$movie->name}</h3>
+        <div>{$movie->perex}</div>
+        <div>
+            <a n:href="Movie:detail, tagSlug => $movie->tag->slug, slug => $movie->slug">Celý článek &gt;&gt;</a>
+        </div>
+    </div>
+</div>
+
+<div id="latest-books">
+    <div n:foreach="$latestBooks as $book">
+        <h3>{$book->name}</h3>
+        <div>{$book->perex}</div>
+        <div>
+            <a n:href="Book:detail, tagSlug => $book->tag->slug, slug => $book->slug">Celý článek &gt;&gt;</a>
+        </div>
+    </div>
+</div>
+
+<div class="clear-left"></div>

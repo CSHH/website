@@ -16,6 +16,9 @@ final class HomepagePresenter extends BasePresenter
     /** @var Repositories\VideoRepository @inject */
     public $videoRepository;
 
+    /** @var Repositories\WikiRepository @inject */
+    public $wikiRepository;
+
     public function renderDefault()
     {
         $parameters = $this->context->parameters;
@@ -28,5 +31,8 @@ final class HomepagePresenter extends BasePresenter
         $this->template->latestArticles = $this->articleRepository->getLatestArticles();
         $this->template->latestImages   = $this->imageRepository->getLatestImages();
         $this->template->latestVideos   = $this->videoRepository->getLatestVideos();
+        $this->template->latestGames    = $this->wikiRepository->getLatestGames();
+        $this->template->latestMovies   = $this->wikiRepository->getLatestMovies();
+        $this->template->latestBooks    = $this->wikiRepository->getLatestBooks();
     }
 }

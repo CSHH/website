@@ -145,16 +145,18 @@
 
 #latest-articles {
     float: left;
-    width: 375px;
+    width: 355px;
     height: 380px;
+    padding-right: 20px;
     margin-right: 20px;
     overflow-y: scroll;
 }
 
 #news {
     float: left;
-    width: 375px;
+    width: 355px;
     height: 380px;
+    padding-right: 20px;
     overflow-y: scroll;
 }
 
@@ -168,4 +170,33 @@
     display: block;
     width: 960px;
     margin-top: 20px;
+}
+
+#latest-games {
+    float: left;
+    width: 286.666666667px;
+    height: 380px;
+    padding-right: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    overflow-y: scroll;
+}
+
+#latest-movies {
+    float: left;
+    width: 286.666666667px;
+    height: 380px;
+    padding-right: 20px;
+    margin-top: 20px;
+    margin-right: 20px;
+    overflow-y: scroll;
+}
+
+#latest-books {
+    float: left;
+    width: 286.666666667px;
+    height: 380px;
+    padding-right: 20px;
+    margin-top: 20px;
+    overflow-y: scroll;
 }
