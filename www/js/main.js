@@ -10,6 +10,10 @@ $(function() {
         });
     })();
 
+    lightbox.option({
+        'wrapAround': true
+    });
+
     $.nette.ext({
         load: function() {
             $('.flash, .form-error').find('.close').click(function() {
