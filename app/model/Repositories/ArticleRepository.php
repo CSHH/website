@@ -187,4 +187,48 @@ class ArticleRepository extends SingleUserContentRepository
     {
         return $this->doGetAllInactiveByTagForPage(Entities\ArticleEntity::getClassName(), $page, $limit, $tag);
     }
+
+    /**
+     * @return Entities\ArticleEntities[]
+     */
+    public function getAllNews()
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('e')
+            ->from(Entities\ArticleEntity::getClassName(), 'e')
+            ->join('e.tag', 't')
+            ->where('e.isActive = :state AND t.id = :tagId')
+            ->orderBy('e.updatedAt', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(20)
+            ->setParameters(array(
+                'state' => true,
+                'tagId' => Entities\TagEntity::NEWS_ID
+            ));
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Entities\ArticleEntities[]
+     */
+    public function getLatestArticles()
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('e')
+            ->from(Entities\ArticleEntity::getClassName(), 'e')
+            ->join('e.tag', 't')
+            ->where('e.isActive = :state AND t.id != :tagId')
+            ->orderBy('e.updatedAt', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(10)
+            ->setParameters(array(
+                'state' => true,
+                'tagId' => Entities\TagEntity::NEWS_ID
+            ));
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

@@ -238,4 +238,23 @@ class VideoRepository extends SingleUserContentRepository
             );
         }
     }
+
+    /**
+     * @return Entities\VideoEntities[]
+     */
+    public function getLatestVideos()
+    {
+        $qb = $this->dao->createQueryBuilder()
+            ->select('e')
+            ->from(Entities\VideoEntity::getClassName(), 'e')
+            ->join('e.tag', 't')
+            ->where('e.isActive = :state')
+            ->orderBy('e.updatedAt', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(12)
+            ->setParameter('state', true);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }
