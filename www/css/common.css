@@ -176,6 +176,7 @@ hr {
 
 .form-error .close {
     font-size: 25px;
+    float: right;
     margin-right: 0;
 }
 
