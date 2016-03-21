@@ -276,3 +276,9 @@
 .text-content > *:last-child {
     margin-bottom: 0;
 }
+
+.text-content ul,
+.text-content ol,
+.text-content li {
+    margin-left: 20px;
+}
