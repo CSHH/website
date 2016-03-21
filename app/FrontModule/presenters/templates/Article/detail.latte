@@ -7,4 +7,4 @@
     <a n:href="delete!, articleId => $article->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
 {/if}
 
-<div>{$article->text|noescape}</div>
+<div class="text-content">{$article->text|noescape}</div>

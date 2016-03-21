@@ -1,12 +1,12 @@
 {block content}
 
 <div n:if="$wiki->isActive">
-    <a nhre="#">Upravit</a>
+    <a href="#">Upravit</a>
 </div>
 
 <h1 n:block="title">{$wiki->name}</h1>
 
-<div>{$wiki->text|noescape}</div>
+<div class="text-content">{$wiki->text|noescape}</div>
 
 {if $wiki->isActive}
 
