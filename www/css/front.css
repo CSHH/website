@@ -253,3 +253,26 @@
 .homepage-section-header.gap {
     margin-top: 10px;
 }
+
+.text-content img {
+    display: block;
+    margin: auto;
+    max-width: 960px;
+}
+
+.text-content p {
+    text-align: justify;
+    text-indent: 25px;
+}
+
+.text-content > * {
+    margin: 10px 0;
+}
+
+.text-content > *:first-child {
+    margin-top: 0;
+}
+
+.text-content > *:last-child {
+    margin-bottom: 0;
+}
