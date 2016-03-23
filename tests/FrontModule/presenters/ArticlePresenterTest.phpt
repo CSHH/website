@@ -17,8 +17,8 @@ class ArticlePresenterTest extends Tester\TestCase
     /** @var IPresenter */
     private $presenter;
 
-	protected function setUp()
-	{
+    protected function setUp()
+    {
         $urlScript = m::mock('Nette\Http\UrlScript');
         $urlScript->shouldReceive('getScriptPath')
             ->once()
@@ -35,7 +35,11 @@ class ArticlePresenterTest extends Tester\TestCase
             ->once()
             ->andReturnNull();
 
-        $parameters = array('uploadDir' => '');
+        $parameters = array(
+            'uploadDir'    => '',
+            'appDir'       => '',
+            'contactEmail' => '',
+        );
 
         $context             = m::mock('Nette\DI\Container');
         $context->parameters = $parameters;
@@ -94,10 +98,10 @@ class ArticlePresenterTest extends Tester\TestCase
         $p->articleRepository = $articleRepository;
 
         $this->presenter = $p;
-	}
+    }
 
     public function testActionDefault()
-	{
+    {
         $params = array();
 
         $params['action'] = 'default';
@@ -106,7 +110,7 @@ class ArticlePresenterTest extends Tester\TestCase
 
         $res = $this->presenter->run($request);
         Assert::true($res instanceof TextResponse);
-	}
+    }
 }
 
 $testCase = new ArticlePresenterTest;
