@@ -133,7 +133,7 @@ class SignUpForm extends AbstractForm
     private function sendEmail($from, $to, $token, $userId)
     {
         $text = $this->presenter->link(
-            '//Sign:unlock',
+            '//:Admin:Sign:unlock',
             array(
                 'userId' => $userId,
                 'token'  => $token,
