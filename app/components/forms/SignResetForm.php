@@ -82,7 +82,7 @@ class SignResetForm extends AbstractForm
             $token = $this->userRepository->prepareNewToken($user);
 
             $link = $p->link(
-                '//Sign:password',
+                '//:Admin:Sign:password',
                 array(
                     'uid'   => $user->id,
                     'token' => $token,

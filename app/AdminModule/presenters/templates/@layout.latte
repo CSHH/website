@@ -23,7 +23,7 @@
             <a n:href=":Front:Homepage:default">Czech Silent Hill Heaven</a>
         </div>
 
-        <div id="nav-bar-items">
+        <div id="nav-bar-items" n:if="$presenter->name !== 'Admin:Sign'">
             <a href="http://silenthill.heavenforum.org" target="_blank">Fórum</a>
             <a class="item" n:href="Homepage:default">Uživatelská sekce</a>
             <a class="item" n:href="Settings:me">Já</a>
