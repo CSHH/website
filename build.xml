@@ -4,7 +4,7 @@
 
     <target name="init" depends="composer, db-drop, migrations, chmod"/>
 
-    <target name="init+fixtures" depends="init, fixtures"/>
+    <target name="init+fixtures" depends="composer, fixtures, chmod"/>
 
     <target name="composer">
         <composer composer="./composer.phar" command="install">
@@ -26,7 +26,7 @@
         </symfonyconsole>
     </target>
 
-    <target name="fixtures">
+    <target name="fixtures" depends="db-drop, migrations">
         <symfonyconsole command="doctrine:fixtures:load" console="./console">
             <arg value="./fixtures"/>
         </symfonyconsole>
