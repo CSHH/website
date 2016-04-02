@@ -25,6 +25,8 @@ services:
 
     menuControl:
         implement: App\Components\Controls\MenuControlInterface
+    visualPaginatorControl:
+        implement: App\Components\Controls\VisualPaginatorControlInterface
 
     - App\Model\Repositories\ArticleRepository(@doctrine.dao(App\Model\Entities\ArticleEntity))
     - App\Model\Repositories\ImageRepository(
