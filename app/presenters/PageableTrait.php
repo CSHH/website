@@ -9,6 +9,9 @@ trait PageableTrait
     /** @var int @persistent */
     public $page = 1;
 
+    /** @var Controls\VisualPaginatorControlInterface @inject */
+    public $visualPaginatorControl;
+
     /** @var Controls\VisualPaginatorControl */
     protected $vp;
 
@@ -26,7 +29,7 @@ trait PageableTrait
      */
     protected function preparePaginator($itemCount, $limit)
     {
-        $this->vp = new Controls\VisualPaginatorControl($this->page);
+        $this->vp = $this->visualPaginatorControl->create($this->page);
         $p        = $this->vp->getPaginator();
         $p->setItemCount($itemCount);
         $p->setItemsPerPage($limit);
