@@ -3,21 +3,17 @@
 namespace App\AdminModule\Presenters;
 
 use App\Components\Forms;
-use App\Model\Security\Authenticator;
 
 final class SettingsPresenter extends SecurePresenter
 {
+    /** @var Forms\ProfileSettingsFormInterface @inject */
+    public $profileSettingsForm;
+
     /**
      * @return Forms\ProfileSettingsForm
      */
     protected function createComponentProfileSettingsForm()
     {
-        return new Forms\ProfileSettingsForm(
-            $this->translator,
-            $this->userRepository,
-            new Authenticator($this->translator, $this->userRepository),
-            $this->getUser()->getStorage(),
-            $this->getLoggedUserEntity()
-        );
+        return $this->profileSettingsForm->create($this->getLoggedUserEntity());
     }
 }

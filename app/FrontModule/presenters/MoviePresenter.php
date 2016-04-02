@@ -7,6 +7,9 @@ use App\Model\Entities;
 
 final class MoviePresenter extends SharedContentPresenter
 {
+    /** @var Forms\WikiDraftFormInterface @inject */
+    public $wikiDraftForm;
+
     /**
      * @param string $tagSlug
      */
@@ -20,11 +23,7 @@ final class MoviePresenter extends SharedContentPresenter
      */
     protected function createComponentForm()
     {
-        return new Forms\WikiDraftForm(
-            $this->translator,
-            $this->tagRepository,
-            $this->wikiRepository,
-            $this->wikiDraftRepository,
+        return $this->wikiDraftForm->create(
             $this->getLoggedUserEntity(),
             Entities\WikiEntity::TYPE_MOVIE,
             $this->wiki

@@ -7,6 +7,9 @@ use App\Model\Videos\VideoThumbnail;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {
+    /** @var Forms\VideoFormInterface @inject */
+    public $videoForm;
+
     /**
      * @param int $id
      */
@@ -72,10 +75,7 @@ final class VideoPresenter extends SingleUserContentPresenter
      */
     protected function createComponentForm()
     {
-        return new Forms\VideoForm(
-            $this->translator,
-            $this->tagRepository,
-            $this->videoRepository,
+        return $this->videoForm->create(
             $this->getLoggedUserEntity(),
             $this->item
         );

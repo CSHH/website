@@ -7,6 +7,12 @@ use App\Model\Repositories;
 
 abstract class SharedContentPresenter extends PageablePresenter
 {
+    /** @var Forms\WikiFormInterface @inject */
+    public $wikiForm;
+
+    /** @var Forms\WikiDraftFormInterface @inject */
+    public $wikiDraftForm;
+
     /** @var Repositories\WikiDraftRepository @inject */
     public $wikiDraftRepository;
 
@@ -61,10 +67,7 @@ abstract class SharedContentPresenter extends PageablePresenter
      */
     protected function runCreateComponentWikiForm($type)
     {
-        return new Forms\WikiForm(
-            $this->translator,
-            $this->tagRepository,
-            $this->wikiRepository,
+        return $this->wikiForm->create(
             $this->getLoggedUserEntity(),
             $type,
             $this->item
@@ -77,11 +80,7 @@ abstract class SharedContentPresenter extends PageablePresenter
      */
     protected function runCreateComponentWikiDraftForm($type)
     {
-        return new Forms\WikiDraftForm(
-            $this->translator,
-            $this->tagRepository,
-            $this->wikiRepository,
-            $this->wikiDraftRepository,
+        return $this->wikiDraftForm->create(
             $this->getLoggedUserEntity(),
             $type,
             $this->item

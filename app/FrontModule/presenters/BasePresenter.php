@@ -10,11 +10,23 @@ use Nette\Mail\IMailer;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
 {
-    /** @var IMailer @inject */
-    public $mailer;
-
     /** @var Controls\MenuControlInterface @inject */
     public $menuControl;
+
+    /** @var Forms\SignUpFormInterface @inject */
+    public $signUpForm;
+
+    /** @var Forms\SignInFormInterface @inject */
+    public $signInForm;
+
+    /** @var Forms\SignResetFormInterface @inject */
+    public $signResetForm;
+
+    /** @var Authenticator @inject */
+    public $authenticator;
+
+    /** @var IMailer @inject */
+    public $mailer;
 
     /** @var bool */
     protected $canAccess = false;
@@ -50,13 +62,7 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
      */
     protected function createComponentSignUpForm()
     {
-        return new Forms\SignUpForm(
-            $this->translator,
-            $this->userRepository,
-            new Authenticator($this->translator, $this->userRepository),
-            $this->mailer,
-            $this->contactEmail
-        );
+        return $this->signUpForm->create($this->contactEmail);
     }
 
     /**
@@ -64,10 +70,7 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
      */
     protected function createComponentSignInForm()
     {
-        return new Forms\SignInForm(
-            $this->translator,
-            new Authenticator($this->translator, $this->userRepository)
-        );
+        return $this->signInForm->create();
     }
 
     /**
@@ -75,12 +78,6 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
      */
     protected function createComponentSignResetForm()
     {
-        return new Forms\SignResetForm(
-            $this->translator,
-            $this->appDir,
-            $this->contactEmail,
-            $this->userRepository,
-            $this->mailer
-        );
+        return $this->signResetForm->create($this->appDir, $this->contactEmail);
     }
 }

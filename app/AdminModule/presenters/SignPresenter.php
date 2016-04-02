@@ -11,6 +11,9 @@ use HeavenProject\Utils\FlashType;
 
 final class SignPresenter extends BasePresenter
 {
+    /** @var Forms\SignPasswordFormInterface @inject */
+    public $signPasswordForm;
+
     /** @var Entities\UserEntity */
     protected $e;
 
@@ -86,11 +89,7 @@ final class SignPresenter extends BasePresenter
      */
     protected function createComponentSignPasswordForm()
     {
-        return new Forms\SignPasswordForm(
-            $this->translator,
-            $this->userRepository,
-            $this->e
-        );
+        return $this->signPasswordForm->create($this->e);
     }
 
     private function checkLogin()

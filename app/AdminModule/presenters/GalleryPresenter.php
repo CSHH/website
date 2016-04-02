@@ -6,6 +6,9 @@ use App\Components\Forms;
 
 final class GalleryPresenter extends SingleUserContentPresenter
 {
+    /** @var Forms\GalleryFormInterface @inject */
+    public $galleryForm;
+
     public function actionDefault()
     {
         $this->runActionDefault($this->imageRepository, 54, $this->getLoggedUserEntity());
@@ -32,11 +35,6 @@ final class GalleryPresenter extends SingleUserContentPresenter
      */
     protected function createComponentForm()
     {
-        return new Forms\GalleryForm(
-            $this->translator,
-            $this->tagRepository,
-            $this->imageRepository,
-            $this->getLoggedUserEntity()
-        );
+        return $this->galleryForm->create($this->getLoggedUserEntity());
     }
 }
