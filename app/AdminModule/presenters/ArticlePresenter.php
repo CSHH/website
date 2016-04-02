@@ -6,6 +6,9 @@ use App\Components\Forms;
 
 final class ArticlePresenter extends SingleUserContentPresenter
 {
+    /** @var Forms\ArticleFormInterface @inject */
+    public $articleForm;
+
     /**
      * @param int $id
      */
@@ -57,10 +60,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
      */
     protected function createComponentForm()
     {
-        return new Forms\ArticleForm(
-            $this->translator,
-            $this->tagRepository,
-            $this->articleRepository,
+        return $this->articleForm->create(
             $this->getLoggedUserEntity(),
             $this->item
         );

@@ -9,7 +9,7 @@ use App\Model\Security\Authenticator;
 use HeavenProject\Utils\FlashType;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
-use Nette\Http\UserStorage;
+use Nette\Security\IUserStorage;
 
 class ProfileSettingsForm extends AbstractForm
 {
@@ -19,7 +19,7 @@ class ProfileSettingsForm extends AbstractForm
     /** @var Authenticator */
     private $authenticator;
 
-    /** @var UserStorage */
+    /** @var IUserStorage */
     private $userStorage;
 
     /** @var Entities\UserEntity */
@@ -29,14 +29,14 @@ class ProfileSettingsForm extends AbstractForm
      * @param ITranslator                 $translator
      * @param Repositories\UserRepository $userRepository
      * @param Authenticator               $authenticator
-     * @param UserStorage                 $userStorage
+     * @param IUserStorage                $userStorage
      * @param Entities\UserEntity         $item
      */
     public function __construct(
         ITranslator $translator,
         Repositories\UserRepository $userRepository,
         Authenticator $authenticator,
-        UserStorage $userStorage,
+        IUserStorage $userStorage,
         Entities\UserEntity $item
     ) {
         parent::__construct($translator);

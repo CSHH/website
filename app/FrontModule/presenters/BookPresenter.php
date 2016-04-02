@@ -7,6 +7,9 @@ use App\Model\Entities;
 
 final class BookPresenter extends SharedContentPresenter
 {
+    /** @var Forms\WikiDraftFormInterface @inject */
+    public $wikiDraftForm;
+
     /**
      * @param string $tagSlug
      */
@@ -20,11 +23,7 @@ final class BookPresenter extends SharedContentPresenter
      */
     protected function createComponentForm()
     {
-        return new Forms\WikiDraftForm(
-            $this->translator,
-            $this->tagRepository,
-            $this->wikiRepository,
-            $this->wikiDraftRepository,
+        return $this->wikiDraftForm->create(
             $this->getLoggedUserEntity(),
             Entities\WikiEntity::TYPE_BOOK,
             $this->wiki

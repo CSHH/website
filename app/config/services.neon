@@ -1,5 +1,33 @@
 services:
+    authenticator: App\Model\Security\Authenticator
     router: App\RouterFactory::createRouter
+
+    articleForm:
+        implement: App\Components\Forms\ArticleFormInterface
+    galleryForm:
+        implement: App\Components\Forms\GalleryFormInterface
+    profileSettingsForm:
+        implement: App\Components\Forms\ProfileSettingsFormInterface
+    signInForm:
+        implement: App\Components\Forms\SignInFormInterface
+    signPasswordForm:
+        implement: App\Components\Forms\SignPasswordFormInterface
+    signResetForm:
+        implement: App\Components\Forms\SignResetFormInterface
+    signUpForm:
+        implement: App\Components\Forms\SignUpFormInterface
+    VideoForm:
+        implement: App\Components\Forms\VideoFormInterface
+    WikiDraftForm:
+        implement: App\Components\Forms\WikiDraftFormInterface
+    WikiForm:
+        implement: App\Components\Forms\WikiFormInterface
+
+    menuControl:
+        implement: App\Components\Controls\MenuControlInterface
+    visualPaginatorControl:
+        implement: App\Components\Controls\VisualPaginatorControlInterface
+
     - App\Model\Repositories\ArticleRepository(@doctrine.dao(App\Model\Entities\ArticleEntity))
     - App\Model\Repositories\ImageRepository(
         %wwwDir%,
@@ -15,6 +43,3 @@ services:
     )
     - App\Model\Repositories\WikiDraftRepository(@doctrine.dao(App\Model\Entities\WikiDraftEntity))
     - App\Model\Repositories\WikiRepository(@doctrine.dao(App\Model\Entities\WikiEntity))
-
-    menuControl:
-        implement: App\Components\Controls\MenuControlInterface
