@@ -15,38 +15,38 @@ use Nette\Mail\Message;
 
 class SignResetForm extends AbstractForm
 {
-    /** @var string */
-    private $appDir;
-
-    /** @var string */
-    private $contactEmail;
-
     /** @var Repositories\UserRepository */
     private $userRepository;
 
     /** @var IMailer */
     private $mailer;
 
+    /** @var string */
+    private $appDir;
+
+    /** @var string */
+    private $contactEmail;
+
     /**
      * @param ITranslator                 $translator
-     * @param string                      $appDir
-     * @param string                      $contactEmail
      * @param Repositories\UserRepository $userRepository
      * @param IMailer                     $mailer
+     * @param string                      $appDir
+     * @param string                      $contactEmail
      */
     public function __construct(
         ITranslator $translator,
-        $appDir,
-        $contactEmail,
         Repositories\UserRepository $userRepository,
-        IMailer $mailer
+        IMailer $mailer,
+        $appDir,
+        $contactEmail
     ) {
         parent::__construct($translator);
 
-        $this->appDir         = $appDir;
-        $this->contactEmail   = $contactEmail;
         $this->userRepository = $userRepository;
         $this->mailer         = $mailer;
+        $this->appDir         = $appDir;
+        $this->contactEmail   = $contactEmail;
     }
 
     protected function configure(Form $form)
