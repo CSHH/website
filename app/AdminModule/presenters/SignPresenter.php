@@ -20,7 +20,7 @@ final class SignPresenter extends BasePresenter
     public function actionOut()
     {
         $this->getUser()->logout();
-        $this->flashWithRedirect('Byl/a jste odhlášen/a.', ':Front:Homepage:default');
+        $this->flashWithRedirect($this->translator->translate('locale.sign.out'), ':Front:Homepage:default');
     }
 
     /**
@@ -34,7 +34,7 @@ final class SignPresenter extends BasePresenter
 
         try {
             $this->userRepository->unlock($userId, $token);
-            $this->flashMessage('Váš účet byl úspěšně aktivován. Přihlašte se prosím.');
+            $this->flashMessage($this->translator->translate('locale.sign.account_activated'));
 
         } catch (UserNotFoundException $e) {
             Logger::log($e->getMessage());
@@ -46,7 +46,7 @@ final class SignPresenter extends BasePresenter
 
         } catch (\Exception $e) {
             Logger::log($e->getMessage());
-            $this->flashTypeWithRedirect('Došlo k chybě.', FlashType::WARNING, 'Homepage:default');
+            $this->flashTypeWithRedirect($this->translator->translate('locale.error.occurred'), FlashType::WARNING, 'Homepage:default');
         }
 
         $this->redirect('Homepage:default');
@@ -65,13 +65,13 @@ final class SignPresenter extends BasePresenter
             $this->redirect(':Front:Homepage:default');
         }
 
-        $this->flashMessage('Zadejte prosím své nové heslo.');
+        $this->flashMessage($this->translator->translate('locale.sign.password'));
 
         $this->e = $this->userRepository->getById($uid);
 
         try {
             if (!$this->e) {
-                throw new UserNotFoundException('Uživatel nebyl nalezen.');
+                throw new UserNotFoundException($this->translator->translate('locale.sign.account_not_found'));
             }
 
             $this->userRepository->checkForTokenExpiration($this->e, $token);

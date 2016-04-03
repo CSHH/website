@@ -94,7 +94,7 @@ class UserRepository extends BaseRepository
 
         $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'email', $user->email);
         if ($e && $e->id !== $user->id) {
-            throw new PossibleUniqueKeyDuplicationException('Uživatel s tímto e-mailem je u nás již registrován. Použijte prosím jinou e-mailovou adresu.');
+            throw new PossibleUniqueKeyDuplicationException($this->translator->translate('locale.duplicity.registration_email'));
         }
 
         if ($pass) {
@@ -199,14 +199,14 @@ class UserRepository extends BaseRepository
     {
         $user = $this->dao->findOneBy(['id' => $userId, 'token' => $token]);
         if (!$user) {
-            throw new UserNotFoundException('Tento účet nebyl nalezen.');
+            throw new UserNotFoundException($this->translator->translate('locale.sign.account_not_found'));
         }
 
         if ($checkExpiration) {
             $expired = $this->isActivationLimitExpired($user->tokenCreatedAt);
             if ($expired) {
                 $this->dao->delete($user);
-                throw new ActivationLimitExpiredException('Čas pro aktivaci účtu vypršel.');
+                throw new ActivationLimitExpiredException($this->translator->translate('locale.sign.authentication_expired'));
             }
         }
 
@@ -261,7 +261,7 @@ class UserRepository extends BaseRepository
     public function checkForTokenExpiration(Entities\UserEntity $e, $token)
     {
         if ($e->token !== $token) {
-            throw new UserNotFoundException('Token nesouhlasí.');
+            throw new UserNotFoundException($this->translator->translate('locale.sign.incorrect_token'));
         }
 
         $current = new DateTime;
@@ -272,7 +272,7 @@ class UserRepository extends BaseRepository
 
         $diff = $currentTimestamp - $createdTimestamp;
         if ($diff >= Authenticator::ACTIVATION_LIMIT_TIMESTAMP) {
-            throw new ActivationLimitExpiredException('Čas pro aktivaci uživatelského účtu vypršel.');
+            throw new ActivationLimitExpiredException($this->translator->translate('locale.sign.authentication_expired'));
         }
     }
 }
