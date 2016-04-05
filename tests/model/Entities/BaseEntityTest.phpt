@@ -2,7 +2,7 @@
 
 namespace AppTests\Model\Entities;
 
-use App\Model\Entities\BaseEntity;
+use AppTests\BaseEntityImpl;
 use Nette\Utils\ArrayHash;
 use Tester;
 use Tester\Assert;
@@ -61,13 +61,6 @@ class BaseEntityTest extends Tester\TestCase
             $ent->setValues('');
         }, 'Nette\InvalidArgumentException');
     }
-}
-
-class BaseEntityImpl extends BaseEntity
-{
-    protected $a;
-    protected $b;
-    protected $c;
 }
 
 $testCase = new BaseEntityTest;

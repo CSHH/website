@@ -2,10 +2,10 @@
 
 namespace AppTests\Model\Repositories;
 
+use AppTests\UnitMocks;
 use App\Model\Entities as AppEntities;
 use App\Model\Repositories as AppRepositories;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mockery as m;
 use Tester;
 use Tester\Assert;
 
@@ -13,77 +13,23 @@ require_once __DIR__ . '/../../bootstrap-unit.php';
 
 class ImageRepositoryTest extends Tester\TestCase
 {
-    private $dao;
-    private $em;
-    private $qb;
-    private $query;
-
-    private function getEntityDaoMock()
-    {
-        return m::mock('Kdyby\Doctrine\EntityDao');
-    }
-
-    private function getEntityManagerMock()
-    {
-        return m::mock('Kdyby\Doctrine\EntityManager');
-    }
-
-    private function getQueryBuilderMock()
-    {
-        return m::mock('Kdyby\Doctrine\QueryBuilder');
-    }
-
-    private function getQueryMock()
-    {
-        return m::mock('Doctrine\ORM\AbstractQuery');
-    }
-
-    protected function setUp()
-    {
-        $this->dao   = $this->getEntityDaoMock();
-        $this->em    = $this->getEntityManagerMock();
-        $this->qb    = $this->getQueryBuilderMock();
-        $this->query = $this->getQueryMock();
-    }
-
-    protected function tearDown()
-    {
-        m::close();
-    }
+    use UnitMocks;
 
     public function testGetAllForPage()
     {
         $query = $this->query;
 
         $qb = $this->qb;
-        $qb->shouldReceive('select')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('from')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setFirstResult')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setMaxResults')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('getQuery')
-            ->once()
-            ->andReturn($query);
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mock($qb, 'getQuery', 1, $query);
 
         $dao = $this->dao;
-        $dao->shouldReceive('createQueryBuilder')
-            ->once()
-            ->andReturn($qb);
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = new AppRepositories\ImageRepository(
-            'wwwDirMock',
-            'uploadDirMock',
-            $dao,
-            $dao,
-            $this->em
-        );
+        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
         Assert::true($repo->getAllForPage(1, 10) instanceof Paginator);
     }
@@ -93,40 +39,18 @@ class ImageRepositoryTest extends Tester\TestCase
         $query = $this->query;
 
         $qb = $this->qb;
-        $qb->shouldReceive('select')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('from')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('where')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setParameter')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setFirstResult')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setMaxResults')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('getQuery')
-            ->once()
-            ->andReturn($query);
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mock($qb, 'getQuery', 1, $query);
 
         $dao = $this->dao;
-        $dao->shouldReceive('createQueryBuilder')
-            ->once()
-            ->andReturn($qb);
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = new AppRepositories\ImageRepository(
-            'wwwDirMock',
-            'uploadDirMock',
-            $dao,
-            $dao,
-            $this->em
-        );
+        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
         Assert::true($repo->getAllForPage(1, 10, true) instanceof Paginator);
     }
@@ -134,42 +58,20 @@ class ImageRepositoryTest extends Tester\TestCase
     public function testGetAllByTag()
     {
         $query = $this->query;
-        $query->shouldReceive('getResult')
-            ->once()
-            ->andReturn(array());
+        $this->mock($query, 'getResult', 1, array());
 
         $qb = $this->qb;
-        $qb->shouldReceive('select')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('from')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('join')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('where')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setParameter')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('getQuery')
-            ->once()
-            ->andReturn($query);
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mock($qb, 'getQuery', 1, $query);
 
         $dao = $this->dao;
-        $dao->shouldReceive('createQueryBuilder')
-            ->once()
-            ->andReturn($qb);
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = new AppRepositories\ImageRepository(
-            'wwwDirMock',
-            'uploadDirMock',
-            $dao,
-            $dao,
-            $this->em
-        );
+        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
         Assert::type('array', $repo->getAllByTag(new AppEntities\TagEntity));
     }
@@ -179,43 +81,19 @@ class ImageRepositoryTest extends Tester\TestCase
         $query = $this->query;
 
         $qb = $this->qb;
-        $qb->shouldReceive('select')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('from')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('join')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('where')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setParameters')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setFirstResult')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setMaxResults')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('getQuery')
-            ->once()
-            ->andReturn($query);
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mock($qb, 'getQuery', 1, $query);
 
         $dao = $this->dao;
-        $dao->shouldReceive('createQueryBuilder')
-            ->once()
-            ->andReturn($qb);
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = new AppRepositories\ImageRepository(
-            'wwwDirMock',
-            'uploadDirMock',
-            $dao,
-            $dao,
-            $this->em
-        );
+        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
         Assert::true($repo->getAllByTagForPage(1, 10, new AppEntities\TagEntity) instanceof Paginator);
     }
@@ -225,46 +103,20 @@ class ImageRepositoryTest extends Tester\TestCase
         $query = $this->query;
 
         $qb = $this->qb;
-        $qb->shouldReceive('select')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('from')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('join')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('where')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('andWhere')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setParameters')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setFirstResult')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setMaxResults')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('getQuery')
-            ->once()
-            ->andReturn($query);
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'andWhere');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mock($qb, 'getQuery', 1, $query);
 
         $dao = $this->dao;
-        $dao->shouldReceive('createQueryBuilder')
-            ->once()
-            ->andReturn($qb);
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = new AppRepositories\ImageRepository(
-            'wwwDirMock',
-            'uploadDirMock',
-            $dao,
-            $dao,
-            $this->em
-        );
+        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
         Assert::true($repo->getAllByTagForPage(1, 10, new AppEntities\TagEntity, true) instanceof Paginator);
     }
@@ -274,43 +126,19 @@ class ImageRepositoryTest extends Tester\TestCase
         $query = $this->query;
 
         $qb = $this->qb;
-        $qb->shouldReceive('select')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('from')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('join')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('where')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setParameter')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setFirstResult')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setMaxResults')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('getQuery')
-            ->once()
-            ->andReturn($query);
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mock($qb, 'getQuery', 1, $query);
 
         $dao = $this->dao;
-        $dao->shouldReceive('createQueryBuilder')
-            ->once()
-            ->andReturn($qb);
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = new AppRepositories\ImageRepository(
-            'wwwDirMock',
-            'uploadDirMock',
-            $dao,
-            $dao,
-            $this->em
-        );
+        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
         Assert::true($repo->getAllByUserForPage(1, 10, new AppEntities\UserEntity) instanceof Paginator);
     }
@@ -320,40 +148,18 @@ class ImageRepositoryTest extends Tester\TestCase
         $query = $this->query;
 
         $qb = $this->qb;
-        $qb->shouldReceive('select')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('from')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('where')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setParameter')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setFirstResult')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setMaxResults')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('getQuery')
-            ->once()
-            ->andReturn($query);
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mock($qb, 'getQuery', 1, $query);
 
         $dao = $this->dao;
-        $dao->shouldReceive('createQueryBuilder')
-            ->once()
-            ->andReturn($qb);
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = new AppRepositories\ImageRepository(
-            'wwwDirMock',
-            'uploadDirMock',
-            $dao,
-            $dao,
-            $this->em
-        );
+        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
         Assert::true($repo->getAllInactiveForPage(1, 10) instanceof Paginator);
     }
@@ -363,45 +169,26 @@ class ImageRepositoryTest extends Tester\TestCase
         $query = $this->query;
 
         $qb = $this->qb;
-        $qb->shouldReceive('select')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('from')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('join')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('where')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setParameters')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setFirstResult')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('setMaxResults')
-            ->once()
-            ->andReturnSelf();
-        $qb->shouldReceive('getQuery')
-            ->once()
-            ->andReturn($query);
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mock($qb, 'getQuery', 1, $query);
 
         $dao = $this->dao;
-        $dao->shouldReceive('createQueryBuilder')
-            ->once()
-            ->andReturn($qb);
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = new AppRepositories\ImageRepository(
-            'wwwDirMock',
-            'uploadDirMock',
-            $dao,
-            $dao,
-            $this->em
-        );
+        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
         Assert::true($repo->getAllInactiveByTagForPage(1, 10, new AppEntities\TagEntity) instanceof Paginator);
+    }
+
+    private function getRepository($wwwDir, $uploadDir, $dao, $fileDao, $em)
+    {
+        return new AppRepositories\ImageRepository($wwwDir, $uploadDir, $dao, $fileDao, $em);
     }
 }
 
