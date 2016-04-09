@@ -3,13 +3,17 @@
 namespace App\Model\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use HeavenProject\UserCommandLine\UserEntityInterface;
+use HeavenProject\UserCommandLine\UserMethods;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="`user`")
  */
-class UserEntity extends TimestampableEntity
+class UserEntity extends TimestampableEntity implements UserEntityInterface
 {
+    use UserMethods;
+
     /** @var int */
     const ROLE_ADMINISTRATOR = 99;
     /** @var int */
@@ -91,4 +95,60 @@ class UserEntity extends TimestampableEntity
      * @var bool
      */
     protected $isAuthenticated = false;
+
+    /**
+     * @param string $username
+     */
+    public function setUsername($username = null)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email = null)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword($password = null)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @param string $salt
+     */
+    public function setSalt($salt = null)
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken($token = null)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @param \DateTime $tokenCreatedAt
+     */
+    public function setTokenCreatedAt(\DateTime $tokenCreatedAt = null)
+    {
+        $this->tokenCreatedAt = $tokenCreatedAt;
+    }
+
+    /**
+     * @param bool $isAuthenticated
+     */
+    public function setIsAuthenticated($isAuthenticated = false)
+    {
+        $this->isAuthenticated = $isAuthenticated;
+    }
 }
