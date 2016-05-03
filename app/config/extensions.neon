@@ -9,5 +9,7 @@ extensions:
     timestampable: Zenify\DoctrineBehaviors\DI\TimestampableExtension
     fixtures: Zenify\DoctrineFixtures\DI\FixturesExtension
     sessionPanel: Kdyby\SessionPanel\DI\SessionPanelExtension
-    asset: HeavenProject\AssetLoader\DI\AssetLoaderExtension
+    asset: HeavenProject\AssetLoader\AssetLoaderExtension
     thumb: HeavenProject\Thumbnailer\DI\ThumbExtension
+    userCommandLine: HeavenProject\UserCommandLine\UserCommandLineExtension
+    gitPanel: HeavenProject\GitBranchPanel\GitBranchPanelExtension

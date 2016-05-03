@@ -10,6 +10,7 @@ includes:
     - extensions.migrations.neon
     - extensions.thumb.neon
     - extensions.translation.neon
+    - extensions.userCommandLine.neon
 
     - parameters.neon
 
@@ -18,5 +19,3 @@ includes:
     - session.neon
 
     - services.neon
-
-    - ../../libs/heavenproject/AssetLoader/config.neon

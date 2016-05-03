@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1e377f6271e27364e54ec9a51535b61d",
-    "content-hash": "d558ad19819598f7e22bda79afb6c8b9",
+    "hash": "edde5b8bb2661ed2a46f3629394f4b61",
+    "content-hash": "23d9a52308819b200d971bdf1b74ee6a",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -551,16 +551,16 @@
         },
         {
             "name": "doctrine/migrations",
-            "version": "v1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "abc571dadd45df42f19baac7a0a1a371216dd93d"
+                "reference": "0d0ff5da10c5d30846da32060bd9e357abf70a05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/abc571dadd45df42f19baac7a0a1a371216dd93d",
-                "reference": "abc571dadd45df42f19baac7a0a1a371216dd93d",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/0d0ff5da10c5d30846da32060bd9e357abf70a05",
+                "reference": "0d0ff5da10c5d30846da32060bd9e357abf70a05",
                 "shasum": ""
             },
             "require": {
@@ -620,7 +620,7 @@
                 "database",
                 "migrations"
             ],
-            "time": "2016-02-23 15:28:39"
+            "time": "2016-03-14 12:29:11"
         },
         {
             "name": "doctrine/orm",
@@ -738,6 +738,209 @@
                 "html"
             ],
             "time": "2015-08-05 01:03:42"
+        },
+        {
+            "name": "heavenproject/asset-loader",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CSHH/asset-loader.git",
+                "reference": "02a9b244928712304f0ce85ebee9e1be9d73802f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CSHH/asset-loader/zipball/02a9b244928712304f0ce85ebee9e1be9d73802f",
+                "reference": "02a9b244928712304f0ce85ebee9e1be9d73802f",
+                "shasum": ""
+            },
+            "require": {
+                "heavenproject/utils": "~1.0.0",
+                "latte/latte": "~2.3.0",
+                "nette/di": "~2.3.0"
+            },
+            "require-dev": {
+                "kdyby/tester-extras": "dev-master",
+                "mockery/mockery": "~0.9.0",
+                "nette/application": "~2.3.0",
+                "nette/bootstrap": "~2.3.0",
+                "nette/tester": "*",
+                "php-mock/php-mock-mockery": "~1.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Community of volunteers"
+                }
+            ],
+            "description": "Public asset files loader",
+            "homepage": "https://github.com/CSHH/asset-loader",
+            "keywords": [
+                "asset",
+                "asset loader",
+                "nette asset loader"
+            ],
+            "time": "2016-05-03 15:04:48"
+        },
+        {
+            "name": "heavenproject/git-branch-panel",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CSHH/git-branch-panel.git",
+                "reference": "4fdb8e050a049da7989d685fe49eeccd5b64b6bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CSHH/git-branch-panel/zipball/4fdb8e050a049da7989d685fe49eeccd5b64b6bd",
+                "reference": "4fdb8e050a049da7989d685fe49eeccd5b64b6bd",
+                "shasum": ""
+            },
+            "require": {
+                "nette/di": "~2.3.0",
+                "tracy/tracy": "~2.3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.0",
+                "nette/application": "~2.3.0",
+                "nette/bootstrap": "~2.3.0",
+                "nette/tester": "*",
+                "php-mock/php-mock-mockery": "~1.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Community of volunteers"
+                }
+            ],
+            "description": "Displays current Git branch on Tracy debug panel",
+            "homepage": "https://github.com/CSHH/git-branch-panel",
+            "keywords": [
+                "git",
+                "git branch",
+                "git branch panel",
+                "git panel"
+            ],
+            "time": "2016-05-03 14:19:51"
+        },
+        {
+            "name": "heavenproject/user-command-line",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CSHH/user-command-line.git",
+                "reference": "6a49839599533c65a2b933c4bb04270020385b9e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CSHH/user-command-line/zipball/6a49839599533c65a2b933c4bb04270020385b9e",
+                "reference": "6a49839599533c65a2b933c4bb04270020385b9e",
+                "shasum": ""
+            },
+            "require": {
+                "heavenproject/utils": "~1.0.0",
+                "kdyby/console": "~2.4.0",
+                "kdyby/doctrine": "~2.3.0",
+                "nette/di": "~2.3.0",
+                "tracy/tracy": "~2.3.0"
+            },
+            "require-dev": {
+                "kdyby/annotations": "~2.2.0",
+                "kdyby/events": "~2.4.0",
+                "mockery/mockery": "~0.9.0",
+                "nette/bootstrap": "~2.3.0",
+                "nette/tester": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Community of volunteers"
+                }
+            ],
+            "description": "Manage users via Symfony Console and Doctrine ORM on command line",
+            "homepage": "https://github.com/CSHH/user-command-line",
+            "keywords": [
+                "Users",
+                "command line",
+                "doctrine",
+                "doctrine orm",
+                "kdyby console",
+                "kdyby doctrine",
+                "kdyby doctrine orm",
+                "symfony console",
+                "user command line"
+            ],
+            "time": "2016-05-03 14:18:56"
+        },
+        {
+            "name": "heavenproject/utils",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CSHH/utils.git",
+                "reference": "06f52428cb3bc2ed4a736f3272f6a9d1ed612ede"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CSHH/utils/zipball/06f52428cb3bc2ed4a736f3272f6a9d1ed612ede",
+                "reference": "06f52428cb3bc2ed4a736f3272f6a9d1ed612ede",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "~2.3.0"
+            },
+            "require-dev": {
+                "nette/tester": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Community of volunteers"
+                }
+            ],
+            "description": "Useful utility classes",
+            "homepage": "https://github.com/CSHH/utils",
+            "keywords": [
+                "utilities",
+                "utility classes",
+                "utils"
+            ],
+            "time": "2016-05-03 14:17:48"
         },
         {
             "name": "kdyby/annotations",
@@ -2032,16 +2235,16 @@
         },
         {
             "name": "nette/reflection",
-            "version": "v2.3.1",
+            "version": "v2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/reflection.git",
-                "reference": "9c2ed2a29f1f58125a0f19ffc987812d6b17d3e6"
+                "reference": "6c39adc4661f5f7b64be7ee161b8f67d8174da4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/reflection/zipball/9c2ed2a29f1f58125a0f19ffc987812d6b17d3e6",
-                "reference": "9c2ed2a29f1f58125a0f19ffc987812d6b17d3e6",
+                "url": "https://api.github.com/repos/nette/reflection/zipball/6c39adc4661f5f7b64be7ee161b8f67d8174da4d",
+                "reference": "6c39adc4661f5f7b64be7ee161b8f67d8174da4d",
                 "shasum": ""
             },
             "require": {
@@ -2072,16 +2275,16 @@
             "authors": [
                 {
                     "name": "David Grudl",
-                    "homepage": "http://davidgrudl.com"
+                    "homepage": "https://davidgrudl.com"
                 },
                 {
                     "name": "Nette Community",
-                    "homepage": "http://nette.org/contributors"
+                    "homepage": "https://nette.org/contributors"
                 }
             ],
             "description": "Nette PHP Reflection Component",
-            "homepage": "http://nette.org",
-            "time": "2015-07-11 21:34:53"
+            "homepage": "https://nette.org",
+            "time": "2016-03-12 14:57:07"
         },
         {
             "name": "nette/robot-loader",
@@ -2425,16 +2628,16 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.8.3",
+            "version": "v2.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "0f8f94e6a32b5c480024eed5fa5cbd2790d0ad19"
+                "reference": "5273f4724dc5288fe7a33cb08077ab9852621f2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/0f8f94e6a32b5c480024eed5fa5cbd2790d0ad19",
-                "reference": "0f8f94e6a32b5c480024eed5fa5cbd2790d0ad19",
+                "url": "https://api.github.com/repos/symfony/config/zipball/5273f4724dc5288fe7a33cb08077ab9852621f2c",
+                "reference": "5273f4724dc5288fe7a33cb08077ab9852621f2c",
                 "shasum": ""
             },
             "require": {
@@ -2474,20 +2677,20 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-22 16:12:45"
+            "time": "2016-03-04 07:54:35"
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.3",
+            "version": "v2.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "56cc5caf051189720b8de974e4746090aaa10d44"
+                "reference": "9a5aef5fc0d4eff86853d44202b02be8d5a20154"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/56cc5caf051189720b8de974e4746090aaa10d44",
-                "reference": "56cc5caf051189720b8de974e4746090aaa10d44",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9a5aef5fc0d4eff86853d44202b02be8d5a20154",
+                "reference": "9a5aef5fc0d4eff86853d44202b02be8d5a20154",
                 "shasum": ""
             },
             "require": {
@@ -2534,20 +2737,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-28 16:20:50"
+            "time": "2016-03-17 09:19:04"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "23ae8f9648d0a7fe94a47c8e20e5bf37c489a451"
+                "reference": "f82499a459dcade2ea56df94cc58b19c8bde3d20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/23ae8f9648d0a7fe94a47c8e20e5bf37c489a451",
-                "reference": "23ae8f9648d0a7fe94a47c8e20e5bf37c489a451",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/f82499a459dcade2ea56df94cc58b19c8bde3d20",
+                "reference": "f82499a459dcade2ea56df94cc58b19c8bde3d20",
                 "shasum": ""
             },
             "require": {
@@ -2583,11 +2786,11 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-23 15:16:06"
+            "time": "2016-03-27 10:24:39"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -2646,16 +2849,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v2.8.3",
+            "version": "v2.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "b7b4ebadd2b5e614ff7d2d6fc63e0ed0578909c7"
+                "reference": "d60b8e076d22953aabebeebda53bf334438e7aca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/b7b4ebadd2b5e614ff7d2d6fc63e0ed0578909c7",
-                "reference": "b7b4ebadd2b5e614ff7d2d6fc63e0ed0578909c7",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/d60b8e076d22953aabebeebda53bf334438e7aca",
+                "reference": "d60b8e076d22953aabebeebda53bf334438e7aca",
                 "shasum": ""
             },
             "require": {
@@ -2706,20 +2909,20 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-02 09:49:18"
+            "time": "2016-03-25 01:40:30"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.3",
+            "version": "v2.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "2a4ee40acb880c56f29fb1b8886e7ffe94f3b995"
+                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/2a4ee40acb880c56f29fb1b8886e7ffe94f3b995",
-                "reference": "2a4ee40acb880c56f29fb1b8886e7ffe94f3b995",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/584e52cb8f788a887553ba82db6caacb1d6260bb",
+                "reference": "584e52cb8f788a887553ba82db6caacb1d6260bb",
                 "shasum": ""
             },
             "require": {
@@ -2755,7 +2958,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-02-23 07:41:20"
+            "time": "2016-03-04 07:54:35"
         },
         {
             "name": "tracy/tracy",

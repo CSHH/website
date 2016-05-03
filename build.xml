@@ -2,53 +2,53 @@
 
 <project name="Czech Silent Hill Heaven" default="init">
 
-	<target name="init" depends="composer, db-drop, migrations, chmod"/>
+    <target name="init" depends="composer, db-drop, migrations, chmod"/>
 
-	<target name="init+fixtures" depends="init, fixtures"/>
+    <target name="init+fixtures" depends="init, fixtures"/>
 
-	<target name="composer">
-		<composer composer="./composer.phar" command="install">
-			<arg value="--optimize-autoloader"/>
-			<arg value="--no-interaction"/>
-		</composer>
-	</target>
+    <target name="composer">
+        <composer composer="./composer.phar" command="install">
+            <arg value="--optimize-autoloader"/>
+            <arg value="--no-interaction"/>
+        </composer>
+    </target>
 
-	<target name="db-drop">
-		<symfonyconsole command="orm:schema-tool:drop" console="./console">
-			<arg name="full-database"/>
-			<arg name="force"/>
-		</symfonyconsole>
-	</target>
+    <target name="db-drop">
+        <symfonyconsole command="orm:schema-tool:drop" console="./console">
+            <arg name="full-database"/>
+            <arg name="force"/>
+        </symfonyconsole>
+    </target>
 
-	<target name="migrations">
-		<symfonyconsole command="migrations:migrate" console="./console">
-			<arg name="no-interaction"/>
-		</symfonyconsole>
-	</target>
+    <target name="migrations">
+        <symfonyconsole command="migrations:migrate" console="./console">
+            <arg name="no-interaction"/>
+        </symfonyconsole>
+    </target>
 
-	<target name="fixtures">
-		<symfonyconsole command="doctrine:fixtures:load" console="./console">
-			<arg value="./fixtures"/>
-		</symfonyconsole>
-		<mkdir dir="./www/upload/1970/01"/>
-		<copy file="./fixtures/halo_of_the_sun.jpg" tofile="./www/upload/1970/01/halo_of_the_sun.jpg"/>
-	</target>
+    <target name="fixtures">
+        <symfonyconsole command="doctrine:fixtures:load" console="./console">
+            <arg value="./fixtures"/>
+        </symfonyconsole>
+        <mkdir dir="./www/upload/1970/01"/>
+        <copy file="./fixtures/halo_of_the_sun.jpg" tofile="./www/upload/1970/01/halo_of_the_sun.jpg"/>
+    </target>
 
-	<target name="chmod">
-		<chmod file="./log" mode="0777"/>
-		<chmod file="./temp" mode="0777"/>
-		<chmod file="./temp/sessions" mode="0777"/>
-		<chmod file="./www/thumbs" mode="0777"/>
-		<chmod file="./www/upload" mode="0777"/>
-		<chmod file="./www/video_thumbnails" mode="0777"/>
-	</target>
+    <target name="chmod">
+        <chmod file="./log" mode="0777"/>
+        <chmod file="./temp" mode="0777"/>
+        <chmod file="./temp/sessions" mode="0777"/>
+        <chmod file="./www/thumbs" mode="0777"/>
+        <chmod file="./www/upload" mode="0777"/>
+        <chmod file="./www/video_thumbnails" mode="0777"/>
+    </target>
 
-	<target name="test">
-		<exec passthru="true" command="./vendor/bin/tester tests/ -p php -c tests/php.ini"/>
-	</target>
+    <target name="test">
+        <exec passthru="true" command="./vendor/bin/tester tests/ -p php -c tests/php.ini"/>
+    </target>
 
-	<target name="test+coverage">
-		<exec passthru="true" command="./vendor/bin/tester tests/ -p php -c tests/php.ini-coverage --coverage coverage.html --coverage-src app/"/>
-	</target>
+    <target name="test+coverage">
+        <exec passthru="true" command="./vendor/bin/tester tests/ -p php -c tests/php.ini-coverage --coverage coverage.html --coverage-src app/"/>
+    </target>
 
 </project>

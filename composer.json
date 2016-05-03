@@ -1,46 +1,50 @@
 {
-	"require": {
-		"php": ">=5.5",
-		"dg/adminer-custom": "~1.0",
-		"kdyby/annotations": "~2.2.0",
-		"kdyby/console": "~2.4.0",
-		"kdyby/doctrine": "~2.3.0",
-		"kdyby/events": "~2.4.0",
-		"kdyby/nette-session-panel": "~3.2.0",
-		"kdyby/translation": "~2.2.0",
-		"nette/application": "~2.3.0",
-		"nette/bootstrap": "~2.3.0",
-		"nette/caching": "~2.4.0",
-		"nette/di": "~2.3.0",
-		"nette/finder": "~2.3.0",
-		"nette/forms": "~2.3.0",
-		"nette/http": "~2.3.0",
-		"nette/mail": "~2.3.0",
-		"nette/robot-loader": "~2.3.0",
-		"nette/safe-stream": "~2.3.0",
-		"nette/security": "~2.3.0",
-		"nette/utils": "~2.3.0",
-		"nextras/mail-panel": "~2.2.0",
-		"latte/latte": "~2.3.0",
-		"tracy/tracy": "~2.3.0",
-		"zenify/doctrine-behaviors": "~2.1.0",
-		"zenify/doctrine-migrations": "~2.1.0",
-		"ezyang/htmlpurifier": "~4.7.0"
-	},
-	"require-dev": {
-		"nette/tester": "~1.7.0",
-		"mockery/mockery": "~0.9.0",
-		"zenify/doctrine-fixtures": "~3.0.0"
-	},
-	"autoload": {
-		"classmap": [
-			"libs"
-		]
-	},
-	"autoload-dev": {
-		"classmap": [
-			"app",
-			"tests/include"
-		]
-	}
+    "require": {
+        "php": ">=5.5",
+        "dg/adminer-custom": "~1.0",
+        "heavenproject/utils": "~1.0.0",
+        "heavenproject/user-command-line": "~1.0.0",
+        "heavenproject/git-branch-panel": "~1.0.0",
+        "heavenproject/asset-loader": "~1.0.0",
+        "kdyby/annotations": "~2.2.0",
+        "kdyby/console": "~2.4.0",
+        "kdyby/doctrine": "~2.3.0",
+        "kdyby/events": "~2.4.0",
+        "kdyby/nette-session-panel": "~3.2.0",
+        "kdyby/translation": "~2.2.0",
+        "nette/application": "~2.3.0",
+        "nette/bootstrap": "~2.3.0",
+        "nette/caching": "~2.4.0",
+        "nette/di": "~2.3.0",
+        "nette/finder": "~2.3.0",
+        "nette/forms": "~2.3.0",
+        "nette/http": "~2.3.0",
+        "nette/mail": "~2.3.0",
+        "nette/robot-loader": "~2.3.0",
+        "nette/safe-stream": "~2.3.0",
+        "nette/security": "~2.3.0",
+        "nette/utils": "~2.3.0",
+        "nextras/mail-panel": "~2.2.0",
+        "latte/latte": "~2.3.0",
+        "tracy/tracy": "~2.3.0",
+        "zenify/doctrine-behaviors": "~2.1.0",
+        "zenify/doctrine-migrations": "~2.1.0",
+        "ezyang/htmlpurifier": "~4.7.0"
+    },
+    "require-dev": {
+        "nette/tester": "~1.7.0",
+        "mockery/mockery": "~0.9.0",
+        "zenify/doctrine-fixtures": "~3.0.0"
+    },
+    "autoload": {
+        "classmap": [
+            "libs"
+        ]
+    },
+    "autoload-dev": {
+        "classmap": [
+            "app",
+            "tests/include"
+        ]
+    }
 }
