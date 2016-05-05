@@ -125,8 +125,8 @@ class WikiEntity extends TimestampableEntity
     {
         parent::__construct();
 
-        $this->related      =
-        $this->contributors =
+        $this->related      = new ArrayCollection;
+        $this->contributors = new ArrayCollection;
         $this->drafts       = new ArrayCollection;
     }
 
