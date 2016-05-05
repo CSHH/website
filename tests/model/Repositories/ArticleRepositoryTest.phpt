@@ -292,6 +292,30 @@ class ArticleRepositoryTest extends Tester\TestCase
         Assert::type('array', $repo->getAllNews());
     }
 
+    public function testGetLatestArticles()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, array());
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $dao = $this->dao;
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+
+        $repo = $this->getRepository($dao, $this->translator, $this->em);
+
+        Assert::type('array', $repo->getLatestArticles());
+    }
+
     private function getRepository($dao, $translator, $em)
     {
         return new AppRepositories\ArticleRepository($dao, $translator, $em);
