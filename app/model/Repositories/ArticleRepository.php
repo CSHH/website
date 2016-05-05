@@ -203,7 +203,7 @@ class ArticleRepository extends SingleUserContentRepository
             ->setMaxResults(20)
             ->setParameters(array(
                 'state' => true,
-                'tagId' => Entities\TagEntity::NEWS_ID
+                'tagId' => Entities\TagEntity::NEWS_ID,
             ));
 
         return $qb->getQuery()
@@ -225,7 +225,7 @@ class ArticleRepository extends SingleUserContentRepository
             ->setMaxResults(10)
             ->setParameters(array(
                 'state' => true,
-                'tagId' => Entities\TagEntity::NEWS_ID
+                'tagId' => Entities\TagEntity::NEWS_ID,
             ));
 
         return $qb->getQuery()
