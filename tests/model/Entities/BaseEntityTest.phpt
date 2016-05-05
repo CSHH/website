@@ -38,11 +38,20 @@ class BaseEntityTest extends Tester\TestCase
         $this->assert($values, $a, $b, $c);
     }
 
+    /**
+     * @return array
+     */
     public function getArgs()
     {
         return array(['A', 'B', 'C']);
     }
 
+    /**
+     * @param array|\Traversable $values
+     * @param string             $a
+     * @param string             $b
+     * @param string             $c
+     */
     private function assert($values, $a, $b, $c)
     {
         $ent = new BaseEntityImpl;
