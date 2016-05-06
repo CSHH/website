@@ -11,6 +11,8 @@ trait UnitMocks
     protected $em;
     protected $qb;
     protected $query;
+    protected $paginator;
+    protected $paginatorFactory;
     protected $translator;
 
     protected function getEntityDaoMock()
@@ -31,6 +33,16 @@ trait UnitMocks
     protected function getQueryMock()
     {
         return m::mock('Doctrine\ORM\AbstractQuery');
+    }
+
+    protected function getPaginatorMock()
+    {
+        return m::mock('Doctrine\ORM\Tools\Pagination\Paginator');
+    }
+
+    protected function getPaginatorFactoryMock()
+    {
+        return m::mock('App\Model\Utils\PaginatorFactory');
     }
 
     protected function getTranslatorMock()
@@ -65,11 +77,13 @@ trait UnitMocks
 
     protected function setUp()
     {
-        $this->dao        = $this->getEntityDaoMock();
-        $this->em         = $this->getEntityManagerMock();
-        $this->qb         = $this->getQueryBuilderMock();
-        $this->query      = $this->getQueryMock();
-        $this->translator = $this->getTranslatorMock();
+        $this->dao              = $this->getEntityDaoMock();
+        $this->em               = $this->getEntityManagerMock();
+        $this->qb               = $this->getQueryBuilderMock();
+        $this->query            = $this->getQueryMock();
+        $this->paginator        = $this->getPaginatorMock();
+        $this->paginatorFactory = $this->getPaginatorFactoryMock();
+        $this->translator       = $this->getTranslatorMock();
     }
 
     protected function tearDown()
