@@ -7,6 +7,7 @@ use App\Model\Entities;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Exceptions\InvalidVideoUrlException;
 use App\Model\Videos;
+use App\Model\Utils\PaginatorFactory;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
@@ -120,14 +121,15 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  int       $page
-     * @param  int       $limit
-     * @param  bool      $activeOnly
+     * @param  PaginatorFactory $paginatorFactory
+     * @param  int              $page
+     * @param  int              $limit
+     * @param  bool             $activeOnly
      * @return Paginator
      */
-    public function getAllForPage($page, $limit, $activeOnly = false)
+    public function getAllForPage(PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
     {
-        return $this->doGetAllForPage(Entities\VideoEntity::getClassName(), $page, $limit, $activeOnly);
+        return $this->doGetAllForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $activeOnly);
     }
 
     /**
@@ -160,47 +162,51 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
      * @param  bool               $activeOnly
      * @return Paginator
      */
-    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $activeOnly = false)
+    public function getAllByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        return $this->doGetAllByTagForPage(Entities\VideoEntity::getClassName(), $page, $limit, $tag, $activeOnly);
+        return $this->doGetAllByTagForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag, $activeOnly);
     }
 
     /**
+     * @param  PaginatorFactory    $paginatorFactory
      * @param  int                 $page
      * @param  int                 $limit
      * @param  Entities\UserEntity $user
      * @return Paginator
      */
-    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
+    public function getAllByUserForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
     {
-        return $this->doGetAllByUserForPage(Entities\VideoEntity::getClassName(), $page, $limit, $user);
+        return $this->doGetAllByUserForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $user);
     }
 
     /**
-     * @param  int       $page
-     * @param  int       $limit
+     * @param  PaginatorFactory $paginatorFactory
+     * @param  int              $page
+     * @param  int              $limit
      * @return Paginator
      */
-    public function getAllInactiveForPage($page, $limit)
+    public function getAllInactiveForPage(PaginatorFactory $paginatorFactory, $page, $limit)
     {
-        return $this->doGetAllInactiveForPage(Entities\VideoEntity::getClassName(), $page, $limit);
+        return $this->doGetAllInactiveForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit);
     }
 
     /**
+     * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
      * @return Paginator
      */
-    public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
+    public function getAllInactiveByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
     {
-        return $this->doGetAllInactiveByTagForPage(Entities\VideoEntity::getClassName(), $page, $limit, $tag);
+        return $this->doGetAllInactiveByTagForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag);
     }
 
     /**
