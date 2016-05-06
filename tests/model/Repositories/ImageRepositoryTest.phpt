@@ -19,6 +19,9 @@ class ImageRepositoryTest extends Tester\TestCase
     {
         $query = $this->query;
 
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
@@ -31,12 +34,15 @@ class ImageRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
-        Assert::true($repo->getAllForPage(1, 10) instanceof Paginator);
+        Assert::true($repo->getAllForPage($paginatorFactory, 1, 10) instanceof Paginator);
     }
 
     public function testGetAllForPageActiveOnly()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -52,7 +58,7 @@ class ImageRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
-        Assert::true($repo->getAllForPage(1, 10, true) instanceof Paginator);
+        Assert::true($repo->getAllForPage($paginatorFactory, 1, 10, true) instanceof Paginator);
     }
 
     public function testGetAllByTag()
@@ -80,6 +86,9 @@ class ImageRepositoryTest extends Tester\TestCase
     {
         $query = $this->query;
 
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
@@ -95,12 +104,15 @@ class ImageRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
-        Assert::true($repo->getAllByTagForPage(1, 10, new AppEntities\TagEntity) instanceof Paginator);
+        Assert::true($repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity) instanceof Paginator);
     }
 
     public function testGetAllByTagForPageActiveOnly()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -118,12 +130,15 @@ class ImageRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
-        Assert::true($repo->getAllByTagForPage(1, 10, new AppEntities\TagEntity, true) instanceof Paginator);
+        Assert::true($repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity, true) instanceof Paginator);
     }
 
     public function testGetAllByUserForPage()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -140,12 +155,15 @@ class ImageRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
-        Assert::true($repo->getAllByUserForPage(1, 10, new AppEntities\UserEntity) instanceof Paginator);
+        Assert::true($repo->getAllByUserForPage($paginatorFactory, 1, 10, new AppEntities\UserEntity) instanceof Paginator);
     }
 
     public function testGetAllInactiveForPage()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -161,12 +179,15 @@ class ImageRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
-        Assert::true($repo->getAllInactiveForPage(1, 10) instanceof Paginator);
+        Assert::true($repo->getAllInactiveForPage($paginatorFactory, 1, 10) instanceof Paginator);
     }
 
     public function testGetAllInactiveByTagForPage()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -183,7 +204,7 @@ class ImageRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository('', '', $dao, $dao, $this->em);
 
-        Assert::true($repo->getAllInactiveByTagForPage(1, 10, new AppEntities\TagEntity) instanceof Paginator);
+        Assert::true($repo->getAllInactiveByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity) instanceof Paginator);
     }
 
     private function getRepository($wwwDir, $uploadDir, $dao, $fileDao, $em)
