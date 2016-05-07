@@ -3,6 +3,7 @@
 namespace App\Model\Repositories;
 
 use App\Model\Entities;
+use App\Model\Utils\PaginatorFactory;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -37,13 +38,14 @@ abstract class SingleUserContentRepository extends BaseRepository
     }
 
     /**
-     * @param  string    $className
-     * @param  int       $page
-     * @param  int       $limit
-     * @param  bool      $activeOnly
+     * @param  string           $className
+     * @param  PaginatorFactory $paginatorFactory
+     * @param  int              $page
+     * @param  int              $limit
+     * @param  bool             $activeOnly
      * @return Paginator
      */
-    protected function doGetAllForPage($className, $page, $limit, $activeOnly = false)
+    protected function doGetAllForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('e')
@@ -56,7 +58,7 @@ abstract class SingleUserContentRepository extends BaseRepository
 
         $this->preparePagination($qb, $page, $limit);
 
-        return new Paginator($qb->getQuery());
+        return $paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
@@ -136,13 +138,14 @@ abstract class SingleUserContentRepository extends BaseRepository
 
     /**
      * @param  string             $className
+     * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
      * @param  bool               $activeOnly
      * @return Paginator
      */
-    protected function doGetAllByTagForPage($className, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
+    protected function doGetAllByTagForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('e')
@@ -161,17 +164,18 @@ abstract class SingleUserContentRepository extends BaseRepository
 
         $this->preparePagination($qb, $page, $limit);
 
-        return new Paginator($qb->getQuery());
+        return $paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
      * @param  string              $className
+     * @param  PaginatorFactory    $paginatorFactory
      * @param  int                 $page
      * @param  int                 $limit
      * @param  Entities\UserEntity $user
      * @return Paginator
      */
-    protected function doGetAllByUserForPage($className, $page, $limit, Entities\UserEntity $user)
+    protected function doGetAllByUserForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('e')
@@ -182,16 +186,17 @@ abstract class SingleUserContentRepository extends BaseRepository
 
         $this->preparePagination($qb, $page, $limit);
 
-        return new Paginator($qb->getQuery());
+        return $paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
-     * @param  string    $className
-     * @param  int       $page
-     * @param  int       $limit
+     * @param  string           $className
+     * @param  PaginatorFactory $paginatorFactory
+     * @param  int              $page
+     * @param  int              $limit
      * @return Paginator
      */
-    protected function doGetAllInactiveForPage($className, $page, $limit)
+    protected function doGetAllInactiveForPage($className, PaginatorFactory $paginatorFactory, $page, $limit)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('e')
@@ -201,17 +206,18 @@ abstract class SingleUserContentRepository extends BaseRepository
 
         $this->preparePagination($qb, $page, $limit);
 
-        return new Paginator($qb->getQuery());
+        return $paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
      * @param  string             $className
+     * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
      * @return Paginator
      */
-    protected function doGetAllInactiveByTagForPage($className, $page, $limit, Entities\TagEntity $tag)
+    protected function doGetAllInactiveByTagForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('e')
@@ -225,6 +231,6 @@ abstract class SingleUserContentRepository extends BaseRepository
 
         $this->preparePagination($qb, $page, $limit);
 
-        return new Paginator($qb->getQuery());
+        return $paginatorFactory->createPaginator($qb->getQuery());
     }
 }

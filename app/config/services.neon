@@ -1,6 +1,7 @@
 services:
     authenticator: App\Model\Security\Authenticator
     router: App\RouterFactory::createRouter
+    paginatorFactory: App\Model\Utils\PaginatorFactory
 
     articleForm:
         implement: App\Components\Forms\ArticleFormInterface

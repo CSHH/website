@@ -3,12 +3,16 @@
 namespace App\FrontModule\Presenters;
 
 use App\Model\Repositories;
+use App\Model\Utils\PaginatorFactory;
 use App\Presenters\ActivityTrait;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
     use ActivityTrait;
+
+    /** @var PaginatorFactory @inject */
+    public $paginatorFactory;
 
     /**
      * @param  Repositories\BaseRepository $repository
@@ -26,15 +30,15 @@ abstract class SingleUserContentPresenter extends PageablePresenter
 
         if ($this->canAccess && $this->displayInactiveOnly) {
             $items = $tag
-                ? $repository->getAllInactiveByTagForPage($this->page, $limit, $tag)
-                : $repository->getAllInactiveForPage($this->page, $limit);
+                ? $repository->getAllInactiveByTagForPage($this->paginatorFactory, $this->page, $limit, $tag)
+                : $repository->getAllInactiveForPage($this->paginatorFactory, $this->page, $limit);
 
         } else {
             $state = !$this->canAccess;
 
             $items = $tag
-                ? $repository->getAllByTagForPage($this->page, $limit, $tag, $state)
-                : $repository->getAllForPage($this->page, $limit, $state);
+                ? $repository->getAllByTagForPage($this->paginatorFactory, $this->page, $limit, $tag, $state)
+                : $repository->getAllForPage($this->paginatorFactory, $this->page, $limit, $state);
         }
 
         $this->preparePaginator($items->count(), $limit);

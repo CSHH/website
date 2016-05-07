@@ -19,6 +19,9 @@ class ArticleRepositoryTest extends Tester\TestCase
     {
         $query = $this->query;
 
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
@@ -31,12 +34,15 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $this->translator, $this->em);
 
-        Assert::true($repo->getAllForPage(1, 10) instanceof Paginator);
+        Assert::true($repo->getAllForPage($paginatorFactory, 1, 10) instanceof Paginator);
     }
 
     public function testGetAllForPageActiveOnly()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -52,7 +58,7 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $this->translator, $this->em);
 
-        Assert::true($repo->getAllForPage(1, 10, true) instanceof Paginator);
+        Assert::true($repo->getAllForPage($paginatorFactory, 1, 10, true) instanceof Paginator);
     }
 
     public function testGetAllByTag()
@@ -162,6 +168,9 @@ class ArticleRepositoryTest extends Tester\TestCase
     {
         $query = $this->query;
 
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
@@ -177,12 +186,15 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $this->translator, $this->em);
 
-        Assert::true($repo->getAllByTagForPage(1, 10, new AppEntities\TagEntity) instanceof Paginator);
+        Assert::true($repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity) instanceof Paginator);
     }
 
     public function testGetAllByTagForPageActiveOnly()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -200,12 +212,15 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $this->translator, $this->em);
 
-        Assert::true($repo->getAllByTagForPage(1, 10, new AppEntities\TagEntity, true) instanceof Paginator);
+        Assert::true($repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity, true) instanceof Paginator);
     }
 
     public function testGetAllByUserForPage()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -222,12 +237,15 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $this->translator, $this->em);
 
-        Assert::true($repo->getAllByUserForPage(1, 10, new AppEntities\UserEntity) instanceof Paginator);
+        Assert::true($repo->getAllByUserForPage($paginatorFactory, 1, 10, new AppEntities\UserEntity) instanceof Paginator);
     }
 
     public function testGetAllInactiveForPage()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -243,12 +261,15 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $this->translator, $this->em);
 
-        Assert::true($repo->getAllInactiveForPage(1, 10) instanceof Paginator);
+        Assert::true($repo->getAllInactiveForPage($paginatorFactory, 1, 10) instanceof Paginator);
     }
 
     public function testGetAllInactiveByTagForPage()
     {
         $query = $this->query;
+
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
@@ -265,7 +286,55 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $this->translator, $this->em);
 
-        Assert::true($repo->getAllInactiveByTagForPage(1, 10, new AppEntities\TagEntity) instanceof Paginator);
+        Assert::true($repo->getAllInactiveByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity) instanceof Paginator);
+    }
+
+    public function testGetAllNews()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, array());
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $dao = $this->dao;
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+
+        $repo = $this->getRepository($dao, $this->translator, $this->em);
+
+        Assert::type('array', $repo->getAllNews());
+    }
+
+    public function testGetLatestArticles()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, array());
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $dao = $this->dao;
+        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+
+        $repo = $this->getRepository($dao, $this->translator, $this->em);
+
+        Assert::type('array', $repo->getLatestArticles());
     }
 
     private function getRepository($dao, $translator, $em)
