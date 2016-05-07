@@ -7,15 +7,15 @@ use Tester;
 
 $container = require __DIR__ . '/../../bootstrap.php';
 
-class ArticlePresenterTest extends Tester\TestCase
+class BookPresenterTest extends Tester\TestCase
 {
     use PresenterTester;
 
     public function testActionDefault()
     {
-        $this->assertAppResponse('Front:Article', 'default', 'GET');
+        $this->assertAppResponse('Front:Book', 'default', 'GET');
     }
 }
 
-$testCase = new ArticlePresenterTest($container);
+$testCase = new BookPresenterTest($container);
 $testCase->run();

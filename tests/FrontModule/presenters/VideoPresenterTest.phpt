@@ -7,15 +7,15 @@ use Tester;
 
 $container = require __DIR__ . '/../../bootstrap.php';
 
-class ArticlePresenterTest extends Tester\TestCase
+class VideoPresenterTest extends Tester\TestCase
 {
     use PresenterTester;
 
     public function testActionDefault()
     {
-        $this->assertAppResponse('Front:Article', 'default', 'GET');
+        $this->assertAppResponse('Front:Video', 'default', 'GET');
     }
 }
 
-$testCase = new ArticlePresenterTest($container);
+$testCase = new VideoPresenterTest($container);
 $testCase->run();
