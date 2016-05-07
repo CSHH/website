@@ -11,6 +11,9 @@ final class VideoPresenter extends SingleUserContentPresenter
     /** @var Repositories\VideoRepository @inject */
     public $videoRepository;
 
+    /** @var VideoThumbnail @inject */
+    public $videoThumbnail;
+
     /** @var Entities\VideoEntity[] */
     private $videos;
 
@@ -29,10 +32,8 @@ final class VideoPresenter extends SingleUserContentPresenter
     {
         parent::runRenderDefault();
 
-        $parameters = $this->context->parameters;
-
         $this->template->videos         = $this->videos;
-        $this->template->videoThumbnail = new VideoThumbnail($parameters['wwwDir'], $parameters['videoThumbnailsDir'], $parameters['vimeoOembedEndpoint']);
+        $this->template->videoThumbnail = $this->videoThumbnail;
     }
 
     /**

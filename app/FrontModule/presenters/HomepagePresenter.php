@@ -19,14 +19,13 @@ final class HomepagePresenter extends BasePresenter
     /** @var Repositories\WikiRepository @inject */
     public $wikiRepository;
 
+    /** @var VideoThumbnail @inject */
+    public $videoThumbnail;
+
     public function renderDefault()
     {
-        $parameters = $this->context->parameters;
-
-        $this->template->uploadDir = $parameters['uploadDir'];
-
-        $this->template->videoThumbnail = new VideoThumbnail($parameters['wwwDir'], $parameters['videoThumbnailsDir'], $parameters['vimeoOembedEndpoint']);
-
+        $this->template->uploadDir      = $this->context->parameters['uploadDir'];
+        $this->template->videoThumbnail = $this->videoThumbnail;
         $this->template->news           = $this->articleRepository->getAllNews();
         $this->template->latestArticles = $this->articleRepository->getLatestArticles();
         $this->template->latestImages   = $this->imageRepository->getLatestImages();
