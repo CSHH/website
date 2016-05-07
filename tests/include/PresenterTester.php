@@ -2,21 +2,16 @@
 
 namespace AppTests;
 
-use Nette\Application\IPresenter;
-use Nette\Application\IResponse;
-use Nette\Application\Request;
-use Nette\Application\Responses\TextResponse;
-use Nette\Application\UI\ITemplate;
+use Nette\Application;
 use Nette\DI\Container;
-use Tester;
 use Tester\Assert;
 
-class PresenterTester
+trait PresenterTester
 {
     /** @var Container */
     private $container;
 
-    /** @var IPresenter */
+    /** @var Application\IPresenter */
     private $presenter;
 
     /** @var string */
@@ -31,55 +26,28 @@ class PresenterTester
     }
 
     /**
-     * @param string $presenterName is fully qualified presenter name (module:module:presenter)
+     * @param  string $presenterName is fully qualified presenter name (module:module:presenter)
+     * @param  string $action
+     * @param  string $method
+     * @param  array  $params
+     * @param  array  $post
+     * @return Application\IResponse
      */
-    public function init($presenterName)
+    public function assertAppResponse($presenterName, $action, $method = 'GET', $params = array(), $post = array())
     {
         $presenterFactory = $this->container->getByType('Nette\Application\IPresenterFactory');
 
-        $this->presenter                   = $presenterFactory->createPresenter($presenterName);
-        $this->presenter->autoCanonicalize = false;
+        $presenter = $presenterFactory->createPresenter($presenterName);
+        $presenter->autoCanonicalize = false;
 
-        $this->presenterName = $presenterName;
-    }
-
-    /**
-     * @param  string    $action
-     * @param  string    $method
-     * @param  array     $params
-     * @param  array     $post
-     * @return IResponse
-     */
-    public function test($action, $method = 'GET', $params = array(), $post = array())
-    {
         $params['action'] = $action;
 
-        $requset = new Request($this->presenterName, $method, $params, $post);
+        $req = new Application\Request($presenterName, $method, $params, $post);
+        $res = $presenter->run($req);
 
-        return $this->presenter->run($requset);
-    }
+        Assert::type('Nette\Application\Responses\TextResponse', $res);
+        Assert::type('Nette\Bridges\ApplicationLatte\Template', $res->getSource());
 
-    /**
-     * @param  string    $action
-     * @param  string    $method
-     * @param  array     $params
-     * @param  array     $post
-     * @return IResponse
-     */
-    public function testAction($action, $method = 'GET', $params = array(), $post = array())
-    {
-        $response = $this->test($action, $method, $params, $post);
-
-        Assert::true($response instanceof TextResponse);
-
-        $src = $response->getSource();
-        Assert::true($src instanceof ITemplate);
-
-        $html = (string) $src;
-        $dom  = Tester\DomQuery::fromHtml($html);
-
-        Assert::true($dom->has('title'));
-
-        return $response;
+        return $res;
     }
 }

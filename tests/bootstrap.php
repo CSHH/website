@@ -21,4 +21,10 @@ $configurator->createRobotLoader()
 $configurator->addConfig(__DIR__ . '/../app/config/config.neon');
 $configurator->addConfig(__DIR__ . '/config/db.neon');
 
-return $configurator->createContainer();
+$container = $configurator->createContainer();
+
+$source = __DIR__ . '/db-image.sqlite';
+$target = $params['testingsqlitedb'];
+Nette\Utils\FileSystem::copy($source, $target);
+
+return $container;
