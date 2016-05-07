@@ -16,16 +16,21 @@ class VideoThumbnail
     /** @var string */
     private $vimeoOembedEndpoint;
 
+    /** @var string */
+    private $defaultImage;
+
     /**
      * @param string $wwwDir
      * @param string $videoThumbnailsDir
      * @param string $vimeoOembedEndpoint
+     * @param string $defaultImage
      */
-    public function __construct($wwwDir, $videoThumbnailsDir, $vimeoOembedEndpoint)
+    public function __construct($wwwDir, $videoThumbnailsDir, $vimeoOembedEndpoint, $defaultImage)
     {
         $this->wwwDir              = $wwwDir;
         $this->videoThumbnailsDir  = $videoThumbnailsDir;
         $this->vimeoOembedEndpoint = $vimeoOembedEndpoint;
+        $this->defaultImage        = $defaultImage;
     }
 
     /**
@@ -47,27 +52,31 @@ class VideoThumbnail
     }
 
     /**
-     * @param VideoEntity $video
+     * @param  VideoEntity $video
+     * @return string
      */
     private function getYoutubeVideoThumbnail(VideoEntity $video)
     {
-        $filePath = $this->videoThumbnailsDir . '/' . Slugger::slugify($video->url);
+        $filePath = $this->getFilePath($video);
 
         if (!file_exists($filePath)) {
             $youtubeVideoId = substr($video->url, strpos($video->url, '?v=') + 3);
-            $videoThumbnail = file_get_contents('https://i.ytimg.com/vi/' . $youtubeVideoId . '/hqdefault.jpg');
-            file_put_contents($this->wwwDir . $filePath, $videoThumbnail);
+            $videoThumbnail = @file_get_contents('https://i.ytimg.com/vi/' . $youtubeVideoId . '/hqdefault.jpg');
+            if ($videoThumbnail) {
+                file_put_contents($this->wwwDir . $filePath, $videoThumbnail);
+            }
         }
 
-        return $filePath;
+        return $this->getImage($filePath);
     }
 
     /**
-     * @param VideoEntity $video
+     * @param  VideoEntity $video
+     * @return string
      */
     private function getVimeoVideoThumbnail(VideoEntity $video)
     {
-        $filePath = $this->videoThumbnailsDir . '/' . Slugger::slugify($video->url);
+        $filePath = $this->getFilePath($video);
 
         if (!file_exists($filePath)) {
             $url = $this->vimeoOembedEndpoint . '?url=' . rawurlencode($video->url);
@@ -85,6 +94,24 @@ class VideoThumbnail
             file_put_contents($this->wwwDir . $filePath, $videoThumbnail);
         }
 
-        return $filePath;
+        return $this->getImage($filePath);
+    }
+
+    /**
+     * @param  VideoEntity $video
+     * @return string
+     */
+    private function getFilePath(VideoEntity $video)
+    {
+        return $this->videoThumbnailsDir . '/' . Slugger::slugify($video->url);
+    }
+
+    /**
+     * @param  string $filePath
+     * @return string
+     */
+    private function getImage($filePath)
+    {
+        return file_exists($filePath) ? $filePath : $this->defaultImage;
     }
 }

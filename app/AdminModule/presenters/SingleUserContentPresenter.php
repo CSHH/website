@@ -4,9 +4,13 @@ namespace App\AdminModule\Presenters;
 
 use App\Model\Entities;
 use App\Model\Repositories;
+use App\Model\Utils\PaginatorFactory;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
+    /** @var PaginatorFactory @inject */
+    public $paginatorFactory;
+
     /**
      * @param Repositories\BaseRepository $repository
      * @param string                      $redirect
@@ -43,9 +47,9 @@ abstract class SingleUserContentPresenter extends PageablePresenter
         $this->canAccess = $this->canAccess();
 
         if ($this->canAccess && $this->displayInactiveOnly) {
-            $this->items = $repository->getAllInactiveForPage($this->page, $limit);
+            $this->items = $repository->getAllInactiveForPage($this->paginatorFactory, $this->page, $limit);
         } else {
-            $this->items = $repository->getAllByUserForPage($this->page, $limit, $user);
+            $this->items = $repository->getAllByUserForPage($this->paginatorFactory, $this->page, $limit, $user);
         }
 
         $this->preparePaginator($this->items->count(), $limit);

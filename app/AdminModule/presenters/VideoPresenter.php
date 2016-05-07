@@ -10,6 +10,9 @@ final class VideoPresenter extends SingleUserContentPresenter
     /** @var Forms\VideoFormInterface @inject */
     public $videoForm;
 
+    /** @var VideoThumbnail @inject */
+    public $videoThumbnail;
+
     /**
      * @param int $id
      */
@@ -32,9 +35,7 @@ final class VideoPresenter extends SingleUserContentPresenter
     {
         parent::renderDefault();
 
-        $parameters = $this->context->parameters;
-
-        $this->template->videoThumbnail = new VideoThumbnail($parameters['wwwDir'], $parameters['videoThumbnailsDir'], $parameters['vimeoOembedEndpoint']);
+        $this->template->videoThumbnail = $this->videoThumbnail;
     }
 
     /**
