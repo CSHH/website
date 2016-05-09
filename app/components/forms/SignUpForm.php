@@ -11,15 +11,11 @@ use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
-use Nette\Security\IAuthenticator;
 
 class SignUpForm extends AbstractForm
 {
     /** @var Repositories\UserRepository */
     private $userRepository;
-
-    /** @var IAuthenticator */
-    private $authenticator;
 
     /** @var IMailer */
     private $mailer;
@@ -30,21 +26,18 @@ class SignUpForm extends AbstractForm
     /**
      * @param ITranslator                 $translator
      * @param Repositories\UserRepository $userRepository
-     * @param IAuthenticator              $authenticator
      * @param IMailer                     $mailer
      * @param string                      $contactEmail
      */
     public function __construct(
         ITranslator $translator,
         Repositories\UserRepository $userRepository,
-        IAuthenticator $authenticator,
         IMailer $mailer,
         $contactEmail
     ) {
         parent::__construct($translator);
 
         $this->userRepository = $userRepository;
-        $this->authenticator  = $authenticator;
         $this->mailer         = $mailer;
         $this->contactEmail   = $contactEmail;
     }
