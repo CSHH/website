@@ -27,6 +27,7 @@ class RouterFactory
         $router[] = new Route('galerie[/<tagSlug>]', 'Front:Gallery:default');
         $router[] = new Route('videa[/<tagSlug>]', 'Front:Video:default');
         $router[] = new Route('videa[/<tagSlug>]/<slug>', 'Front:Video:detail');
+
         $router[] = new Route('uzivatelska-sekce', 'Admin:Homepage:default');
         $router[] = new Route('uzivatelska-sekce/hry', 'Admin:Game:default');
         $router[] = new Route('uzivatelska-sekce/hry/formular', 'Admin:Game:form');
@@ -44,8 +45,9 @@ class RouterFactory
         $router[] = new Route('uzivatelska-sekce/drafty/detail', 'Admin:WikiDraft:detail');
         $router[] = new Route('uzivatelska-sekce/ja', 'Admin:Settings:me');
         $router[] = new Route('uzivatelska-sekce/odhlasit', 'Admin:Sign:out');
-        $router[] = new Route('autentizace/zadat-heslo', 'Admin:Sign:password');
-        $router[] = new Route('autentizace/aktivovat-ucet', 'Admin:Sign:unlock');
+
+        $router[] = new Route('zadat-nove-heslo', 'Admin:Sign:password');
+        $router[] = new Route('aktivovat-ucet', 'Admin:Sign:unlock');
 
         return $router;
     }
