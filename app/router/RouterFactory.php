@@ -43,9 +43,9 @@ class RouterFactory
         $router[] = new Route('uzivatelska-sekce/videa/formular', 'Admin:Video:form');
         $router[] = new Route('uzivatelska-sekce/drafty', 'Admin:WikiDraft:default');
         $router[] = new Route('uzivatelska-sekce/drafty/detail', 'Admin:WikiDraft:detail');
-        $router[] = new Route('uzivatelska-sekce/ja', 'Admin:Settings:me');
-        $router[] = new Route('uzivatelska-sekce/odhlasit', 'Admin:Sign:out');
 
+        $router[] = new Route('ja', 'Admin:Settings:me');
+        $router[] = new Route('odhlasit', 'Admin:Sign:out');
         $router[] = new Route('zadat-nove-heslo', 'Admin:Sign:password');
         $router[] = new Route('aktivovat-ucet', 'Admin:Sign:unlock');
 
