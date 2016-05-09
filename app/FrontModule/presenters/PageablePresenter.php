@@ -48,7 +48,7 @@ abstract class PageablePresenter extends BasePresenter
      */
     protected function throw404IfNoItemsOnPage(Paginator $items, Entities\TagEntity $tag = null)
     {
-        if ($tag && !$items || $this->page > $this->vp->getPaginator()->getLastPage()) {
+        if ($tag && !$items || $this->vp->page > $this->vp->getPaginator()->getLastPage()) {
             $this->throw404();
         }
     }

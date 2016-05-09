@@ -30,15 +30,15 @@ abstract class SingleUserContentPresenter extends PageablePresenter
 
         if ($this->canAccess && $this->displayInactiveOnly) {
             $items = $tag
-                ? $repository->getAllInactiveByTagForPage($this->paginatorFactory, $this->page, $limit, $tag)
-                : $repository->getAllInactiveForPage($this->paginatorFactory, $this->page, $limit);
+                ? $repository->getAllInactiveByTagForPage($this->paginatorFactory, $this->vp->page, $limit, $tag)
+                : $repository->getAllInactiveForPage($this->paginatorFactory, $this->vp->page, $limit);
 
         } else {
             $state = !$this->canAccess;
 
             $items = $tag
-                ? $repository->getAllByTagForPage($this->paginatorFactory, $this->page, $limit, $tag, $state)
-                : $repository->getAllForPage($this->paginatorFactory, $this->page, $limit, $state);
+                ? $repository->getAllByTagForPage($this->paginatorFactory, $this->vp->page, $limit, $tag, $state)
+                : $repository->getAllForPage($this->paginatorFactory, $this->vp->page, $limit, $state);
         }
 
         $this->preparePaginator($items->count(), $limit);

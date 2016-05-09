@@ -7,21 +7,11 @@ use Nette\Utils\Paginator;
 
 class VisualPaginatorControl extends Control
 {
-    /** @var int */
-    private $page;
-
     /** @var Paginator */
     private $paginator;
 
-    /**
-     * @param int $page
-     */
-    public function __construct($page)
-    {
-        parent::__construct();
-
-        $this->page = $page;
-    }
+    /** @persistent */
+    public $page = 1;
 
     /**
      * @return Paginator
@@ -31,8 +21,6 @@ class VisualPaginatorControl extends Control
         if (!$this->paginator) {
             $this->paginator = new Paginator;
         }
-
-        $this->paginator->setPage($this->page);
 
         return $this->paginator;
     }

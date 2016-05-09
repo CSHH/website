@@ -55,8 +55,8 @@ abstract class SharedContentPresenter extends PageablePresenter
         $state = !$this->canAccess();
 
         $wikis = $tag
-            ? $this->wikiRepository->getAllByTagForPage($this->page, $limit, $tag, $type, $state)
-            : $this->wikiRepository->getAllForPage($this->page, $limit, $type, $state);
+            ? $this->wikiRepository->getAllByTagForPage($this->vp->page, $limit, $tag, $type, $state)
+            : $this->wikiRepository->getAllForPage($this->vp->page, $limit, $type, $state);
 
         $this->preparePaginator($wikis->count(), $limit);
 
