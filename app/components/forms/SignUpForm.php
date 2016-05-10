@@ -9,6 +9,7 @@ use HeavenProject\Utils\FlashType;
 use Latte;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
+use Nette\Http\UrlScript;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
@@ -21,6 +22,9 @@ class SignUpForm extends AbstractForm
     /** @var IMailer */
     private $mailer;
 
+    /** @var UrlScript */
+    private $urlScript;
+
     /** @var string */
     private $appDir;
 
@@ -31,6 +35,7 @@ class SignUpForm extends AbstractForm
      * @param ITranslator                 $translator
      * @param Repositories\UserRepository $userRepository
      * @param IMailer                     $mailer
+     * @param UrlScript                   $urlScript
      * @param string                      $appDir
      * @param string                      $contactEmail
      */
@@ -38,6 +43,7 @@ class SignUpForm extends AbstractForm
         ITranslator $translator,
         Repositories\UserRepository $userRepository,
         IMailer $mailer,
+        UrlScript $urlScript,
         $appDir,
         $contactEmail
     ) {
@@ -45,6 +51,7 @@ class SignUpForm extends AbstractForm
 
         $this->userRepository = $userRepository;
         $this->mailer         = $mailer;
+        $this->urlScript      = $urlScript;
         $this->appDir         = $appDir;
         $this->contactEmail   = $contactEmail;
     }
@@ -150,6 +157,8 @@ class SignUpForm extends AbstractForm
         $parameters = array(
             'subject' => $subject,
             'link'    => $link,
+            'baseUri' => $this->urlScript->getHostUrl(),
+            'host'    => $this->urlScript->getHost(),
         );
 
         $email = new Message;
