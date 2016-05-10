@@ -22,8 +22,9 @@ abstract class SharedContentPresenter extends PageablePresenter
     /**
      * @param string $tagSlug
      * @param string $slug
+     * @param string $type
      */
-    public function actionDetail($tagSlug, $slug)
+    protected function runActionDetail($tagSlug, $slug, $type)
     {
         $tag = $this->getTag($tagSlug);
 
@@ -36,6 +37,10 @@ abstract class SharedContentPresenter extends PageablePresenter
         }
 
         $this->wiki = $wiki;
+
+        if ($this->getLoggedUserEntity()) {
+            $this->createForm($type);
+        }
     }
 
     public function renderDetail()
@@ -71,5 +76,17 @@ abstract class SharedContentPresenter extends PageablePresenter
         parent::runRenderDefault();
 
         $this->template->wikis = $this->wikis;
+    }
+
+    /**
+     * @param string $type
+     */
+    private function createForm($type)
+    {
+        $this['form'] = $this->wikiDraftForm->create(
+            $this->getLoggedUserEntity(),
+            $type,
+            $this->wiki
+        );
     }
 }

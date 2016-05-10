@@ -19,14 +19,11 @@ final class GamePresenter extends SharedContentPresenter
     }
 
     /**
-     * @return Forms\WikiDraftForm
+     * @param string $tagSlug
+     * @param string $slug
      */
-    protected function createComponentForm()
+    public function actionDetail($tagSlug, $slug)
     {
-        return $this->wikiDraftForm->create(
-            $this->getLoggedUserEntity(),
-            Entities\WikiEntity::TYPE_GAME,
-            $this->wiki
-        );
+        $this->runActionDetail($tagSlug, $slug, Entities\WikiEntity::TYPE_GAME);
     }
 }
