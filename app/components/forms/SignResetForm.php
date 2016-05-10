@@ -151,7 +151,7 @@ class SignResetForm extends AbstractForm
             ->setSubject($subject)
             ->setHtmlBody(
                 $latte->renderToString(
-                    $this->appDir . '/presenters/templates/emails/newPassword.latte',
+                    $this->appDir . '/presenters/templates/emails/forgottenPassword.latte',
                     $parameters
                 )
             );

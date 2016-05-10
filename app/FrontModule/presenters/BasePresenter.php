@@ -5,7 +5,6 @@ namespace App\FrontModule\Presenters;
 use App;
 use App\Components\Controls;
 use App\Components\Forms;
-use App\Model\Security\Authenticator;
 use Nette\Mail\IMailer;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
@@ -21,9 +20,6 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
 
     /** @var Forms\SignResetFormInterface @inject */
     public $signResetForm;
-
-    /** @var Authenticator @inject */
-    public $authenticator;
 
     /** @var IMailer @inject */
     public $mailer;
@@ -62,7 +58,7 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
      */
     protected function createComponentSignUpForm()
     {
-        return $this->signUpForm->create($this->contactEmail);
+        return $this->signUpForm->create($this->getHttpRequest()->getUrl(), $this->appDir, $this->contactEmail);
     }
 
     /**

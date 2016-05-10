@@ -53,9 +53,9 @@ abstract class SharedContentPresenter extends PageablePresenter
         $this->canAccess = $this->canAccess();
 
         if ($this->canAccess && $this->displayInactiveOnly) {
-            $this->items = $this->wikiRepository->getAllWithDraftsForPage($this->page, $limit, $type);
+            $this->items = $this->wikiRepository->getAllWithDraftsForPage($this->vp->page, $limit, $type);
         } else {
-            $this->items = $this->wikiRepository->getAllByUserForPage($this->page, $limit, $this->getLoggedUserEntity(), $type);
+            $this->items = $this->wikiRepository->getAllByUserForPage($this->vp->page, $limit, $this->getLoggedUserEntity(), $type);
         }
 
         $this->preparePaginator($this->items ? $this->items->count() : 0, $limit);

@@ -8,7 +8,7 @@
 
 <div class="text-content">{$wiki->text|noescape}</div>
 
-{if $wiki->isActive}
+{if $user->isLoggedIn() && $wiki->isActive}
 
     {control form}
 

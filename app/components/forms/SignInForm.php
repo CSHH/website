@@ -7,20 +7,12 @@ use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
 use Nette\Security\AuthenticationException;
-use Nette\Security\IAuthenticator;
 
 class SignInForm extends AbstractForm
 {
-    /** @var IAuthenticator */
-    private $authenticator;
-
-    public function __construct(
-        ITranslator $translator,
-        IAuthenticator $authenticator
-    ) {
+    public function __construct(ITranslator $translator)
+    {
         parent::__construct($translator);
-
-        $this->authenticator = $authenticator;
     }
 
     protected function configure(Form $form)
@@ -43,8 +35,6 @@ class SignInForm extends AbstractForm
             $p      = $this->getPresenter();
             $u      = $p->getUser();
             $values = $form->getValues();
-
-            $u->setAuthenticator($this->authenticator);
 
             if ($values->remember) {
                 $u->setExpiration('14 days', false);

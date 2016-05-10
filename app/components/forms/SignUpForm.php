@@ -6,23 +6,27 @@ use App\Model\Repositories;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Exceptions\FormSentBySpamException;
 use HeavenProject\Utils\FlashType;
+use Latte;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
+use Nette\Http\UrlScript;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
-use Nette\Security\IAuthenticator;
 
 class SignUpForm extends AbstractForm
 {
     /** @var Repositories\UserRepository */
     private $userRepository;
 
-    /** @var IAuthenticator */
-    private $authenticator;
-
     /** @var IMailer */
     private $mailer;
+
+    /** @var UrlScript */
+    private $urlScript;
+
+    /** @var string */
+    private $appDir;
 
     /** @var string */
     private $contactEmail;
@@ -30,22 +34,25 @@ class SignUpForm extends AbstractForm
     /**
      * @param ITranslator                 $translator
      * @param Repositories\UserRepository $userRepository
-     * @param IAuthenticator              $authenticator
      * @param IMailer                     $mailer
+     * @param UrlScript                   $urlScript
+     * @param string                      $appDir
      * @param string                      $contactEmail
      */
     public function __construct(
         ITranslator $translator,
         Repositories\UserRepository $userRepository,
-        IAuthenticator $authenticator,
         IMailer $mailer,
+        UrlScript $urlScript,
+        $appDir,
         $contactEmail
     ) {
         parent::__construct($translator);
 
         $this->userRepository = $userRepository;
-        $this->authenticator  = $authenticator;
         $this->mailer         = $mailer;
+        $this->urlScript      = $urlScript;
+        $this->appDir         = $appDir;
         $this->contactEmail   = $contactEmail;
     }
 
@@ -90,7 +97,20 @@ class SignUpForm extends AbstractForm
             unset($values->__anti);
 
             $user = $this->userRepository->createRegistration($values);
-            $this->sendEmail($this->contactEmail, $user->email, $user->token, $user->id);
+            $link = $p->link(
+                '//:Admin:Sign:unlock',
+                array(
+                    'uid'   => $user->id,
+                    'token' => $user->token,
+                )
+            );
+
+            $this->sendEmail(
+                $this->contactEmail,
+                $user->email,
+                $this->translator->translate('locale.sign.sign_up_request'),
+                $link
+            );
 
             $p->flashMessage(
                 $this->translator->translate('locale.sign.sign_up_email_sent'),
@@ -127,23 +147,30 @@ class SignUpForm extends AbstractForm
     /**
      * @param string $from
      * @param string $to
-     * @param string $token
-     * @param int    $userId
+     * @param string $subject
+     * @param string $link
      */
-    private function sendEmail($from, $to, $token, $userId)
+    private function sendEmail($from, $to, $subject, $link)
     {
-        $text = $this->presenter->link(
-            '//:Admin:Sign:unlock',
-            array(
-                'userId' => $userId,
-                'token'  => $token,
-            ));
+        $latte = new Latte\Engine;
+
+        $parameters = array(
+            'subject' => $subject,
+            'link'    => $link,
+            'baseUri' => $this->urlScript->getHostUrl(),
+            'host'    => $this->urlScript->getHost(),
+        );
 
         $email = new Message;
         $email->setFrom($from)
             ->addTo($to)
-            ->setSubject($this->translator->translate('locale.sign.sign_up_request'))
-            ->setBody($text);
+            ->setSubject($subject)
+            ->setHtmlBody(
+                $latte->renderToString(
+                    $this->appDir . '/presenters/templates/emails/registration.latte',
+                    $parameters
+                )
+            );
 
         $this->mailer->send($email);
     }

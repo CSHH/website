@@ -24,16 +24,16 @@ final class SignPresenter extends BasePresenter
     }
 
     /**
-     * @param int    $userId
+     * @param int    $uid
      * @param string $token
      */
-    public function actionUnlock($userId, $token)
+    public function actionUnlock($uid, $token)
     {
-        $this->checkParameterAndRedirectIfNull($userId);
+        $this->checkParameterAndRedirectIfNull($uid);
         $this->checkParameterAndRedirectIfNull($token);
 
         try {
-            $this->userRepository->unlock($userId, $token);
+            $this->userRepository->unlock($uid, $token);
             $this->flashMessage($this->translator->translate('locale.sign.account_activated'));
 
         } catch (UserNotFoundException $e) {

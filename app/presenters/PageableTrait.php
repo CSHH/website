@@ -6,21 +6,17 @@ use App\Components\Controls;
 
 trait PageableTrait
 {
-    /** @var int @persistent */
-    public $page = 1;
-
     /** @var Controls\VisualPaginatorControlInterface @inject */
     public $visualPaginatorControl;
 
     /** @var Controls\VisualPaginatorControl */
     protected $vp;
 
-    /**
-     * @return Controls\VisualPaginatorControl
-     */
-    protected function createComponentVp()
+    protected function startup()
     {
-        return $this->vp;
+        parent::startup();
+
+        $this->vp = $this->visualPaginatorControl->create();
     }
 
     /**
@@ -29,10 +25,17 @@ trait PageableTrait
      */
     protected function preparePaginator($itemCount, $limit)
     {
-        $this->vp = $this->visualPaginatorControl->create($this->page);
-        $p        = $this->vp->getPaginator();
+        $p = $this->vp->getPaginator();
         $p->setItemCount($itemCount);
         $p->setItemsPerPage($limit);
-        $p->setPage($this->page);
+        $p->setPage($this->vp->page);
+    }
+
+    /**
+     * @return Controls\VisualPaginatorControl
+     */
+    protected function createComponentVp()
+    {
+        return $this->vp;
     }
 }
