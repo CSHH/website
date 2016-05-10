@@ -11,12 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class WikiEntity extends TimestampableEntity
 {
-    /** @var string */
-    const TYPE_GAME = 'game';
-    /** @var string */
-    const TYPE_MOVIE = 'movie';
-    /** @var string */
-    const TYPE_BOOK = 'book';
+    /** @var int */
+    const TYPE_GAME = 1;
+    /** @var int */
+    const TYPE_MOVIE = 2;
+    /** @var int */
+    const TYPE_BOOK = 3;
 
     /**
      * @ORM\ManyToOne(targetEntity="TagEntity")
@@ -108,9 +108,9 @@ class WikiEntity extends TimestampableEntity
     protected $text;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      *
-     * @var string
+     * @var int
      */
     protected $type;
 
