@@ -93,8 +93,8 @@ class SignUpForm extends AbstractForm
             $link = $p->link(
                 '//:Admin:Sign:unlock',
                 array(
-                    'userId' => $user->id,
-                    'token'  => $user->token,
+                    'uid'   => $user->id,
+                    'token' => $user->token,
                 )
             );
 
