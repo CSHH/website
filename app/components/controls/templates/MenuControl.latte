@@ -1,10 +1,8 @@
-{var $tags = $tagRepository->getAll()}
-
 <ul>
     <li>
         <a href="{plink Game:default}">{_}locale.sections.games{/_}</a>
         <ul>
-            <li n:foreach="$tags as $tag" n:if="$wikiRepository->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_GAME)">
+            <li n:foreach="$menuItems[App\Model\Caching\MenuCache::SECTION_GAMES] as $tag">
                 <a href="{plink Game:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
@@ -13,7 +11,7 @@
     <li>
         <a href="{plink Movie:default}">{_}locale.sections.movies{/_}</a>
         <ul>
-            <li n:foreach="$tags as $tag" n:if="$wikiRepository->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_MOVIE)">
+            <li n:foreach="$menuItems[App\Model\Caching\MenuCache::SECTION_MOVIES] as $tag">
                 <a href="{plink Movie:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
@@ -22,7 +20,7 @@
     <li>
         <a href="{plink Book:default}">{_}locale.sections.books{/_}</a>
         <ul>
-            <li n:foreach="$tags as $tag" n:if="$wikiRepository->getAllByTag($tag, App\Model\Entities\WikiEntity::TYPE_BOOK)">
+            <li n:foreach="$menuItems[App\Model\Caching\MenuCache::SECTION_BOOKS] as $tag">
                 <a href="{plink Book:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
@@ -31,7 +29,7 @@
     <li>
         <a href="{plink Article:default}">{_}locale.sections.articles{/_}</a>
         <ul>
-            <li n:foreach="$tags as $tag" n:if="$articleRepository->getAllByTag($tag)">
+            <li n:foreach="$menuItems[App\Model\Caching\MenuCache::SECTION_ARTICLES] as $tag">
                 <a href="{plink Article:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
@@ -40,7 +38,7 @@
     <li>
         <a href="{plink Gallery:default}">{_}locale.sections.galleries{/_}</a>
         <ul>
-            <li n:foreach="$tags as $tag" n:if="$imageRepository->getAllByTag($tag)">
+            <li n:foreach="$menuItems[App\Model\Caching\MenuCache::SECTION_IMAGES] as $tag">
                 <a href="{plink Gallery:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>
@@ -49,7 +47,7 @@
     <li>
         <a href="{plink Video:default}">{_}locale.sections.videos{/_}</a>
         <ul>
-            <li n:foreach="$tags as $tag" n:if="$videoRepository->getAllByTag($tag)">
+            <li n:foreach="$menuItems[App\Model\Caching\MenuCache::SECTION_VIDEOS] as $tag">
                 <a href="{plink Video:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
             </li>
         </ul>

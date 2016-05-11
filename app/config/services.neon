@@ -4,6 +4,12 @@ services:
     paginatorFactory: App\Model\Utils\PaginatorFactory
     videoThumbnail: App\Model\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
 
+    menuCache: App\Model\Caching\MenuCache(
+        Nette\Caching\Cache(
+            Nette\Caching\Storages\FileStorage(%tempDir%/cache), 'menu'
+        )
+    )
+
     articleForm:
         implement: App\Components\Forms\ArticleFormInterface
     galleryForm:
