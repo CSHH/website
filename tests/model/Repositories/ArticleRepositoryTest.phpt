@@ -339,7 +339,10 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     private function getRepository($dao, $translator, $em)
     {
-        return new AppRepositories\ArticleRepository($dao, $translator, $em);
+        $menuCache = $this->menuCache;
+        $this->mockAndReturnSelf($menuCache, 'setArticleRepository');
+
+        return new AppRepositories\ArticleRepository($dao, $translator, $em, $menuCache);
     }
 }
 

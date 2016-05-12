@@ -11,6 +11,7 @@ trait UnitMocks
     protected $em;
     protected $qb;
     protected $query;
+    protected $menuCache;
     protected $paginator;
     protected $paginatorFactory;
     protected $translator;
@@ -33,6 +34,11 @@ trait UnitMocks
     protected function getQueryMock()
     {
         return m::mock('Doctrine\ORM\AbstractQuery');
+    }
+
+    protected function getMenuCacheMock()
+    {
+        return m::mock('App\Model\Caching\MenuCache');
     }
 
     protected function getPaginatorMock()
@@ -81,6 +87,7 @@ trait UnitMocks
         $this->em               = $this->getEntityManagerMock();
         $this->qb               = $this->getQueryBuilderMock();
         $this->query            = $this->getQueryMock();
+        $this->menuCache        = $this->getMenuCacheMock();
         $this->paginator        = $this->getPaginatorMock();
         $this->paginatorFactory = $this->getPaginatorFactoryMock();
         $this->translator       = $this->getTranslatorMock();
