@@ -7,14 +7,25 @@ use Mockery as m;
 
 trait UnitMocks
 {
+    protected $articleRepository;
     protected $dao;
     protected $em;
     protected $qb;
     protected $query;
+    protected $imageRepository;
     protected $menuCache;
+    protected $netteCache;
     protected $paginator;
     protected $paginatorFactory;
+    protected $tagRepository;
     protected $translator;
+    protected $videoRepository;
+    protected $wikiRepository;
+
+    protected function getArticleRepositoryMock()
+    {
+        return m::mock('App\Model\Repositories\ArticleRepository');
+    }
 
     protected function getEntityDaoMock()
     {
@@ -36,9 +47,19 @@ trait UnitMocks
         return m::mock('Doctrine\ORM\AbstractQuery');
     }
 
+    protected function getImageRepositoryMock()
+    {
+        return m::mock('App\Model\Repositories\ImageRepository');
+    }
+
     protected function getMenuCacheMock()
     {
         return m::mock('App\Model\Caching\MenuCache');
+    }
+
+    protected function getNetteCacheMock()
+    {
+        return m::mock('Nette\Caching\Cache');
     }
 
     protected function getPaginatorMock()
@@ -51,9 +72,24 @@ trait UnitMocks
         return m::mock('App\Model\Utils\PaginatorFactory');
     }
 
+    protected function getTagRepositoryMock()
+    {
+        return m::mock('App\Model\Repositories\TagRepository');
+    }
+
     protected function getTranslatorMock()
     {
         return m::mock('Nette\Localization\ITranslator');
+    }
+
+    protected function getVideoRepositoryMock()
+    {
+        return m::mock('App\Model\Repositories\VideoRepository');
+    }
+
+    protected function getWikiRepositoryMock()
+    {
+        return m::mock('App\Model\Repositories\WikiRepository');
     }
 
     /**
@@ -83,14 +119,20 @@ trait UnitMocks
 
     protected function setUp()
     {
-        $this->dao              = $this->getEntityDaoMock();
-        $this->em               = $this->getEntityManagerMock();
-        $this->qb               = $this->getQueryBuilderMock();
-        $this->query            = $this->getQueryMock();
-        $this->menuCache        = $this->getMenuCacheMock();
-        $this->paginator        = $this->getPaginatorMock();
-        $this->paginatorFactory = $this->getPaginatorFactoryMock();
-        $this->translator       = $this->getTranslatorMock();
+        $this->articleRepository = $this->getArticleRepositoryMock();
+        $this->dao               = $this->getEntityDaoMock();
+        $this->em                = $this->getEntityManagerMock();
+        $this->qb                = $this->getQueryBuilderMock();
+        $this->query             = $this->getQueryMock();
+        $this->imageRepository   = $this->getImageRepositoryMock();
+        $this->menuCache         = $this->getMenuCacheMock();
+        $this->netteCache        = $this->getNetteCacheMock();
+        $this->paginator         = $this->getPaginatorMock();
+        $this->paginatorFactory  = $this->getPaginatorFactoryMock();
+        $this->tagRepository     = $this->getTagRepositoryMock();
+        $this->translator        = $this->getTranslatorMock();
+        $this->videoRepository   = $this->getVideoRepositoryMock();
+        $this->wikiRepository    = $this->getWikiRepositoryMock();
     }
 
     protected function tearDown()
