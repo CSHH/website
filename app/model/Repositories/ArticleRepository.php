@@ -6,7 +6,7 @@ use App\Model\Caching\MenuCache;
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
-use App\Model\Utils\InputTextPurifier;
+use App\Model\Utils\HtmlPurifierFactory;
 use App\Model\Utils\PaginatorFactory;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use HeavenProject\Utils\Slugger;
@@ -22,8 +22,8 @@ class ArticleRepository extends SingleUserContentRepository
     /** @var ITranslator */
     private $translator;
 
-    /** @var InputTextPurifier */
-    private $inputTextPurifier;
+    /** @var \HtmlPurifier */
+    private $htmlPurifier;
 
     public function __construct(
         EntityDao $dao,
@@ -33,8 +33,8 @@ class ArticleRepository extends SingleUserContentRepository
     ) {
         parent::__construct($dao, $em, $menuCache->setArticleRepository($this));
 
-        $this->translator        = $translator;
-        $this->inputTextPurifier = new InputTextPurifier;
+        $this->translator   = $translator;
+        $this->htmlPurifier = (new HtmlPurifierFactory)->createHtmlPurifier();
     }
 
     public function create(
@@ -59,7 +59,7 @@ class ArticleRepository extends SingleUserContentRepository
             );
         }
 
-        $e->text = $this->inputTextPurifier->purify($values->text);
+        $e->text = $this->htmlPurifier->purify($values->text);
         $e->tag  = $tag;
         $e->user = $user;
 
@@ -94,7 +94,7 @@ class ArticleRepository extends SingleUserContentRepository
             );
         }
 
-        $e->text = $this->inputTextPurifier->purify($values->text);
+        $e->text = $this->htmlPurifier->purify($values->text);
         $e->tag  = $tag;
         $e->user = $user;
 
