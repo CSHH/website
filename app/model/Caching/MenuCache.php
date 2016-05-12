@@ -43,20 +43,54 @@ class MenuCache extends Nette\Object
     /** @var array */
     private $items = array();
 
-    public function __construct(
-        Cache $cache,
-        Repositories\ArticleRepository $articleRepository,
-        Repositories\ImageRepository $imageRepository,
-        Repositories\VideoRepository $videoRepository,
-        Repositories\WikiRepository $wikiRepository,
-        Repositories\TagRepository $tagRepository
-    ) {
-        $this->cache             = $cache;
+    public function __construct(Cache $cache, Repositories\TagRepository $tagRepository)
+    {
+        $this->cache         = $cache;
+        $this->tagRepository = $tagRepository;
+    }
+
+    /**
+     * @param  Repositories\ArticleRepository $articleRepository
+     * @return self
+     */
+    public function setArticleRepository(Repositories\ArticleRepository $articleRepository)
+    {
         $this->articleRepository = $articleRepository;
-        $this->imageRepository   = $imageRepository;
-        $this->videoRepository   = $videoRepository;
-        $this->wikiRepository    = $wikiRepository;
-        $this->tagRepository     = $tagRepository;
+
+        return $this;
+    }
+
+    /**
+     * @param  Repositories\ImageRepository $imageRepository
+     * @return self
+     */
+    public function setImageRepository(Repositories\ImageRepository $imageRepository)
+    {
+        $this->imageRepository = $imageRepository;
+
+        return $this;
+    }
+
+    /**
+     * @param  Repositories\VideoRepository $videoRepository
+     * @return self
+     */
+    public function setVideoRepository(Repositories\VideoRepository $videoRepository)
+    {
+        $this->videoRepository = $videoRepository;
+
+        return $this;
+    }
+
+    /**
+     * @param  Repositories\WikiRepository $wikiRepository
+     * @return self
+     */
+    public function setWikiRepository(Repositories\WikiRepository $wikiRepository)
+    {
+        $this->wikiRepository = $wikiRepository;
+
+        return $this;
     }
 
     /**
@@ -77,6 +111,35 @@ class MenuCache extends Nette\Object
     }
 
     /**
+     * @param int                $section
+     * @param Entities\TagEntity $tag
+     */
+    public function deleteSectionIfTagNotPresent($section, Entities\TagEntity $tag)
+    {
+        if (!$this->isTagInSection($section, $tag)) {
+            $this->deleteSection($section);
+        }
+    }
+
+    /**
+     * @param  int                $section
+     * @param  Entities\TagEntity $tag
+     * @return bool
+     */
+    public function isTagInSection($section, Entities\TagEntity $tag)
+    {
+        return array_key_exists($tag->id, $this->cache->load($section));
+    }
+
+    /**
+     * @param int $section
+     */
+    public function deleteSection($section)
+    {
+        $this->cache->remove($section);
+    }
+
+    /**
      * @param  int                         $section
      * @param  Entities\TagRepository[]    $tags
      * @param  Repositories\BaseRepository $repository
@@ -90,7 +153,7 @@ class MenuCache extends Nette\Object
             $items = array();
             foreach ($tags as $tag) {
                 if ($wikiType ? $repository->getAllByTag($tag, $wikiType) : $repository->getAllByTag($tag)) {
-                    $items[] = $tag;
+                    $items[$tag->id] = $tag;
                 }
             }
             $this->cache->save($section, $items);
