@@ -109,6 +109,30 @@ class MenuCacheTest extends Tester\TestCase
         Assert::type('array', $result[MenuCache::SECTION_BOOKS]);
         Assert::count(1, $result[MenuCache::SECTION_BOOKS]);
     }
+
+    public function testIsTagInSectionReturnsTrue()
+    {
+        $tag = new AppTests\TagEntityImpl;
+        $tag->id = 1;
+
+        $netteCache = $this->netteCache;
+        $this->mock($netteCache, 'load', 1, array($tag->id => $tag));
+
+        $menuCache = new MenuCache($netteCache, $this->tagRepository);
+        Assert::true($menuCache->isTagInSection(MenuCache::SECTION_ARTICLES, $tag));
+    }
+
+    public function testIsTagInSectionReturnsFalse()
+    {
+        $tag = new AppTests\TagEntityImpl;
+        $tag->id = 1;
+
+        $netteCache = $this->netteCache;
+        $this->mock($netteCache, 'load', 1, array());
+
+        $menuCache = new MenuCache($netteCache, $this->tagRepository);
+        Assert::false($menuCache->isTagInSection(MenuCache::SECTION_ARTICLES, $tag));
+    }
 }
 
 $testCase = new MenuCacheTest;
