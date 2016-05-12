@@ -133,6 +133,15 @@ class MenuCacheTest extends Tester\TestCase
         $menuCache = new MenuCache($netteCache, $this->tagRepository);
         Assert::false($menuCache->isTagInSection(MenuCache::SECTION_ARTICLES, $tag));
     }
+
+    public function testDeleteSection()
+    {
+        $netteCache = $this->netteCache;
+        $this->mock($netteCache, 'remove');
+
+        $menuCache = new MenuCache($netteCache, $this->tagRepository);
+        Assert::null($menuCache->deleteSection(MenuCache::SECTION_ARTICLES));
+    }
 }
 
 $testCase = new MenuCacheTest;
