@@ -2,6 +2,7 @@
 
 namespace App\Model\Repositories;
 
+use App\Model\Caching\MenuCache;
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Entities;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
@@ -27,18 +28,20 @@ class VideoRepository extends SingleUserContentRepository
     private $translator;
 
     /**
-     * @param string        $vimeoOembedEndpoint
-     * @param EntityDao     $dao
-     * @param ITranslator   $translator
-     * @param EntityManager $em
+     * @param string           $vimeoOembedEndpoint
+     * @param EntityDao        $dao
+     * @param ITranslator      $translator
+     * @param EntityManager    $em
+     * @param MenuCache        $menuCache
      */
     public function __construct(
         $vimeoOembedEndpoint,
         EntityDao $dao,
         ITranslator $translator,
-        EntityManager $em
+        EntityManager $em,
+        MenuCache $menuCache
     ) {
-        parent::__construct($dao, $em);
+        parent::__construct($dao, $em, $menuCache->setVideoRepository($this));
 
         $this->vimeoOembedEndpoint = $vimeoOembedEndpoint;
         $this->translator          = $translator;
@@ -84,6 +87,10 @@ class VideoRepository extends SingleUserContentRepository
         Entities\UserEntity $user,
         Entities\VideoEntity $e
     ) {
+        if ($e->tag->id !== $tag->id) {
+            $this->menuCache->deleteSection(MenuCache::SECTION_VIDEOS);
+        }
+
         $e->setValues($values);
 
         if ($e->tag->id !== $tag->id && $this->getByTagAndName($tag, $values->name)) {
@@ -113,11 +120,22 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  Entities\BaseEntity $e
+     * @return Entities\BaseEntity
+     */
+    public function activate(Entities\BaseEntity $e)
+    {
+        return $this->doActivate($e, MenuCache::SECTION_VIDEOS);
+    }
+
+    /**
      * @param  Entities\VideoEntity $e
      */
     public function delete(Entities\VideoEntity $e)
     {
         $this->removeAndFlush($this->em, $e);
+
+        $this->menuCache->deleteSection(MenuCache::SECTION_VIDEOS);
     }
 
     /**

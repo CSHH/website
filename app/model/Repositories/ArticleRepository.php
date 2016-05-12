@@ -2,6 +2,7 @@
 
 namespace App\Model\Repositories;
 
+use App\Model\Caching\MenuCache;
 use App\Model\Duplicities\DuplicityChecker;
 use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Model\Entities;
@@ -27,9 +28,10 @@ class ArticleRepository extends SingleUserContentRepository
     public function __construct(
         EntityDao $dao,
         ITranslator $translator,
-        EntityManager $em
+        EntityManager $em,
+        MenuCache $menuCache
     ) {
-        parent::__construct($dao, $em);
+        parent::__construct($dao, $em, $menuCache->setArticleRepository($this));
 
         $this->translator        = $translator;
         $this->inputTextPurifier = new InputTextPurifier;
@@ -72,6 +74,10 @@ class ArticleRepository extends SingleUserContentRepository
         Entities\UserEntity $user,
         Entities\ArticleEntity $e
     ) {
+        if ($e->tag->id !== $tag->id) {
+            $this->menuCache->deleteSection(MenuCache::SECTION_ARTICLES);
+        }
+
         $e->setValues($values);
 
         if ($e->tag->id !== $tag->id && $this->getByTagAndName($tag, $values->name)) {
@@ -98,11 +104,22 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  Entities\BaseEntity $e
+     * @return Entities\BaseEntity
+     */
+    public function activate(Entities\BaseEntity $e)
+    {
+        return $this->doActivate($e, MenuCache::SECTION_ARTICLES);
+    }
+
+    /**
      * @param  Entities\ArticleEntity $e
      */
     public function delete(Entities\ArticleEntity $e)
     {
         $this->removeAndFlush($this->em, $e);
+
+        $this->menuCache->deleteSection(MenuCache::SECTION_ARTICLES);
     }
 
     /**
