@@ -110,6 +110,19 @@ class MenuCacheTest extends Tester\TestCase
         Assert::count(1, $result[MenuCache::SECTION_BOOKS]);
     }
 
+    public function testDeleteSectionIfTagNotPresent()
+    {
+        $tag = new AppTests\TagEntityImpl;
+        $tag->id = 1;
+
+        $netteCache = $this->netteCache;
+        $this->mock($netteCache, 'load', 1, array());
+        $this->mock($netteCache, 'remove');
+
+        $menuCache = new MenuCache($netteCache, $this->tagRepository);
+        Assert::null($menuCache->deleteSectionIfTagNotPresent(MenuCache::SECTION_ARTICLES, $tag));
+    }
+
     public function testIsTagInSectionReturnsTrue()
     {
         $tag = new AppTests\TagEntityImpl;
@@ -124,14 +137,11 @@ class MenuCacheTest extends Tester\TestCase
 
     public function testIsTagInSectionReturnsFalse()
     {
-        $tag = new AppTests\TagEntityImpl;
-        $tag->id = 1;
-
         $netteCache = $this->netteCache;
         $this->mock($netteCache, 'load', 1, array());
 
         $menuCache = new MenuCache($netteCache, $this->tagRepository);
-        Assert::false($menuCache->isTagInSection(MenuCache::SECTION_ARTICLES, $tag));
+        Assert::false($menuCache->isTagInSection(MenuCache::SECTION_ARTICLES, new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSection()
