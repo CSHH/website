@@ -2,6 +2,7 @@
 
 namespace App\Model\Repositories;
 
+use App\Model\Caching\MenuCache;
 use App\Model\Entities;
 use Kdyby\Doctrine\EntityManager;
 use App\Model\Utils\PaginatorFactory;
@@ -18,15 +19,22 @@ class ImageRepository extends SingleUserContentRepository
     private $uploadDir;
 
     /**
-     * @param string        $wwwDir
-     * @param string        $uploadDir
-     * @param EntityDao     $dao
-     * @param EntityDao     $fileDao
-     * @param EntityManager $em
+     * @param string           $wwwDir
+     * @param string           $uploadDir
+     * @param EntityDao        $dao
+     * @param EntityDao        $fileDao
+     * @param EntityManager    $em
+     * @param MenuCache        $menuCache
      */
-    public function __construct($wwwDir, $uploadDir, EntityDao $dao, EntityDao $fileDao, EntityManager $em)
-    {
-        parent::__construct($dao, $em);
+    public function __construct(
+        $wwwDir,
+        $uploadDir,
+        EntityDao $dao,
+        EntityDao $fileDao,
+        EntityManager $em,
+        MenuCache $menuCache
+    ) {
+        parent::__construct($dao, $em, $menuCache->setImageRepository($this));
 
         $this->uploadDir = $wwwDir . $uploadDir;
         $this->fileDao   = $fileDao;
@@ -52,6 +60,15 @@ class ImageRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  Entities\BaseEntity $e
+     * @return Entities\BaseEntity
+     */
+    public function activate(Entities\BaseEntity $e)
+    {
+        return $this->doActivate($e, MenuCache::SECTION_IMAGES);
+    }
+
+    /**
      * @param  Entities\ImageEntity $e
      */
     public function delete(Entities\ImageEntity $e)
@@ -63,6 +80,8 @@ class ImageRepository extends SingleUserContentRepository
 
         $fm = new FileManager($this->em, $this->fileDao, $this->uploadDir);
         $fm->removeFile($file);
+
+        $this->menuCache->deleteSection(MenuCache::SECTION_IMAGES);
     }
 
     /**

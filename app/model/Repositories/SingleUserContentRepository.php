@@ -2,6 +2,7 @@
 
 namespace App\Model\Repositories;
 
+use App\Model\Caching\MenuCache;
 use App\Model\Entities;
 use App\Model\Utils\PaginatorFactory;
 use Doctrine\ORM\NonUniqueResultException;
@@ -15,24 +16,32 @@ abstract class SingleUserContentRepository extends BaseRepository
     /** @var EntityManager */
     protected $em;
 
+    /** @var MenuCache */
+    protected $menuCache;
+
     public function __construct(
         EntityDao $dao,
-        EntityManager $em
+        EntityManager $em,
+        MenuCache $menuCache
     ) {
         parent::__construct($dao);
 
-        $this->em = $em;
+        $this->em        = $em;
+        $this->menuCache = $menuCache;
     }
 
     /**
      * @param  Entities\BaseEntity $e
+     * @param  int                 $menuSection
      * @return Entities\BaseEntity
      */
-    public function activate(Entities\BaseEntity $e)
+    protected function doActivate(Entities\BaseEntity $e, $menuSection)
     {
         $e->isActive = true;
 
         $this->persistAndFlush($this->em, $e);
+
+        $this->menuCache->deleteSectionIfTagNotPresent($menuSection, $e->tag);
 
         return $e;
     }
