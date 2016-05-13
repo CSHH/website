@@ -7,6 +7,7 @@ Tester\Environment::setup();
 define('TEMP_DIR', __DIR__ . '/tmp/' . getmypid());
 
 @mkdir(TEMP_DIR);
+@mkdir(TEMP_DIR . '/sessions');
 
 $params = array('testingsqlitedb' => TEMP_DIR . '/db.sqlite');
 

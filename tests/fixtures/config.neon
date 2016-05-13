@@ -1,0 +1,99 @@
+App\Model\Entities\UserEntity:
+    "user_admin":
+        "username": "johndoe"
+        "email": "john.doe@example.com"
+        "avatar": null
+        "forename": "John"
+        "surname": "Doe"
+        "password": "$2y$10$D7DlW8aCiF0JZfvXCpxdeeMbklNC0nJ7IcvdpwIgQoHtWTLQ1UVK2"
+        "salt": "X1QWzJRBy3"
+        "role": 99
+        "token": null
+        "tokenCreatedAt": null
+        "isAuthenticated": true
+App\Model\Entities\TagEntity:
+    "tag_a":
+        "name": "Tag A"
+        "slug": "tag-a"
+App\Model\Entities\ArticleEntity:
+    "article_a":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Article A"
+        "slug (unique)": "article-a"
+        "perex": "Lorem ipsum dolor sit amet..."
+        "text": "Lorem ipsum dolor sit amet..."
+        "isActive": 1
+App\Model\Entities\FileEntity:
+    "file_halo_of_the_sun":
+        "year": "1970"
+        "month": "01"
+        "name": "halo_of_the_sun"
+        "extension": "jpg"
+        "checksum": "4b843dc5f600e9448cc33d8022ef0937a6e1508c"
+        "joints": 1
+App\Model\Entities\ImageEntity:
+    "image_a":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Image A"
+        "file": @file_halo_of_the_sun
+        "isActive": 1
+App\Model\Entities\VideoEntity:
+    "video_a":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Video A"
+        "slug (unique)": "video-a"
+        "url": "https://www.youtube.com/watch?v=TwlErFw6PCA"
+        "src": "https://www.youtube.com/embed/TwlErFw6PCA"
+        "type": "youtube"
+        "isActive": 1
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
+    "video_b":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Video B"
+        "slug (unique)": "video-b"
+        "url": "https://vimeo.com/20712083"
+        "src": "https://player.vimeo.com/video/20712083"
+        "type": "vimeo"
+        "isActive": 1
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
+App\Model\Entities\WikiEntity:
+    "wiki_a":
+        "tag": @tag_a
+        "createdBy": @user_admin
+        "lastUpdatedBy": @user_admin
+        "name (unique)": "Wiki A"
+        "slug (unique)": "wiki-a"
+        "perex": "Lorem ipsum dolor sit amet..."
+        "text": "Lorem ipsum dolor sit amet..."
+        "type": "game"
+        "isActive": 1
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
+        "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
+    "wiki_b":
+        "tag": @tag_a
+        "createdBy": @user_admin
+        "lastUpdatedBy": @user_admin
+        "name (unique)": "Wiki B"
+        "slug (unique)": "wiki-b"
+        "perex": "Lorem ipsum dolor sit amet..."
+        "text": "Lorem ipsum dolor sit amet..."
+        "type": "movie"
+        "isActive": 1
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
+        "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
+    "wiki_c":
+        "tag": @tag_a
+        "createdBy": @user_admin
+        "lastUpdatedBy": @user_admin
+        "name (unique)": "Wiki C"
+        "slug (unique)": "wiki-c"
+        "perex": "Lorem ipsum dolor sit amet..."
+        "text": "Lorem ipsum dolor sit amet..."
+        "type": "book"
+        "isActive": 1
+        "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
+        "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
