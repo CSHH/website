@@ -39,12 +39,12 @@ abstract class BaseRepository
     }
 
     /**
-     * @param  array                 $criteria
-     * @return Entities\BaseEntity[]
+     * @param  array $criteria
+     * @return int
      */
     public function getCount(array $criteria = array())
     {
-        return $this->dao->countBy($criteria);
+        return (int) $this->dao->countBy($criteria);
     }
 
     /**
