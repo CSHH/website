@@ -10,10 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class VideoEntity extends TimestampableEntity
 {
-    /** @var string */
-    const TYPE_YOUTUBE = 'youtube';
-    /** @var string */
-    const TYPE_VIMEO = 'vimeo';
+    /** @var int */
+    const TYPE_YOUTUBE = 1;
+    /** @var int */
+    const TYPE_VIMEO = 2;
 
     /**
      * @ORM\ManyToOne(targetEntity="TagEntity")
@@ -58,9 +58,9 @@ class VideoEntity extends TimestampableEntity
     protected $src;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="integer")
      *
-     * @var string
+     * @var int
      */
     protected $type;
 

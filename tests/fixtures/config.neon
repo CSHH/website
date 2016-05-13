@@ -47,7 +47,7 @@ App\Model\Entities\VideoEntity:
         "slug (unique)": "video-a"
         "url": "https://www.youtube.com/watch?v=TwlErFw6PCA"
         "src": "https://www.youtube.com/embed/TwlErFw6PCA"
-        "type": "youtube"
+        "type": 1
         "isActive": 1
         "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
     "video_b":
@@ -57,7 +57,7 @@ App\Model\Entities\VideoEntity:
         "slug (unique)": "video-b"
         "url": "https://vimeo.com/20712083"
         "src": "https://player.vimeo.com/video/20712083"
-        "type": "vimeo"
+        "type": 2
         "isActive": 1
         "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
 App\Model\Entities\WikiEntity:
@@ -69,7 +69,7 @@ App\Model\Entities\WikiEntity:
         "slug (unique)": "wiki-a"
         "perex": "Lorem ipsum dolor sit amet..."
         "text": "Lorem ipsum dolor sit amet..."
-        "type": "game"
+        "type": 1
         "isActive": 1
         "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
         "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
@@ -81,7 +81,7 @@ App\Model\Entities\WikiEntity:
         "slug (unique)": "wiki-b"
         "perex": "Lorem ipsum dolor sit amet..."
         "text": "Lorem ipsum dolor sit amet..."
-        "type": "movie"
+        "type": 2
         "isActive": 1
         "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
         "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
@@ -93,7 +93,7 @@ App\Model\Entities\WikiEntity:
         "slug (unique)": "wiki-c"
         "perex": "Lorem ipsum dolor sit amet..."
         "text": "Lorem ipsum dolor sit amet..."
-        "type": "book"
+        "type": 3
         "isActive": 1
         "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
         "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
