@@ -78,7 +78,7 @@ $(function() {
 
             t = getCurrentTheme();
 
-            document.cookie = cookieName + '=' + t;
+            document.cookie = cookieName + '=' + t + '; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT';
         }
 
         loadTheme(t);
