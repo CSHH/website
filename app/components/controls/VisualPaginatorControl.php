@@ -7,11 +7,11 @@ use Nette\Utils\Paginator;
 
 class VisualPaginatorControl extends Control
 {
+    /** @var int @persistent */
+    public $page = 1;
+
     /** @var Paginator */
     private $paginator;
-
-    /** @persistent */
-    public $page = 1;
 
     /**
      * @return Paginator

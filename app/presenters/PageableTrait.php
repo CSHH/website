@@ -16,7 +16,7 @@ trait PageableTrait
     {
         parent::startup();
 
-        $this->vp = $this->visualPaginatorControl->create();
+        $this->vp = $this['vp'] = $this->visualPaginatorControl->create();
     }
 
     /**
@@ -29,13 +29,5 @@ trait PageableTrait
         $p->setItemCount($itemCount);
         $p->setItemsPerPage($limit);
         $p->setPage($this->vp->page);
-    }
-
-    /**
-     * @return Controls\VisualPaginatorControl
-     */
-    protected function createComponentVp()
-    {
-        return $this->vp;
     }
 }
