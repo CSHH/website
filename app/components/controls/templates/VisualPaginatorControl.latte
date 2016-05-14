@@ -2,14 +2,14 @@
     {if $paginator->isFirst()}
         <span class="button">&lt;&lt; Předchozí</span>
     {else}
-        <a href="{plink this, 'page' => $paginator->page - 1}">&lt;&lt; Předchozí</a>
+        <a href="{link this, page => $paginator->page - 1}">&lt;&lt; Předchozí</a>
     {/if}
 
     {foreach $steps as $step}
         {if $step == $paginator->page}
             <span class="current">{$step}</span>
         {else}
-            <a href="{plink this, 'page' => $step}">{$step}</a>
+            <a href="{link this, page => $step}">{$step}</a>
         {/if}
 
         {if $iterator->nextValue > $step + 1}
@@ -20,6 +20,6 @@
     {if $paginator->isLast()}
         <span class="button">Další &gt;&gt;</span>
     {else}
-        <a href="{plink this, 'page' => $paginator->page + 1}">Další &gt;&gt;</a>
+        <a href="{link this, page => $paginator->page + 1}">Další &gt;&gt;</a>
     {/if}
 </div>
