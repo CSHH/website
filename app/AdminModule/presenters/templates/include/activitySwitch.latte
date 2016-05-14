@@ -1,7 +1,7 @@
 <span n:if="$canAccess" class="activity-switch">
     {if $state}
-        <a n:href="this, page => 1, inactiveOnly => 'no'">{$all}</a>
+        <a n:href="default, inactiveOnly => 'no'">{$all}</a>
     {else}
-        <a n:href="this, inactiveOnly => 'yes'">{$inactiveOnly}</a>
+        <a n:href="default, inactiveOnly => 'yes'">{$inactiveOnly}</a>
     {/if}
 </span>
