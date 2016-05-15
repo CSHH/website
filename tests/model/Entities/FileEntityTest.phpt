@@ -8,6 +8,9 @@ use Tester\Assert;
 
 require_once __DIR__ . '/../../bootstrap-unit.php';
 
+/**
+ * @testCase
+ */
 class FileEntityTest extends Tester\TestCase
 {
     public function testGetFilePathReturnIncomplete()

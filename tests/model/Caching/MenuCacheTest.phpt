@@ -10,6 +10,9 @@ use Tester\Assert;
 
 require __DIR__ . '/../../bootstrap-unit.php';
 
+/**
+ * @testCase
+ */
 class MenuCacheTest extends Tester\TestCase
 {
     use UnitMocks;

@@ -9,6 +9,9 @@ use Tester\Assert;
 
 require_once __DIR__ . '/../../bootstrap-unit.php';
 
+/**
+ * @testCase
+ */
 class YoutubeTest extends Tester\TestCase
 {
     public function testGetVideoSrc()
