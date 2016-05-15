@@ -11,16 +11,60 @@ App\Model\Entities\UserEntity:
         "token": null
         "tokenCreatedAt": null
         "isAuthenticated": true
+    "user_1":
+        "username": "janedoe"
+        "email": "jane.doe@example.com"
+        "avatar": null
+        "forename": "Jane"
+        "surname": "Doe"
+        "password": null
+        "salt": null
+        "role": 1
+        "token": null
+        "tokenCreatedAt": null
+        "isAuthenticated": false
 App\Model\Entities\TagEntity:
     "tag_a":
         "name": "Tag A"
         "slug": "tag-a"
 App\Model\Entities\ArticleEntity:
-    "article_a":
+    "article_1":
         "tag": @tag_a
         "user": @user_admin
         "name (unique)": "Article A"
         "slug (unique)": "article-a"
+        "perex": "Lorem ipsum dolor sit amet..."
+        "text": "Lorem ipsum dolor sit amet..."
+        "isActive": 1
+    "article_2":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Article B"
+        "slug (unique)": "article-b"
+        "perex": "Lorem ipsum dolor sit amet..."
+        "text": "Lorem ipsum dolor sit amet..."
+        "isActive": 1
+    "article_3":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Article C"
+        "slug (unique)": "article-c"
+        "perex": "Lorem ipsum dolor sit amet..."
+        "text": "Lorem ipsum dolor sit amet..."
+        "isActive": 1
+    "article_4":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Article D"
+        "slug (unique)": "article-d"
+        "perex": "Lorem ipsum dolor sit amet..."
+        "text": "Lorem ipsum dolor sit amet..."
+        "isActive": 1
+    "article_5":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Article E"
+        "slug (unique)": "article-e"
         "perex": "Lorem ipsum dolor sit amet..."
         "text": "Lorem ipsum dolor sit amet..."
         "isActive": 1
@@ -31,12 +75,36 @@ App\Model\Entities\FileEntity:
         "name": "halo_of_the_sun"
         "extension": "jpg"
         "checksum": "4b843dc5f600e9448cc33d8022ef0937a6e1508c"
-        "joints": 1
+        "joints": 5
 App\Model\Entities\ImageEntity:
-    "image_a":
+    "image_1":
         "tag": @tag_a
         "user": @user_admin
         "name (unique)": "Image A"
+        "file": @file_halo_of_the_sun
+        "isActive": 1
+    "image_2":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Image B"
+        "file": @file_halo_of_the_sun
+        "isActive": 1
+    "image_3":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Image C"
+        "file": @file_halo_of_the_sun
+        "isActive": 1
+    "image_4":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Image D"
+        "file": @file_halo_of_the_sun
+        "isActive": 1
+    "image_5":
+        "tag": @tag_a
+        "user": @user_admin
+        "name (unique)": "Image E"
         "file": @file_halo_of_the_sun
         "isActive": 1
 App\Model\Entities\VideoEntity:

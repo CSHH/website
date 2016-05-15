@@ -19,7 +19,7 @@ class ArticleFormTest extends Tester\TestCase
         $this->signIn($this->container);
 
         $articleRepository = $this->container->getByType('App\Model\Repositories\ArticleRepository');
-        Assert::equal(1, $articleRepository->getCount());
+        Assert::equal(5, $articleRepository->getCount());
 
         $post = array(
             'tagId' => 1,
@@ -31,7 +31,7 @@ class ArticleFormTest extends Tester\TestCase
 
         $this->assertFormSubmitted('Admin:Article', 'form', 'POST', array(), $post);
 
-        Assert::equal(2, $articleRepository->getCount());
+        Assert::equal(6, $articleRepository->getCount());
     }
 }
 
