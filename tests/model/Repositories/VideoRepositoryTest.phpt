@@ -11,6 +11,9 @@ use Tester\Assert;
 
 require_once __DIR__ . '/../../bootstrap-unit.php';
 
+/**
+ * @testCase
+ */
 class VideoRepositoryTest extends Tester\TestCase
 {
     use UnitMocks;
