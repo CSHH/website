@@ -12,7 +12,7 @@ define('TEMP_DIR', __DIR__ . '/tmp/' . getmypid());
 $params = array('testingsqlitedb' => TEMP_DIR . '/db.sqlite');
 
 $configurator = new Nette\Configurator;
-$configurator->setDebugMode(false);
+$configurator->setDebugMode(true);
 $configurator->setTempDirectory(TEMP_DIR);
 $configurator->addParameters($params);
 $configurator->createRobotLoader()
