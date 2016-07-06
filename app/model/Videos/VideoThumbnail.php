@@ -59,7 +59,7 @@ class VideoThumbnail
     {
         $filePath = $this->getFilePath($video);
 
-        if (!file_exists($filePath)) {
+        if (!file_exists($this->wwwDir . $filePath)) {
             $youtubeVideoId = substr($video->url, strpos($video->url, '?v=') + 3);
             $videoThumbnail = @file_get_contents('https://i.ytimg.com/vi/' . $youtubeVideoId . '/hqdefault.jpg');
             if ($videoThumbnail) {
@@ -78,7 +78,7 @@ class VideoThumbnail
     {
         $filePath = $this->getFilePath($video);
 
-        if (!file_exists($filePath)) {
+        if (!file_exists($this->wwwDir . $filePath)) {
             $url = $this->vimeoOembedEndpoint . '?url=' . rawurlencode($video->url);
 
             $curl = curl_init($url);
@@ -112,6 +112,6 @@ class VideoThumbnail
      */
     private function getImage($filePath)
     {
-        return file_exists($filePath) ? $filePath : $this->defaultImage;
+        return file_exists($this->wwwDir . $filePath) ? $filePath : $this->defaultImage;
     }
 }

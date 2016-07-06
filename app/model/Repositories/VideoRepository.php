@@ -234,7 +234,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     private function processVideo(Entities\VideoEntity $e, $url)
     {
-        if (Strings::contains($url, Entities\VideoEntity::TYPE_YOUTUBE . '.com')) {
+        if (Strings::contains($url, Entities\VideoEntity::DOMAIN_YOUTUBE . '.com')) {
             $e->type = Entities\VideoEntity::TYPE_YOUTUBE;
             $e->url  = $url ?: null;
 
@@ -245,7 +245,7 @@ class VideoRepository extends SingleUserContentRepository
                 $e->src = null;
             }
 
-        } elseif (Strings::contains($url, Entities\VideoEntity::TYPE_VIMEO . '.com')) {
+        } elseif (Strings::contains($url, Entities\VideoEntity::DOMAIN_VIMEO . '.com')) {
             $e->type = Entities\VideoEntity::TYPE_VIMEO;
             $e->url  = $url ?: null;
 
