@@ -15,6 +15,11 @@ class VideoEntity extends TimestampableEntity
     /** @var int */
     const TYPE_VIMEO = 2;
 
+    /** @var string */
+    const DOMAIN_YOUTUBE = 'youtube';
+    /** @var string */
+    const DOMAIN_VIMEO = 'vimeo';
+
     /**
      * @ORM\ManyToOne(targetEntity="TagEntity")
      *
