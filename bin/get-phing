@@ -1,0 +1,4 @@
+#!/bin/bash
+
+curl -LsS https://www.phing.info/get/phing-latest.phar > phing.phar
+chmod +x phing.phar
