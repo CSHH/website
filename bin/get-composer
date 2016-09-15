@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl -LsS https://getcomposer.org/installer | php
