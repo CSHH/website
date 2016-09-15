@@ -3,7 +3,7 @@
 ## Repozitář
 
 ```
-git clone git@bitbucket.org:heavenproject/silenthill.git silent-hill.local
+git clone git@github.com:CSHH/website.git silent-hill.local
 cd silent-hill.local
 ```
 
