@@ -15,14 +15,14 @@ V souboru `./app/config/config.local.neon` nastavit tyto parametry: `dbname`, `u
 
 ## Composer
 
-`curl -sS https://getcomposer.org/installer | php`
+`curl -sSL https://getcomposer.org/installer | php`
 
 Bude pak k dispozici jako `./composer.phar`.
 
 ## Phing
 
 ```
-curl -sS http://www.phing.info/get/phing-latest.phar > phing.phar
+curl -sSL http://www.phing.info/get/phing-latest.phar > phing.phar
 chmod +x phing.phar
 ```
 
