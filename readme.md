@@ -12,9 +12,7 @@ Následující informace uvádějí seznam nástrojů, které pro vývoj aplikac
 
 ## Databáze
 
-`cp ./app/config/config.local.neon.dist ./app/config/config.local.neon`
-
-V souboru `./app/config/config.local.neon` nastavit tyto parametry: `dbname`, `user` a `password`.
+V souboru `app/config/config.local.neon` nastavit tyto parametry: `dbname`, `user` a `password`.
 
 ## Inicializace aplikace pro vývoj
 
@@ -24,7 +22,7 @@ Pro účely vývoje použijte příkaz `vendor/bin/phing init+fixtures`, který 
 
 Po aplikaci fixtur bude k dispozici jeden uživatel:
 
-### Administrátor:
+### Administrátor
 
 * email: john.doe@example.com
 * heslo: admin
