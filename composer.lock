@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "edde5b8bb2661ed2a46f3629394f4b61",
-    "content-hash": "23d9a52308819b200d971bdf1b74ee6a",
+    "content-hash": "70d9762527892145c13095b702d0ffe2",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -24,7 +23,7 @@
             "type": "project",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Customization for the best database management tool written in PHP, Adminer",
-            "time": "2016-02-06 21:42:41"
+            "time": "2016-02-06T21:42:41+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -92,7 +91,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2015-08-31 12:32:49"
+            "time": "2015-08-31T12:32:49+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -162,7 +161,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-12-31 16:37:02"
+            "time": "2015-12-31T16:37:02+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -228,7 +227,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2015-04-14 22:21:58"
+            "time": "2015-04-14T22:21:58+00:00"
         },
         {
             "name": "doctrine/common",
@@ -301,7 +300,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-12-25 13:18:31"
+            "time": "2015-12-25T13:18:31+00:00"
         },
         {
             "name": "doctrine/dbal",
@@ -372,7 +371,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2016-01-05 22:11:12"
+            "time": "2016-01-05T22:11:12+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -439,7 +438,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06 14:35:42"
+            "time": "2015-11-06T14:35:42+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -493,7 +492,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14 21:17:01"
+            "time": "2015-06-14T21:17:01+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -547,7 +546,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-09-09 13:34:57"
+            "time": "2014-09-09T13:34:57+00:00"
         },
         {
             "name": "doctrine/migrations",
@@ -620,7 +619,7 @@
                 "database",
                 "migrations"
             ],
-            "time": "2016-03-14 12:29:11"
+            "time": "2016-03-14T12:29:11+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -693,7 +692,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2015-08-31 13:19:01"
+            "time": "2015-08-31T13:19:01+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -737,7 +736,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2015-08-05 01:03:42"
+            "time": "2015-08-05T01:03:42+00:00"
         },
         {
             "name": "heavenproject/asset-loader",
@@ -788,7 +787,7 @@
                 "asset loader",
                 "nette asset loader"
             ],
-            "time": "2016-05-03 15:04:48"
+            "time": "2016-05-03T15:04:48+00:00"
         },
         {
             "name": "heavenproject/git-branch-panel",
@@ -838,7 +837,7 @@
                 "git branch panel",
                 "git panel"
             ],
-            "time": "2016-05-03 14:19:51"
+            "time": "2016-05-03T14:19:51+00:00"
         },
         {
             "name": "heavenproject/user-command-line",
@@ -896,7 +895,7 @@
                 "symfony console",
                 "user command line"
             ],
-            "time": "2016-05-03 14:18:56"
+            "time": "2016-05-03T14:18:56+00:00"
         },
         {
             "name": "heavenproject/utils",
@@ -940,7 +939,7 @@
                 "utility classes",
                 "utils"
             ],
-            "time": "2016-05-03 14:17:48"
+            "time": "2016-05-03T14:17:48+00:00"
         },
         {
             "name": "kdyby/annotations",
@@ -1026,7 +1025,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2015-04-04 16:14:57"
+            "time": "2015-04-04T16:14:57+00:00"
         },
         {
             "name": "kdyby/console",
@@ -1109,7 +1108,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2015-06-14 16:03:10"
+            "time": "2015-06-14T16:03:10+00:00"
         },
         {
             "name": "kdyby/doctrine",
@@ -1201,7 +1200,7 @@
                 "nette",
                 "orm"
             ],
-            "time": "2015-04-05 14:14:17"
+            "time": "2015-04-05T14:14:17+00:00"
         },
         {
             "name": "kdyby/doctrine-cache",
@@ -1282,7 +1281,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2015-10-30 20:54:56"
+            "time": "2015-10-30T20:54:56+00:00"
         },
         {
             "name": "kdyby/events",
@@ -1365,7 +1364,7 @@
                 "kdyby",
                 "nette"
             ],
-            "time": "2015-04-04 16:29:31"
+            "time": "2015-04-04T16:29:31+00:00"
         },
         {
             "name": "kdyby/nette-session-panel",
@@ -1421,7 +1420,7 @@
                 "panel",
                 "session"
             ],
-            "time": "2014-09-01 20:22:52"
+            "time": "2014-09-01T20:22:52+00:00"
         },
         {
             "name": "kdyby/translation",
@@ -1515,7 +1514,7 @@
                 "nette",
                 "translation"
             ],
-            "time": "2015-05-09 17:33:00"
+            "time": "2015-05-09T17:33:00+00:00"
         },
         {
             "name": "knplabs/doctrine-behaviors",
@@ -1577,7 +1576,7 @@
                 "translatable",
                 "tree"
             ],
-            "time": "2015-02-06 12:50:23"
+            "time": "2015-02-06T12:50:23+00:00"
         },
         {
             "name": "latte/latte",
@@ -1632,7 +1631,7 @@
                 "templating",
                 "twig"
             ],
-            "time": "2016-02-19 21:52:43"
+            "time": "2016-02-19T21:52:43+00:00"
         },
         {
             "name": "nette/application",
@@ -1694,7 +1693,7 @@
             ],
             "description": "Nette Application MVC Component",
             "homepage": "https://nette.org",
-            "time": "2016-02-09 11:42:38"
+            "time": "2016-02-09T11:42:38+00:00"
         },
         {
             "name": "nette/bootstrap",
@@ -1760,7 +1759,7 @@
             ],
             "description": "Nette Bootstrap",
             "homepage": "https://nette.org",
-            "time": "2015-11-16 20:18:31"
+            "time": "2015-11-16T20:18:31+00:00"
         },
         {
             "name": "nette/caching",
@@ -1818,7 +1817,7 @@
             ],
             "description": "Nette Caching Component",
             "homepage": "https://nette.org",
-            "time": "2016-02-22 01:58:50"
+            "time": "2016-02-22T01:58:50+00:00"
         },
         {
             "name": "nette/component-model",
@@ -1868,7 +1867,7 @@
             ],
             "description": "Nette Component Model",
             "homepage": "https://nette.org",
-            "time": "2015-10-06 17:54:05"
+            "time": "2015-10-06T17:54:05+00:00"
         },
         {
             "name": "nette/di",
@@ -1920,7 +1919,7 @@
             ],
             "description": "Nette Dependency Injection Component",
             "homepage": "https://nette.org",
-            "time": "2016-02-08 22:57:43"
+            "time": "2016-02-08T22:57:43+00:00"
         },
         {
             "name": "nette/finder",
@@ -1970,7 +1969,7 @@
             ],
             "description": "Nette Finder: Files Searching",
             "homepage": "https://nette.org",
-            "time": "2015-10-20 17:15:41"
+            "time": "2015-10-20T17:15:41+00:00"
         },
         {
             "name": "nette/forms",
@@ -2025,7 +2024,7 @@
             ],
             "description": "Nette Forms: greatly facilitates web forms",
             "homepage": "https://nette.org",
-            "time": "2016-02-08 00:16:32"
+            "time": "2016-02-08T00:16:32+00:00"
         },
         {
             "name": "nette/http",
@@ -2079,7 +2078,7 @@
             ],
             "description": "Nette HTTP Component",
             "homepage": "https://nette.org",
-            "time": "2016-01-20 00:55:41"
+            "time": "2016-01-20T00:55:41+00:00"
         },
         {
             "name": "nette/mail",
@@ -2134,7 +2133,7 @@
             ],
             "description": "Nette Mail: Sending E-mails",
             "homepage": "https://nette.org",
-            "time": "2015-11-29 22:09:25"
+            "time": "2015-11-29T22:09:25+00:00"
         },
         {
             "name": "nette/neon",
@@ -2181,7 +2180,7 @@
             ],
             "description": "Nette NEON: parser & generator for Nette Object Notation",
             "homepage": "http://ne-on.org",
-            "time": "2016-01-13 14:20:27"
+            "time": "2016-01-13T14:20:27+00:00"
         },
         {
             "name": "nette/php-generator",
@@ -2231,7 +2230,7 @@
             ],
             "description": "Nette PHP Generator",
             "homepage": "https://nette.org",
-            "time": "2015-11-29 22:14:37"
+            "time": "2015-11-29T22:14:37+00:00"
         },
         {
             "name": "nette/reflection",
@@ -2284,7 +2283,7 @@
             ],
             "description": "Nette PHP Reflection Component",
             "homepage": "https://nette.org",
-            "time": "2016-03-12 14:57:07"
+            "time": "2016-03-12T14:57:07+00:00"
         },
         {
             "name": "nette/robot-loader",
@@ -2336,7 +2335,7 @@
             ],
             "description": "Nette RobotLoader: comfortable autoloading",
             "homepage": "http://nette.org",
-            "time": "2015-07-11 21:20:57"
+            "time": "2015-07-11T21:20:57+00:00"
         },
         {
             "name": "nette/safe-stream",
@@ -2390,7 +2389,7 @@
             ],
             "description": "Nette SafeStream: Atomic Operations",
             "homepage": "http://nette.org",
-            "time": "2015-07-11 20:59:15"
+            "time": "2015-07-11T20:59:15+00:00"
         },
         {
             "name": "nette/security",
@@ -2442,7 +2441,7 @@
             ],
             "description": "Nette Security: Access Control Component",
             "homepage": "http://nette.org",
-            "time": "2015-07-11 21:22:53"
+            "time": "2015-07-11T21:22:53+00:00"
         },
         {
             "name": "nette/utils",
@@ -2497,7 +2496,7 @@
             ],
             "description": "Nette Utility Classes",
             "homepage": "https://nette.org",
-            "time": "2015-11-30 00:11:35"
+            "time": "2015-11-30T00:11:35+00:00"
         },
         {
             "name": "nextras/mail-panel",
@@ -2561,7 +2560,7 @@
                 "mailpanel",
                 "sessionmailer"
             ],
-            "time": "2015-08-22 09:22:49"
+            "time": "2015-08-22T09:22:49+00:00"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -2624,7 +2623,7 @@
                 "proxy pattern",
                 "service proxies"
             ],
-            "time": "2015-08-09 04:28:19"
+            "time": "2015-08-09T04:28:19+00:00"
         },
         {
             "name": "symfony/config",
@@ -2677,7 +2676,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-04 07:54:35"
+            "time": "2016-03-04T07:54:35+00:00"
         },
         {
             "name": "symfony/console",
@@ -2737,7 +2736,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-17 09:19:04"
+            "time": "2016-03-17T09:19:04+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -2786,7 +2785,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-27 10:24:39"
+            "time": "2016-03-27T10:24:39+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2845,7 +2844,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-01-20 09:13:37"
+            "time": "2016-01-20T09:13:37+00:00"
         },
         {
             "name": "symfony/translation",
@@ -2909,7 +2908,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-25 01:40:30"
+            "time": "2016-03-25T01:40:30+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -2958,7 +2957,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-03-04 07:54:35"
+            "time": "2016-03-04T07:54:35+00:00"
         },
         {
             "name": "tracy/tracy",
@@ -3013,7 +3012,7 @@
                 "debugger",
                 "nette"
             ],
-            "time": "2016-02-28 21:39:42"
+            "time": "2016-02-28T21:39:42+00:00"
         },
         {
             "name": "zendframework/zend-code",
@@ -3065,7 +3064,7 @@
                 "code",
                 "zf2"
             ],
-            "time": "2016-01-05 05:58:37"
+            "time": "2016-01-05T05:58:37+00:00"
         },
         {
             "name": "zendframework/zend-eventmanager",
@@ -3119,7 +3118,7 @@
                 "events",
                 "zf2"
             ],
-            "time": "2016-02-18 20:53:00"
+            "time": "2016-02-18T20:53:00+00:00"
         },
         {
             "name": "zenify/doctrine-behaviors",
@@ -3165,7 +3164,7 @@
                 }
             ],
             "description": "Port of KnpLabs/DoctrineBehaviors to Nette",
-            "time": "2015-03-12 00:37:19"
+            "time": "2015-03-12T00:37:19+00:00"
         },
         {
             "name": "zenify/doctrine-migrations",
@@ -3212,7 +3211,7 @@
                 }
             ],
             "description": "Implementation of Doctrine Migrations to Nette",
-            "time": "2015-03-12 00:01:14"
+            "time": "2015-03-12T00:01:14+00:00"
         }
     ],
     "packages-dev": [
@@ -3271,7 +3270,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2015-03-30 12:14:13"
+            "time": "2015-03-30T12:14:13+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -3323,7 +3322,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2015-05-29 06:29:14"
+            "time": "2015-05-29T06:29:14+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -3368,7 +3367,7 @@
             "keywords": [
                 "test"
             ],
-            "time": "2015-05-11 14:41:42"
+            "time": "2015-05-11T14:41:42+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -3433,7 +3432,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2015-04-02 19:54:00"
+            "time": "2015-04-02T19:54:00+00:00"
         },
         {
             "name": "nelmio/alice",
@@ -3490,7 +3489,7 @@
                 "orm",
                 "test"
             ],
-            "time": "2014-10-10 13:07:37"
+            "time": "2014-10-10T13:07:37+00:00"
         },
         {
             "name": "nette/tester",
@@ -3546,7 +3545,100 @@
                 "testing",
                 "unit"
             ],
-            "time": "2016-02-08 10:30:15"
+            "time": "2016-02-08T10:30:15+00:00"
+        },
+        {
+            "name": "phing/phing",
+            "version": "2.15.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phingofficial/phing.git",
+                "reference": "0999ab4e94e609dc00998e3d1b88df843054db7c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phingofficial/phing/zipball/0999ab4e94e609dc00998e3d1b88df843054db7c",
+                "reference": "0999ab4e94e609dc00998e3d1b88df843054db7c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "ext-pdo_sqlite": "*",
+                "lastcraft/simpletest": "@dev",
+                "mikey179/vfsstream": "^1.6",
+                "pdepend/pdepend": "2.x",
+                "pear/archive_tar": "1.4.x",
+                "pear/http_request2": "dev-trunk",
+                "pear/net_growl": "dev-trunk",
+                "pear/pear-core-minimal": "1.10.1",
+                "pear/versioncontrol_git": "@dev",
+                "pear/versioncontrol_svn": "~0.5",
+                "phpdocumentor/phpdocumentor": "2.x",
+                "phploc/phploc": "~2.0.6",
+                "phpmd/phpmd": "~2.2",
+                "phpunit/phpunit": ">=3.7",
+                "sebastian/git": "~1.0",
+                "sebastian/phpcpd": "2.x",
+                "siad007/versioncontrol_hg": "^1.0",
+                "squizlabs/php_codesniffer": "~2.2",
+                "symfony/yaml": "~2.7"
+            },
+            "suggest": {
+                "pdepend/pdepend": "PHP version of JDepend",
+                "pear/archive_tar": "Tar file management class",
+                "pear/versioncontrol_git": "A library that provides OO interface to handle Git repository",
+                "pear/versioncontrol_svn": "A simple OO-style interface for Subversion, the free/open-source version control system",
+                "phpdocumentor/phpdocumentor": "Documentation Generator for PHP",
+                "phploc/phploc": "A tool for quickly measuring the size of a PHP project",
+                "phpmd/phpmd": "PHP version of PMD tool",
+                "phpunit/php-code-coverage": "Library that provides collection, processing, and rendering functionality for PHP code coverage information",
+                "phpunit/phpunit": "The PHP Unit Testing Framework",
+                "sebastian/phpcpd": "Copy/Paste Detector (CPD) for PHP code",
+                "siad007/versioncontrol_hg": "A library for interfacing with Mercurial repositories.",
+                "tedivm/jshrink": "Javascript Minifier built in PHP"
+            },
+            "bin": [
+                "bin/phing"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.15.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "classes/phing/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "classes"
+            ],
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Michiel Rook",
+                    "email": "mrook@php.net"
+                },
+                {
+                    "name": "Phing Community",
+                    "homepage": "https://www.phing.info/trac/wiki/Development/Contributors"
+                }
+            ],
+            "description": "PHing Is Not GNU make; it's a PHP project build system or build tool based on Apache Ant.",
+            "homepage": "https://www.phing.info/",
+            "keywords": [
+                "build",
+                "phing",
+                "task",
+                "tool"
+            ],
+            "time": "2016-10-13T09:01:45+00:00"
         },
         {
             "name": "zenify/doctrine-fixtures",
@@ -3593,7 +3685,7 @@
                 }
             ],
             "description": "Doctrine Fixtures, Faker and Alice integration into Nette",
-            "time": "2015-03-12 10:43:22"
+            "time": "2015-03-12T10:43:22+00:00"
         }
     ],
     "aliases": [],

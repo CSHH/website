@@ -7,7 +7,7 @@
     <target name="init+fixtures" depends="composer, fixtures, chmod"/>
 
     <target name="composer">
-        <composer composer="./composer.phar" command="install">
+        <composer composer="./composer" command="install">
             <arg value="--optimize-autoloader"/>
             <arg value="--no-interaction"/>
         </composer>

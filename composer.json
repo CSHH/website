@@ -32,8 +32,9 @@
         "ezyang/htmlpurifier": "~4.7.0"
     },
     "require-dev": {
-        "nette/tester": "~1.7.0",
         "mockery/mockery": "~0.9.0",
+        "nette/tester": "~1.7.0",
+        "phing/phing": "2.15.*",
         "zenify/doctrine-fixtures": "~3.0.0"
     },
     "autoload": {
@@ -45,6 +46,12 @@
         "classmap": [
             "app",
             "tests/include"
+        ]
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "bin/symlink-composer",
+            "bin/copy-config-local-neon"
         ]
     }
 }

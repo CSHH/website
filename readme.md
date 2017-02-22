@@ -1,44 +1,28 @@
 # Czech Silent Hill Heaven
 
-## Repozitář
+Následující informace uvádějí seznam nástrojů, které pro vývoj aplikace budete potřebovat a také jak aplikaci zprovoznit.
 
-```
-git clone git@github.com:CSHH/website.git silent-hill.local
-cd silent-hill.local
-```
+## Co budete potřebovat
+
+* [PHP](http://php.net)
+* [Composer](https://getcomposer.org)
+* [Node.js](https://nodejs.org)
+* [NPM](https://www.npmjs.com)
+* [Bower](https://bower.io)
 
 ## Databáze
 
-`cp ./app/config/config.local.neon.dist ./app/config/config.local.neon`
+V souboru `app/config/config.local.neon` nastavit tyto parametry: `dbname`, `user` a `password`.
 
-V souboru `./app/config/config.local.neon` nastavit tyto parametry: `dbname`, `user` a `password`.
+## Inicializace aplikace pro vývoj
 
-## Composer
-
-`curl -sSL https://getcomposer.org/installer | php`
-
-Bude pak k dispozici jako `./composer.phar`.
-
-## Phing
-
-```
-curl -sSL http://www.phing.info/get/phing-latest.phar > phing.phar
-chmod +x phing.phar
-```
-
-Bude pak k dispozici jako `./phing.phar`.
-
-Pro účely vývoje použijte příkaz `./phing.phar init+fixtures`, který aplikaci inicializuje a do databáze nahraje testovací data (fixtury).
-
-## Bower
-
-`npm install -g bower` popř. `sudo npm install -g bower`
+Pro účely vývoje použijte příkaz `vendor/bin/phing init+fixtures`, který aplikaci inicializuje a do databáze nahraje testovací data (fixtury).
 
 ## Uživatelé
 
 Po aplikaci fixtur bude k dispozici jeden uživatel:
 
-### Administrátor:
+### Administrátor
 
 * email: john.doe@example.com
 * heslo: admin
