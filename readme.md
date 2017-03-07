@@ -1,8 +1,8 @@
-# Czech Silent Hill Heaven
+# Czech Silent Hill Heaven (CSHH) Website
 
-Následující informace uvádějí seznam nástrojů, které pro vývoj aplikace budete potřebovat a také jak aplikaci zprovoznit.
+The following information will help you to get yourself up and running with this project.
 
-## Co budete potřebovat
+## What you will need
 
 * [PHP](http://php.net)
 * [Composer](https://getcomposer.org)
@@ -10,19 +10,27 @@ Následující informace uvádějí seznam nástrojů, které pro vývoj aplikac
 * [NPM](https://www.npmjs.com)
 * [Bower](https://bower.io)
 
-## Databáze
+## After you clone this repository
 
-V souboru `app/config/config.local.neon` nastavit tyto parametry: `dbname`, `user` a `password`.
+Run `composer install` to install all PHP dependencies.
 
-## Inicializace aplikace pro vývoj
+## If you need to work on front-end
 
-Pro účely vývoje použijte příkaz `vendor/bin/phing init+fixtures`, který aplikaci inicializuje a do databáze nahraje testovací data (fixtury).
+Run `bower install` to install all JavaScript and CSS dependencies.
 
-## Uživatelé
+## To setup database access
 
-Po aplikaci fixtur bude k dispozici jeden uživatel:
+Set parameters `dbname`, `user` and `password` in `app/config/config.local.neon`.
 
-### Administrátor
+## To prepare this project for development
+
+Run `vendor/bin/phing init`.
+
+## And if you need to seed your database with some dummy data
+
+Run `vendor/bin/phing fixtures`.
+
+After this you can use one prepared user account to log yourself in with these credentials:
 
 * email: john.doe@example.com
-* heslo: admin
+* password: admin
