@@ -1,5 +1,7 @@
 # Czech Silent Hill Heaven (CSHH) Website
 
+[![Build Status](https://travis-ci.org/CSHH/website.svg?branch=master)](https://travis-ci.org/CSHH/website)
+
 The following information will help you to get yourself up and running with this project.
 
 ## What you will need
