@@ -10,7 +10,7 @@ use Tester\Assert;
 /**
  * @testCase
  */
-require_once __DIR__ . '/../bootstrap-unit.php';
+require __DIR__ . '/../bootstrap-unit.php';
 
 class RouterFactoryTest extends Tester\TestCase
 {

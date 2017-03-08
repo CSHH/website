@@ -7,7 +7,7 @@ use Nette\Utils\ArrayHash;
 use Tester;
 use Tester\Assert;
 
-require_once __DIR__ . '/../../bootstrap-unit.php';
+require __DIR__ . '/../../bootstrap-unit.php';
 
 /**
  * @testCase

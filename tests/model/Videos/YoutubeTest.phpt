@@ -7,7 +7,7 @@ use Mockery as m;
 use Tester;
 use Tester\Assert;
 
-require_once __DIR__ . '/../../bootstrap-unit.php';
+require __DIR__ . '/../../bootstrap-unit.php';
 
 /**
  * @testCase
