@@ -34,3 +34,12 @@ After this you can use one prepared user account to log yourself in with these c
 
 * email: john.doe@example.com
 * password: admin
+
+## Contributing
+
+Please see [contributing.md](contributing.md).
+
+## License
+
+This source code is [free software](http://www.gnu.org/philosophy/free-sw.html)
+licensed under MIT [license](license.md).
