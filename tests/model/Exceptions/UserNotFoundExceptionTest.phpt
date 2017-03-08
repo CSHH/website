@@ -6,7 +6,7 @@ use App\Model\Exceptions\UserNotFoundException;
 use Tester;
 use Tester\Assert;
 
-require_once __DIR__ . '/../../bootstrap-unit.php';
+require __DIR__ . '/../../bootstrap-unit.php';
 
 class UserNotFoundExceptionTest extends Tester\TestCase
 {
