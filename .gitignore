@@ -15,10 +15,10 @@ config.local.neon
 /vendor
 
 /log/*
-!/log/.htaccess
+!/log/.gitkeep
 
 /temp/*
-!/temp/.htaccess
+!/temp/.gitkeep
 
 !/temp/sessions
 /temp/sessions/*
