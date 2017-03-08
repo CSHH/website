@@ -1,6 +1,9 @@
-extension=pdo.so
-extension=pdo_sqlite.so
-extension=pdo_mysql.so
+extension=ctype.so
+extension=iconv.so
 extension=json.so
-
+extension=pdo.so
+extension=pdo_mysql.so
+extension=pdo_sqlite.so
+extension=tokenizer.so
+extension=xml.so
 zend_extension=xdebug.so
