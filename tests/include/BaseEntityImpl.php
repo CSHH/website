@@ -2,7 +2,7 @@
 
 namespace AppTests;
 
-use App\Model\Entities\BaseEntity;
+use App\Entities\BaseEntity;
 
 class BaseEntityImpl extends BaseEntity
 {

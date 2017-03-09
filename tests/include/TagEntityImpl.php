@@ -2,7 +2,7 @@
 
 namespace AppTests;
 
-use App\Model\Entities\TagEntity;
+use App\Entities\TagEntity;
 
 class TagEntityImpl extends TagEntity
 {

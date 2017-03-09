@@ -2,7 +2,7 @@
 
 namespace AppTests;
 
-use App\Model\Entities\WikiEntity;
+use App\Entities\WikiEntity;
 
 class WikiEntityImpl extends WikiEntity
 {

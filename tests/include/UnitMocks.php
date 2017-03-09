@@ -24,7 +24,7 @@ trait UnitMocks
 
     protected function getArticleRepositoryMock()
     {
-        return m::mock('App\Model\Repositories\ArticleRepository');
+        return m::mock('App\Repositories\ArticleRepository');
     }
 
     protected function getEntityDaoMock()
@@ -49,12 +49,12 @@ trait UnitMocks
 
     protected function getImageRepositoryMock()
     {
-        return m::mock('App\Model\Repositories\ImageRepository');
+        return m::mock('App\Repositories\ImageRepository');
     }
 
     protected function getMenuCacheMock()
     {
-        return m::mock('App\Model\Caching\MenuCache');
+        return m::mock('App\Caching\MenuCache');
     }
 
     protected function getNetteCacheMock()
@@ -69,12 +69,12 @@ trait UnitMocks
 
     protected function getPaginatorFactoryMock()
     {
-        return m::mock('App\Model\Utils\PaginatorFactory');
+        return m::mock('App\Utils\PaginatorFactory');
     }
 
     protected function getTagRepositoryMock()
     {
-        return m::mock('App\Model\Repositories\TagRepository');
+        return m::mock('App\Repositories\TagRepository');
     }
 
     protected function getTranslatorMock()
@@ -84,12 +84,12 @@ trait UnitMocks
 
     protected function getVideoRepositoryMock()
     {
-        return m::mock('App\Model\Repositories\VideoRepository');
+        return m::mock('App\Repositories\VideoRepository');
     }
 
     protected function getWikiRepositoryMock()
     {
-        return m::mock('App\Model\Repositories\WikiRepository');
+        return m::mock('App\Repositories\WikiRepository');
     }
 
     /**

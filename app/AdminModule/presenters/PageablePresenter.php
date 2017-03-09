@@ -2,7 +2,7 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\Entities;
+use App\Entities;
 use App\Presenters\ActivityTrait;
 use App\Presenters\PageableTrait;
 use Doctrine\ORM\Tools\Pagination\Paginator;

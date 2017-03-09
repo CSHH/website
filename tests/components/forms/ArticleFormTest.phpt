@@ -21,7 +21,7 @@ class ArticleFormTest extends Tester\TestCase
     {
         $this->signIn($this->container);
 
-        $articleRepository = $this->container->getByType('App\Model\Repositories\ArticleRepository');
+        $articleRepository = $this->container->getByType('App\Repositories\ArticleRepository');
         Assert::equal(5, $articleRepository->getCount());
 
         $post = array(
@@ -41,7 +41,7 @@ class ArticleFormTest extends Tester\TestCase
     {
         $this->signIn($this->container);
 
-        $articleRepository = $this->container->getByType('App\Model\Repositories\ArticleRepository');
+        $articleRepository = $this->container->getByType('App\Repositories\ArticleRepository');
         $ent1 = $articleRepository->getById(1);
         Assert::same('Article A', $ent1->name);
 

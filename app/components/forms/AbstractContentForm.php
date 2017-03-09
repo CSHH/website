@@ -2,9 +2,9 @@
 
 namespace App\Components\Forms;
 
-use App\Model\Repositories;
-use App\Model\Entities;
-use App\Model\Exceptions;
+use App\Repositories;
+use App\Entities;
+use App\Exceptions;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;

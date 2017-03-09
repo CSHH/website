@@ -3,7 +3,7 @@
 namespace App\AdminModule\Presenters;
 
 use App\Components\Forms;
-use App\Model\Videos\VideoThumbnail;
+use App\Videos\VideoThumbnail;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {

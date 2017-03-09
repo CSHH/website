@@ -2,8 +2,8 @@
 
 namespace App\FrontModule\Presenters;
 
-use App\Model\Repositories;
-use App\Model\Utils\PaginatorFactory;
+use App\Repositories;
+use App\Utils\PaginatorFactory;
 use App\Presenters\ActivityTrait;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 

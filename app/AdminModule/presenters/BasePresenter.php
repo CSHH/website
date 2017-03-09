@@ -3,7 +3,7 @@
 namespace App\AdminModule\Presenters;
 
 use App;
-use App\Model\Repositories;
+use App\Repositories;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
 {

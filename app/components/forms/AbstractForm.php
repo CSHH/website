@@ -2,8 +2,8 @@
 
 namespace App\Components\Forms;
 
-use App\Model\Entities;
-use App\Model\Logging\Logger;
+use App\Entities;
+use App\Logging\Logger;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;

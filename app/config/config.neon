@@ -19,12 +19,12 @@ session:
     save_path: %tempDir%/sessions
 
 services:
-    authenticator: App\Model\Security\Authenticator
+    authenticator: App\Security\Authenticator
     router: App\RouterFactory::createRouter
-    paginatorFactory: App\Model\Utils\PaginatorFactory
-    videoThumbnail: App\Model\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
+    paginatorFactory: App\Utils\PaginatorFactory
+    videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
 
-    menuCache: App\Model\Caching\MenuCache(
+    menuCache: App\Caching\MenuCache(
         Nette\Caching\Cache(
             Nette\Caching\Storages\FileStorage(%tempDir%/cache), 'menu'
         )
@@ -56,21 +56,21 @@ services:
     visualPaginatorControl:
         implement: App\Components\Controls\VisualPaginatorControlInterface
 
-    - App\Model\Repositories\ArticleRepository(@doctrine.dao(App\Model\Entities\ArticleEntity))
-    - App\Model\Repositories\ImageRepository(
+    - App\Repositories\ArticleRepository(@doctrine.dao(App\Entities\ArticleEntity))
+    - App\Repositories\ImageRepository(
         %wwwDir%,
         %uploadDir%,
-        @doctrine.dao(App\Model\Entities\ImageEntity),
-        @doctrine.dao(App\Model\Entities\FileEntity)
+        @doctrine.dao(App\Entities\ImageEntity),
+        @doctrine.dao(App\Entities\FileEntity)
     )
-    - App\Model\Repositories\TagRepository(@doctrine.dao(App\Model\Entities\TagEntity))
-    - App\Model\Repositories\UserRepository(@doctrine.dao(App\Model\Entities\UserEntity))
-    - App\Model\Repositories\VideoRepository(
+    - App\Repositories\TagRepository(@doctrine.dao(App\Entities\TagEntity))
+    - App\Repositories\UserRepository(@doctrine.dao(App\Entities\UserEntity))
+    - App\Repositories\VideoRepository(
         %vimeoOembedEndpoint%,
-        @doctrine.dao(App\Model\Entities\VideoEntity)
+        @doctrine.dao(App\Entities\VideoEntity)
     )
-    - App\Model\Repositories\WikiDraftRepository(@doctrine.dao(App\Model\Entities\WikiDraftEntity))
-    - App\Model\Repositories\WikiRepository(@doctrine.dao(App\Model\Entities\WikiEntity))
+    - App\Repositories\WikiDraftRepository(@doctrine.dao(App\Entities\WikiDraftEntity))
+    - App\Repositories\WikiRepository(@doctrine.dao(App\Entities\WikiEntity))
 
 extensions:
     annotations: Kdyby\Annotations\DI\AnnotationsExtension
@@ -103,4 +103,4 @@ translation:
     default: cs
 
 userCommandLine:
-    targetEntity: App\Model\Entities\UserEntity
+    targetEntity: App\Entities\UserEntity

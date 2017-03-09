@@ -2,9 +2,9 @@
 
 namespace App\Presenters;
 
-use App\Model\Forms\ExtendingMethods as FormExtendingMethods;
-use App\Model\Entities;
-use App\Model\Repositories;
+use App\Forms\ExtendingMethods as FormExtendingMethods;
+use App\Entities;
+use App\Repositories;
 use HeavenProject\Utils\FlashType;
 use Nette;
 use Nette\Localization\ITranslator;

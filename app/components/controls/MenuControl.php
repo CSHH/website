@@ -2,8 +2,8 @@
 
 namespace App\Components\Controls;
 
-use App\Model\Caching\MenuCache;
-use App\Model\Repositories;
+use App\Caching\MenuCache;
+use App\Repositories;
 use Nette\Application\UI\Control;
 
 class MenuControl extends Control

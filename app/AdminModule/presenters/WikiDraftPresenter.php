@@ -2,8 +2,8 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\Entities;
-use App\Model\Repositories;
+use App\Entities;
+use App\Repositories;
 
 final class WikiDraftPresenter extends SharedContentPresenter
 {

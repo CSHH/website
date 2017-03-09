@@ -2,8 +2,8 @@
 
 namespace App\FrontModule\Presenters;
 
-use App\Model\Entities;
-use App\Model\Repositories;
+use App\Entities;
+use App\Repositories;
 
 final class GalleryPresenter extends SingleUserContentPresenter
 {

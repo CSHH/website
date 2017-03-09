@@ -3,7 +3,7 @@
 namespace App\AdminModule\Presenters;
 
 use App\Components\Forms;
-use App\Model\Repositories;
+use App\Repositories;
 
 abstract class SharedContentPresenter extends PageablePresenter
 {

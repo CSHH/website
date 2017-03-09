@@ -2,9 +2,9 @@
 
 namespace App\Components\Forms;
 
-use App\Model\Repositories;
-use App\Model\Entities;
-use App\Model\Exceptions\PossibleUniqueKeyDuplicationException;
+use App\Repositories;
+use App\Entities;
+use App\Exceptions\PossibleUniqueKeyDuplicationException;
 use HeavenProject\Utils\FlashType;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;

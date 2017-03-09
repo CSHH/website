@@ -2,9 +2,9 @@
 
 namespace App\Components\Forms;
 
-use App\Model\Repositories;
-use App\Model\Exceptions\FormSentBySpamException;
-use App\Model\Exceptions\UserNotFoundException;
+use App\Repositories;
+use App\Exceptions\FormSentBySpamException;
+use App\Exceptions\UserNotFoundException;
 use HeavenProject\Utils\FlashType;
 use Latte;
 use Nette\Application\UI\Form;

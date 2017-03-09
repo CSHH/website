@@ -2,7 +2,7 @@
 
 namespace AppTests;
 
-use App\Model\Entities\VideoEntity;
+use App\Entities\VideoEntity;
 
 class VideoEntityImpl extends VideoEntity
 {

@@ -2,11 +2,11 @@
 
 namespace App\Components\Forms;
 
-use App\Model\Repositories;
-use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
-use App\Model\Exceptions\InvalidVideoUrlException;
-use App\Model\Entities;
-use App\Model\Exceptions;
+use App\Repositories;
+use App\Duplicities\PossibleUniqueKeyDuplicationException;
+use App\Exceptions\InvalidVideoUrlException;
+use App\Entities;
+use App\Exceptions;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 

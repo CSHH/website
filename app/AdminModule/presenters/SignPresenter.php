@@ -3,10 +3,10 @@
 namespace App\AdminModule\Presenters;
 
 use App\Components\Forms;
-use App\Model\Entities;
-use App\Model\Exceptions\ActivationLimitExpiredException;
-use App\Model\Exceptions\UserNotFoundException;
-use App\Model\Logging\Logger;
+use App\Entities;
+use App\Exceptions\ActivationLimitExpiredException;
+use App\Exceptions\UserNotFoundException;
+use App\Logging\Logger;
 use HeavenProject\Utils\FlashType;
 
 final class SignPresenter extends BasePresenter

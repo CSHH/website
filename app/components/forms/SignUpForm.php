@@ -2,9 +2,9 @@
 
 namespace App\Components\Forms;
 
-use App\Model\Repositories;
-use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
-use App\Model\Exceptions\FormSentBySpamException;
+use App\Repositories;
+use App\Duplicities\PossibleUniqueKeyDuplicationException;
+use App\Exceptions\FormSentBySpamException;
 use HeavenProject\Utils\FlashType;
 use Latte;
 use Nette\Application\UI\Form;

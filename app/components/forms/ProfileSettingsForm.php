@@ -2,10 +2,10 @@
 
 namespace App\Components\Forms;
 
-use App\Model\Repositories;
-use App\Model\Entities;
-use App\Model\Duplicities\PossibleUniqueKeyDuplicationException;
-use App\Model\Security\Authenticator;
+use App\Repositories;
+use App\Entities;
+use App\Duplicities\PossibleUniqueKeyDuplicationException;
+use App\Security\Authenticator;
 use HeavenProject\Utils\FlashType;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;

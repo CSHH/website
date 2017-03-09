@@ -2,8 +2,8 @@
 
 namespace App\FrontModule\Presenters;
 
-use App\Model\Repositories;
-use App\Model\Videos\VideoThumbnail;
+use App\Repositories;
+use App\Videos\VideoThumbnail;
 
 final class HomepagePresenter extends BasePresenter
 {

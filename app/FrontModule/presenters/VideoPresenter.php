@@ -2,9 +2,9 @@
 
 namespace App\FrontModule\Presenters;
 
-use App\Model\Entities;
-use App\Model\Repositories;
-use App\Model\Videos\VideoThumbnail;
+use App\Entities;
+use App\Repositories;
+use App\Videos\VideoThumbnail;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {

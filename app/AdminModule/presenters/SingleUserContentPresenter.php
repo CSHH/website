@@ -2,9 +2,9 @@
 
 namespace App\AdminModule\Presenters;
 
-use App\Model\Entities;
-use App\Model\Repositories;
-use App\Model\Utils\PaginatorFactory;
+use App\Entities;
+use App\Repositories;
+use App\Utils\PaginatorFactory;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
 {
