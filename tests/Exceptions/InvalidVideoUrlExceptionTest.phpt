@@ -8,6 +8,9 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap-unit.php';
 
+/**
+ * @testCase
+ */
 class InvalidVideoUrlExceptionTest extends Tester\TestCase
 {
     public function testInstanceOfParent()
