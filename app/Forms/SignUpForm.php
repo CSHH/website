@@ -1,25 +1,29 @@
 <?php
 
-namespace App\Components\Forms;
+namespace App\Forms;
 
 use App\Repositories;
+use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Exceptions\FormSentBySpamException;
-use App\Exceptions\UserNotFoundException;
 use HeavenProject\Utils\FlashType;
 use Latte;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
+use Nette\Http\UrlScript;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
 
-class SignResetForm extends AbstractForm
+class SignUpForm extends AbstractForm
 {
     /** @var Repositories\UserRepository */
     private $userRepository;
 
     /** @var IMailer */
     private $mailer;
+
+    /** @var UrlScript */
+    private $urlScript;
 
     /** @var string */
     private $appDir;
@@ -31,6 +35,7 @@ class SignResetForm extends AbstractForm
      * @param ITranslator                 $translator
      * @param Repositories\UserRepository $userRepository
      * @param IMailer                     $mailer
+     * @param UrlScript                   $urlScript
      * @param string                      $appDir
      * @param string                      $contactEmail
      */
@@ -38,6 +43,7 @@ class SignResetForm extends AbstractForm
         ITranslator $translator,
         Repositories\UserRepository $userRepository,
         IMailer $mailer,
+        UrlScript $urlScript,
         $appDir,
         $contactEmail
     ) {
@@ -45,20 +51,36 @@ class SignResetForm extends AbstractForm
 
         $this->userRepository = $userRepository;
         $this->mailer         = $mailer;
+        $this->urlScript      = $urlScript;
         $this->appDir         = $appDir;
         $this->contactEmail   = $contactEmail;
     }
 
     protected function configure(Form $form)
     {
+        $form->addText('username', 'locale.form.username')
+            ->setRequired('locale.form.username_required');
+
         $form->addText('email', 'locale.form.email')
             ->addRule($form::EMAIL, 'locale.form.email_not_in_order')
-            ->setRequired('locale.form.email_required');
+            ->setRequired('locale.form.email_address');
+
+        $form->addText('forename', 'locale.form.forename');
+
+        $form->addText('surname', 'locale.form.surname');
+
+        $form->addPassword('password', 'locale.form.password')
+            ->setRequired('locale.form.password_required');
+
+        $form->addPassword('password_confirm', 'locale.form.password_confirm')
+            ->addRule($form::EQUAL, 'locale.form.password_equal', $form['password'])
+            ->setRequired('locale.form.password_confirm_required')
+            ->setOmitted();
 
         $form->addText('__anti', '__Anti', null)
             ->setAttribute('style', 'display: none;');
 
-        $form->addSubmit('submit', 'locale.form.send');
+        $form->addSubmit('submit', 'locale.form.submit_sign_up');
     }
 
     public function formSucceeded(Form $form)
@@ -69,51 +91,41 @@ class SignResetForm extends AbstractForm
 
             if (strlen($values->__anti) > 0) {
                 throw new FormSentBySpamException(
-                    $this->translator->translate('locale.form.spam_attempt_sign_reset')
+                    $this->translator->translate('locale.form.spam_attempt_sign_up')
                 );
             }
             unset($values->__anti);
 
-            $user = $this->userRepository->getByEmail($values->email);
-            if (!$user) {
-                throw new UserNotFoundException;
-            }
-
-            $token = $this->userRepository->prepareNewToken($user);
-
+            $user = $this->userRepository->createRegistration($values);
             $link = $p->link(
-                '//:Admin:Sign:password',
+                '//:Admin:Sign:unlock',
                 array(
                     'uid'   => $user->id,
-                    'token' => $token,
+                    'token' => $user->token,
                 )
             );
 
             $this->sendEmail(
                 $this->contactEmail,
-                $values->email,
-                $this->translator->translate('locale.sign.new_password_request'),
+                $user->email,
+                $this->translator->translate('locale.sign.sign_up_request'),
                 $link
             );
 
             $p->flashMessage(
-                $this->translator->translate('locale.sign.new_password_request_email_sent'),
-                FlashType::INFO
+                $this->translator->translate('locale.sign.sign_up_email_sent'),
+                FlashType::SUCCESS
             );
 
         } catch (FormSentBySpamException $e) {
             $this->addFormError($form, $e);
             $this->redrawControl('formErrors');
 
-        } catch (UserNotFoundException $e) {
-            $this->addFormError(
-                $form,
-                $e,
-                $this->translator->translate('locale.error.occurred')
-            );
+        } catch (PossibleUniqueKeyDuplicationException $e) {
+            $this->addFormError($form, $e);
             $this->redrawControl('formErrors');
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             $this->addFormError(
                 $form,
                 $e,
@@ -122,7 +134,9 @@ class SignResetForm extends AbstractForm
             $this->redrawControl('formErrors');
         }
 
-        $p->redirect(':Front:Homepage:default');
+        if (!empty($user)) {
+            $p->redirect('Homepage:default');
+        }
     }
 
     protected function insideRender(ITemplate $template)
@@ -143,6 +157,8 @@ class SignResetForm extends AbstractForm
         $parameters = array(
             'subject' => $subject,
             'link'    => $link,
+            'baseUri' => $this->urlScript->getHostUrl(),
+            'host'    => $this->urlScript->getHost(),
         );
 
         $email = new Message;
@@ -151,7 +167,7 @@ class SignResetForm extends AbstractForm
             ->setSubject($subject)
             ->setHtmlBody(
                 $latte->renderToString(
-                    $this->appDir . '/presenters/templates/emails/forgottenPassword.latte',
+                    $this->appDir . '/presenters/templates/emails/registration.latte',
                     $parameters
                 )
             );

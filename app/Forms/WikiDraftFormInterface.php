@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Components\Forms;
+namespace App\Forms;
 
 use App\Entities;
 

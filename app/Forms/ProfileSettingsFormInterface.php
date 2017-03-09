@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Components\Forms;
+namespace App\Forms;
 
 use App\Entities;
 
-interface SignPasswordFormInterface
+interface ProfileSettingsFormInterface
 {
     /**
      * @param  Entities\UserEntity $item
-     * @return SignPasswordForm
+     * @return ProfileSettingsForm
      */
     public function create(Entities\UserEntity $item);
 }

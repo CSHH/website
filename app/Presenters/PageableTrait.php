@@ -2,14 +2,14 @@
 
 namespace App\Presenters;
 
-use App\Components\Controls;
+use App\Components;
 
 trait PageableTrait
 {
-    /** @var Controls\VisualPaginatorControlInterface @inject */
+    /** @var Components\VisualPaginatorControlInterface @inject */
     public $visualPaginatorControl;
 
-    /** @var Controls\VisualPaginatorControl */
+    /** @var Components\VisualPaginatorControl */
     protected $vp;
 
     protected function startup()

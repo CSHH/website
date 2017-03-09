@@ -2,7 +2,7 @@
 
 namespace App\Admin;
 
-use App\Components\Forms;
+use App\Forms;
 
 final class ArticlePresenter extends SingleUserContentPresenter
 {

@@ -3,13 +3,13 @@
 namespace App\Front;
 
 use App;
-use App\Components\Controls;
-use App\Components\Forms;
+use App\Components;
+use App\Forms;
 use Nette\Mail\IMailer;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
 {
-    /** @var Controls\MenuControlInterface @inject */
+    /** @var Components\MenuControlInterface @inject */
     public $menuControl;
 
     /** @var Forms\SignUpFormInterface @inject */
@@ -46,7 +46,7 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
     }
 
     /**
-     * @return Controls\MenuControlInterface
+     * @return Components\MenuControlInterface
      */
     protected function createComponentMenuControl()
     {

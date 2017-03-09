@@ -1,13 +1,13 @@
 <?php
 
-namespace AppTests\Components\Forms;
+namespace AppTests\Forms;
 
 use AppTests\Login;
 use AppTests\PresenterTester;
 use Tester;
 use Tester\Assert;
 
-$container = require __DIR__ . '/../../bootstrap.php';
+$container = require __DIR__ . '/../bootstrap.php';
 
 /**
  * @testCase

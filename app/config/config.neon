@@ -31,30 +31,30 @@ services:
     )
 
     articleForm:
-        implement: App\Components\Forms\ArticleFormInterface
+        implement: App\Forms\ArticleFormInterface
     galleryForm:
-        implement: App\Components\Forms\GalleryFormInterface
+        implement: App\Forms\GalleryFormInterface
     profileSettingsForm:
-        implement: App\Components\Forms\ProfileSettingsFormInterface
+        implement: App\Forms\ProfileSettingsFormInterface
     signInForm:
-        implement: App\Components\Forms\SignInFormInterface
+        implement: App\Forms\SignInFormInterface
     signPasswordForm:
-        implement: App\Components\Forms\SignPasswordFormInterface
+        implement: App\Forms\SignPasswordFormInterface
     signResetForm:
-        implement: App\Components\Forms\SignResetFormInterface
+        implement: App\Forms\SignResetFormInterface
     signUpForm:
-        implement: App\Components\Forms\SignUpFormInterface
+        implement: App\Forms\SignUpFormInterface
     VideoForm:
-        implement: App\Components\Forms\VideoFormInterface
+        implement: App\Forms\VideoFormInterface
     WikiDraftForm:
-        implement: App\Components\Forms\WikiDraftFormInterface
+        implement: App\Forms\WikiDraftFormInterface
     WikiForm:
-        implement: App\Components\Forms\WikiFormInterface
+        implement: App\Forms\WikiFormInterface
 
     menuControl:
-        implement: App\Components\Controls\MenuControlInterface
+        implement: App\Components\MenuControlInterface
     visualPaginatorControl:
-        implement: App\Components\Controls\VisualPaginatorControlInterface
+        implement: App\Components\VisualPaginatorControlInterface
 
     - App\Repositories\ArticleRepository(@doctrine.dao(App\Entities\ArticleEntity))
     - App\Repositories\ImageRepository(

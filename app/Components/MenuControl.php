@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Components\Controls;
+namespace App\Components;
 
 use App\Caching\MenuCache;
 use App\Repositories;

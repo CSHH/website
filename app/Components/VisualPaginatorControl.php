@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Components\Controls;
+namespace App\Components;
 
 use Nette\Application\UI\Control;
 use Nette\Utils\Paginator;

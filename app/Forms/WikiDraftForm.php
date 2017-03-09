@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Components\Forms;
+namespace App\Forms;
 
-use App\Components\Forms\AbstractContentForm;
+use App\Forms\AbstractContentForm;
 use App\Repositories;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
