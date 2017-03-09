@@ -1,8 +1,8 @@
 <?php
 
-namespace AppTests;
+namespace AppTests\Router;
 
-use App\RouterFactory;
+use App\Router\RouterFactory;
 use Nette\Application\Routers\Route;
 use Tester;
 use Tester\Assert;
