@@ -12,6 +12,9 @@ use Tester\Assert;
  */
 require __DIR__ . '/../bootstrap-unit.php';
 
+/**
+ * @testCase
+ */
 class RouterFactoryTest extends Tester\TestCase
 {
     public function testCreateRouter()

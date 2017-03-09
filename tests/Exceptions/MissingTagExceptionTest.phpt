@@ -8,6 +8,9 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap-unit.php';
 
+/**
+ * @testCase
+ */
 class MissingTagExceptionTest extends Tester\TestCase
 {
     public function testInstanceOfParent()

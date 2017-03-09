@@ -7,6 +7,9 @@ use Tester;
 
 $container = require __DIR__ . '/../bootstrap.php';
 
+/**
+ * @testCase
+ */
 class MoviePresenterTest extends Tester\TestCase
 {
     use PresenterTester;

@@ -4,6 +4,9 @@
 
 The following information will help you to get yourself up and running with this project.
 
+> **Please note, that this project is not done yet. There are still a few features to work on with probably some bugfixes yet to be discovered.
+  Also there are not tests on everything, so this has to be done too before the release.**
+
 ## What you will need
 
 * [PHP](http://php.net)

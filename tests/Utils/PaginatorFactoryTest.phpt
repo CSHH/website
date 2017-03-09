@@ -9,6 +9,9 @@ use Tester\Assert;
 
 require __DIR__ . '/../bootstrap-unit.php';
 
+/**
+ * @testCase
+ */
 class PaginatorFactoryTest extends Tester\TestCase
 {
     use UnitMocks;

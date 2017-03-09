@@ -9,6 +9,7 @@ php:
     date.timezone: Europe/Prague
 
 application:
+    scanDirs: false
     errorPresenter: Error
     mapping:
         *: App\*\*Presenter
