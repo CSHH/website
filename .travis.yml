@@ -5,4 +5,4 @@ php:
 
 before_script: travis_retry composer install
 
-script: php vendor/bin/tester tests -p php -c tests/php.ini
+script: vendor/bin/phing test
