@@ -2,7 +2,7 @@
 
 namespace AppTests;
 
-use App\Model\Entities\ArticleEntity;
+use App\Entities\ArticleEntity;
 
 class ArticleEntityImpl extends ArticleEntity
 {

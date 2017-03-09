@@ -11,7 +11,7 @@ php:
 application:
     errorPresenter: Error
     mapping:
-        *: App\*Module\Presenters\*Presenter
+        *: App\*\*Presenter
 
 session:
     autoStart: true
@@ -19,58 +19,58 @@ session:
     save_path: %tempDir%/sessions
 
 services:
-    authenticator: App\Model\Security\Authenticator
-    router: App\RouterFactory::createRouter
-    paginatorFactory: App\Model\Utils\PaginatorFactory
-    videoThumbnail: App\Model\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
+    authenticator: App\Security\Authenticator
+    router: App\Router\RouterFactory::createRouter
+    paginatorFactory: App\Utils\PaginatorFactory
+    videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
 
-    menuCache: App\Model\Caching\MenuCache(
+    menuCache: App\Caching\MenuCache(
         Nette\Caching\Cache(
             Nette\Caching\Storages\FileStorage(%tempDir%/cache), 'menu'
         )
     )
 
     articleForm:
-        implement: App\Components\Forms\ArticleFormInterface
+        implement: App\Forms\ArticleFormInterface
     galleryForm:
-        implement: App\Components\Forms\GalleryFormInterface
+        implement: App\Forms\GalleryFormInterface
     profileSettingsForm:
-        implement: App\Components\Forms\ProfileSettingsFormInterface
+        implement: App\Forms\ProfileSettingsFormInterface
     signInForm:
-        implement: App\Components\Forms\SignInFormInterface
+        implement: App\Forms\SignInFormInterface
     signPasswordForm:
-        implement: App\Components\Forms\SignPasswordFormInterface
+        implement: App\Forms\SignPasswordFormInterface
     signResetForm:
-        implement: App\Components\Forms\SignResetFormInterface
+        implement: App\Forms\SignResetFormInterface
     signUpForm:
-        implement: App\Components\Forms\SignUpFormInterface
+        implement: App\Forms\SignUpFormInterface
     VideoForm:
-        implement: App\Components\Forms\VideoFormInterface
+        implement: App\Forms\VideoFormInterface
     WikiDraftForm:
-        implement: App\Components\Forms\WikiDraftFormInterface
+        implement: App\Forms\WikiDraftFormInterface
     WikiForm:
-        implement: App\Components\Forms\WikiFormInterface
+        implement: App\Forms\WikiFormInterface
 
     menuControl:
-        implement: App\Components\Controls\MenuControlInterface
+        implement: App\Components\MenuControlInterface
     visualPaginatorControl:
-        implement: App\Components\Controls\VisualPaginatorControlInterface
+        implement: App\Components\VisualPaginatorControlInterface
 
-    - App\Model\Repositories\ArticleRepository(@doctrine.dao(App\Model\Entities\ArticleEntity))
-    - App\Model\Repositories\ImageRepository(
+    - App\Repositories\ArticleRepository(@doctrine.dao(App\Entities\ArticleEntity))
+    - App\Repositories\ImageRepository(
         %wwwDir%,
         %uploadDir%,
-        @doctrine.dao(App\Model\Entities\ImageEntity),
-        @doctrine.dao(App\Model\Entities\FileEntity)
+        @doctrine.dao(App\Entities\ImageEntity),
+        @doctrine.dao(App\Entities\FileEntity)
     )
-    - App\Model\Repositories\TagRepository(@doctrine.dao(App\Model\Entities\TagEntity))
-    - App\Model\Repositories\UserRepository(@doctrine.dao(App\Model\Entities\UserEntity))
-    - App\Model\Repositories\VideoRepository(
+    - App\Repositories\TagRepository(@doctrine.dao(App\Entities\TagEntity))
+    - App\Repositories\UserRepository(@doctrine.dao(App\Entities\UserEntity))
+    - App\Repositories\VideoRepository(
         %vimeoOembedEndpoint%,
-        @doctrine.dao(App\Model\Entities\VideoEntity)
+        @doctrine.dao(App\Entities\VideoEntity)
     )
-    - App\Model\Repositories\WikiDraftRepository(@doctrine.dao(App\Model\Entities\WikiDraftEntity))
-    - App\Model\Repositories\WikiRepository(@doctrine.dao(App\Model\Entities\WikiEntity))
+    - App\Repositories\WikiDraftRepository(@doctrine.dao(App\Entities\WikiDraftEntity))
+    - App\Repositories\WikiRepository(@doctrine.dao(App\Entities\WikiEntity))
 
 extensions:
     annotations: Kdyby\Annotations\DI\AnnotationsExtension
@@ -103,4 +103,4 @@ translation:
     default: cs
 
 userCommandLine:
-    targetEntity: App\Model\Entities\UserEntity
+    targetEntity: App\Entities\UserEntity

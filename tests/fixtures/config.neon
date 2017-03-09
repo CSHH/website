@@ -1,4 +1,4 @@
-App\Model\Entities\UserEntity:
+App\Entities\UserEntity:
     "user_admin":
         "username": "johndoe"
         "email": "john.doe@example.com"
@@ -23,11 +23,11 @@ App\Model\Entities\UserEntity:
         "token": null
         "tokenCreatedAt": null
         "isAuthenticated": false
-App\Model\Entities\TagEntity:
+App\Entities\TagEntity:
     "tag_a":
         "name": "Tag A"
         "slug": "tag-a"
-App\Model\Entities\ArticleEntity:
+App\Entities\ArticleEntity:
     "article_1":
         "tag": @tag_a
         "user": @user_admin
@@ -68,7 +68,7 @@ App\Model\Entities\ArticleEntity:
         "perex": "Lorem ipsum dolor sit amet..."
         "text": "Lorem ipsum dolor sit amet..."
         "isActive": 1
-App\Model\Entities\FileEntity:
+App\Entities\FileEntity:
     "file_halo_of_the_sun":
         "year": "1970"
         "month": "01"
@@ -76,7 +76,7 @@ App\Model\Entities\FileEntity:
         "extension": "jpg"
         "checksum": "4b843dc5f600e9448cc33d8022ef0937a6e1508c"
         "joints": 5
-App\Model\Entities\ImageEntity:
+App\Entities\ImageEntity:
     "image_1":
         "tag": @tag_a
         "user": @user_admin
@@ -107,7 +107,7 @@ App\Model\Entities\ImageEntity:
         "name (unique)": "Image E"
         "file": @file_halo_of_the_sun
         "isActive": 1
-App\Model\Entities\VideoEntity:
+App\Entities\VideoEntity:
     "video_a":
         "tag": @tag_a
         "user": @user_admin
@@ -128,7 +128,7 @@ App\Model\Entities\VideoEntity:
         "type": 2
         "isActive": 1
         "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
-App\Model\Entities\WikiEntity:
+App\Entities\WikiEntity:
     "wiki_a":
         "tag": @tag_a
         "createdBy": @user_admin

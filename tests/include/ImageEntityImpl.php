@@ -2,7 +2,7 @@
 
 namespace AppTests;
 
-use App\Model\Entities\ImageEntity;
+use App\Entities\ImageEntity;
 
 class ImageEntityImpl extends ImageEntity
 {
