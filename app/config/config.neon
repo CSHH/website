@@ -75,6 +75,8 @@ services:
 
 extensions:
     annotations: Kdyby\Annotations\DI\AnnotationsExtension
+    arachneContainerAdapter: Arachne\ContainerAdapter\DI\ContainerAdapterExtension
+    arachneEventDispatcher: Arachne\EventDispatcher\DI\EventDispatcherExtension
     asset: HeavenProject\AssetLoader\AssetLoaderExtension
     console: Kdyby\Console\DI\ConsoleExtension
     doctrine: Kdyby\Doctrine\DI\OrmExtension
