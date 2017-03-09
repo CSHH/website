@@ -29,7 +29,7 @@ class ArticleFormTest extends Tester\TestCase
             'name'  => 'Article XYZ',
             'perex' => 'Lorem ipsum dolor sit amet...',
             'text'  => 'Lorem ipsum dolor sit amet...',
-            'do'    => 'form-form-submit',
+            '_do'    => 'form-form-submit',
         );
 
         $this->assertFormSubmitted('Admin:Article', 'form', 'POST', array(), $post);
@@ -51,7 +51,7 @@ class ArticleFormTest extends Tester\TestCase
             'name'  => 'Article XYZ',
             'perex' => 'Lorem ipsum dolor sit amet...',
             'text'  => 'Lorem ipsum dolor sit amet...',
-            'do'    => 'form-form-submit',
+            '_do'    => 'form-form-submit',
         );
 
         $this->assertFormSubmitted('Admin:Article', 'form', 'POST', array('id' => 1), $post);
