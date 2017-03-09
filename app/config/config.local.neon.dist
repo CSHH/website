@@ -1,7 +1,3 @@
-#
-# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
-# http://nette.org/security-warning
-#
 doctrine:
     dbname: dbname
     host: 127.0.0.1
@@ -10,16 +6,11 @@ doctrine:
     charset: UTF8
     driver: pdo_mysql
 
+tracy:
+    bar:
+        - Nextras\MailPanel\MailPanel(%tempDir%/mail-panel-latte)
 
-#nette:
-    # only on localhost
-    #debugger:
-        #bar:
-            #- Nextras\MailPanel\MailPanel(%tempDir%)
-
-
-# only on localhost
-#services:
-    #nette.mailer:
-        #class: Nextras\MailPanel\FileMailer(%tempDir%/mails)
-        #class: Nextras\MailPanel\SessionMailer
+services:
+    nette.mailer:
+        class: Nette\Mail\IMailer
+        factory: Nextras\MailPanel\FileMailer(%tempDir%/mail-panel-mails)
