@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "70d9762527892145c13095b702d0ffe2",
+    "content-hash": "6658224045c3204a3d2e156c9c029942",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -2287,16 +2287,16 @@
         },
         {
             "name": "nette/robot-loader",
-            "version": "v2.3.1",
+            "version": "v2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/robot-loader.git",
-                "reference": "69331d359bbc9e5f911c12b82187cac914d983fb"
+                "reference": "0dbed866df47fd0425ce9a3cc9085779d8ada143"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/robot-loader/zipball/69331d359bbc9e5f911c12b82187cac914d983fb",
-                "reference": "69331d359bbc9e5f911c12b82187cac914d983fb",
+                "url": "https://api.github.com/repos/nette/robot-loader/zipball/0dbed866df47fd0425ce9a3cc9085779d8ada143",
+                "reference": "0dbed866df47fd0425ce9a3cc9085779d8ada143",
                 "shasum": ""
             },
             "require": {
@@ -2326,16 +2326,16 @@
             "authors": [
                 {
                     "name": "David Grudl",
-                    "homepage": "http://davidgrudl.com"
+                    "homepage": "https://davidgrudl.com"
                 },
                 {
                     "name": "Nette Community",
-                    "homepage": "http://nette.org/contributors"
+                    "homepage": "https://nette.org/contributors"
                 }
             ],
             "description": "Nette RobotLoader: comfortable autoloading",
-            "homepage": "http://nette.org",
-            "time": "2015-07-11T21:20:57+00:00"
+            "homepage": "https://nette.org",
+            "time": "2016-05-17T15:36:50+00:00"
         },
         {
             "name": "nette/safe-stream",
