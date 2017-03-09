@@ -1,6 +1,0 @@
-parameters:
-    thumbsDir: /thumbs
-    uploadDir: /upload
-    videoThumbnailsDir: /video_thumbnails
-    contactEmail: john.doe@example.com
-    vimeoOembedEndpoint: https://vimeo.com/api/oembed.xml

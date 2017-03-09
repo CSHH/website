@@ -1,21 +1,106 @@
-#
-# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
-# https://nette.org/security-warning
-#
-includes:
-    - application.neon
+parameters:
+    thumbsDir: /thumbs
+    uploadDir: /upload
+    videoThumbnailsDir: /video_thumbnails
+    contactEmail: john.doe@example.com
+    vimeoOembedEndpoint: https://vimeo.com/api/oembed.xml
 
-    - extensions.neon
-    - extensions.asset.neon
-    - extensions.migrations.neon
-    - extensions.thumb.neon
-    - extensions.translation.neon
-    - extensions.userCommandLine.neon
+php:
+    date.timezone: Europe/Prague
 
-    - parameters.neon
+application:
+    errorPresenter: Error
+    mapping:
+        *: App\*Module\Presenters\*Presenter
 
-    - php.neon
+session:
+    autoStart: true
+    expiration: 14 days
+    save_path: %tempDir%/sessions
 
-    - session.neon
+services:
+    authenticator: App\Model\Security\Authenticator
+    router: App\RouterFactory::createRouter
+    paginatorFactory: App\Model\Utils\PaginatorFactory
+    videoThumbnail: App\Model\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
 
-    - services.neon
+    menuCache: App\Model\Caching\MenuCache(
+        Nette\Caching\Cache(
+            Nette\Caching\Storages\FileStorage(%tempDir%/cache), 'menu'
+        )
+    )
+
+    articleForm:
+        implement: App\Components\Forms\ArticleFormInterface
+    galleryForm:
+        implement: App\Components\Forms\GalleryFormInterface
+    profileSettingsForm:
+        implement: App\Components\Forms\ProfileSettingsFormInterface
+    signInForm:
+        implement: App\Components\Forms\SignInFormInterface
+    signPasswordForm:
+        implement: App\Components\Forms\SignPasswordFormInterface
+    signResetForm:
+        implement: App\Components\Forms\SignResetFormInterface
+    signUpForm:
+        implement: App\Components\Forms\SignUpFormInterface
+    VideoForm:
+        implement: App\Components\Forms\VideoFormInterface
+    WikiDraftForm:
+        implement: App\Components\Forms\WikiDraftFormInterface
+    WikiForm:
+        implement: App\Components\Forms\WikiFormInterface
+
+    menuControl:
+        implement: App\Components\Controls\MenuControlInterface
+    visualPaginatorControl:
+        implement: App\Components\Controls\VisualPaginatorControlInterface
+
+    - App\Model\Repositories\ArticleRepository(@doctrine.dao(App\Model\Entities\ArticleEntity))
+    - App\Model\Repositories\ImageRepository(
+        %wwwDir%,
+        %uploadDir%,
+        @doctrine.dao(App\Model\Entities\ImageEntity),
+        @doctrine.dao(App\Model\Entities\FileEntity)
+    )
+    - App\Model\Repositories\TagRepository(@doctrine.dao(App\Model\Entities\TagEntity))
+    - App\Model\Repositories\UserRepository(@doctrine.dao(App\Model\Entities\UserEntity))
+    - App\Model\Repositories\VideoRepository(
+        %vimeoOembedEndpoint%,
+        @doctrine.dao(App\Model\Entities\VideoEntity)
+    )
+    - App\Model\Repositories\WikiDraftRepository(@doctrine.dao(App\Model\Entities\WikiDraftEntity))
+    - App\Model\Repositories\WikiRepository(@doctrine.dao(App\Model\Entities\WikiEntity))
+
+extensions:
+    annotations: Kdyby\Annotations\DI\AnnotationsExtension
+    asset: HeavenProject\AssetLoader\AssetLoaderExtension
+    console: Kdyby\Console\DI\ConsoleExtension
+    doctrine: Kdyby\Doctrine\DI\OrmExtension
+    events: Kdyby\Events\DI\EventsExtension
+    fixtures: Zenify\DoctrineFixtures\DI\FixturesExtension
+    gitPanel: HeavenProject\GitBranchPanel\GitBranchPanelExtension
+    migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+    sessionPanel: Kdyby\SessionPanel\DI\SessionPanelExtension
+    thumb: HeavenProject\Thumbnailer\DI\ThumbExtension
+    timestampable: Zenify\DoctrineBehaviors\DI\TimestampableExtension
+    translatable: Zenify\DoctrineBehaviors\DI\TranslatableExtension
+    translation: Kdyby\Translation\DI\TranslationExtension
+    userCommandLine: HeavenProject\UserCommandLine\UserCommandLineExtension
+
+asset:
+    publicDir: %wwwDir%
+    targetDir: %tempDir%/assets
+
+migrations:
+    table: _migrations
+
+thumb:
+    wwwDir: %wwwDir%
+    thumbDir: %thumbsDir%
+
+translation:
+    default: cs
+
+userCommandLine:
+    targetEntity: App\Model\Entities\UserEntity
