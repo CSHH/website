@@ -84,6 +84,7 @@ extensions:
     fixtures: Zenify\DoctrineFixtures\DI\FixturesExtension
     gitPanel: HeavenProject\GitBranchPanel\GitBranchPanelExtension
     migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+    server: Kdyby\NettePhpServer\DI\PhpServerExtension
     sessionPanel: Kdyby\SessionPanel\DI\SessionPanelExtension
     thumb: HeavenProject\Thumbnailer\DI\ThumbExtension
     timestampable: Zenify\DoctrineBehaviors\DI\TimestampableExtension
