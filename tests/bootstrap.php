@@ -2,6 +2,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+$_SERVER['SERVER_NAME'] = 'localhost';
+
 Tester\Environment::setup();
 date_default_timezone_set('Europe/Prague');
 
