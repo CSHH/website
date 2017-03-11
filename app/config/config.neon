@@ -77,7 +77,6 @@ extensions:
     annotations: Kdyby\Annotations\DI\AnnotationsExtension
     arachneContainerAdapter: Arachne\ContainerAdapter\DI\ContainerAdapterExtension
     arachneEventDispatcher: Arachne\EventDispatcher\DI\EventDispatcherExtension
-    asset: HeavenProject\AssetLoader\AssetLoaderExtension
     console: Kdyby\Console\DI\ConsoleExtension
     doctrine: Kdyby\Doctrine\DI\OrmExtension
     events: Kdyby\Events\DI\EventsExtension
@@ -91,10 +90,6 @@ extensions:
     translatable: Zenify\DoctrineBehaviors\DI\TranslatableExtension
     translation: Kdyby\Translation\DI\TranslationExtension
     userCommandLine: HeavenProject\UserCommandLine\UserCommandLineExtension
-
-asset:
-    publicDir: %wwwDir%
-    targetDir: %tempDir%/assets
 
 migrations:
     table: _migrations

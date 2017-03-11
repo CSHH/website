@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "672a2fe584975261883d8a04427e180b",
+    "content-hash": "eff74f3eaf03e72e86a1deefedaf705d",
     "packages": [
         {
             "name": "arachne/container-adapter",
@@ -871,57 +871,6 @@
                 "html"
             ],
             "time": "2017-03-08T08:22:36+00:00"
-        },
-        {
-            "name": "heavenproject/asset-loader",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/CSHH/asset-loader.git",
-                "reference": "aee4e87a81831430b8e6e4a9868bfe54c8dc934d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/CSHH/asset-loader/zipball/aee4e87a81831430b8e6e4a9868bfe54c8dc934d",
-                "reference": "aee4e87a81831430b8e6e4a9868bfe54c8dc934d",
-                "shasum": ""
-            },
-            "require": {
-                "heavenproject/utils": "^1.0",
-                "latte/latte": "^2.3",
-                "nette/di": "^2.3"
-            },
-            "require-dev": {
-                "kdyby/tester-extras": "dev-master",
-                "mockery/mockery": "~0.9.0",
-                "nette/application": "^2.3",
-                "nette/bootstrap": "^2.3",
-                "nette/tester": "*",
-                "php-mock/php-mock-mockery": "~1.1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Community of volunteers"
-                }
-            ],
-            "description": "Public asset files loader",
-            "homepage": "https://github.com/CSHH/asset-loader",
-            "keywords": [
-                "asset",
-                "asset loader",
-                "nette asset loader"
-            ],
-            "time": "2016-09-05T09:45:54+00:00"
         },
         {
             "name": "heavenproject/git-branch-panel",

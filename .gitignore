@@ -24,10 +24,6 @@ config.local.neon
 /temp/sessions/*
 !/temp/sessions/.gitkeep
 
-!/temp/assets
-/temp/assets/*
-!/temp/assets/.gitkeep
-
 /tests/tmp/*
 !/tests/tmp/.gitkeep
 
