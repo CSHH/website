@@ -44,6 +44,8 @@ After this you can use one prepared user account to log yourself in with these c
 
 Run `bin/console server:start`, open your web browser and go to the `http://localhost:8000`.
 
+After you are done don´t forget to run `bin/console server:stop` to stop the server running.
+
 ## Contributing
 
 Please see [contributing.md](contributing.md).
