@@ -2,7 +2,10 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$_SERVER['SERVER_NAME'] = 'localhost';
+$_SERVER['SERVER_NAME']  = 'localhost';
+$_SERVER['REQUEST_URI']  = '';
+$_SERVER['QUERY_STRING'] = '';
+$_SERVER['HTTP_HOST']    = '';
 
 Tester\Environment::setup();
 date_default_timezone_set('Europe/Prague');
