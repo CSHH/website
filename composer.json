@@ -1,16 +1,19 @@
 {
     "require": {
         "php": "5.6.*",
-        "heavenproject/utils": "^1.0",
-        "heavenproject/user-command-line": "^1.1",
-        "heavenproject/git-branch-panel": "^1.0",
+        "ezyang/htmlpurifier": "^4.9",
         "heavenproject/asset-loader": "^1.0",
+        "heavenproject/git-branch-panel": "^1.0",
+        "heavenproject/user-command-line": "^1.1",
+        "heavenproject/utils": "^1.0",
         "kdyby/annotations": "^2.3",
         "kdyby/console": "^2.6",
         "kdyby/doctrine": "^3.1",
         "kdyby/events": "^3.0",
+        "kdyby/nette-php-server": "^0.3.0",
         "kdyby/nette-session-panel": "~3.2.0",
         "kdyby/translation": "^2.3",
+        "latte/latte": "^2.4",
         "nette/application": "^2.4",
         "nette/bootstrap": "^2.4",
         "nette/caching": "^2.5",
@@ -27,11 +30,9 @@
         "nette/security": "^2.4",
         "nette/utils": "^2.4",
         "nextras/mail-panel": "^2.3",
-        "latte/latte": "^2.4",
         "tracy/tracy": "^2.4",
         "zenify/doctrine-behaviors": "^2.5",
-        "zenify/doctrine-migrations": "^3.0",
-        "ezyang/htmlpurifier": "^4.9"
+        "zenify/doctrine-migrations": "^3.0"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
