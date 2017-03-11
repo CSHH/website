@@ -40,6 +40,10 @@ After this you can use one prepared user account to log yourself in with these c
 * email: john.doe@example.com
 * password: admin
 
+## And finally to run it
+
+Run `bin/console server:start`, open your web browser and go to the `http://localhost:8000`.
+
 ## Contributing
 
 Please see [contributing.md](contributing.md).
