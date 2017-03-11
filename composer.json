@@ -12,7 +12,7 @@
         "kdyby/events": "^3.0",
         "kdyby/nette-php-server": "^0.3.0",
         "kdyby/nette-session-panel": "~3.2.0",
-        "kdyby/translation": "^2.3",
+        "kdyby/translation": "dev-master",
         "latte/latte": "^2.4",
         "nette/application": "^2.4",
         "nette/bootstrap": "^2.4",
