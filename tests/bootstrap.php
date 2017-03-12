@@ -15,7 +15,10 @@ define('TEMP_DIR', __DIR__ . '/tmp/' . getmypid());
 @mkdir(TEMP_DIR);
 @mkdir(TEMP_DIR . '/sessions');
 
-$params = array('testingsqlitedb' => TEMP_DIR . '/db.sqlite');
+$params = [
+    'testingsqlitedb' => TEMP_DIR . '/db.sqlite',
+    'wwwDir'          => __DIR__ . '/../www',
+];
 
 $configurator = new Nette\Configurator;
 $configurator->setDebugMode(true);
