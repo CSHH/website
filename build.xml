@@ -14,20 +14,20 @@
     </target>
 
     <target name="db-drop">
-        <symfonyconsole command="orm:schema-tool:drop" console="./console">
+        <symfonyconsole command="orm:schema-tool:drop" console="bin/console">
             <arg name="full-database"/>
             <arg name="force"/>
         </symfonyconsole>
     </target>
 
     <target name="migrations">
-        <symfonyconsole command="migrations:migrate" console="./console">
+        <symfonyconsole command="migrations:migrate" console="bin/console">
             <arg name="no-interaction"/>
         </symfonyconsole>
     </target>
 
     <target name="fixtures" depends="db-drop, migrations">
-        <symfonyconsole command="doctrine:fixtures:load" console="./console">
+        <symfonyconsole command="doctrine:fixtures:load" console="bin/console">
             <arg value="./fixtures"/>
         </symfonyconsole>
         <mkdir dir="./www/upload/1970/01"/>
