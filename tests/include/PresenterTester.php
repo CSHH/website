@@ -31,6 +31,7 @@ trait PresenterTester
      * @param  string                $method
      * @param  array                 $params
      * @param  array                 $post
+     * @throws \Exception
      * @return Application\IResponse
      */
     public function assertAppResponse($presenterName, $action, $method = 'GET', $params = array(), $post = array())
@@ -40,7 +41,15 @@ trait PresenterTester
         $res = $this->processRequest($presenter, $presenterName, $action, $method, $params, $post);
 
         Assert::type('Nette\Application\Responses\TextResponse', $res);
-        Assert::type('Nette\Bridges\ApplicationLatte\Template', $res->getSource());
+
+        $source = $res->getSource();
+        Assert::type('Nette\Bridges\ApplicationLatte\Template', $source);
+
+        try {
+            (string) $source; // Check errors in template
+        } catch (\Exception $e) {
+            throw $e;
+        }
 
         return $res;
     }
@@ -53,7 +62,7 @@ trait PresenterTester
      * @param  array                 $post
      * @return Application\IResponse
      */
-    public function assertFormSubmitted($presenterName, $action, $method = 'GET', $params = array(), $post = array())
+    public function assertFormSubmitted($presenterName, $action, $method = 'POST', $params = array(), $post = array())
     {
         $presenter = $this->createPresenter($presenterName);
 

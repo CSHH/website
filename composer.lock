@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b02fd053481cfd0691c0ad2472d3c13e",
+    "content-hash": "eff74f3eaf03e72e86a1deefedaf705d",
     "packages": [
         {
             "name": "arachne/container-adapter",
@@ -873,57 +873,6 @@
             "time": "2017-03-08T08:22:36+00:00"
         },
         {
-            "name": "heavenproject/asset-loader",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/CSHH/asset-loader.git",
-                "reference": "aee4e87a81831430b8e6e4a9868bfe54c8dc934d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/CSHH/asset-loader/zipball/aee4e87a81831430b8e6e4a9868bfe54c8dc934d",
-                "reference": "aee4e87a81831430b8e6e4a9868bfe54c8dc934d",
-                "shasum": ""
-            },
-            "require": {
-                "heavenproject/utils": "^1.0",
-                "latte/latte": "^2.3",
-                "nette/di": "^2.3"
-            },
-            "require-dev": {
-                "kdyby/tester-extras": "dev-master",
-                "mockery/mockery": "~0.9.0",
-                "nette/application": "^2.3",
-                "nette/bootstrap": "^2.3",
-                "nette/tester": "*",
-                "php-mock/php-mock-mockery": "~1.1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Community of volunteers"
-                }
-            ],
-            "description": "Public asset files loader",
-            "homepage": "https://github.com/CSHH/asset-loader",
-            "keywords": [
-                "asset",
-                "asset loader",
-                "nette asset loader"
-            ],
-            "time": "2016-09-05T09:45:54+00:00"
-        },
-        {
             "name": "heavenproject/git-branch-panel",
             "version": "v1.1.0",
             "source": {
@@ -1607,16 +1556,16 @@
         },
         {
             "name": "kdyby/translation",
-            "version": "v2.3.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kdyby/Translation.git",
-                "reference": "b0517f926ea1217ed069a8fe6d70f1004e37b0d6"
+                "reference": "14ddd26027f2ec614c759cf675ca57cda4b77fef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kdyby/Translation/zipball/b0517f926ea1217ed069a8fe6d70f1004e37b0d6",
-                "reference": "b0517f926ea1217ed069a8fe6d70f1004e37b0d6",
+                "url": "https://api.github.com/repos/Kdyby/Translation/zipball/14ddd26027f2ec614c759cf675ca57cda4b77fef",
+                "reference": "14ddd26027f2ec614c759cf675ca57cda4b77fef",
                 "shasum": ""
             },
             "require": {
@@ -1670,7 +1619,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2-dev"
+                    "dev-master": "2.3-dev"
                 }
             },
             "autoload": {
@@ -1701,7 +1650,7 @@
                 "nette",
                 "translation"
             ],
-            "time": "2016-04-19T21:27:14+00:00"
+            "time": "2017-03-08 15:43:45"
         },
         {
             "name": "knplabs/doctrine-behaviors",
@@ -3031,7 +2980,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.2.5",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
@@ -3094,7 +3043,7 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v3.2.5",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
@@ -3151,7 +3100,7 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v3.2.5",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
@@ -3214,7 +3163,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.2.5",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -3495,7 +3444,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.5",
+            "version": "v3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
@@ -4235,7 +4184,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "kdyby/translation": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

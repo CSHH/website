@@ -88,10 +88,11 @@ class VideoThumbnail
             $result = curl_exec($curl);
             curl_close($curl);
 
-            $xml = simplexml_load_string($result);
-
-            $videoThumbnail = file_get_contents((string) $xml->thumbnail_url);
-            file_put_contents($this->wwwDir . $filePath, $videoThumbnail);
+            $xml = @simplexml_load_string($result);
+            if ($xml) {
+                $videoThumbnail = file_get_contents((string) $xml->thumbnail_url);
+                file_put_contents($this->wwwDir . $filePath, $videoThumbnail);
+            }
         }
 
         return $this->getImage($filePath);
