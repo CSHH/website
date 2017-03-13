@@ -37,6 +37,14 @@ class ArticleRepository extends SingleUserContentRepository
         $this->htmlPurifier = (new HtmlPurifierFactory)->createHtmlPurifier();
     }
 
+    /**
+     * @param  ArrayHash              $values
+     * @param  Entities\TagEntity     $tag
+     * @param  Entities\UserEntity    $user
+     * @param  Entities\ArticleEntity $e
+     * @throws PossibleUniqueKeyDuplicationException
+     * @return Entities\ArticleEntity
+     */
     public function create(
         ArrayHash $values,
         Entities\TagEntity $tag,
@@ -63,11 +71,17 @@ class ArticleRepository extends SingleUserContentRepository
         $e->tag  = $tag;
         $e->user = $user;
 
-        $this->persistAndFlush($this->em, $e);
-
-        return $e;
+        return $this->persistAndFlush($this->em, $e);
     }
 
+    /**
+     * @param  ArrayHash              $values
+     * @param  Entities\TagEntity     $tag
+     * @param  Entities\UserEntity    $user
+     * @param  Entities\ArticleEntity $e
+     * @throws PossibleUniqueKeyDuplicationException
+     * @return Entities\ArticleEntity
+     */
     public function update(
         ArrayHash $values,
         Entities\TagEntity $tag,
@@ -98,9 +112,7 @@ class ArticleRepository extends SingleUserContentRepository
         $e->tag  = $tag;
         $e->user = $user;
 
-        $this->persistAndFlush($this->em, $e);
-
-        return $e;
+        return $this->persistAndFlush($this->em, $e);
     }
 
     /**
@@ -114,12 +126,13 @@ class ArticleRepository extends SingleUserContentRepository
 
     /**
      * @param  Entities\ArticleEntity $e
+     * @return Entities\ArticleEntity
      */
     public function delete(Entities\ArticleEntity $e)
     {
-        $this->removeAndFlush($this->em, $e);
-
+        $ent = $this->removeAndFlush($this->em, $e);
         $this->menuCache->deleteSection(MenuCache::SECTION_ARTICLES);
+        return $ent;
     }
 
     /**
