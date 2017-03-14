@@ -33,7 +33,7 @@ Run `vendor/bin/phing init`.
 
 ## And if you need to seed your database with some dummy data
 
-Run `vendor/bin/phing fixtures`.
+Run `vendor/bin/phing fixtures` or run `vendor/bin/phing init+fixtures` in one single step.
 
 After this you can use one prepared user account to log yourself in with these credentials:
 
@@ -45,6 +45,10 @@ After this you can use one prepared user account to log yourself in with these c
 Run `bin/console server:start`, open your web browser and go to the `http://localhost:8000`.
 
 After you are done don´t forget to run `bin/console server:stop` to stop the server running.
+
+## Tests
+
+Run `vendor/bin/tester tests -p php -c tests/php.ini`.
 
 ## Contributing
 
