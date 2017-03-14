@@ -50,21 +50,25 @@ abstract class BaseRepository
     /**
      * @param EntityManager       $em
      * @param Entities\BaseEntity $e
+     * @return Entities\BaseEntity
      */
     protected function persistAndFlush(EntityManager $em, Entities\BaseEntity $e)
     {
         $em->persist($e);
         $em->flush();
+        return $e;
     }
 
     /**
-     * @param EntityManager       $em
-     * @param Entities\BaseEntity $e
+     * @param  EntityManager       $em
+     * @param  Entities\BaseEntity $e
+     * @return Entities\BaseEntity
      */
     protected function removeAndFlush(EntityManager $em, Entities\BaseEntity $e)
     {
         $em->remove($e);
         $em->flush();
+        return $e;
     }
 
     /**
