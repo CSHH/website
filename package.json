@@ -1,0 +1,9 @@
+{
+    "dependencies": {
+        "ckeditor": "4.5.7",
+        "jquery": "1.12.1",
+        "lightbox2": "2.8.2",
+        "nette.ajax.js": "2.1.0",
+        "nette-forms": "2.4.2"
+    }
+}
