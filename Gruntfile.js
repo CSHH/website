@@ -10,14 +10,29 @@ module.exports = function(grunt) {
                             separator: ';'
                         },
                         src: [
-                            'node_modules/ckeditor/ckeditor.js',
                             'node_modules/jquery/dist/jquery.js',
                             'node_modules/lightbox2/dist/js/lightbox.js',
-                            'node_modules/nette.ajax.js/nette.ajax.js',
                             'node_modules/nette-forms/src/assets/netteForms.js',
-                            'assets/js/*.js'
+                            'node_modules/nette.ajax.js/nette.ajax.js',
+                            'assets/js/cookies.js',
+                            'assets/js/modals.js',
+                            'assets/js/themes.js',
+                            'assets/js/main.js'
                         ],
-                        dest: 'www/js/main.js'
+                        dest: 'www/js/main-front.js'
+                    }, {
+                        options: {
+                            separator: ';'
+                        },
+                        src: [
+                            'node_modules/ckeditor/ckeditor.js',
+                            'node_modules/jquery/dist/jquery.js',
+                            'node_modules/nette-forms/src/assets/netteForms.js',
+                            'node_modules/nette.ajax.js/nette.ajax.js',
+                            'assets/js/ckeditor-config.js',
+                            'assets/js/main.js'
+                        ],
+                        dest: 'www/js/main-admin.js'
                     }, {
                         src: [
                             'node_modules/lightbox2/dist/css/lightbox.css',
@@ -39,15 +54,16 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'www/js/main.min.js': ['<%= concat.dist.files[0].dest %>']
+                    'www/js/main-front.min.js': ['<%= concat.dist.files[0].dest %>'],
+                    'www/js/main-admin.min.js': ['<%= concat.dist.files[1].dest %>']
                 }
             }
         },
         cssmin: {
             dist: {
                 files: {
-                    'www/css/main-front.min.css': ['<%= concat.dist.files[1].dest %>'],
-                    'www/css/main-admin.min.css': ['<%= concat.dist.files[2].dest %>'],
+                    'www/css/main-front.min.css': ['<%= concat.dist.files[2].dest %>'],
+                    'www/css/main-admin.min.css': ['<%= concat.dist.files[3].dest %>'],
                     'www/css/theme-fog.min.css': ['assets/css/theme-fog.css'],
                     'www/css/theme-otherworld.min.css': ['assets/css/theme-otherworld.css']
                 }
