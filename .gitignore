@@ -36,6 +36,5 @@ config.local.neon
 
 output/
 
-bower_components
 node_modules
 coverage.html
