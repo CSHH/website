@@ -25,13 +25,13 @@ module.exports = function(grunt) {
                             'assets/css/front.css',
                             '!assets/css/theme-*.css'
                         ],
-                        dest: 'www/css/main-front.js'
+                        dest: 'www/css/main-front.css'
                     }, {
                         src: [
                             'assets/css/common.css',
                             'assets/css/admin.css'
                         ],
-                        dest: 'www/css/main-admin.js'
+                        dest: 'www/css/main-admin.css'
                     }
                 ]
             }
@@ -46,8 +46,10 @@ module.exports = function(grunt) {
         cssmin: {
             dist: {
                 files: {
-                    'www/css/main-front.min.js': ['<%= concat.dist.files[1].dest %>'],
-                    'www/css/main-admin.min.js': ['<%= concat.dist.files[2].dest %>']
+                    'www/css/main-front.min.css': ['<%= concat.dist.files[1].dest %>'],
+                    'www/css/main-admin.min.css': ['<%= concat.dist.files[2].dest %>'],
+                    'www/css/theme-fog.min.css': ['assets/css/theme-fog.css'],
+                    'www/css/theme-otherworld.min.css': ['assets/css/theme-otherworld.css']
                 }
             }
         },
@@ -59,6 +61,11 @@ module.exports = function(grunt) {
                         cwd: 'node_modules/lightbox2/dist/images/',
                         src: ['*'],
                         dest: 'www/images/'
+                    }, {
+                        expand: true,
+                        cwd: 'assets/css/',
+                        src: ['theme-*.css'],
+                        dest: 'www/css/'
                     }
                 ]
             }
