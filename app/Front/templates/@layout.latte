@@ -12,16 +12,18 @@
     </script>
 
     {* must be here for the theme to load sooner *}
-    <script src="{$basePath}/bower_components/jquery/dist/jquery.js"></script>
-    <script src="{$basePath}/js/themes.js"></script>
+    <script src="{$basePath}/js/main.js"></script>
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{$basePath}/bower_components/lightbox2/dist/css/lightbox.css">
-    <link rel="stylesheet" href="{$basePath}/css/common.css">
-    <link rel="stylesheet" href="{$basePath}/css/front.css">
+    <script>
+        lightbox.option({
+            'wrapAround': true
+        });
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700,300italic">
+    <link rel="stylesheet" href="{$basePath}/css/main-front.css">
+    <link rel="stylesheet" href="{$basePath}/css/theme-fog.css" id="theme-stylesheet">
     <link rel="shortcut icon" href="{$basePath}/favicon.ico">
-
-    <link id="theme-stylesheet" rel="stylesheet" href="{$basePath}/css/theme-fog.css">
 
     {block head}{/block}
 </head>
@@ -86,20 +88,6 @@
         {control signUpForm}
         {control signResetForm}
     {/if}
-
-    <script src="{$basePath}/bower_components/nette-forms/src/assets/netteForms.js"></script>
-    <script src="{$basePath}/bower_components/nette.ajax.js/nette.ajax.js"></script>
-    <script src="{$basePath}/bower_components/lightbox2/dist/js/lightbox.js"></script>
-    <script src="{$basePath}/bower_components/ckeditor/ckeditor.js"></script>
-    <script src="{$basePath}/js/ckeditor-config.js"></script>
-    <script src="{$basePath}/js/modals.js"></script>
-    <script src="{$basePath}/js/cookies.js"></script>
-    <script src="{$basePath}/js/main.js"></script>
-    <script>
-        lightbox.option({
-            'wrapAround': true
-        });
-    </script>
 
     {block scripts}{/block}
 
