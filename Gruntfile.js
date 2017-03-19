@@ -23,19 +23,39 @@ module.exports = function(grunt) {
         },
 
         uglify: {
-            files: [
-                {src: ['<%= concat.js.files[0].dest %>'], dest: 'www/js/main-front.min.js'},
-                {src: ['<%= concat.js.files[1].dest %>'], dest: 'www/js/main-admin.min.js'}
-            ]
+            front: {
+                files: [
+                    {src: ['<%= concat.js.files[0].dest %>'], dest: 'www/js/main-front.min.js'}
+                ]
+            },
+            admin: {
+                files: [
+                    {src: ['<%= concat.js.files[1].dest %>'], dest: 'www/js/main-admin.min.js'}
+                ]
+            }
         },
 
         cssmin: {
-            files: [
-                {src: ['<%= concat.css.files[0].dest %>'], dest: 'www/css/main-front.min.css'},
-                {src: ['<%= concat.css.files[1].dest %>'], dest: 'www/css/main-admin.min.css'},
-                {src: ['assets/css/themes/theme-fog.css'], dest: 'www/css/theme-fog.min.css'},
-                {src: ['assets/css/themes/theme-otherworld.css'], dest: 'www/css/theme-otherworld.min.css'}
-            ]
+            front: {
+                files: [
+                    {src: ['<%= concat.css.files[0].dest %>'], dest: 'www/css/main-front.min.css'}
+                ]
+            },
+            admin: {
+                files: [
+                    {src: ['<%= concat.css.files[1].dest %>'], dest: 'www/css/main-admin.min.css'}
+                ]
+            },
+            'theme-fog': {
+                files: [
+                    {src: ['assets/css/themes/theme-fog.css'], dest: 'www/css/theme-fog.min.css'}
+                ]
+            },
+            'theme-otherworld': {
+                files: [
+                    {src: ['assets/css/themes/theme-otherworld.css'], dest: 'www/css/theme-otherworld.min.css'}
+                ]
+            }
         },
 
         /*copy: {
@@ -58,12 +78,12 @@ module.exports = function(grunt) {
 
         jshint: {
             files: ['Gruntfile.js', 'assets/js/*.js']
-        },
+        }/*,
 
         watch: {
             files: ['<%= jshint.files %>'],
             tasks: ['jshint']
-        }
+        }*/
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -71,7 +91,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     //grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    //grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 };
