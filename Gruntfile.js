@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         concat: {
             js: {
                 options: {
-                    separator: ';'
+                    separator: ';\n\n\n'
                 },
                 files: [
                     {src: ['assets/js/{main,cookies,modals,themes}.js'], dest: 'www/js/main-front.js'},
@@ -14,13 +14,12 @@ module.exports = function(grunt) {
                     {
                         src: [
                             'node_modules/jquery/dist/jquery.js',
+                            'node_modules/lightbox2/dist/js/lightbox.js',
                             'node_modules/nette-forms/src/assets/netteForms.js',
-                            'node_modules/nette.ajax.js/nette.ajax.js',
-                            'node_modules/lightbox2/dist/js/lightbox.js'
+                            'node_modules/nette.ajax.js/nette.ajax.js'
                         ],
                         dest: 'www/libs/js/libs-front.js'
-                    },
-                    {
+                    }, {
                         src: [
                             'node_modules/jquery/dist/jquery.js',
                             'node_modules/nette-forms/src/assets/netteForms.js',
