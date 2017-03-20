@@ -27,9 +27,7 @@
     </target>
 
     <target name="fixtures" depends="db-drop, migrations">
-        <symfonyconsole command="doctrine:fixtures:load" console="bin/console">
-            <arg value="./fixtures"/>
-        </symfonyconsole>
+        <exec passthru="true" command="./bin/load-fixtures"/>
         <mkdir dir="./www/upload/1970/01"/>
         <copy file="./fixtures/halo_of_the_sun.jpg" tofile="./www/upload/1970/01/halo_of_the_sun.jpg"/>
     </target>
