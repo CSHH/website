@@ -24,6 +24,7 @@ services:
     router: App\Router\RouterFactory::createRouter
     paginatorFactory: App\Utils\PaginatorFactory
     videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
+    fixturesLoader: App\Utils\FixturesLoader(%appDir%/../fixtures)
 
     menuCache: App\Caching\MenuCache(
         Nette\Caching\Cache(
