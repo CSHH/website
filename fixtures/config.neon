@@ -1,4 +1,4 @@
-App\Model\Entities\UserEntity:
+App\Entities\UserEntity:
     "user_admin":
         "username": "johndoe"
         "email": "john.doe@example.com"
@@ -23,7 +23,7 @@ App\Model\Entities\UserEntity:
         "token": null
         "tokenCreatedAt": null
         "isAuthenticated": true
-App\Model\Entities\TagEntity:
+App\Entities\TagEntity:
     "tag_article_novinky":
         "name": "Novinky"
         "slug": "novinky"
@@ -102,7 +102,7 @@ App\Model\Entities\TagEntity:
     "tag_nezaraditelne":
         "name": "Nezařaditelné"
         "slug": "nezaraditelne"
-App\Model\Entities\ArticleEntity:
+App\Entities\ArticleEntity:
     "article_{1..100}":
         "tag": "90%? @tag_article* : @tag_nezaraditelne"
         "user": @user*
@@ -111,7 +111,7 @@ App\Model\Entities\ArticleEntity:
         "perex": "<paragraph(2)>"
         "text": "<paragraph(100)>"
         "isActive": "80%? 1 : 0"
-App\Model\Entities\FileEntity:
+App\Entities\FileEntity:
     "file_halo_of_the_sun":
         "year": "1970"
         "month": "01"
@@ -119,14 +119,14 @@ App\Model\Entities\FileEntity:
         "extension": "jpg"
         "checksum": "4b843dc5f600e9448cc33d8022ef0937a6e1508c"
         "joints": 250
-App\Model\Entities\ImageEntity:
+App\Entities\ImageEntity:
     "image_{1..250}":
         "tag": "90%? @tag_silent* : @tag_nezaraditelne"
         "user": @user*
         "name (unique)": "50%? <sentence(3)>"
         "file": @file_halo_of_the_sun
         "isActive": "80%? 1 : 0"
-App\Model\Entities\VideoEntity:
+App\Entities\VideoEntity:
     "video_youtube_{1..50}":
         "tag": "90%? @tag_silent* : @tag_nezaraditelne"
         "user": @user*
@@ -147,7 +147,7 @@ App\Model\Entities\VideoEntity:
         "type": 2
         "isActive": "80%? 1 : 0"
         "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
-App\Model\Entities\WikiEntity:
+App\Entities\WikiEntity:
     "wiki_game_{1..100}":
         "tag": @tag_silent*
         "related": "80%? <numberBetween(1, 5)>x @wiki_game_*"
@@ -193,7 +193,7 @@ App\Model\Entities\WikiEntity:
         "isActive": "80%? 1 : 0"
         "createdAt": "<dateTimeBetween('2000-01-01 00:00:01', '2000-06-30 23:59:59')>"
         "updatedAt": "80%? <dateTimeBetween($createdAt, '2000-06-30 23:59:59')> : <dateTime($createdAt)>"
-App\Model\Entities\WikiDraftEntity:
+App\Entities\WikiDraftEntity:
     "wiki_draft_game_{1..50}":
         "wiki": @wiki_game_*
         "user": @user*
