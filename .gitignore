@@ -33,6 +33,7 @@ config.local.neon
 !/www/upload/.gitkeep
 /www/video_thumbnails/*
 !/www/video_thumbnails/.gitkeep
+/www/libs
 
 output/
 
