@@ -13,7 +13,7 @@ The following information will help you to get yourself up and running with this
 * [Composer](https://getcomposer.org)
 * [Node.js](https://nodejs.org)
 * [NPM](https://www.npmjs.com)
-* [Bower](https://bower.io)
+* [Grunt](https://gruntjs.com)
 
 ## After you clone this repository
 
@@ -21,7 +21,8 @@ Run `composer install` to install all PHP dependencies.
 
 ## If you need to work on front-end
 
-Run `bower install` to install all JavaScript and CSS dependencies.
+Run `npm install` to install all JavaScript and CSS dependencies and then
+run `grunt` to prepare all the assets.
 
 ## To setup database access
 

@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "ckeditor": "4.5.7",
+    "jquery": "1.12.1",
+    "lightbox2": "2.9.0",
+    "nette.ajax.js": "2.1.0",
+    "nette-forms": "2.4.2"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^2.0.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.2.0",
+    "grunt-contrib-watch": "^1.0.0"
+  }
+}
