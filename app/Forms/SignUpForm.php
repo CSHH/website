@@ -167,7 +167,7 @@ class SignUpForm extends AbstractForm
             ->setSubject($subject)
             ->setHtmlBody(
                 $latte->renderToString(
-                    $this->appDir . '/presenters/templates/emails/registration.latte',
+                    $this->appDir . '/Presenters/templates/emails/registration.latte',
                     $parameters
                 )
             );

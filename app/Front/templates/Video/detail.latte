@@ -7,4 +7,4 @@
     <a n:href="delete!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
 {/if}
 
-{include '../../../../presenters/templates/include/video.latte', width => 960, height => 540, src => $video->src, title => $video->name}
+{include '../../../Presenters/templates/include/video.latte', width => 960, height => 540, src => $video->src, title => $video->name}
