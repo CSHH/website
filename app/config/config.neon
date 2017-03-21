@@ -10,7 +10,6 @@ php:
 
 application:
     scanDirs: false
-    errorPresenter: Error
     mapping:
         *: App\*\*Presenter
 
