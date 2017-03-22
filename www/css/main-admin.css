@@ -126,13 +126,21 @@ a {
 #top-nav-bar {
     width: auto;
     height: 50px;
+    padding: 10px 0;
     color: #fff;
-    background-color: #111;
+    background-color: #000;
+}
+
+#top-nav-bar #hots-icon {
+    float: left;
+    margin-left: 25px;
+    height: 50px;
+    display: block;
 }
 
 #top-nav-bar #theme-switch {
     float: left;
-    margin-left: 25px;
+    margin-left: 10px;
     font-size: 20px;
     line-height: 50px;
 }
