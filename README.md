@@ -53,8 +53,8 @@ Run `vendor/bin/tester tests -p php -c tests/php.ini`.
 
 ## Contributing
 
-Please see our [contributing guidlines](contributing.md).
+Please see our [contributing guidlines](CONTRIBUTING.md).
 
 ## License
 
-This source code is [free software](http://www.gnu.org/philosophy/free-sw.html) licensed under MIT [license](license.md).
+This source code is [free software](http://www.gnu.org/philosophy/free-sw.html) licensed under MIT [license](LICENSE.md).
