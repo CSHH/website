@@ -2,8 +2,8 @@
 
 namespace App\Front;
 
-use App\Forms;
 use App\Entities;
+use App\Forms;
 
 final class BookPresenter extends SharedContentPresenter
 {

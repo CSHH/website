@@ -37,7 +37,7 @@ class YoutubeTest extends Tester\TestCase
             ->once()
             ->andReturn('');
 
-        Assert::exception(function() use ($url, $translator) {
+        Assert::exception(function () use ($url, $translator) {
             $youtube = new Youtube($translator);
             $youtube->getVideoSrc($url);
         }, 'App\Exceptions\InvalidVideoUrlException');

@@ -2,8 +2,8 @@
 
 namespace HeavenProject\Thumbnailer;
 
-use Nette\Utils\Image;
 use Nette\Utils\FileSystem;
+use Nette\Utils\Image;
 
 /**
  * Creates thumbnail of an image.
@@ -11,14 +11,14 @@ use Nette\Utils\FileSystem;
 class Thumb
 {
     /** @var int Percentage of thumbnail image quality */
-    const QUALITY_LOW = 75,
-        QUALITY_MEDIUM = 85,
-        QUALITY_HIGH = 100;
+    const QUALITY_LOW    = 75;
+    const QUALITY_MEDIUM = 85;
+    const QUALITY_HIGH   = 100;
 
     /** @var string Resulting file type */
-    const TYPE_PNG = 'png',
-        TYPE_GIF = 'gif',
-        TYPE_JPEG = 'jpeg';
+    const TYPE_PNG  = 'png';
+    const TYPE_GIF  = 'gif';
+    const TYPE_JPEG = 'jpeg';
 
     /** @var string */
     private static $wwwDir;
@@ -56,7 +56,7 @@ class Thumb
      */
     public static function thumbnalize($file, $width = null, $height = null, $fileType = self::TYPE_PNG, $quality = self::QUALITY_MEDIUM)
     {
-        $file = static::$wwwDir.'/'.$file;
+        $file = static::$wwwDir . '/' . $file;
         if (!is_file($file)) {
             return;
         }
@@ -78,11 +78,11 @@ class Thumb
 
         $fileName = self::getFileName($file, $fileType);
 
-        $destinationDir = $width.'_'.$height.'/'.$fileType.'/'.$quality;
-        $thumbDir = static::$wwwDir.static::$thumbDir;
+        $destinationDir = $width . '_' . $height . '/' . $fileType . '/' . $quality;
+        $thumbDir       = static::$wwwDir . static::$thumbDir;
 
-        if (file_exists($thumbDir.'/'.$destinationDir.'/'.$fileName)) {
-            return static::$thumbDir.'/'.$destinationDir.'/'.$fileName;
+        if (file_exists($thumbDir . '/' . $destinationDir . '/' . $fileName)) {
+            return static::$thumbDir . '/' . $destinationDir . '/' . $fileName;
         }
 
         static::$image = Image::fromFile($file);
@@ -95,10 +95,10 @@ class Thumb
             static::resizeImageProportionally(static::$image->getWidth(), $height);
         }
 
-        FileSystem::createDir($thumbDir.'/'.$destinationDir);
-        static::$image->save($thumbDir.'/'.$destinationDir.'/'.$fileName, $quality, $type);
+        FileSystem::createDir($thumbDir . '/' . $destinationDir);
+        static::$image->save($thumbDir . '/' . $destinationDir . '/' . $fileName, $quality, $type);
 
-        return static::$thumbDir.'/'.$destinationDir.'/'.$fileName;
+        return static::$thumbDir . '/' . $destinationDir . '/' . $fileName;
     }
 
     /**
@@ -134,13 +134,13 @@ class Thumb
         $pair = explode('.', $originalFile);
 
         if (count($pair) > 1) {
-            $ext = end($pair);
-            $fileName = basename($originalFile, '.'.$ext);
+            $ext      = end($pair);
+            $fileName = basename($originalFile, '.' . $ext);
         } else {
             $fileName = basename($originalFile);
         }
 
-        $thumb = $fileName.'.'.$fileType;
+        $thumb = $fileName . '.' . $fileType;
 
         return $thumb;
     }

@@ -29,9 +29,9 @@ class FileManager extends Nette\Object
      */
     public function __construct(EntityManager $em, EntityDao $storageDao, $uploadDir)
     {
-        $this->em = $em;
+        $this->em         = $em;
         $this->storageDao = $storageDao;
-        $this->uploadDir = $uploadDir;
+        $this->uploadDir  = $uploadDir;
     }
 
     /**
@@ -43,7 +43,7 @@ class FileManager extends Nette\Object
         if ($entity->joints === 0) {
             $this->em->remove($entity);
             $this->em->flush();
-            $this->unlinkFile($this->uploadDir.'/'.$entity->year.'/'.$entity->month.'/'.$entity->name.'.'.$entity->extension);
+            $this->unlinkFile($this->uploadDir . '/' . $entity->year . '/' . $entity->month . '/' . $entity->name . '.' . $entity->extension);
         } else {
             $this->em->persist($entity);
             $this->em->flush();
@@ -60,21 +60,21 @@ class FileManager extends Nette\Object
         }
         FileSystem::delete($file);
 
-        $dir1 = dirname($file);
+        $dir1    = dirname($file);
         $isEmpty = !(new \FilesystemIterator($dir1))->valid();
         if (!$isEmpty) {
             return;
         }
         FileSystem::delete($dir1);
 
-        $dir2 = dirname($dir1);
+        $dir2    = dirname($dir1);
         $isEmpty = !(new \FilesystemIterator($dir2))->valid();
         if (!$isEmpty) {
             return;
         }
         FileSystem::delete($dir2);
 
-        $dir3 = dirname($dir2);
+        $dir3    = dirname($dir2);
         $isEmpty = !(new \FilesystemIterator($dir3))->valid();
         if (!$isEmpty) {
             return;
@@ -91,11 +91,11 @@ class FileManager extends Nette\Object
     public function upload(FileEntityInterface $entity, FileUpload $file)
     {
         $checksum = sha1_file($file->getTemporaryFile());
-        $pairs = $this->storageDao->findPairs([], 'checksum', [], 'id');
+        $pairs    = $this->storageDao->findPairs([], 'checksum', [], 'id');
 
         if (in_array($checksum, $pairs)) {
             $id = array_search($checksum, $pairs);
-            $e = $this->storageDao->find($id);
+            $e  = $this->storageDao->find($id);
             ++$e->joints;
 
             return $e;
@@ -106,14 +106,14 @@ class FileManager extends Nette\Object
             $m = date('m');
 
             $data = $this->getFileData($file);
-            $file->move($this->uploadDir.'/'.$y.'/'.$m.'/'.$data->name.'.'.$data->extension);
+            $file->move($this->uploadDir . '/' . $y . '/' . $m . '/' . $data->name . '.' . $data->extension);
 
-            $e->name = $data->name;
+            $e->name      = $data->name;
             $e->extension = $data->extension;
-            $e->year = $y;
-            $e->month = $m;
-            $e->checksum = $checksum;
-            $e->joints = 1;
+            $e->year      = $y;
+            $e->month     = $m;
+            $e->checksum  = $checksum;
+            $e->joints    = 1;
 
             return $e;
         }
@@ -126,7 +126,7 @@ class FileManager extends Nette\Object
      */
     private function getFileData(FileUpload $file)
     {
-        $name = $file->getSanitizedName();
+        $name      = $file->getSanitizedName();
         $extension = '';
 
         if (Strings::contains($name, '.')) {
@@ -136,12 +136,12 @@ class FileManager extends Nette\Object
         }
 
         $pairs = $this->storageDao->findPairs([], 'name', [], 'id');
-        $data = new ArrayHash();
+        $data  = new ArrayHash();
 
         while (true) {
             $name = Random::generate(10, '0-9A-Za-z');
             if (!in_array($name, $pairs)) {
-                $data->name = $name;
+                $data->name      = $name;
                 $data->extension = $extension;
                 break;
             }

@@ -2,9 +2,9 @@
 
 namespace App\Forms;
 
-use App\Repositories;
-use App\Entities;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
+use App\Entities;
+use App\Repositories;
 use App\Security\Authenticator;
 use HeavenProject\Utils\FlashType;
 use Nette\Application\UI\Form;
@@ -87,10 +87,8 @@ class ProfileSettingsForm extends AbstractForm
                 $this->translator->translate('locale.settings.changed_successfully'),
                 FlashType::SUCCESS
             );
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             $this->addFormError($form, $e);
-
         } catch (\Exception $e) {
             $this->addFormError(
                 $form,

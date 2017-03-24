@@ -60,7 +60,7 @@ class MenuCacheTest extends Tester\TestCase
 
     public function testGetAllFromEmptyCache()
     {
-        $tag = new AppTests\TagEntityImpl;
+        $tag     = new AppTests\TagEntityImpl;
         $tag->id = 1;
 
         $netteCache = $this->netteCache;
@@ -72,26 +72,26 @@ class MenuCacheTest extends Tester\TestCase
 
         $menuCache = new MenuCache($netteCache, $tagRepository);
 
-        $article = new AppTests\ArticleEntityImpl;
-        $article->id = 1;
+        $article           = new AppTests\ArticleEntityImpl;
+        $article->id       = 1;
         $articleRepository = $this->articleRepository;
         $this->mock($articleRepository, 'getAllByTag', 1, array($article));
         $menuCache->setArticleRepository($articleRepository);
 
-        $image = new AppTests\ImageEntityImpl;
-        $image->id = 1;
+        $image           = new AppTests\ImageEntityImpl;
+        $image->id       = 1;
         $imageRepository = $this->imageRepository;
         $this->mock($imageRepository, 'getAllByTag', 1, array($image));
         $menuCache->setImageRepository($imageRepository);
 
-        $video = new AppTests\VideoEntityImpl;
-        $video->id = 1;
+        $video           = new AppTests\VideoEntityImpl;
+        $video->id       = 1;
         $videoRepository = $this->videoRepository;
         $this->mock($videoRepository, 'getAllByTag', 1, array($video));
         $menuCache->setVideoRepository($videoRepository);
 
-        $wiki = new AppTests\WikiEntityImpl;
-        $wiki->id = 1;
+        $wiki           = new AppTests\WikiEntityImpl;
+        $wiki->id       = 1;
         $wikiRepository = $this->wikiRepository;
         $this->mock($wikiRepository, 'getAllByTag', 3, array($wiki));
         $menuCache->setWikiRepository($wikiRepository);
@@ -115,7 +115,7 @@ class MenuCacheTest extends Tester\TestCase
 
     public function testDeleteSectionIfTagNotPresent()
     {
-        $tag = new AppTests\TagEntityImpl;
+        $tag     = new AppTests\TagEntityImpl;
         $tag->id = 1;
 
         $netteCache = $this->netteCache;
@@ -128,7 +128,7 @@ class MenuCacheTest extends Tester\TestCase
 
     public function testIsTagInSectionReturnsTrue()
     {
-        $tag = new AppTests\TagEntityImpl;
+        $tag     = new AppTests\TagEntityImpl;
         $tag->id = 1;
 
         $netteCache = $this->netteCache;

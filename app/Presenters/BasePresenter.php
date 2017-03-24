@@ -2,8 +2,8 @@
 
 namespace App\Presenters;
 
-use App\Forms\ExtendingMethods as FormExtendingMethods;
 use App\Entities;
+use App\Forms\ExtendingMethods as FormExtendingMethods;
 use App\Repositories;
 use HeavenProject\Utils\FlashType;
 use Nette;

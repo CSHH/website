@@ -41,11 +41,11 @@ class WikiRepository extends BaseRepository
     }
 
     /**
-     * @param  ArrayHash $values
-     * @param  Entities\TagEntity $tag
-     * @param  Entities\UserEntity $user
-     * @param  string $type
-     * @param  Entities\WikiEntity $e
+     * @param  ArrayHash                             $values
+     * @param  Entities\TagEntity                    $tag
+     * @param  Entities\UserEntity                   $user
+     * @param  string                                $type
+     * @param  Entities\WikiEntity                   $e
      * @throws PossibleUniqueKeyDuplicationException
      * @return Entities\WikiEntity
      */
@@ -83,10 +83,10 @@ class WikiRepository extends BaseRepository
     }
 
     /**
-     * @param  ArrayHash $values
-     * @param  Entities\TagEntity $tag
-     * @param  string $type
-     * @param  Entities\WikiEntity $e
+     * @param  ArrayHash                             $values
+     * @param  Entities\TagEntity                    $tag
+     * @param  string                                $type
+     * @param  Entities\WikiEntity                   $e
      * @throws PossibleUniqueKeyDuplicationException
      * @return Entities\WikiEntity
      */

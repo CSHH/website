@@ -33,7 +33,7 @@ class BaseEntityTest extends Tester\TestCase
      */
     public function testSetValuesAsTraversable($a, $b, $c)
     {
-        $values = new ArrayHash;
+        $values    = new ArrayHash;
         $values->a = $a;
         $values->b = $b;
         $values->c = $c;
@@ -69,7 +69,7 @@ class BaseEntityTest extends Tester\TestCase
     {
         $ent = new BaseEntityImpl;
 
-        Assert::exception(function() use ($ent) {
+        Assert::exception(function () use ($ent) {
             $ent->setValues('');
         }, 'Nette\InvalidArgumentException');
     }

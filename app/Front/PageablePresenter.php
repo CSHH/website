@@ -3,8 +3,8 @@
 namespace App\Front;
 
 use App\Entities;
-use App\Repositories;
 use App\Presenters\PageableTrait;
+use App\Repositories;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class PageablePresenter extends BasePresenter

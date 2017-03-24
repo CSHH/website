@@ -2,10 +2,10 @@
 
 namespace App\Admin;
 
-use App\Forms;
 use App\Entities;
 use App\Exceptions\ActivationLimitExpiredException;
 use App\Exceptions\UserNotFoundException;
+use App\Forms;
 use App\Logging\Logger;
 use HeavenProject\Utils\FlashType;
 
@@ -35,15 +35,12 @@ final class SignPresenter extends BasePresenter
         try {
             $this->userRepository->unlock($uid, $token);
             $this->flashMessage($this->translator->translate('locale.sign.account_activated'));
-
         } catch (UserNotFoundException $e) {
             Logger::log($e->getMessage());
             $this->flashTypeWithRedirect($e->getMessage(), FlashType::WARNING, 'Homepage:default');
-
         } catch (ActivationLimitExpiredException $e) {
             Logger::log($e->getMessage());
             $this->flashTypeWithRedirect($e->getMessage(), FlashType::WARNING, 'Homepage:default');
-
         } catch (\Exception $e) {
             Logger::log($e->getMessage());
             $this->flashTypeWithRedirect($this->translator->translate('locale.error.occurred'), FlashType::WARNING, 'Homepage:default');
@@ -75,10 +72,8 @@ final class SignPresenter extends BasePresenter
             }
 
             $this->userRepository->checkForTokenExpiration($this->e, $token);
-
         } catch (UserNotFoundException $e) {
             $this->flashWithRedirect($e->getMessage(), ':Front:Homepage:default');
-
         } catch (ActivationLimitExpiredException $e) {
             $this->flashWithRedirect($e->getMessage(), ':Front:Homepage:default');
         }

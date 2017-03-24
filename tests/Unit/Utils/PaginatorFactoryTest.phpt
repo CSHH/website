@@ -2,8 +2,8 @@
 
 namespace AppTests\Unit\Videos;
 
-use AppTests\UnitMocks;
 use App\Utils\PaginatorFactory;
+use AppTests\UnitMocks;
 use Tester;
 use Tester\Assert;
 

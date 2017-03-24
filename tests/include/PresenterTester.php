@@ -89,7 +89,7 @@ trait PresenterTester
     {
         $presenterFactory = $this->getPresenterFactory();
 
-        $presenter = $presenterFactory->createPresenter($presenterName);
+        $presenter                   = $presenterFactory->createPresenter($presenterName);
         $presenter->autoCanonicalize = false;
 
         return $presenter;

@@ -2,11 +2,10 @@
 
 namespace App\Forms;
 
-use App\Forms\AbstractContentForm;
-use App\Repositories;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Exceptions;
+use App\Repositories;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
@@ -91,17 +90,13 @@ class WikiDraftForm extends AbstractContentForm
             $this->wikiDraftRepository->create($values, $this->user, $this->item, new Entities\WikiDraftEntity);
             $ent = $this->item;
             $p->flashMessage($this->translator->translate('locale.item.updated'));
-
         } catch (Exceptions\WikiDraftConflictException $e) {
             $this->newerDraftExists = true;
             $this->addFormError($form, $e);
-
         } catch (Exceptions\MissingTagException $e) {
             $this->addFormError($form, $e);
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             $this->addFormError($form, $e);
-
         } catch (\Exception $e) {
             $this->addFormError(
                 $form,

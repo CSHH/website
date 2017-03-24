@@ -107,10 +107,8 @@ abstract class SingleUserContentRepository extends BaseRepository
                 ))
                 ->getQuery()
                 ->getSingleResult();
-
         } catch (NonUniqueResultException $e) {
             return null;
-
         } catch (NoResultException $e) {
             return null;
         }
@@ -136,10 +134,8 @@ abstract class SingleUserContentRepository extends BaseRepository
                 ))
                 ->getQuery()
                 ->getSingleResult();
-
         } catch (NonUniqueResultException $e) {
             return null;
-
         } catch (NoResultException $e) {
             return null;
         }

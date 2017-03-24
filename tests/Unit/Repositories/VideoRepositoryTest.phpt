@@ -2,9 +2,9 @@
 
 namespace AppTests\Unit\Repositories;
 
-use AppTests\UnitMocks;
 use App\Entities as AppEntities;
 use App\Repositories as AppRepositories;
+use AppTests\UnitMocks;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Tester;
 use Tester\Assert;

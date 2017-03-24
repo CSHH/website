@@ -38,10 +38,10 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  ArrayHash              $values
-     * @param  Entities\TagEntity     $tag
-     * @param  Entities\UserEntity    $user
-     * @param  Entities\ArticleEntity $e
+     * @param  ArrayHash                             $values
+     * @param  Entities\TagEntity                    $tag
+     * @param  Entities\UserEntity                   $user
+     * @param  Entities\ArticleEntity                $e
      * @throws PossibleUniqueKeyDuplicationException
      * @return Entities\ArticleEntity
      */
@@ -75,10 +75,10 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  ArrayHash              $values
-     * @param  Entities\TagEntity     $tag
-     * @param  Entities\UserEntity    $user
-     * @param  Entities\ArticleEntity $e
+     * @param  ArrayHash                             $values
+     * @param  Entities\TagEntity                    $tag
+     * @param  Entities\UserEntity                   $user
+     * @param  Entities\ArticleEntity                $e
      * @throws PossibleUniqueKeyDuplicationException
      * @return Entities\ArticleEntity
      */
