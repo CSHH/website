@@ -4,52 +4,97 @@
 
 The following information will help you to get yourself up and running with this project.
 
-> **Please note, that this project is not done yet. There are still a few features to work on with probably some bugfixes yet to be discovered.
-  Also there are not tests on everything, so this has to be done too before the release.**
+> **Please note, that this project is not done yet. There are still a few features to work on with probably some bugfixes yet to be discovered. Also there are not tests on everything, so this has to be done too before the release.**
 
 ## What you will need
 
-* [PHP](http://php.net)
+* [PHP](http://php.net) (5.6)
 * [Composer](https://getcomposer.org)
 * [Node.js](https://nodejs.org)
 * [NPM](https://www.npmjs.com)
-* [Grunt](https://gruntjs.com)
+* [Grunt](https://gruntjs.com) (`npm install -g grunt-cli`)
 
-## After you clone this repository
+## Clone this repository
 
-Run `composer install` to install all PHP dependencies.
+```bash
+$ git clone git@github.com:CSHH/website.git
+```
 
-## If you need to work on front-end
+## Branches
 
-Run `npm install` to install all JavaScript and CSS dependencies and then
-run `grunt` to prepare all the assets.
+* [**master**](https://github.com/CSHH/website/tree/master) is the main branch used for development
+* [**ready-to-release**](https://github.com/CSHH/website/tree/ready-to-release) is always one commit ahead of master and contains some modifications for the release
 
-## To setup database access
+## Install PHP dependencies
 
-Set parameters `dbname`, `user` and `password` in `app/config/config.local.neon`.
+```bash
+$ composer install
+```
 
-## To prepare this project for development
+## Install client side dependencies
 
-Run `vendor/bin/phing init`.
+```bash
+$ npm install
+```
 
-## And if you need to seed your database with some dummy data
+## Build the assets
 
-Run `vendor/bin/phing fixtures` or run `vendor/bin/phing init+fixtures` in one single step.
+```bash
+$ grunt
+```
 
-After this you can use one prepared user account to log yourself in with these credentials:
+## Setup database access
 
-* email: john.doe@example.com
-* password: admin
+Open the **app/config/config.local.neon** file in your editor and set these parameters
 
-## And finally to run it
+* dbname
+* user
+* password
 
-Run `bin/console server:start`, open your web browser and go to the `http://localhost:8000`.
+## Prepare this project for development
 
-After you are done don´t forget to run `bin/console server:stop` to stop the server running.
+```bash
+$ vendor/bin/phing init
+```
+
+## Seed your database with some dummy data
+
+```bash
+$ vendor/bin/phing fixtures
+```
+
+Or in one single step
+
+```bash
+$ vendor/bin/phing init+fixtures
+```
+
+## Start the development server
+
+```bash
+$ bin/console server:start
+```
+
+Open your web browser and go to the http://localhost:8000.
+
+## Log yourself in
+
+If you have applied the fixtures you can use one prepared user account to log yourself in with these credentials
+
+* **email** john.doe@example.com
+* **password** admin
+
+## After you are done don´t forget to stop the server
+
+```bash
+$ bin/console server:stop
+```
 
 ## Tests
 
-Run `vendor/bin/tester tests -p php -c tests/php.ini`.
+```bash
+$ vendor/bin/tester tests -p php -c tests/php.ini
+```
 
 ## Contributing
 
