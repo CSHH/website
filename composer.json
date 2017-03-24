@@ -75,8 +75,8 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "bin/symlink-composer",
-            "bin/copy-config-local-neon"
+            "bin/copy-config-local-neon",
+            "bin/symlink-composer"
         ]
     }
 }
