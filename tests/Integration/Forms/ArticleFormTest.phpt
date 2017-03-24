@@ -17,7 +17,7 @@ class ArticleFormTest extends Tester\TestCase
     use Login;
     use PresenterTester;
 
-	public function testSubmitFormCreate()
+    public function testSubmitFormCreate()
     {
         $this->signIn($this->container);
 
@@ -25,10 +25,10 @@ class ArticleFormTest extends Tester\TestCase
         Assert::equal(5, $articleRepository->getCount());
 
         $post = array(
-            'tagId' => 1,
-            'name'  => 'Article XYZ',
-            'perex' => 'Lorem ipsum dolor sit amet...',
-            'text'  => 'Lorem ipsum dolor sit amet...',
+            'tagId'  => 1,
+            'name'   => 'Article XYZ',
+            'perex'  => 'Lorem ipsum dolor sit amet...',
+            'text'   => 'Lorem ipsum dolor sit amet...',
             '_do'    => 'form-form-submit',
         );
 
@@ -37,20 +37,20 @@ class ArticleFormTest extends Tester\TestCase
         Assert::equal(6, $articleRepository->getCount());
     }
 
-	public function testSubmitFormUpdate()
+    public function testSubmitFormUpdate()
     {
         $this->signIn($this->container);
 
         $articleRepository = $this->container->getByType('App\Repositories\ArticleRepository');
-        $ent1 = $articleRepository->getById(1);
+        $ent1              = $articleRepository->getById(1);
         Assert::same('Article A', $ent1->name);
 
         $post = array(
-            'id'    => 1,
-            'tagId' => 1,
-            'name'  => 'Article XYZ',
-            'perex' => 'Lorem ipsum dolor sit amet...',
-            'text'  => 'Lorem ipsum dolor sit amet...',
+            'id'     => 1,
+            'tagId'  => 1,
+            'name'   => 'Article XYZ',
+            'perex'  => 'Lorem ipsum dolor sit amet...',
+            'text'   => 'Lorem ipsum dolor sit amet...',
             '_do'    => 'form-form-submit',
         );
 

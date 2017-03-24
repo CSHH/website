@@ -2,9 +2,9 @@
 
 namespace App\Forms;
 
-use App\Repositories;
 use App\Exceptions\FormSentBySpamException;
 use App\Exceptions\UserNotFoundException;
+use App\Repositories;
 use HeavenProject\Utils\FlashType;
 use Latte;
 use Nette\Application\UI\Form;
@@ -100,11 +100,9 @@ class SignResetForm extends AbstractForm
                 $this->translator->translate('locale.sign.new_password_request_email_sent'),
                 FlashType::INFO
             );
-
         } catch (FormSentBySpamException $e) {
             $this->addFormError($form, $e);
             $this->redrawControl('formErrors');
-
         } catch (UserNotFoundException $e) {
             $this->addFormError(
                 $form,
@@ -112,7 +110,6 @@ class SignResetForm extends AbstractForm
                 $this->translator->translate('locale.error.occurred')
             );
             $this->redrawControl('formErrors');
-
         } catch (\PDOException $e) {
             $this->addFormError(
                 $form,

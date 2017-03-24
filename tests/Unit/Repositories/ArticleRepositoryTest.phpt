@@ -2,10 +2,10 @@
 
 namespace AppTests\Unit\Repositories;
 
-use AppTests;
-use AppTests\UnitMocks;
 use App\Entities as AppEntities;
 use App\Repositories as AppRepositories;
+use AppTests;
+use AppTests\UnitMocks;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Nette\Utils\ArrayHash;
 use Tester;
@@ -42,15 +42,15 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $this->translator, $em);
 
-        $values = new ArrayHash;
+        $values        = new ArrayHash;
         $values->name  = 'Silent Hill';
         $values->perex = 'Perex';
         $values->text  = 'Text';
 
-        $tag = new AppTests\TagEntityImpl;
+        $tag     = new AppTests\TagEntityImpl;
         $tag->id = 1;
 
-        $user = new AppTests\UserEntityImpl;
+        $user     = new AppTests\UserEntityImpl;
         $user->id = 1;
 
         $result = $repo->create($values, $tag, $user, new AppEntities\ArticleEntity);
@@ -87,19 +87,19 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $translator, $this->em);
 
-        $values = new ArrayHash;
+        $values        = new ArrayHash;
         $values->name  = 'Silent Hill';
         $values->perex = 'Perex';
         $values->text  = 'Text';
 
-        $tag = new AppTests\TagEntityImpl;
+        $tag     = new AppTests\TagEntityImpl;
         $tag->id = 1;
 
-        $user = new AppTests\UserEntityImpl;
+        $user     = new AppTests\UserEntityImpl;
         $user->id = 1;
 
         $ent = new AppEntities\ArticleEntity;
-        Assert::exception(function() use ($repo, $values, $tag, $user, $ent) {
+        Assert::exception(function () use ($repo, $values, $tag, $user, $ent) {
             $repo->create($values, $tag, $user, $ent);
         }, 'App\Duplicities\PossibleUniqueKeyDuplicationException');
         Assert::null($ent->slug);
@@ -127,19 +127,19 @@ class ArticleRepositoryTest extends Tester\TestCase
 
         $repo = $this->getRepository($dao, $translator, $this->em);
 
-        $values = new ArrayHash;
+        $values        = new ArrayHash;
         $values->name  = 'Silent Hill';
         $values->perex = 'Perex';
         $values->text  = 'Text';
 
-        $tag = new AppTests\TagEntityImpl;
+        $tag     = new AppTests\TagEntityImpl;
         $tag->id = 1;
 
-        $user = new AppTests\UserEntityImpl;
+        $user     = new AppTests\UserEntityImpl;
         $user->id = 1;
 
         $ent = new AppEntities\ArticleEntity;
-        Assert::exception(function() use ($repo, $values, $tag, $user, $ent) {
+        Assert::exception(function () use ($repo, $values, $tag, $user, $ent) {
             $repo->create($values, $tag, $user, $ent);
         }, 'App\Duplicities\PossibleUniqueKeyDuplicationException');
         Assert::same('silent-hill', $ent->slug);
@@ -167,18 +167,18 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getAllForPage($paginatorFactory, 1, 10);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
         $iterator = $result->getIterator();
-        $item1 = $iterator->offsetGet(0);
-        $item2 = $iterator->offsetGet(1);
-        $item3 = $iterator->offsetGet(2);
-        $item4 = $iterator->offsetGet(3);
-        $item5 = $iterator->offsetGet(4);
+        $item1    = $iterator->offsetGet(0);
+        $item2    = $iterator->offsetGet(1);
+        $item3    = $iterator->offsetGet(2);
+        $item4    = $iterator->offsetGet(3);
+        $item5    = $iterator->offsetGet(4);
 
         Assert::same(1, $item1->id);
         Assert::same('Article 1', $item1->name);
@@ -216,18 +216,18 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getAllForPage($paginatorFactory, 1, 10, true);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
         $iterator = $result->getIterator();
-        $item1 = $iterator->offsetGet(0);
-        $item2 = $iterator->offsetGet(1);
-        $item3 = $iterator->offsetGet(2);
-        $item4 = $iterator->offsetGet(3);
-        $item5 = $iterator->offsetGet(4);
+        $item1    = $iterator->offsetGet(0);
+        $item2    = $iterator->offsetGet(1);
+        $item3    = $iterator->offsetGet(2);
+        $item4    = $iterator->offsetGet(3);
+        $item5    = $iterator->offsetGet(4);
 
         Assert::same(1, $item1->id);
         Assert::same('Article 1', $item1->name);
@@ -257,7 +257,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getAllByTag(new AppEntities\TagEntity);
 
         Assert::type('array', $result);
@@ -277,7 +277,7 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     public function testGetByTagAndName()
     {
-        $repo = $this->prepareRepositoryForDetail();
+        $repo   = $this->prepareRepositoryForDetail();
         $result = $repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill');
         Assert::true($result instanceof AppEntities\ArticleEntity);
         Assert::same(1, $result->id);
@@ -287,7 +287,7 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     public function testGetByTagAndSlug()
     {
-        $repo = $this->prepareRepositoryForDetail();
+        $repo   = $this->prepareRepositoryForDetail();
         $result = $repo->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill');
         Assert::true($result instanceof AppEntities\ArticleEntity);
         Assert::same(1, $result->id);
@@ -297,8 +297,8 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     private function prepareRepositoryForDetail()
     {
-        $article = new AppTests\ArticleEntityImpl;
-        $article->id = 1;
+        $article       = new AppTests\ArticleEntityImpl;
+        $article->id   = 1;
         $article->name = 'Silent Hill';
         $article->slug = 'silent-hill';
 
@@ -393,18 +393,18 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
         $iterator = $result->getIterator();
-        $item1 = $iterator->offsetGet(0);
-        $item2 = $iterator->offsetGet(1);
-        $item3 = $iterator->offsetGet(2);
-        $item4 = $iterator->offsetGet(3);
-        $item5 = $iterator->offsetGet(4);
+        $item1    = $iterator->offsetGet(0);
+        $item2    = $iterator->offsetGet(1);
+        $item3    = $iterator->offsetGet(2);
+        $item4    = $iterator->offsetGet(3);
+        $item5    = $iterator->offsetGet(4);
 
         Assert::same(1, $item1->id);
         Assert::same('Article 1', $item1->name);
@@ -444,18 +444,18 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity, true);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
         $iterator = $result->getIterator();
-        $item1 = $iterator->offsetGet(0);
-        $item2 = $iterator->offsetGet(1);
-        $item3 = $iterator->offsetGet(2);
-        $item4 = $iterator->offsetGet(3);
-        $item5 = $iterator->offsetGet(4);
+        $item1    = $iterator->offsetGet(0);
+        $item2    = $iterator->offsetGet(1);
+        $item3    = $iterator->offsetGet(2);
+        $item4    = $iterator->offsetGet(3);
+        $item5    = $iterator->offsetGet(4);
 
         Assert::same(1, $item1->id);
         Assert::same('Article 1', $item1->name);
@@ -494,18 +494,18 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getAllByUserForPage($paginatorFactory, 1, 10, new AppEntities\UserEntity);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
         $iterator = $result->getIterator();
-        $item1 = $iterator->offsetGet(0);
-        $item2 = $iterator->offsetGet(1);
-        $item3 = $iterator->offsetGet(2);
-        $item4 = $iterator->offsetGet(3);
-        $item5 = $iterator->offsetGet(4);
+        $item1    = $iterator->offsetGet(0);
+        $item2    = $iterator->offsetGet(1);
+        $item3    = $iterator->offsetGet(2);
+        $item4    = $iterator->offsetGet(3);
+        $item5    = $iterator->offsetGet(4);
 
         Assert::same(1, $item1->id);
         Assert::same('Article 1', $item1->name);
@@ -543,18 +543,18 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getAllInactiveForPage($paginatorFactory, 1, 10);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
         $iterator = $result->getIterator();
-        $item1 = $iterator->offsetGet(0);
-        $item2 = $iterator->offsetGet(1);
-        $item3 = $iterator->offsetGet(2);
-        $item4 = $iterator->offsetGet(3);
-        $item5 = $iterator->offsetGet(4);
+        $item1    = $iterator->offsetGet(0);
+        $item2    = $iterator->offsetGet(1);
+        $item3    = $iterator->offsetGet(2);
+        $item4    = $iterator->offsetGet(3);
+        $item5    = $iterator->offsetGet(4);
 
         Assert::same(1, $item1->id);
         Assert::same('Article 1', $item1->name);
@@ -593,18 +593,18 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getAllInactiveByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
         $iterator = $result->getIterator();
-        $item1 = $iterator->offsetGet(0);
-        $item2 = $iterator->offsetGet(1);
-        $item3 = $iterator->offsetGet(2);
-        $item4 = $iterator->offsetGet(3);
-        $item5 = $iterator->offsetGet(4);
+        $item1    = $iterator->offsetGet(0);
+        $item2    = $iterator->offsetGet(1);
+        $item3    = $iterator->offsetGet(2);
+        $item4    = $iterator->offsetGet(3);
+        $item5    = $iterator->offsetGet(4);
 
         Assert::same(1, $item1->id);
         Assert::same('Article 1', $item1->name);
@@ -637,7 +637,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getAllNews();
 
         Assert::type('array', $result);
@@ -674,7 +674,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->translator, $this->em);
         $result = $repo->getLatestArticles();
 
         Assert::type('array', $result);
@@ -699,12 +699,12 @@ class ArticleRepositoryTest extends Tester\TestCase
     {
         $articles = [];
         for ($i = 0; $i < 5; $i++) {
-            $id = $i + 1;
-            $article = new AppTests\ArticleEntityImpl;
-            $article->id = $id;
-            $article->name = "Article $id";
+            $id                = $i + 1;
+            $article           = new AppTests\ArticleEntityImpl;
+            $article->id       = $id;
+            $article->name     = "Article $id";
             $article->isActive = true;
-            $articles[] = $article;
+            $articles[]        = $article;
         }
         return $articles;
     }

@@ -1,64 +1,90 @@
 <?php
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()
-    ->files()
-    ->name('*.phpt')
-    ->exclude('tmp')
-    ->in(__DIR__ . '/app')
-    ->in(__DIR__ . '/tests');
-
-return Symfony\CS\Config\Config::create()
-    ->setUsingCache(true)
-    ->level(Symfony\CS\FixerInterface::NONE_LEVEL)
-    ->fixers(array(
-        /*'psr0',                               /* [PSR-0] Classes must be in a path that matches their namespace, be at least one namespace deep, and the class name should match the file name. */
-        'encoding',                           /* [PSR-1] PHP code MUST use only UTF-8 without BOM (remove BOM). */
-        'short_tag',                          /* [PSR-1] PHP code must use the long <?php ?> tags or the short-echo <?= ?> tags; it must not use the other tag variations. */
-        'braces',                             /* [PSR-2] The body of each structure MUST be enclosed by braces. Braces should be properly placed. Body of braces should be properly indented. */
-        'elseif',                             /* [PSR-2] The keyword elseif should be used instead of else if so that all control keywords looks like single words. */
-        'eof_ending',                         /* [PSR-2] A file must always end with an empty line feed. */
-        'function_call_space',                /* [PSR-2] When making a method or function call, there MUST NOT be a space between the method or function name and the opening parenthesis. */
-        'function_declaration',               /* [PSR-2] Spaces should be properly placed in a function declaration. */
-        'indentation',                        /* [PSR-2] Code MUST use an indent of 4 spaces, and MUST NOT use tabs for indenting. */
-        'line_after_namespace',               /* [PSR-2] There MUST be one blank line after the namespace declaration. */
-        'linefeed',                           /* [PSR-2] All PHP files must use the Unix LF (linefeed) line ending. */
-        'lowercase_constants',                /* [PSR-2] The PHP constants true, false, and null MUST be in lower case. */
-        'lowercase_keywords',                 /* [PSR-2] PHP keywords MUST be in lower case. */
-        'method_argument_space',              /* [PSR-2] In method arguments and method call, there MUST NOT be a space before each comma and there MUST be one space after each comma. */
-        'multiple_use',                       /* [PSR-2] There MUST be one use keyword per declaration. */
-        'parenthesis',                        /* [PSR-2] There MUST NOT be a space after the opening parenthesis. There MUST NOT be a space before the closing parenthesis. */
-        'php_closing_tag',                    /* [PSR-2] The closing ?> tag MUST be omitted from files containing only PHP. */
-        'trailing_spaces',                    /* [PSR-2] Remove trailing whitespace at the end of non-blank lines. */
-        'visibility',                         /* [PSR-2] Visibility MUST be declared on all properties and methods; abstract and final MUST be declared before the visibility; static MUST be declared after the visibility. */
-        /*'concat_without_spaces',              /* [symfony] Concatenation should be used without spaces. */
-        'double_arrow_multiline_whitespaces', /* [symfony] Operator => should not be arounded by multi-line whitespaces. */
-        'duplicate_semicolon',                /* [symfony] Remove duplicated semicolons. */
-        /*'empty_return',                       /* [symfony] A return statement wishing to return nothing should be simply "return". */
-        /*'extra_empty_lines',                  /* [symfony] Removes extra empty lines. */
-        /*'include',                            /* [symfony] Include and file path should be divided with a single space. File path should not be placed under brackets. */
-        'multiline_array_trailing_comma',     /* [symfony] PHP multi-line arrays should have a trailing comma. */
-        'namespace_no_leading_whitespace',    /* [symfony] The namespace declaration line shouldn't contain leading whitespace. */
-        /*'new_with_braces',                    /* [symfony] All instances created with new keyword must be followed by braces. */
-        'object_operator',                    /* [symfony] There should not be space before or after object T_OBJECT_OPERATOR. */
-        'operators_spaces',                   /* [symfony] Operators should be arounded by at least one space. */
-        'phpdoc_params',                      /* [symfony] All items of the @param phpdoc tags must be aligned vertically. */
-        'remove_leading_slash_use',           /* [symfony] Remove leading slashes in use clauses. */
-        'remove_lines_between_uses',          /* [symfony] Removes line breaks between use statements. */
-        'return',                             /* [symfony] An empty line feed should precede a return statement. */
-        /*'single_array_no_trailing_comma',     /* [symfony] PHP single-line arrays should not have trailing comma. */
-        'spaces_before_semicolon',            /* [symfony] Single-line whitespace before closing semicolon are prohibited. */
-        'spaces_cast',                        /* [symfony] A single space should be between cast and variable. */
-        /*'standardize_not_equal',              /* [symfony] Replace all <> with !=. */
-        'ternary_spaces',                     /* [symfony] Standardize spaces around ternary operator. */
-        'unused_use',                         /* [symfony] Unused use statements must be removed. */
-        'whitespacy_lines',                   /* [symfony] Remove trailing whitespace at the end of blank lines. */
-        'align_double_arrow',                 /* [contrib] Align double arrow symbols in consecutive lines. */
-        'align_equals',                       /* [contrib] Align equals symbols in consecutive lines. */
-        'concat_with_spaces',                 /* [contrib] Concatenation should be used with at least one whitespace around. */
-        'multiline_spaces_before_semicolon',  /* [contrib] Multi-line whitespace before closing semicolon are prohibited. */
-        'ordered_use',                        /* [contrib] Ordering use statements. */
-        /*'short_array_syntax',                 /* [contrib] PHP array's should use the PHP 5.4 short-syntax. */
-        /*'strict',                             /* [contrib] Comparison should be strict. Warning! This could change code behavior. */
-        /*'strict_param',                       /* [contrib] Functions should be used with $strict param. Warning! This could change code behavior. */
-    ))
-    ->finder($finder);
+return PhpCsFixer\Config::create()
+    ->setRules([
+        'binary_operator_spaces' => [
+            'align_double_arrow' => true,
+            'align_equals'       => true,
+        ],
+        'blank_line_after_namespace'                  => true,
+        'blank_line_after_opening_tag'                => true,
+        'braces'                                      => true,
+        'cast_spaces'                                 => true,
+        'class_definition'                            => true,
+        'concat_space'                                => ['spacing' => 'one'],
+        'elseif'                                      => true,
+        'encoding'                                    => true,
+        'full_opening_tag'                            => true,
+        'function_declaration'                        => true,
+        'function_typehint_space'                     => true,
+        'include'                                     => true,
+        'indentation_type'                            => true,
+        'lowercase_cast'                              => true,
+        'lowercase_constants'                         => true,
+        'lowercase_keywords'                          => true,
+        'method_argument_space'                       => true,
+        'method_separation'                           => true,
+        'native_function_casing'                      => true,
+        'no_blank_lines_after_class_opening'          => true,
+        'no_blank_lines_after_phpdoc'                 => true,
+        'no_closing_tag'                              => true,
+        'no_empty_comment'                            => true,
+        'no_empty_phpdoc'                             => true,
+        'no_empty_statement'                          => true,
+        'no_extra_consecutive_blank_lines'            => ['use', 'useTrait'],
+        'no_leading_import_slash'                     => true,
+        'no_leading_namespace_whitespace'             => true,
+        'no_multiline_whitespace_around_double_arrow' => true,
+        'no_multiline_whitespace_before_semicolons'   => true,
+        'no_singleline_whitespace_before_semicolons'  => true,
+        'no_spaces_after_function_name'               => true,
+        'no_spaces_around_offset'                     => true,
+        'no_spaces_inside_parenthesis'                => true,
+        'no_trailing_comma_in_list_call'              => true,
+        'no_trailing_comma_in_singleline_array'       => true,
+        'no_trailing_whitespace'                      => true,
+        'no_trailing_whitespace_in_comment'           => true,
+        'no_unneeded_control_parentheses'             => true,
+        'no_unused_imports'                           => true,
+        'no_whitespace_before_comma_in_array'         => true,
+        'no_whitespace_in_blank_line'                 => true,
+        'normalize_index_brace'                       => true,
+        'object_operator_without_whitespace'          => true,
+        'ordered_imports'                             => true,
+        'phpdoc_align'                                => true,
+        'phpdoc_indent'                               => true,
+        'phpdoc_no_access'                            => true,
+        'phpdoc_no_package'                           => true,
+        'phpdoc_no_useless_inheritdoc'                => true,
+        'phpdoc_order'                                => true,
+        'phpdoc_return_self_reference'                => true,
+        'phpdoc_scalar'                               => true,
+        'phpdoc_single_line_var_spacing'              => true,
+        'phpdoc_trim'                                 => true,
+        'phpdoc_types'                                => true,
+        'phpdoc_var_without_name'                     => true,
+        'self_accessor'                               => true,
+        'semicolon_after_instruction'                 => true,
+        'short_scalar_cast'                           => true,
+        'single_blank_line_at_eof'                    => true,
+        'single_blank_line_before_namespace'          => true,
+        'single_class_element_per_statement'          => true,
+        'single_import_per_statement'                 => true,
+        'single_line_after_imports'                   => true,
+        'single_quote'                                => true,
+        'space_after_semicolon'                       => true,
+        'switch_case_space'                           => true,
+        'ternary_operator_spaces'                     => true,
+        'trailing_comma_in_multiline_array'           => true,
+        'trim_array_spaces'                           => true,
+        'unary_operator_spaces'                       => true,
+        'visibility_required'                         => true,
+    ])
+    ->setFinder(
+        PhpCsFixer\Finder::create()
+            ->exclude('tmp')
+            ->in('app')
+            ->in('libs')
+            ->in('migrations')
+            ->in('tests')
+    );

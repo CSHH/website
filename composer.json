@@ -56,6 +56,7 @@
         "zenify/doctrine-migrations": "^3.0"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.1",
         "mockery/mockery": "0.9.*",
         "nette/tester": "^1.7",
         "phing/phing": "^2.16",

@@ -16,7 +16,7 @@ trait DuplicityChecker
      * @param  string           $attribute
      * @param  string           $value
      * @param  string           $locale
-     * @return BaseEntity|FALSE if value if not a duplicate
+     * @return BaseEntity|false if value if not a duplicate
      */
     public function isValueDuplicate(EntityManager $em, $entity, $attribute, $value, $locale = null)
     {

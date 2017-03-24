@@ -2,9 +2,9 @@
 
 namespace App\Forms;
 
-use App\Repositories;
 use App\Entities;
 use App\Exceptions\PossibleUniqueKeyDuplicationException;
+use App\Repositories;
 use HeavenProject\Utils\FlashType;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
@@ -53,10 +53,8 @@ class SignPasswordForm extends AbstractForm
                 $this->translator->translate('locale.sign.password_changed_sign_in'),
                 FlashType::INFO
             );
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             $this->addFormError($form, $e);
-
         } catch (\PDOException $e) {
             $this->addFormError(
                 $form,

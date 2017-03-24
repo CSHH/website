@@ -2,9 +2,9 @@
 
 namespace App\Front;
 
+use App\Presenters\ActivityTrait;
 use App\Repositories;
 use App\Utils\PaginatorFactory;
-use App\Presenters\ActivityTrait;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 abstract class SingleUserContentPresenter extends PageablePresenter
@@ -32,7 +32,6 @@ abstract class SingleUserContentPresenter extends PageablePresenter
             $items = $tag
                 ? $repository->getAllInactiveByTagForPage($this->paginatorFactory, $this->vp->page, $limit, $tag)
                 : $repository->getAllInactiveForPage($this->paginatorFactory, $this->vp->page, $limit);
-
         } else {
             $state = !$this->canAccess;
 

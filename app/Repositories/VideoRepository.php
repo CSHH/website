@@ -4,18 +4,18 @@ namespace App\Repositories;
 
 use App\Caching\MenuCache;
 use App\Duplicities\DuplicityChecker;
-use App\Entities;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
+use App\Entities;
 use App\Exceptions\InvalidVideoUrlException;
-use App\Videos;
 use App\Utils\PaginatorFactory;
+use App\Videos;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use HeavenProject\Utils\Slugger;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
+use Nette\Localization\ITranslator;
 use Nette\Utils\ArrayHash;
 use Nette\Utils\Strings;
-use Nette\Localization\ITranslator;
-use HeavenProject\Utils\Slugger;
 
 class VideoRepository extends SingleUserContentRepository
 {
@@ -28,11 +28,11 @@ class VideoRepository extends SingleUserContentRepository
     private $translator;
 
     /**
-     * @param string           $vimeoOembedEndpoint
-     * @param EntityDao        $dao
-     * @param ITranslator      $translator
-     * @param EntityManager    $em
-     * @param MenuCache        $menuCache
+     * @param string        $vimeoOembedEndpoint
+     * @param EntityDao     $dao
+     * @param ITranslator   $translator
+     * @param EntityManager $em
+     * @param MenuCache     $menuCache
      */
     public function __construct(
         $vimeoOembedEndpoint,
@@ -129,7 +129,7 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  Entities\VideoEntity $e
+     * @param Entities\VideoEntity $e
      */
     public function delete(Entities\VideoEntity $e)
     {
@@ -160,8 +160,8 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  Entities\TagEntity $tag
-     * @param  string $name
+     * @param  Entities\TagEntity        $tag
+     * @param  string                    $name
      * @return Entities\VideoEntity|null
      */
     public function getByTagAndName(Entities\TagEntity $tag, $name)
@@ -170,8 +170,8 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  Entities\TagEntity $tag
-     * @param  string $slug
+     * @param  Entities\TagEntity        $tag
+     * @param  string                    $slug
      * @return Entities\VideoEntity|null
      */
     public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
@@ -244,7 +244,6 @@ class VideoRepository extends SingleUserContentRepository
             } else {
                 $e->src = null;
             }
-
         } elseif (Strings::contains($url, Entities\VideoEntity::DOMAIN_VIMEO . '.com')) {
             $e->type = Entities\VideoEntity::TYPE_VIMEO;
             $e->url  = $url ?: null;
@@ -255,7 +254,6 @@ class VideoRepository extends SingleUserContentRepository
             } else {
                 $e->src = null;
             }
-
         } else {
             throw new InvalidVideoUrlException(
                 $this->translator->translate('locale.error.invalid_video_url')

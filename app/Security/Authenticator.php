@@ -20,12 +20,12 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
     private $userRepository;
 
     /**
-     * @param ITranslator   $translator
+     * @param ITranslator                 $translator
      * @param Repositories\UserRepository $userRepository
      */
     public function __construct(ITranslator $translator, Repositories\UserRepository $userRepository)
     {
-        $this->translator = $translator;
+        $this->translator       = $translator;
         $this->userRepository   = $userRepository;
     }
 
@@ -62,7 +62,7 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
     }
 
     /**
-     * @param  Entities\UserEntity $user
+     * @param  Entities\UserEntity     $user
      * @return Nette\Security\Identity
      */
     public function updateIdentity(Entities\UserEntity $user)

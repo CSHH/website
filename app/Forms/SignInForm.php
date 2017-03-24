@@ -47,7 +47,6 @@ class SignInForm extends AbstractForm
                 $this->translator->translate('locale.sign.in'),
                 FlashType::INFO
             );
-
         } catch (AuthenticationException $e) {
             $this->addFormError($form, $e);
             $this->redrawControl('formErrors');

@@ -2,9 +2,9 @@
 
 namespace App\Forms;
 
-use App\Repositories;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Exceptions\FormSentBySpamException;
+use App\Repositories;
 use HeavenProject\Utils\FlashType;
 use Latte;
 use Nette\Application\UI\Form;
@@ -116,15 +116,12 @@ class SignUpForm extends AbstractForm
                 $this->translator->translate('locale.sign.sign_up_email_sent'),
                 FlashType::SUCCESS
             );
-
         } catch (FormSentBySpamException $e) {
             $this->addFormError($form, $e);
             $this->redrawControl('formErrors');
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             $this->addFormError($form, $e);
             $this->redrawControl('formErrors');
-
         } catch (\Exception $e) {
             $this->addFormError(
                 $form,

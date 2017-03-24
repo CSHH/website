@@ -2,10 +2,10 @@
 
 namespace App\Forms;
 
-use App\Repositories;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Exceptions;
+use App\Repositories;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 
@@ -43,13 +43,10 @@ class GalleryForm extends AbstractContentForm
 
             $this->imageRepository->uploadImages($tag, $images, $this->user);
             $p->flashMessage($this->translator->translate('locale.item.images_uploaded'));
-
         } catch (Exceptions\MissingTagException $e) {
             $this->addFormError($form, $e);
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             $this->addFormError($form, $e);
-
         } catch (\Exception $e) {
             $this->addFormError(
                 $form,

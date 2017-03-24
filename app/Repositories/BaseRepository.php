@@ -48,8 +48,8 @@ abstract class BaseRepository
     }
 
     /**
-     * @param EntityManager       $em
-     * @param Entities\BaseEntity $e
+     * @param  EntityManager       $em
+     * @param  Entities\BaseEntity $e
      * @return Entities\BaseEntity
      */
     protected function persistAndFlush(EntityManager $em, Entities\BaseEntity $e)
@@ -72,9 +72,9 @@ abstract class BaseRepository
     }
 
     /**
-     * @param  QueryBuilder $qb
-     * @param  int          $page
-     * @param  int          $limit
+     * @param QueryBuilder $qb
+     * @param int          $page
+     * @param int          $limit
      */
     protected function preparePagination(QueryBuilder $qb, $page, $limit)
     {

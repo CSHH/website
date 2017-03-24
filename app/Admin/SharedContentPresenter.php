@@ -62,7 +62,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     }
 
     /**
-     * @param  string $type
+     * @param  string         $type
      * @return Forms\WikiForm
      */
     protected function runCreateComponentWikiForm($type)
@@ -75,7 +75,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     }
 
     /**
-     * @param  string $type
+     * @param  string              $type
      * @return Forms\WikiDraftForm
      */
     protected function runCreateComponentWikiDraftForm($type)

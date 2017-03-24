@@ -43,7 +43,7 @@ abstract class AbstractForm extends Nette\Application\UI\Control
     }
 
     /**
-     * @param Form $form
+     * @param Form                $form
      * @param Entities\BaseEntity $item
      */
     protected function tryAutoFill(Form $form, Entities\BaseEntity $item = null)

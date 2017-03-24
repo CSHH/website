@@ -2,11 +2,11 @@
 
 namespace App\Forms;
 
-use App\Repositories;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
-use App\Exceptions\InvalidVideoUrlException;
 use App\Entities;
 use App\Exceptions;
+use App\Exceptions\InvalidVideoUrlException;
+use App\Repositories;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 
@@ -58,16 +58,12 @@ class VideoForm extends AbstractContentForm
                 $ent = $this->videoRepository->create($values, $tag, $this->user, new Entities\VideoEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
-
         } catch (Exceptions\MissingTagException $e) {
             $this->addFormError($form, $e);
-
         } catch (PossibleUniqueKeyDuplicationException $e) {
             $this->addFormError($form, $e);
-
         } catch (InvalidVideoUrlException $e) {
             $this->addFormError($form, $e);
-
         } catch (\Exception $e) {
             $this->addFormError(
                 $form,

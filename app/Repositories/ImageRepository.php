@@ -4,11 +4,11 @@ namespace App\Repositories;
 
 use App\Caching\MenuCache;
 use App\Entities;
-use Kdyby\Doctrine\EntityManager;
 use App\Utils\PaginatorFactory;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Kdyby\Doctrine\EntityDao;
 use HeavenProject\FileManagement\FileManager;
+use Kdyby\Doctrine\EntityDao;
+use Kdyby\Doctrine\EntityManager;
 
 class ImageRepository extends SingleUserContentRepository
 {
@@ -19,12 +19,12 @@ class ImageRepository extends SingleUserContentRepository
     private $uploadDir;
 
     /**
-     * @param string           $wwwDir
-     * @param string           $uploadDir
-     * @param EntityDao        $dao
-     * @param EntityDao        $fileDao
-     * @param EntityManager    $em
-     * @param MenuCache        $menuCache
+     * @param string        $wwwDir
+     * @param string        $uploadDir
+     * @param EntityDao     $dao
+     * @param EntityDao     $fileDao
+     * @param EntityManager $em
+     * @param MenuCache     $menuCache
      */
     public function __construct(
         $wwwDir,
@@ -69,7 +69,7 @@ class ImageRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  Entities\ImageEntity $e
+     * @param Entities\ImageEntity $e
      */
     public function delete(Entities\ImageEntity $e)
     {

@@ -38,10 +38,10 @@ class WikiDraftRepository extends BaseRepository
     }
 
     /**
-     * @param  ArrayHash $values
-     * @param  Entities\UserEntity $user
-     * @param  Entities\WikiEntity $wiki
-     * @param  Entities\WikiDraftEntity $e
+     * @param  ArrayHash                             $values
+     * @param  Entities\UserEntity                   $user
+     * @param  Entities\WikiEntity                   $wiki
+     * @param  Entities\WikiDraftEntity              $e
      * @throws PossibleUniqueKeyDuplicationException
      * @return Entities\WikiEntity
      */
@@ -72,7 +72,7 @@ class WikiDraftRepository extends BaseRepository
     }
 
     /**
-     * @param  Entities\WikiEntity $wiki
+     * @param  Entities\WikiEntity           $wiki
      * @return Entities\WikiDraftEntity|null
      */
     public function getLatestByWiki(Entities\WikiEntity $wiki)

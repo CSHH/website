@@ -36,9 +36,9 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     }
 
     /**
-     * @param  Repositories\BaseRepository $repository
-     * @param  int                         $limit
-     * @param  Entities\UserEntity         $user
+     * @param Repositories\BaseRepository $repository
+     * @param int                         $limit
+     * @param Entities\UserEntity         $user
      */
     protected function runActionDefault(Repositories\BaseRepository $repository, $limit, Entities\UserEntity $user)
     {
