@@ -1,4 +1,26 @@
 {
+    "name": "heavenproject/website",
+    "description": "Czech Silent Hill Heaven (CSHH) Website",
+    "type": "project",
+    "keywords": [
+        "website",
+        "nette-application",
+        "silent-hill",
+        "czech-silent-hill-heaven",
+        "php"
+    ],
+    "homepage": "https://github.com/CSHH/website",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lukáš Neubauer",
+            "email": "lukasneubauer@seznam.cz"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/CSHH/website/issues",
+        "source": "https://github.com/CSHH/website"
+    },
     "require": {
         "php": "5.6.*",
         "ezyang/htmlpurifier": "^4.9",
