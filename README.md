@@ -45,7 +45,7 @@ $ grunt
 
 ## Setup database access
 
-Open the **app/config/config.local.neon** file in your editor and set these parameters
+Open up the `app/config/config.local.neon` file in your code editor and set these parameters
 
 * dbname
 * user
@@ -81,8 +81,8 @@ Open your web browser and go to the http://localhost:8000.
 
 If you have applied the fixtures you can use one prepared user account to log yourself in with these credentials
 
-* **email** john.doe@example.com
-* **password** admin
+* email: john.doe@example.com
+* password: admin
 
 ## After you are done don´t forget to stop the server
 
