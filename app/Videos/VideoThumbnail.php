@@ -46,7 +46,7 @@ class VideoThumbnail
             case VideoEntity::TYPE_VIMEO:
                 return $this->getVimeoVideoThumbnail($video);
 
-            default;
+            default:
                 return '';
         }
     }

@@ -18,6 +18,6 @@ class TagRepository extends BaseRepository
      */
     public function getBySlug($slug)
     {
-        return $this->dao->findOneBy(array('slug' => $slug));
+        return $this->dao->findOneBy(['slug' => $slug]);
     }
 }

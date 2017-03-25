@@ -67,7 +67,7 @@ class VideoRepositoryTest extends Tester\TestCase
     public function testGetAllByTag()
     {
         $query = $this->query;
-        $this->mock($query, 'getResult', 1, array());
+        $this->mock($query, 'getResult', 1, []);
 
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');

@@ -83,10 +83,10 @@ class SignResetForm extends AbstractForm
 
             $link = $p->link(
                 '//:Admin:Sign:password',
-                array(
+                [
                     'uid'   => $user->id,
                     'token' => $token,
-                )
+                ]
             );
 
             $this->sendEmail(
@@ -137,10 +137,10 @@ class SignResetForm extends AbstractForm
     {
         $latte = new Latte\Engine;
 
-        $parameters = array(
+        $parameters = [
             'subject' => $subject,
             'link'    => $link,
-        );
+        ];
 
         $email = new Message;
         $email->setFrom($from)

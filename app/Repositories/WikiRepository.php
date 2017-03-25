@@ -135,7 +135,7 @@ class WikiRepository extends BaseRepository
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->where('w.type = :type');
 
-        $params = array('type' => $type);
+        $params = ['type' => $type];
 
         if ($activeOnly) {
             $qb->andWhere('w.isActive = :state');
@@ -161,10 +161,10 @@ class WikiRepository extends BaseRepository
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->join('w.tag', 't')
             ->where('t.id = :tagId AND w.type = :type')
-            ->setParameters(array(
+            ->setParameters([
                 'tagId' => $tag->id,
                 'type'  => $type,
-            ))
+            ])
             ->getQuery()
             ->getResult();
     }
@@ -182,10 +182,10 @@ class WikiRepository extends BaseRepository
                 ->from(Entities\WikiEntity::getClassName(), 'w')
                 ->join('w.tag', 't')
                 ->where('t.id = :tagId AND w.name = :name')
-                ->setParameters(array(
+                ->setParameters([
                     'tagId' => $tag->id,
                     'name'  => $name,
-                ))
+                ])
                 ->getQuery()
                 ->getSingleResult();
         } catch (NonUniqueResultException $e) {
@@ -208,10 +208,10 @@ class WikiRepository extends BaseRepository
                 ->from(Entities\WikiEntity::getClassName(), 'w')
                 ->join('w.tag', 't')
                 ->where('t.id = :tagId AND w.slug = :slug')
-                ->setParameters(array(
+                ->setParameters([
                     'tagId' => $tag->id,
                     'slug'  => $slug,
-                ))
+                ])
                 ->getQuery()
                 ->getSingleResult();
         } catch (NonUniqueResultException $e) {
@@ -235,11 +235,11 @@ class WikiRepository extends BaseRepository
                 ->from(Entities\WikiEntity::getClassName(), 'w')
                 ->join('w.tag', 't')
                 ->where('t.id = :tagId AND w.name = :name AND w.type = :type')
-                ->setParameters(array(
+                ->setParameters([
                     'tagId' => $tag->id,
                     'name'  => $name,
                     'type'  => $type,
-                ))
+                ])
                 ->getQuery()
                 ->getSingleResult();
         } catch (NonUniqueResultException $e) {
@@ -263,11 +263,11 @@ class WikiRepository extends BaseRepository
                 ->from(Entities\WikiEntity::getClassName(), 'w')
                 ->join('w.tag', 't')
                 ->where('t.id = :tagId AND w.slug = :slug AND w.type = :type')
-                ->setParameters(array(
+                ->setParameters([
                     'tagId' => $tag->id,
                     'slug'  => $slug,
                     'type'  => $type,
-                ))
+                ])
                 ->getQuery()
                 ->getSingleResult();
         } catch (NonUniqueResultException $e) {
@@ -293,10 +293,10 @@ class WikiRepository extends BaseRepository
             ->join('w.tag', 't')
             ->where('t.id = :tagId AND w.type = :type');
 
-        $params = array(
+        $params = [
             'tagId' => $tag->id,
             'type'  => $type,
-        );
+        ];
 
         if ($activeOnly) {
             $qb->andWhere('w.isActive = :state');
@@ -324,10 +324,10 @@ class WikiRepository extends BaseRepository
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->join('w.createdBy', 'u')
             ->where('u.id = :userId AND w.type = :type')
-            ->setParameters(array(
+            ->setParameters([
                 'userId' => $user->id,
                 'type'   => $type,
-            ));
+            ]);
 
         $this->preparePagination($qb, $page, $limit);
 
@@ -379,7 +379,7 @@ class WikiRepository extends BaseRepository
                 $qb->expr()->isNotNull('w.id')
             );
 
-        $res = array();
+        $res = [];
 
         foreach ($qb->getQuery()->getResult() as $i) {
             $res[] = $i['id'];
@@ -458,10 +458,10 @@ class WikiRepository extends BaseRepository
             ->orderBy('e.updatedAt', 'DESC')
             ->setFirstResult(0)
             ->setMaxResults(10)
-            ->setParameters(array(
+            ->setParameters([
                 'state' => true,
                 'type'  => $type,
-            ));
+            ]);
 
         return $qb->getQuery()
             ->getResult();

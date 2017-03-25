@@ -57,7 +57,7 @@ abstract class AbstractContentForm extends AbstractForm
      */
     protected function getTags()
     {
-        $tags = array();
+        $tags = [];
         foreach ($this->tagRepository->getAll() as $tag) {
             $tags[$tag->id] = $tag->name;
         }

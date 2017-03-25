@@ -99,10 +99,10 @@ class SignUpForm extends AbstractForm
             $user = $this->userRepository->createRegistration($values);
             $link = $p->link(
                 '//:Admin:Sign:unlock',
-                array(
+                [
                     'uid'   => $user->id,
                     'token' => $user->token,
-                )
+                ]
             );
 
             $this->sendEmail(
@@ -151,12 +151,12 @@ class SignUpForm extends AbstractForm
     {
         $latte = new Latte\Engine;
 
-        $parameters = array(
+        $parameters = [
             'subject' => $subject,
             'link'    => $link,
             'baseUri' => $this->urlScript->getHostUrl(),
             'host'    => $this->urlScript->getHost(),
-        );
+        ];
 
         $email = new Message;
         $email->setFrom($from)

@@ -31,7 +31,7 @@ class VisualPaginatorControl extends Control
         $page      = $paginator->page;
 
         if ($paginator->pageCount < 2) {
-            $steps = array($page);
+            $steps = [$page];
         } else {
             $arr      = range(max($paginator->firstPage, $page - 3), min($paginator->lastPage, $page + 3));
             $count    = 4;

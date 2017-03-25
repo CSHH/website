@@ -19,11 +19,11 @@ class BaseEntityTest extends Tester\TestCase
      */
     public function testSetValuesAsArray($a, $b, $c)
     {
-        $values = array(
+        $values = [
             'a' => $a,
             'b' => $b,
             'c' => $c,
-        );
+        ];
 
         $this->assert($values, $a, $b, $c);
     }
@@ -46,7 +46,7 @@ class BaseEntityTest extends Tester\TestCase
      */
     public function getArgs()
     {
-        return array(['A', 'B', 'C']);
+        return [['A', 'B', 'C']];
     }
 
     /**

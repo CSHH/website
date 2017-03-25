@@ -41,7 +41,7 @@ class MenuCache extends Nette\Object
     private $tagRepository;
 
     /** @var array */
-    private $items = array();
+    private $items = [];
 
     public function __construct(Cache $cache, Repositories\TagRepository $tagRepository)
     {
@@ -150,7 +150,7 @@ class MenuCache extends Nette\Object
     {
         $items = $this->cache->load($section);
         if ($items === null) {
-            $items = array();
+            $items = [];
             foreach ($tags as $tag) {
                 if ($wikiType ? $repository->getAllByTag($tag, $wikiType) : $repository->getAllByTag($tag)) {
                     $items[$tag->id] = $tag;
