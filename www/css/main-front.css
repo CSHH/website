@@ -118,14 +118,16 @@ textarea {
 
 textarea,
 input[type=text],
-input[type=password] {
+input[type=password],
+input[type=email] {
     width: 988px;
 }
 
 select,
 textarea,
 input[type=text],
-input[type=password] {
+input[type=password],
+input[type=email] {
     padding: 5px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -133,7 +135,8 @@ input[type=password] {
 }
 
 .modal input[type=text],
-.modal input[type=password] {
+.modal input[type=password],
+.modal input[type=email] {
     width: 448px;
 }
 
