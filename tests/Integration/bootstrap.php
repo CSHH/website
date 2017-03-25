@@ -22,6 +22,7 @@ $params = [
 
 $configurator = new Nette\Configurator;
 $configurator->setDebugMode(true);
+$configurator->enableDebugger(TEMP_DIR);
 $configurator->setTempDirectory(TEMP_DIR);
 $configurator->addParameters($params);
 $configurator->addConfig(__DIR__ . '/../../app/config/config.neon');
