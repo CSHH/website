@@ -77,7 +77,7 @@ final class WikiDraftPresenter extends SharedContentPresenter
         $this->checkWikiDraft($wikiDraft, $wikiId);
 
         $this->wikiDraftRepository->delete($wikiDraft);
-        $this->redirect('default', array('wikiId' => $wikiId));
+        $this->redirect('default', ['wikiId' => $wikiId]);
     }
 
     /**

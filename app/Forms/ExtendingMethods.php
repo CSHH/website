@@ -37,7 +37,7 @@ class ExtendingMethods
                         if (array_key_exists($name, $values)) {
                             $control->autoFill($values[$name], $erase);
                         } elseif ($erase) {
-                            $control->autoFill(array(), $erase);
+                            $control->autoFill([], $erase);
                         }
                     } else {
                         if (isset($values->{$name})) {

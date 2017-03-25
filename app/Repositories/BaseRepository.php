@@ -24,7 +24,7 @@ abstract class BaseRepository
      * @param  int                   $offset
      * @return Entities\BaseEntity[]
      */
-    public function getAll(array $criteria = array(), array $orderBy = null, $limit = null, $offset = null)
+    public function getAll(array $criteria = [], array $orderBy = null, $limit = null, $offset = null)
     {
         return $this->dao->findBy($criteria, $orderBy, $limit, $offset);
     }
@@ -42,7 +42,7 @@ abstract class BaseRepository
      * @param  array $criteria
      * @return int
      */
-    public function getCount(array $criteria = array())
+    public function getCount(array $criteria = [])
     {
         return (int) $this->dao->countBy($criteria);
     }

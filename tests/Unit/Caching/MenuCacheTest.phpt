@@ -44,10 +44,10 @@ class MenuCacheTest extends Tester\TestCase
     public function testGetAll()
     {
         $netteCache = $this->netteCache;
-        $this->mock($netteCache, 'load', 6, array());
+        $this->mock($netteCache, 'load', 6, []);
 
         $tagRepository = $this->tagRepository;
-        $this->mock($tagRepository, 'getAll', 1, array());
+        $this->mock($tagRepository, 'getAll', 1, []);
 
         $menuCache = new MenuCache($netteCache, $tagRepository);
         $menuCache->setArticleRepository($this->articleRepository);
@@ -68,32 +68,32 @@ class MenuCacheTest extends Tester\TestCase
         $this->mock($netteCache, 'save', 6, $tag);
 
         $tagRepository = $this->tagRepository;
-        $this->mock($tagRepository, 'getAll', 1, array($tag));
+        $this->mock($tagRepository, 'getAll', 1, [$tag]);
 
         $menuCache = new MenuCache($netteCache, $tagRepository);
 
         $article           = new AppTests\ArticleEntityImpl;
         $article->id       = 1;
         $articleRepository = $this->articleRepository;
-        $this->mock($articleRepository, 'getAllByTag', 1, array($article));
+        $this->mock($articleRepository, 'getAllByTag', 1, [$article]);
         $menuCache->setArticleRepository($articleRepository);
 
         $image           = new AppTests\ImageEntityImpl;
         $image->id       = 1;
         $imageRepository = $this->imageRepository;
-        $this->mock($imageRepository, 'getAllByTag', 1, array($image));
+        $this->mock($imageRepository, 'getAllByTag', 1, [$image]);
         $menuCache->setImageRepository($imageRepository);
 
         $video           = new AppTests\VideoEntityImpl;
         $video->id       = 1;
         $videoRepository = $this->videoRepository;
-        $this->mock($videoRepository, 'getAllByTag', 1, array($video));
+        $this->mock($videoRepository, 'getAllByTag', 1, [$video]);
         $menuCache->setVideoRepository($videoRepository);
 
         $wiki           = new AppTests\WikiEntityImpl;
         $wiki->id       = 1;
         $wikiRepository = $this->wikiRepository;
-        $this->mock($wikiRepository, 'getAllByTag', 3, array($wiki));
+        $this->mock($wikiRepository, 'getAllByTag', 3, [$wiki]);
         $menuCache->setWikiRepository($wikiRepository);
 
         $result = $menuCache->getAll();
@@ -119,7 +119,7 @@ class MenuCacheTest extends Tester\TestCase
         $tag->id = 1;
 
         $netteCache = $this->netteCache;
-        $this->mock($netteCache, 'load', 1, array());
+        $this->mock($netteCache, 'load', 1, []);
         $this->mock($netteCache, 'remove');
 
         $menuCache = new MenuCache($netteCache, $this->tagRepository);
@@ -132,7 +132,7 @@ class MenuCacheTest extends Tester\TestCase
         $tag->id = 1;
 
         $netteCache = $this->netteCache;
-        $this->mock($netteCache, 'load', 1, array($tag->id => $tag));
+        $this->mock($netteCache, 'load', 1, [$tag->id => $tag]);
 
         $menuCache = new MenuCache($netteCache, $this->tagRepository);
         Assert::true($menuCache->isTagInSection(MenuCache::SECTION_ARTICLES, $tag));
@@ -141,7 +141,7 @@ class MenuCacheTest extends Tester\TestCase
     public function testIsTagInSectionReturnsFalse()
     {
         $netteCache = $this->netteCache;
-        $this->mock($netteCache, 'load', 1, array());
+        $this->mock($netteCache, 'load', 1, []);
 
         $menuCache = new MenuCache($netteCache, $this->tagRepository);
         Assert::false($menuCache->isTagInSection(MenuCache::SECTION_ARTICLES, new AppTests\TagEntityImpl));

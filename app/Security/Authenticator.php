@@ -67,14 +67,14 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
      */
     public function updateIdentity(Entities\UserEntity $user)
     {
-        $data = array(
+        $data = [
             'username'        => $user->username,
             'email'           => $user->email,
             'forename'        => $user->forename,
             'surname'         => $user->surname,
             'role'            => $user->role,
             'isAuthenticated' => $user->isAuthenticated,
-        );
+        ];
 
         return new Nette\Security\Identity($user->id, null, $data);
     }

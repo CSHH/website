@@ -37,7 +37,7 @@ abstract class AbstractForm extends Nette\Application\UI\Control
 
         $this->configure($form);
 
-        $form->onSuccess[] = array($this, 'formSucceeded');
+        $form->onSuccess[] = [$this, 'formSucceeded'];
 
         return $form;
     }

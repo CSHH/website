@@ -101,10 +101,10 @@ abstract class SingleUserContentRepository extends BaseRepository
                 ->from($className, 'e')
                 ->join('e.tag', 't')
                 ->where('t.id = :tagId AND e.name = :name')
-                ->setParameters(array(
+                ->setParameters([
                     'tagId' => $tag->id,
                     'name'  => $name,
-                ))
+                ])
                 ->getQuery()
                 ->getSingleResult();
         } catch (NonUniqueResultException $e) {
@@ -128,10 +128,10 @@ abstract class SingleUserContentRepository extends BaseRepository
                 ->from($className, 'e')
                 ->join('e.tag', 't')
                 ->where('t.id = :tagId AND e.slug = :slug')
-                ->setParameters(array(
+                ->setParameters([
                     'tagId' => $tag->id,
                     'slug'  => $slug,
-                ))
+                ])
                 ->getQuery()
                 ->getSingleResult();
         } catch (NonUniqueResultException $e) {
@@ -158,7 +158,7 @@ abstract class SingleUserContentRepository extends BaseRepository
             ->join('e.tag', 't')
             ->where('t.id = :tagId');
 
-        $params = array('tagId' => $tag->id);
+        $params = ['tagId' => $tag->id];
 
         if ($activeOnly) {
             $qb->andWhere('e.isActive = :state');
@@ -229,10 +229,10 @@ abstract class SingleUserContentRepository extends BaseRepository
             ->from($className, 'e')
             ->join('e.tag', 't')
             ->where('t.id = :tagId AND e.isActive = :state')
-            ->setParameters(array(
+            ->setParameters([
                 'tagId' => $tag->id,
                 'state' => false,
-            ));
+            ]);
 
         $this->preparePagination($qb, $page, $limit);
 

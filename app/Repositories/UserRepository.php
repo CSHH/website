@@ -121,7 +121,7 @@ class UserRepository extends BaseRepository
      */
     public function getByEmail($email)
     {
-        return $this->dao->findOneBy(array('email' => $email));
+        return $this->dao->findOneBy(['email' => $email]);
     }
 
     /**

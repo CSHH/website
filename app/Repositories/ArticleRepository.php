@@ -237,10 +237,10 @@ class ArticleRepository extends SingleUserContentRepository
             ->orderBy('e.updatedAt', 'DESC')
             ->setFirstResult(0)
             ->setMaxResults(20)
-            ->setParameters(array(
+            ->setParameters([
                 'state' => true,
                 'tagId' => Entities\TagEntity::NEWS_ID,
-            ));
+            ]);
 
         return $qb->getQuery()
             ->getResult();
@@ -259,10 +259,10 @@ class ArticleRepository extends SingleUserContentRepository
             ->orderBy('e.updatedAt', 'DESC')
             ->setFirstResult(0)
             ->setMaxResults(10)
-            ->setParameters(array(
+            ->setParameters([
                 'state' => true,
                 'tagId' => Entities\TagEntity::NEWS_ID,
-            ));
+            ]);
 
         return $qb->getQuery()
             ->getResult();

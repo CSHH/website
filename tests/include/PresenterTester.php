@@ -34,7 +34,7 @@ trait PresenterTester
      * @throws \Exception
      * @return Application\IResponse
      */
-    public function assertAppResponse($presenterName, $action, $method = 'GET', $params = array(), $post = array())
+    public function assertAppResponse($presenterName, $action, $method = 'GET', $params = [], $post = [])
     {
         $presenter = $this->createPresenter($presenterName);
 
@@ -62,7 +62,7 @@ trait PresenterTester
      * @param  array                 $post
      * @return Application\IResponse
      */
-    public function assertFormSubmitted($presenterName, $action, $method = 'POST', $params = array(), $post = array())
+    public function assertFormSubmitted($presenterName, $action, $method = 'POST', $params = [], $post = [])
     {
         $presenter = $this->createPresenter($presenterName);
 
