@@ -1,9 +1,12 @@
 extension=ctype.so
+extension=curl.so
+extension=gd.so
 extension=iconv.so
 extension=json.so
+extension=mysqlnd.so
 extension=pdo.so
 extension=pdo_mysql.so
 extension=pdo_sqlite.so
+extension=simplexml.so
 extension=tokenizer.so
-extension=xml.so
 zend_extension=xdebug.so
