@@ -60,12 +60,17 @@ class ProfileSettingsForm extends AbstractForm
 
         $form->addText('surname', 'locale.form.surname');
 
-        $form->addPassword('password', 'locale.form.password');
+        $password        = $form->addPassword('password', 'locale.form.password');
+        $passwordConfirm = $form->addPassword('password_confirm', 'locale.form.password_confirm');
+        $passwordConfirm->setOmitted();
 
-        $form->addPassword('password_confirm', 'locale.form.password_confirm')
-            ->setOmitted()
-            ->addConditionOn($form['password'], $form::FILLED, 'locale.form.password_confirm_required')
-            ->addRule($form::EQUAL, 'locale.form.password_equal', $form['password']);
+        $password->addConditionOn($form['password_confirm'], $form::FILLED, 'locale.form.password_required')
+            ->addRule($form::EQUAL, 'locale.form.password_equal', $form['password_confirm'])
+            ->setRequired(true);
+
+        $passwordConfirm->addConditionOn($form['password'], $form::FILLED, 'locale.form.password_confirm_required')
+            ->addRule($form::EQUAL, 'locale.form.password_equal', $form['password'])
+            ->setRequired(true);
 
         $form->addSubmit('submit', 'locale.form.save');
 
