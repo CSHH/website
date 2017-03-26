@@ -59,7 +59,6 @@ a:hover {
     width: 166.666666667px;
     height: 25px;
     text-align: center;
-    font-size: 25px;
     line-height: 25px;
     color: #03f;
 }
@@ -70,7 +69,6 @@ a:hover {
 
 #dashboard-header {
     text-align: center;
-    font-size: 50px;
     line-height: 100px;
 }
 
@@ -86,7 +84,6 @@ a:hover {
     width: 166.666666667px;
     height: 35px;
     text-align: center;
-    font-size: 15px;
     line-height: 35px;
     color: #03f;
     background-color: #ccc;
@@ -113,8 +110,8 @@ a:hover {
 }
 
 body {
-    font-family: 'Open Sans Condensed', sans-serif;
-    font-size: 15px;
+    font-family: sans-serif;
+    font-size: 14px;
     line-height: 1.6;
     color: #333;
 }
@@ -141,14 +138,12 @@ a {
 #top-nav-bar #theme-switch {
     float: left;
     margin-left: 10px;
-    font-size: 20px;
     line-height: 50px;
 }
 
 #top-nav-bar #nav-bar-items {
     float: right;
     margin-right: 25px;
-    font-size: 20px;
     line-height: 50px;
 }
 
@@ -215,6 +210,7 @@ a {
 
 label {
     color: #111;
+    line-height: 30px;
 }
 
 select {
@@ -238,7 +234,7 @@ input[type=text],
 input[type=password],
 input[type=email] {
     padding: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
     background-color: #eee;
 }
@@ -262,6 +258,7 @@ input[type=email] {
 }
 
 .modal-links-wrapper {
+    margin-top: 20px;
     text-align: center;
 }
 
@@ -277,7 +274,7 @@ input[type=email] {
 }
 
 .modal .close {
-    font-size: 35px;
+    font-size: 20px;
     line-height: 50px;
     float: right;
     margin-right: 20px;
@@ -295,7 +292,6 @@ hr {
 }
 
 .form-error .close {
-    font-size: 25px;
     float: right;
     margin-right: 0;
 }
@@ -312,7 +308,6 @@ hr {
 }
 
 .flash .close {
-    font-size: 25px;
     float: right;
 }
 
