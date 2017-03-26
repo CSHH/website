@@ -59,7 +59,6 @@ a:hover {
     width: 166.666666667px;
     height: 25px;
     text-align: center;
-    font-size: 25px;
     line-height: 25px;
     color: #03f;
 }
@@ -70,7 +69,6 @@ a:hover {
 
 #dashboard-header {
     text-align: center;
-    font-size: 50px;
     line-height: 100px;
 }
 
@@ -86,7 +84,6 @@ a:hover {
     width: 166.666666667px;
     height: 35px;
     text-align: center;
-    font-size: 15px;
     line-height: 35px;
     color: #03f;
     background-color: #ccc;
