@@ -9,7 +9,7 @@ module.exports = function(grunt) {
                     separator: ';\n\n\n'
                 },
                 files: [
-                    {src: ['assets/js/{main,ckeditor-config,cookies,modals,themes}.js'], dest: 'www/js/main-front.js'},
+                    {src: ['assets/js/{main,ckeditor-config,cookies,modals,themes,chat}.js'], dest: 'www/js/main-front.js'},
                     {src: ['assets/js/{main,ckeditor-config}.js'], dest: 'www/js/main-admin.js'},
                     {
                         src: [
