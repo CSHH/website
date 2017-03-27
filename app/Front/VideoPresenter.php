@@ -25,7 +25,7 @@ final class VideoPresenter extends SingleUserContentPresenter
      */
     public function actionDefault($tagSlug)
     {
-        $this->videos = $this->runActionDefault($this->videoRepository, $tagSlug, 54);
+        $this->videos = $this->runActionDefault($this->videoRepository, $tagSlug, 50);
     }
 
     public function renderDefault()
