@@ -122,7 +122,7 @@ module.exports = function(grunt) {
             },
             css: {
                 files: ['assets/css/**'],
-                tasks: ['concat:css', 'cssmin']
+                tasks: ['concat:css', 'copy:theme-stylesheets', 'cssmin']
             }
         }
     });
