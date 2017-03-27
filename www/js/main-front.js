@@ -1,4 +1,12 @@
 $(function() {
+    $('#chatbox .chatbox-switch').click(function() {
+        $('#chatbox').toggleClass('active');
+    });
+});
+;
+
+
+$(function() {
     CKEDITOR.replaceAll(function(textarea, config) {
         config.toolbarGroups = [
             { name: 'styles', groups: [ 'styles' ] },

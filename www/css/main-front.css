@@ -451,7 +451,22 @@ hr {
     left: 0px;
     bottom: 0px;
     width: 170px;
-    height: 380px;
+    height: 25px;
+}
+
+#chatbox.active {
+    height: 405px;
+}
+
+#chatbox .chatbox-switch {
+    text-align: center;
+    color: #fff;
+    line-height: 25px;
+}
+
+#chatbox iframe {
+    width: 170px;
+    height: 405px;
 }
 
 #latest-articles {
