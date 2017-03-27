@@ -304,7 +304,7 @@ hr {
     display: block;
     margin: auto;
     width: auto;
-    height: 450px;
+    height: 400px;
     outline: none;
 }
 
@@ -312,6 +312,41 @@ hr {
     margin: auto;
     width: 100%;
     background-color: #fff;
+}
+
+#menu {
+    margin: auto;
+    width: 1000px;
+    height: 50px;
+}
+
+#menu ul {
+    list-style-type: none;
+}
+
+#menu ul li {
+    float: left;
+}
+
+#menu ul li a {
+    display: block;
+    width: 166.666666667px;
+    text-align: center;
+    text-decoration: none;
+    line-height: 50px;
+}
+
+#menu ul li ul {
+    display: none;
+    position: absolute;
+}
+
+#menu ul li:hover ul {
+    display: block;
+}
+
+#menu ul li ul li {
+    clear: both;
 }
 
 .matrix-menu-item {
