@@ -412,16 +412,9 @@ hr {
 }
 
 #chatbox {
-    float: left;
-    width: 170px;
-    margin-right: 20px;
-}
-
-#chatbox h2 {
-    text-align: center;
-}
-
-#chatbox .box {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
     width: 170px;
     height: 380px;
 }
