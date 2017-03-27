@@ -335,6 +335,10 @@ hr {
     background-color: #f10;
 }
 
+.listing-page-item {
+    padding: 0 25px;
+}
+
 .listing-item-header.not-public a {
     color: #fc0;
 }
@@ -349,7 +353,8 @@ hr {
 }
 
 #activity-switch {
-    margin-bottom: 15px;
+    padding-left: 25px;
+    margin-bottom: 25px;
 }
 
 .activation-links {
