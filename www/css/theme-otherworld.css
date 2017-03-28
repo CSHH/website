@@ -1,8 +1,8 @@
 #menu ul li a {
     color: #fff;
-    background-color: #f10;
+    background-color: #910;
 }
 
 #menu ul li a:hover {
-    background-color: #910;
+    background-color: #710;
 }
