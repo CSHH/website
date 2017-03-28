@@ -596,6 +596,7 @@ hr {
     text-indent: 25px;
 }
 
+p,
 .text-content > * {
     margin-bottom: 10px;
 }
