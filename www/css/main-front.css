@@ -229,8 +229,16 @@ hr {
     background-color: #f10;
 }
 
-.listing-page-item {
+.action-buttons {
+    margin-bottom: 15px;
+}
+
+.content-body {
     padding: 0 25px;
+}
+
+.content-body h1 {
+    margin-bottom: 15px;
 }
 
 .listing-item-header.not-public a {
@@ -584,20 +592,15 @@ hr {
 }
 
 .text-content p {
-    text-align: justify;
     text-indent: 25px;
 }
 
 .text-content > * {
-    margin: 10px 0;
-}
-
-.text-content > *:first-child {
-    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .text-content > *:last-child {
-    margin-bottom: 0;
+    margin-bottom: 25px;
 }
 
 .text-content ul,
