@@ -4,22 +4,28 @@
 
 {include '../include/activitySwitch.latte'}
 
-{foreach $articles as $article}
+<div class="content-body">
 
-    <div>
+    {foreach $articles as $article}
 
         <div class="activation-links" n:if="!$article->isActive">
+
             <a n:href="activate!, articleId => $article->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+
             <a n:href="delete!, articleId => $article->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+
         </div>
 
         <h2 n:class="listing-item-header, !$article->isActive ? not-public">
+
             <a n:href="detail, tagSlug => $article->tag->slug, slug => $article->slug">{$article->name}</a>
+
         </h2>
 
         <p class="perex">{$article->perex}</p>
-    </div>
 
-{/foreach}
+    {/foreach}
 
-{control vp}
+    {control vp}
+
+</div>

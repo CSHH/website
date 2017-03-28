@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     line-height: 1.6;
     color: #333;
@@ -229,6 +229,18 @@ hr {
     background-color: #f10;
 }
 
+.action-buttons {
+    margin-bottom: 15px;
+}
+
+.content-body {
+    padding: 0 25px;
+}
+
+.content-body h1 {
+    margin-bottom: 15px;
+}
+
 .listing-item-header.not-public a {
     color: #fc0;
 }
@@ -243,7 +255,8 @@ hr {
 }
 
 #activity-switch {
-    margin-bottom: 15px;
+    padding-left: 25px;
+    margin-bottom: 25px;
 }
 
 .activation-links {
@@ -252,13 +265,14 @@ hr {
 
 .gallery-image {
     float: left;
-    width: 160px;
-    height: 160px;
+    width: 170px;
+    height: 170px;
+    margin: 0 0 25px 25px;
 }
 
 .gallery-image img {
-    width: 160px;
-    height: 160px;
+    width: 170px;
+    height: 170px;
 }
 
 .gallery-image .gallery-image-link {
@@ -291,7 +305,7 @@ hr {
 }
 
 #paginator {
-    margin-top: 20px;
+    padding-bottom: 25px;
     text-align: center;
 }
 
@@ -304,17 +318,18 @@ hr {
     display: block;
     margin: auto;
     width: auto;
-    height: 300px;
+    height: 400px;
     outline: none;
 }
 
 #body-wrapper {
     margin: auto;
-    width: 1000px;
+    width: 100%;
     background-color: #fff;
 }
 
 #menu {
+    margin: auto;
     width: 1000px;
     height: 50px;
 }
@@ -348,9 +363,28 @@ hr {
     clear: both;
 }
 
+.matrix-menu-item {
+    width: 300px;
+    height: 300px;
+    float: left;
+    margin: 0 0 25px 25px;
+    line-height: 300px;
+    text-align: center;
+    font-size: 25px;
+    color: #fff;
+}
+
+.matrix-menu-item .dark-filter {
+    width: 300px;
+    height: 300px;
+    float: left;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 #content {
-    width: auto;
-    padding: 20px;
+    margin: auto;
+    padding-top: 25px;
+    width: 1000px;
 }
 
 #footer {
@@ -382,7 +416,7 @@ hr {
     margin: auto;
     margin-bottom: 10px;
     text-align: center;
-    font-size: 10px;
+    font-size: 12px;
     color: #fff;
 }
 
@@ -399,7 +433,7 @@ hr {
 
 #copyright p {
     text-align: center;
-    font-size: 10px;
+    font-size: 12px;
     color: #fff;
 }
 
@@ -427,18 +461,26 @@ hr {
 }
 
 #chatbox {
-    float: left;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
     width: 170px;
-    margin-right: 20px;
+    height: 25px;
 }
 
-#chatbox h2 {
+#chatbox.active {
+    height: 405px;
+}
+
+#chatbox .chatbox-switch {
     text-align: center;
+    color: #fff;
+    line-height: 25px;
 }
 
-#chatbox .box {
+#chatbox iframe {
     width: 170px;
-    height: 380px;
+    height: 405px;
 }
 
 #latest-articles {
@@ -550,20 +592,15 @@ hr {
 }
 
 .text-content p {
-    text-align: justify;
     text-indent: 25px;
 }
 
 .text-content > * {
-    margin: 10px 0;
-}
-
-.text-content > *:first-child {
-    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .text-content > *:last-child {
-    margin-bottom: 0;
+    margin-bottom: 25px;
 }
 
 .text-content ul,

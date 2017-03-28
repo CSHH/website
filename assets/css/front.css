@@ -7,17 +7,18 @@
     display: block;
     margin: auto;
     width: auto;
-    height: 300px;
+    height: 400px;
     outline: none;
 }
 
 #body-wrapper {
     margin: auto;
-    width: 1000px;
+    width: 100%;
     background-color: #fff;
 }
 
 #menu {
+    margin: auto;
     width: 1000px;
     height: 50px;
 }
@@ -51,9 +52,28 @@
     clear: both;
 }
 
+.matrix-menu-item {
+    width: 300px;
+    height: 300px;
+    float: left;
+    margin: 0 0 25px 25px;
+    line-height: 300px;
+    text-align: center;
+    font-size: 25px;
+    color: #fff;
+}
+
+.matrix-menu-item .dark-filter {
+    width: 300px;
+    height: 300px;
+    float: left;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 #content {
-    width: auto;
-    padding: 20px;
+    margin: auto;
+    padding-top: 25px;
+    width: 1000px;
 }
 
 #footer {
@@ -85,7 +105,7 @@
     margin: auto;
     margin-bottom: 10px;
     text-align: center;
-    font-size: 10px;
+    font-size: 12px;
     color: #fff;
 }
 
@@ -102,7 +122,7 @@
 
 #copyright p {
     text-align: center;
-    font-size: 10px;
+    font-size: 12px;
     color: #fff;
 }
 
@@ -130,18 +150,26 @@
 }
 
 #chatbox {
-    float: left;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
     width: 170px;
-    margin-right: 20px;
+    height: 25px;
 }
 
-#chatbox h2 {
+#chatbox.active {
+    height: 405px;
+}
+
+#chatbox .chatbox-switch {
     text-align: center;
+    color: #fff;
+    line-height: 25px;
 }
 
-#chatbox .box {
+#chatbox iframe {
     width: 170px;
-    height: 380px;
+    height: 405px;
 }
 
 #latest-articles {
@@ -253,20 +281,15 @@
 }
 
 .text-content p {
-    text-align: justify;
     text-indent: 25px;
 }
 
 .text-content > * {
-    margin: 10px 0;
-}
-
-.text-content > *:first-child {
-    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .text-content > *:last-child {
-    margin-bottom: 0;
+    margin-bottom: 25px;
 }
 
 .text-content ul,

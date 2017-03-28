@@ -1,7 +1,13 @@
 <div id="activity-switch" n:if="$canAccess">
+
     {if $inactiveOnly}
+
         <a n:href="default, inactiveOnly => App\Utils\Activity::DISPLAY_DEFAULT">Zobrazit vše</a>
+
     {else}
+
         <a n:href="default, inactiveOnly => App\Utils\Activity::DISPLAY_FILTERED">Zobrazit pouze neschválené</a>
+
     {/if}
+
 </div>

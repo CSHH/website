@@ -1,15 +1,21 @@
 {block content}
 
-<div n:if="$wiki->isActive">
-    <a href="#">Upravit</a>
+<div class="content-body">
+
+    <div n:if="$wiki->isActive" class="action-buttons">
+
+        <a href="#">Upravit</a>
+
+    </div>
+
+    <h1 n:block="title">{$wiki->name}</h1>
+
+    <div class="text-content">{$wiki->text|noescape}</div>
+
+    {if $user->isLoggedIn() && $wiki->isActive}
+
+        {control form}
+
+    {/if}
+
 </div>
-
-<h1 n:block="title">{$wiki->name}</h1>
-
-<div class="text-content">{$wiki->text|noescape}</div>
-
-{if $user->isLoggedIn() && $wiki->isActive}
-
-    {control form}
-
-{/if}

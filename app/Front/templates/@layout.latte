@@ -22,6 +22,7 @@
         });
     </script>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=latin-ext">
     <link rel="stylesheet" href="{$basePath}/libs/css/libs-front.css">
     <link rel="stylesheet" href="{$basePath}/css/main-front.css">
     <link rel="stylesheet" href="{$basePath}/css/theme-fog.css" id="theme-stylesheet">
@@ -63,13 +64,13 @@
 
         <a id="bg-body-wrapper-gap" n:href="Homepage:default"></a>
 
+        <nav id="menu">
+
+            {control menuControl}
+
+        </nav>
+
         <div id="body-wrapper">
-
-            <nav id="menu">
-
-                {control menuControl}
-
-            </nav>
 
             <div id="content">
 
@@ -77,9 +78,21 @@
 
             </div>
 
-            <div class="clear-both"></div>
+            <div class="clear-left"></div>
 
         </div>
+
+    </div>
+
+    <div id="chatbox" class="active">
+
+        <div class="chatbox-switch pointer">Chat</div>
+
+        <iframe src="http://www.blueboard.cz/shoutboard.php?hid=7rt6vchbr4x9b0urcnu48rp6d2od0r" frameborder="0">
+
+            <a href="http://www.blueboard.cz/shoutboard.php?hid=7rt6vchbr4x9b0urcnu48rp6d2od0r">ShoutBoard od BlueBoard.cz</a>
+
+        </iframe>
 
     </div>
 

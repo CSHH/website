@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     line-height: 1.6;
     color: #333;
@@ -229,6 +229,18 @@ hr {
     background-color: #f10;
 }
 
+.action-buttons {
+    margin-bottom: 15px;
+}
+
+.content-body {
+    padding: 0 25px;
+}
+
+.content-body h1 {
+    margin-bottom: 15px;
+}
+
 .listing-item-header.not-public a {
     color: #fc0;
 }
@@ -243,7 +255,8 @@ hr {
 }
 
 #activity-switch {
-    margin-bottom: 15px;
+    padding-left: 25px;
+    margin-bottom: 25px;
 }
 
 .activation-links {
@@ -252,13 +265,14 @@ hr {
 
 .gallery-image {
     float: left;
-    width: 160px;
-    height: 160px;
+    width: 170px;
+    height: 170px;
+    margin: 0 0 25px 25px;
 }
 
 .gallery-image img {
-    width: 160px;
-    height: 160px;
+    width: 170px;
+    height: 170px;
 }
 
 .gallery-image .gallery-image-link {
@@ -291,6 +305,6 @@ hr {
 }
 
 #paginator {
-    margin-top: 20px;
+    padding-bottom: 25px;
     text-align: center;
 }

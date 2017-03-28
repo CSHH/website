@@ -26,3 +26,7 @@ a {
 .listing-item-header a:hover {
     color: #01f;
 }
+
+#chatbox .chatbox-switch {
+    background-color: #03f;
+}
