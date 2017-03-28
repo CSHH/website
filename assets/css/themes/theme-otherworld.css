@@ -1,15 +1,3 @@
-body {
-    background-color: #000;
-}
-
-a {
-    color: #f10;
-}
-
-#bg-body-wrapper {
-    background-color: #000;
-}
-
 #menu ul li a {
     color: #fff;
     background-color: #f10;
@@ -17,16 +5,4 @@ a {
 
 #menu ul li a:hover {
     background-color: #910;
-}
-
-.listing-item-header a {
-    color: #f10;
-}
-
-.listing-item-header a:hover {
-    color: #910;
-}
-
-#chatbox .chatbox-switch {
-    background-color: #f10;
 }
