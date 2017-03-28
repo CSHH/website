@@ -6,12 +6,39 @@
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 2em;
     color: #333;
+    background-color: #fff;
+}
+
+p {
+    line-height: 2em;
 }
 
 a {
+    color: #666;
     outline: none;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #999;
+}
+
+.content-body {
+    padding: 0 25px 25px 25px;
+}
+
+.content-body a {
+    border-bottom: 1px solid #666;
+}
+
+.content-body a:hover {
+    border-bottom-color: #999;
+}
+
+.content-body h1 {
+    margin-bottom: 15px;
 }
 
 #top-nav-bar {
@@ -233,12 +260,14 @@ hr {
     margin-bottom: 15px;
 }
 
-.content-body {
-    padding: 0 25px;
+.listing-item-header a {
+    color: #000;
+    border-bottom: 1px solid #000;
 }
 
-.content-body h1 {
-    margin-bottom: 15px;
+.listing-item-header a:hover {
+    color: #333;
+    border-bottom-color: #333;
 }
 
 .listing-item-header.not-public a {
@@ -259,8 +288,16 @@ hr {
     margin-bottom: 25px;
 }
 
+#activity-switch a {
+    border-bottom: 1px solid #666;
+}
+
+#activity-switch a:hover {
+    border-bottom-color: #999;
+}
+
 .activation-links {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .gallery-image {
@@ -305,11 +342,25 @@ hr {
 }
 
 #paginator {
-    padding-bottom: 25px;
     text-align: center;
 }
 
+#paginator {
+    color: #000;
+}
+
+#paginator a {
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+
+#paginator a:hover {
+    color: #333;
+    border-bottom-color: #333;
+}
+
 #bg-body-wrapper {
+    background-color: #fff;
     background-repeat: no-repeat;
     background-position: center top;
 }
@@ -463,7 +514,7 @@ hr {
 
 #chatbox {
     position: fixed;
-    left: 0px;
+    left: 5px;
     bottom: 0px;
     width: 170px;
     height: 25px;
@@ -476,6 +527,7 @@ hr {
 #chatbox .chatbox-switch {
     text-align: center;
     color: #fff;
+    background-color: #000;
     line-height: 25px;
 }
 
