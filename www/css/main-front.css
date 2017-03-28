@@ -344,7 +344,8 @@ hr {
 
 #menu ul li a {
     display: block;
-    width: 166.666666667px;
+    width: 115px;
+    padding: 0 5px;
     text-align: center;
     text-decoration: none;
     line-height: 50px;
@@ -595,6 +596,7 @@ hr {
     text-indent: 25px;
 }
 
+p,
 .text-content > * {
     margin-bottom: 10px;
 }
