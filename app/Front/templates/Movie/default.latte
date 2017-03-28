@@ -2,9 +2,9 @@
 
 {block content}
 
-{foreach $wikis as $wiki}
+<div class="content-body">
 
-    <div class="listing-page-item">
+    {foreach $wikis as $wiki}
 
         <h2 n:class="listing-item-header, !$wiki->isActive ? not-public">
 
@@ -14,8 +14,8 @@
 
         <p class="perex">{$wiki->perex}</p>
 
-    </div>
+    {/foreach}
 
-{/foreach}
+    {control vp}
 
-{control vp}
+</div>

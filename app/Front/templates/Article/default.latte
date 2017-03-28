@@ -4,9 +4,9 @@
 
 {include '../include/activitySwitch.latte'}
 
-{foreach $articles as $article}
+<div class="content-body">
 
-    <div class="listing-page-item">
+    {foreach $articles as $article}
 
         <div class="activation-links" n:if="!$article->isActive">
 
@@ -24,8 +24,8 @@
 
         <p class="perex">{$article->perex}</p>
 
-    </div>
+    {/foreach}
 
-{/foreach}
+    {control vp}
 
-{control vp}
+</div>
