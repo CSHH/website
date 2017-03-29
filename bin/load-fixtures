@@ -2,4 +2,6 @@
 <?php
 
 $container = require __DIR__ . '/../app/bootstrap.php';
-$container->getByType('App\Utils\FixturesLoader')->loadFixtures();
+$entityManager = $container->getByType('Kdyby\Doctrine\EntityManager');
+
+Nelmio\Alice\Fixtures::load(__DIR__ . '/../fixtures/config.php', $entityManager);
