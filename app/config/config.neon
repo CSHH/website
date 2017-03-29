@@ -23,7 +23,6 @@ services:
     router: App\Router\RouterFactory::createRouter
     paginatorFactory: App\Utils\PaginatorFactory
     videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
-    fixturesLoader: App\Utils\FixturesLoader(%appDir%/../fixtures)
 
     menuCache: App\Caching\MenuCache(
         Nette\Caching\Cache(
@@ -80,7 +79,6 @@ extensions:
     console: Kdyby\Console\DI\ConsoleExtension
     doctrine: Kdyby\Doctrine\DI\OrmExtension
     events: Kdyby\Events\DI\EventsExtension
-    fixtures: Zenify\DoctrineFixtures\DI\FixturesExtension
     gitPanel: HeavenProject\GitBranchPanel\GitBranchPanelExtension
     migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
     server: Kdyby\NettePhpServer\DI\PhpServerExtension

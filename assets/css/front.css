@@ -288,6 +288,7 @@
     display: block;
     margin: auto;
     max-width: 960px;
+    margin-bottom: 25px;
 }
 
 .text-content p {
@@ -296,7 +297,7 @@
 
 p,
 .text-content > * {
-    margin-bottom: 10px;
+    margin-bottom: 25px;
 }
 
 .text-content > *:last-child {
