@@ -160,7 +160,7 @@ $(function() {
 
     function loadTheme(theme) {
         $('#theme-stylesheet').attr('href', App.BASE_PATH + '/css/theme-' + theme + '.css');
-        $('#bg-body-wrapper').css('background-image', 'url(' + App.BASE_PATH + '/images/bg-' + theme + '.jpg)');
+        $('#banner').css('background-image', 'url(' + App.BASE_PATH + '/images/bg-' + theme + '.jpg)');
     }
 
     function getThemeByTime() {
