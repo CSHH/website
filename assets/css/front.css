@@ -1,25 +1,26 @@
-#bg-body-wrapper {
-    background-color: #fff;
+#banner {
+    position: relative;
+    height: 400px;
+    width: 100%;
     background-repeat: no-repeat;
     background-position: center top;
+    background-size: cover;
 }
 
-#bg-body-wrapper-gap {
+#banner-link {
     display: block;
     margin: auto;
-    width: auto;
+    width: 100%;
     height: 400px;
     outline: none;
 }
 
-#body-wrapper {
-    margin: auto;
-    width: 100%;
-    background-color: #fff;
-}
-
 #menu {
-    margin: auto;
+    position: absolute;
+    margin: 0 auto 0 auto;
+    left: 0;
+    right: 0;
+    top: 350px;
     width: 1000px;
     height: 50px;
 }
@@ -52,6 +53,12 @@
 
 #menu ul li ul li {
     clear: both;
+}
+
+#body-wrapper {
+    margin: auto;
+    width: 100%;
+    background-color: #fff;
 }
 
 .matrix-menu-item {
