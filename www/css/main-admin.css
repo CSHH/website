@@ -374,11 +374,11 @@ hr {
 }
 
 .listing-item-header.not-public a {
-    color: #fc0;
+    color: #910;
 }
 
 .listing-item-header.not-public a:hover {
-    color: #f90;
+    color: #710;
 }
 
 .perex {
