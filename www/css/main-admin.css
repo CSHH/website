@@ -448,10 +448,8 @@ hr {
 
 #paginator {
     text-align: center;
-}
-
-#paginator {
     color: #000;
+    padding-bottom: 25px;
 }
 
 #paginator a {
