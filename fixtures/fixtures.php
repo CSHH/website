@@ -166,27 +166,99 @@ return [
         ],
     ],
     App\Entities\VideoEntity::class => [
-        'video_youtube_{1..50}' => [
+        'video_base (template)' => [
             'tag' => '90%? @tag_silent* : @tag_nezaraditelne',
             'user' => '@user*',
             'name (unique)' => '<sentence(3)>',
             'slug (unique)' => '<slug()>',
-            'url' => 'https://www.youtube.com/watch?v=HP4VMvKnCds',
-            'src' => 'https://www.youtube.com/embed/HP4VMvKnCds',
-            'type' => 1,
             'isActive' => '80%? 1 : 0',
             'createdAt' => '<dateTimeBetween(\'2000-01-01 00:00:01\', \'2000-06-30 23:59:59\')>',
         ],
-        'video_vimeo_{1..50}' => [
-            'tag' => '90%? @tag_silent* : @tag_nezaraditelne',
-            'user' => '@user*',
-            'name (unique)' => '<sentence(3)>',
-            'slug (unique)' => '<slug()>',
+        'video_youtube_base (template, extends video_base)' => [
+            'type' => App\Entities\VideoEntity::TYPE_YOUTUBE,
+        ],
+        'video_vimeo_base (template, extends video_base)' => [
+            'type' => App\Entities\VideoEntity::TYPE_VIMEO,
+        ],
+        'video_youtube_1_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=HP4VMvKnCds',
+            'src' => 'https://www.youtube.com/embed/HP4VMvKnCds',
+        ],
+        'video_youtube_2_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=dk7JkSArEdQ',
+            'src' => 'https://www.youtube.com/embed/dk7JkSArEdQ',
+        ],
+        'video_youtube_3_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=E1VKvED76WQ',
+            'src' => 'https://www.youtube.com/embed/E1VKvED76WQ',
+        ],
+        'video_youtube_4_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=irl9FCHpXV0',
+            'src' => 'https://www.youtube.com/embed/irl9FCHpXV0',
+        ],
+        'video_youtube_5_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=8cJbo88NE3Y',
+            'src' => 'https://www.youtube.com/embed/8cJbo88NE3Y',
+        ],
+        'video_youtube_6_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=GncqhAQD3gI',
+            'src' => 'https://www.youtube.com/embed/GncqhAQD3gI',
+        ],
+        'video_youtube_7_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=WWMGZe6iucw',
+            'src' => 'https://www.youtube.com/embed/WWMGZe6iucw',
+        ],
+        'video_youtube_8_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=IK13ntirEzE',
+            'src' => 'https://www.youtube.com/embed/IK13ntirEzE',
+        ],
+        'video_youtube_9_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=R0vPhc63rk8',
+            'src' => 'https://www.youtube.com/embed/R0vPhc63rk8',
+        ],
+        'video_youtube_10_{1..10} (extends video_youtube_base)' => [
+            'url' => 'https://www.youtube.com/watch?v=Ck8_rccTBXg',
+            'src' => 'https://www.youtube.com/embed/Ck8_rccTBXg',
+        ],
+        'video_vimeo_1_{1..10} (extends video_vimeo_base)' => [
             'url' => 'https://vimeo.com/20712083',
             'src' => 'https://player.vimeo.com/video/20712083',
-            'type' => 2,
-            'isActive' => '80%? 1 : 0',
-            'createdAt' => '<dateTimeBetween(\'2000-01-01 00:00:01\', \'2000-06-30 23:59:59\')>',
+        ],
+        'video_vimeo_2_{1..10} (extends video_vimeo_base)' => [
+            'url' => 'https://vimeo.com/22626857',
+            'src' => 'https://player.vimeo.com/video/22626857',
+        ],
+        'video_vimeo_3_{1..10} (extends video_vimeo_base)' => [
+            'url' => 'https://vimeo.com/61586233',
+            'src' => 'https://player.vimeo.com/video/61586233',
+        ],
+        'video_vimeo_4_{1..10} (extends video_vimeo_base)' => [
+            'url' => 'https://vimeo.com/108484726',
+            'src' => 'https://player.vimeo.com/video/108484726',
+        ],
+        'video_vimeo_5_{1..10} (extends video_vimeo_base)' => [
+            'url' => 'https://vimeo.com/2094684',
+            'src' => 'https://player.vimeo.com/video/2094684',
+        ],
+        'video_vimeo_6_{1..10} (extends video_vimeo_base)' => [
+            'url' => 'https://vimeo.com/13995605',
+            'src' => 'https://player.vimeo.com/video/13995605',
+        ],
+        'video_vimeo_7_{1..10} (extends video_vimeo_base)' => [
+            'url' => 'https://vimeo.com/1527726',
+            'src' => 'https://player.vimeo.com/video/1527726',
+        ],
+        'video_vimeo_8_{1..10} (extends video_vimeo_base)' => [
+            'url' => 'https://vimeo.com/27463649',
+            'src' => 'https://player.vimeo.com/video/27463649',
+        ],
+        'video_vimeo_9_{1..10} (extends video_vimeo_base)' => [
+            'url' => 'https://vimeo.com/78179',
+            'src' => 'https://player.vimeo.com/video/78179',
+        ],
+        'video_vimeo_10_{1..10} (extends video_vimeo_base)' => [
+            'url' => 'https://vimeo.com/31841180',
+            'src' => 'https://player.vimeo.com/video/31841180',
         ],
     ],
     App\Entities\WikiEntity::class => [
