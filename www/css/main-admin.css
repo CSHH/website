@@ -122,13 +122,8 @@ p {
 }
 
 a {
-    color: #666;
     outline: none;
     text-decoration: none;
-}
-
-a:hover {
-    color: #999;
 }
 
 .content-body {
@@ -136,10 +131,12 @@ a:hover {
 }
 
 .content-body a {
+    color: #666;
     border-bottom: 1px solid #666;
 }
 
 .content-body a:hover {
+    color: #999;
     border-bottom-color: #999;
 }
 
@@ -395,10 +392,12 @@ hr {
 }
 
 #activity-switch a {
+    color: #666;
     border-bottom: 1px solid #666;
 }
 
 #activity-switch a:hover {
+    color: #999;
     border-bottom-color: #999;
 }
 
