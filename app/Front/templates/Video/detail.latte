@@ -1,10 +1,14 @@
 {block content}
 
-<h1 n:block="title">{$video->name}</h1>
+<div class="content-body">
 
-{if !$video->isActive}
-    <a n:href="activate!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
-    <a n:href="delete!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
-{/if}
+    <h1 n:block="title">{$video->name}</h1>
 
-{include '../../../Presenters/templates/include/video.latte', width => 950, height => 540, src => $video->src, title => $video->name}
+    {if !$video->isActive}
+        <a n:href="activate!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+        <a n:href="delete!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+    {/if}
+
+    {include '../../../Presenters/templates/include/video.latte', width => 950, height => 540, src => $video->src, title => $video->name}
+
+</div>
