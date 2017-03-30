@@ -16,13 +16,8 @@ p {
 }
 
 a {
-    color: #666;
     outline: none;
     text-decoration: none;
-}
-
-a:hover {
-    color: #999;
 }
 
 .content-body {
@@ -30,10 +25,12 @@ a:hover {
 }
 
 .content-body a {
+    color: #666;
     border-bottom: 1px solid #666;
 }
 
 .content-body a:hover {
+    color: #999;
     border-bottom-color: #999;
 }
 
@@ -271,11 +268,11 @@ hr {
 }
 
 .listing-item-header.not-public a {
-    color: #fc0;
+    color: #910;
 }
 
 .listing-item-header.not-public a:hover {
-    color: #f90;
+    color: #710;
 }
 
 .perex {
@@ -289,10 +286,12 @@ hr {
 }
 
 #activity-switch a {
+    color: #666;
     border-bottom: 1px solid #666;
 }
 
 #activity-switch a:hover {
+    color: #999;
     border-bottom-color: #999;
 }
 
@@ -343,10 +342,8 @@ hr {
 
 #paginator {
     text-align: center;
-}
-
-#paginator {
     color: #000;
+    padding-bottom: 25px;
 }
 
 #paginator a {
@@ -668,5 +665,5 @@ p,
 .text-content ul,
 .text-content ol,
 .text-content li {
-    margin-left: 20px;
+    margin-left: 15px;
 }
