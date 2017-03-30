@@ -11,6 +11,24 @@ body {
     background-color: #fff;
 }
 
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 25px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+h4,
+h5,
+h6 {
+    font-size: 15px;
+}
+
 p {
     line-height: 2em;
 }
@@ -662,8 +680,7 @@ p,
     margin-bottom: 25px;
 }
 
-.text-content ul,
 .text-content ol,
-.text-content li {
-    margin-left: 15px;
+.text-content ul {
+    margin-left: 25px;
 }
