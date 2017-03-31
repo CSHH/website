@@ -147,21 +147,159 @@ return [
         ],
     ],
     App\Entities\FileEntity::class => [
-        'file_halo_of_the_sun' => [
+        'file_base (template)' => [
             'year' => '1970',
             'month' => '01',
-            'name' => 'halo_of_the_sun',
             'extension' => 'jpg',
-            'checksum' => '4b843dc5f600e9448cc33d8022ef0937a6e1508c',
-            'joints' => 250,
+            'joints' => 10,
+        ],
+        'file_1 (extends file_base)' => [
+            'name' => 'sh_2006_screenshot_1',
+            'checksum' => '36439734ba0b0262c56136821bf8ab1da0753e25',
+        ],
+        'file_2 (extends file_base)' => [
+            'name' => 'sh_2006_screenshot_2',
+            'checksum' => '551db3e906b95fcbce16a76d10cd472ff42c70c4',
+        ],
+        'file_3 (extends file_base)' => [
+            'name' => 'sh_2006_screenshot_3',
+            'checksum' => '0e3fe2a54f5c69cd5fc4910fcbec1b3d38635368',
+        ],
+        'file_4 (extends file_base)' => [
+            'name' => 'sh_2006_screenshot_4',
+            'checksum' => 'ba1c2656c9023804c194d5cff915364c0da3c0ae',
+        ],
+        'file_5 (extends file_base)' => [
+            'name' => 'sh_2006_screenshot_5',
+            'checksum' => 'da8636762c21af23088fb148184c41184485f2b4',
+        ],
+        'file_6 (extends file_base)' => [
+            'name' => 'sh_2006_screenshot_6',
+            'checksum' => 'b219a926ede3171e1097d4862130d983d6a4dc44',
+        ],
+        'file_7 (extends file_base)' => [
+            'name' => 'sh2_screenshot_1',
+            'checksum' => 'e976c6888f31fd646e924acd49fd71090fcd8541',
+        ],
+        'file_8 (extends file_base)' => [
+            'name' => 'sh2_screenshot_2',
+            'checksum' => '0d10e4f63560c17b0ac1ea0858a38d67770ebb42',
+        ],
+        'file_9 (extends file_base)' => [
+            'name' => 'sh2_screenshot_3',
+            'checksum' => 'ab6612c8dc85bcb7861f74325209b5f759c9fa53',
+        ],
+        'file_10 (extends file_base)' => [
+            'name' => 'sh2_screenshot_4',
+            'checksum' => 'a655afa17777a883244a788e5bb4788f9682af96',
+        ],
+        'file_11 (extends file_base)' => [
+            'name' => 'sh2_screenshot_5',
+            'checksum' => '6aa224049b3b602d591e41f1878e668a359d6c26',
+        ],
+        'file_12 (extends file_base)' => [
+            'name' => 'sh2_screenshot_6',
+            'checksum' => '81fb44c4d9bd8a7322dd0f4e97a09b83a401810e',
+        ],
+        'file_13 (extends file_base)' => [
+            'name' => 'sh3_screenshot_1',
+            'checksum' => '2eafbc1da221982b0f3a5402b736f01382e116b6',
+        ],
+        'file_14 (extends file_base)' => [
+            'name' => 'sh3_screenshot_2',
+            'checksum' => 'b1f8b80d515e747424d2a86e9e83f473db338b6f',
+        ],
+        'file_15 (extends file_base)' => [
+            'name' => 'sh3_screenshot_3',
+            'checksum' => '23c7b778318d6632759eacd7d2f6c7897abf1afe',
+        ],
+        'file_16 (extends file_base)' => [
+            'name' => 'sh3_screenshot_4',
+            'checksum' => '8791d64a77898bdf90c250047417922acb14ff9f',
+        ],
+        'file_17 (extends file_base)' => [
+            'name' => 'sh3_screenshot_5',
+            'checksum' => 'ee879c58e84f90d366428bcee6c1b9b67c36c703',
+        ],
+        'file_18 (extends file_base)' => [
+            'name' => 'sh3_screenshot_6',
+            'checksum' => '6035916da42dca3f66a5891c17c2e464e1df643a',
+        ],
+        'file_19 (extends file_base)' => [
+            'name' => 'sh3_screenshot_7',
+            'checksum' => '8c8e84eb1c0e8e23847831a6fe2a4d6b11afdcda',
+        ],
+        'file_20 (extends file_base)' => [
+            'name' => 'sh3_screenshot_8',
+            'checksum' => '2f006b814dd6370c95ff57055c1eab26b94d3445',
+        ],
+        'file_21 (extends file_base)' => [
+            'name' => 'sh3_screenshot_9',
+            'checksum' => 'b5570cf4fab6320edf168a6a566ade0e59f0d22c',
+        ],
+        'file_22 (extends file_base)' => [
+            'name' => 'sh3_screenshot_10',
+            'checksum' => '5aedd3e6f863dfba12649103e5bf8fd22df88b08',
+        ],
+        'file_23 (extends file_base)' => [
+            'name' => 'sh4_screenshot_1',
+            'checksum' => 'd2ee2923957e5e36f356c1128b3f8c7221df9baa',
+        ],
+        'file_24 (extends file_base)' => [
+            'name' => 'sh4_screenshot_2',
+            'checksum' => 'd58dc3e56bd59d6956f6d9ec57cfd703ab4d954d',
+        ],
+        'file_25 (extends file_base)' => [
+            'name' => 'sh4_screenshot_3',
+            'checksum' => '2975eafe38765582804de63fe6a27365b59d73d3',
+        ],
+        'file_26 (extends file_base)' => [
+            'name' => 'sh4_screenshot_4',
+            'checksum' => '1745dab849f4081bf648c4277bfea060561a457b',
+        ],
+        'file_27 (extends file_base)' => [
+            'name' => 'sh4_screenshot_5',
+            'checksum' => 'e90dad62b53951f06ae5d1c90820c693b32be251',
+        ],
+        'file_28 (extends file_base)' => [
+            'name' => 'sh_downpour_screenshot_1',
+            'checksum' => '1f6fa948b0c04e6819afdc97aa4819d664ae780d',
+        ],
+        'file_29 (extends file_base)' => [
+            'name' => 'sh_downpour_screenshot_2',
+            'checksum' => 'f0b3759b3e700c96f476d02dc8a4ef25b3b5573c',
+        ],
+        'file_30 (extends file_base)' => [
+            'name' => 'sh_downpour_screenshot_3',
+            'checksum' => '7f135169db8c641391c6fdd858f034e081f8e936',
+        ],
+        'file_31 (extends file_base)' => [
+            'name' => 'sh_downpour_screenshot_4',
+            'checksum' => 'adac3e9cf938c92a1458e8883f0d515ee208cd52',
+        ],
+        'file_32 (extends file_base)' => [
+            'name' => 'sh_downpour_screenshot_5',
+            'checksum' => '88f870853dba669ec7d784f4029e71a84bae9fab',
+        ],
+        'file_33 (extends file_base)' => [
+            'name' => 'sh_downpour_screenshot_6',
+            'checksum' => '44335cf42154b5f9956ecbcf5c0ad620fcc18216',
+        ],
+        'file_34 (extends file_base)' => [
+            'name' => 'sh_downpour_screenshot_7',
+            'checksum' => '38fc5146b11c7b70e41cc5bef676f9200802e962',
+        ],
+        'file_35 (extends file_base)' => [
+            'name' => 'sh_downpour_screenshot_8',
+            'checksum' => '47eef436ac4e2c7834a0bfa3ec29663a633ed82a',
         ],
     ],
     App\Entities\ImageEntity::class => [
-        'image_{1..250}' => [
+        'image_{1..350}' => [
             'tag' => '90%? @tag_silent* : @tag_nezaraditelne',
             'user' => '@user*',
             'name (unique)' => '50%? <sentence(3)>',
-            'file' => '@file_halo_of_the_sun',
+            'file' => '@file_*',
             'isActive' => '80%? 1 : 0',
         ],
     ],
