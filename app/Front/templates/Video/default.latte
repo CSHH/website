@@ -8,7 +8,7 @@
 
     {var $description = $video->name ?: $video->tag->name}
 
-    <div class="gallery-image">
+    <div n:class="gallery-image, !$video->isActive ? not-public">
 
         <a class="gallery-image-link" n:href="detail, tagSlug => $video->tag->slug, slug => $video->slug">
             <img src="{$videoThumbnail->getThumbnailImage($video)|thumb:320:320}" title="{$description}" alt="{$description}">

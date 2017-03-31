@@ -28,7 +28,7 @@ final class VideoPresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $this->runActionDefault($this->videoRepository, 10, $this->getLoggedUserEntity());
+        $this->runActionDefault($this->videoRepository, 50, $this->getLoggedUserEntity());
     }
 
     public function renderDefault()

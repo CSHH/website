@@ -9,7 +9,7 @@
     {var $description = $image->name ?: $image->tag->name}
     {var $filePath = $basePath . $uploadDir . '/' . $image->file->getFilePath()}
 
-    <div class="gallery-image">
+    <div n:class="gallery-image, !$image->isActive ? not-public">
 
         <a class="gallery-image-link" href="{$filePath}" data-lightbox="gallery" data-title="{$description}">
             <img src="{$filePath|thumb:320:320}" title="{$description}" alt="{$description}">

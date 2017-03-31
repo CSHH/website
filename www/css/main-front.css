@@ -318,6 +318,7 @@ hr {
 }
 
 .gallery-image {
+    position: relative;
     float: left;
     width: 170px;
     height: 170px;
@@ -331,13 +332,29 @@ hr {
 
 .gallery-image .gallery-image-link {
     display: block;
-    height: 100%;
+    width: 170px;
+    height: 170px;
+}
+
+.gallery-image.not-public {
+    outline: 10px solid #910;
+}
+
+.gallery-image.not-public:hover {
+    outline-color: #710;
+}
+
+.gallery-image:hover .activation-bar {
+    display: block;
 }
 
 .activation-bar {
     display: none;
-    position: relative;
-    bottom: 25%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto 0 auto;
     height: 25%;
     text-align: center;
     background-color: #000;
@@ -352,10 +369,6 @@ hr {
 
 .activation-bar a:hover {
     text-decoration: underline;
-}
-
-.gallery-image:hover .activation-bar {
-    display: block;
 }
 
 #paginator {
@@ -683,4 +696,8 @@ p,
 .text-content ol,
 .text-content ul {
     margin-left: 25px;
+}
+
+.content-body textarea {
+    width: 938px;
 }
