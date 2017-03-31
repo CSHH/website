@@ -29,7 +29,11 @@
     <target name="fixtures" depends="db-drop, migrations">
         <exec passthru="true" command="./bin/load-fixtures"/>
         <mkdir dir="./www/upload/1970/01"/>
-        <copy file="./fixtures/halo_of_the_sun.jpg" tofile="./www/upload/1970/01/halo_of_the_sun.jpg"/>
+        <copy todir="./www/upload/1970/01">
+            <fileset dir="./fixtures/images">
+                <include name="*"/>
+            </fileset>
+        </copy>
     </target>
 
     <target name="chmod">
