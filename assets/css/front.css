@@ -304,8 +304,7 @@ p,
     margin-bottom: 25px;
 }
 
-.text-content ul,
 .text-content ol,
-.text-content li {
-    margin-left: 15px;
+.text-content ul {
+    margin-left: 25px;
 }
