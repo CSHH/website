@@ -697,3 +697,7 @@ p,
 .text-content ul {
     margin-left: 25px;
 }
+
+.content-body textarea {
+    width: 938px;
+}
