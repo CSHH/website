@@ -144,6 +144,8 @@ class WikiRepository extends BaseRepository
 
         $qb->setParameters($params);
 
+        $this->orderByDesc($qb, 'w');
+
         $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
@@ -156,7 +158,7 @@ class WikiRepository extends BaseRepository
      */
     public function getAllByTag(Entities\TagEntity $tag, $type)
     {
-        return $this->dao->createQueryBuilder()
+        $qb = $this->dao->createQueryBuilder()
             ->select('w')
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->join('w.tag', 't')
@@ -164,8 +166,11 @@ class WikiRepository extends BaseRepository
             ->setParameters([
                 'tagId' => $tag->id,
                 'type'  => $type,
-            ])
-            ->getQuery()
+            ]);
+
+        $this->orderByDesc($qb, 'w');
+
+        return $qb->getQuery()
             ->getResult();
     }
 
@@ -305,6 +310,8 @@ class WikiRepository extends BaseRepository
 
         $qb->setParameters($params);
 
+        $this->orderByDesc($qb, 'w');
+
         $this->preparePagination($qb, $page, $limit);
 
         return new Paginator($qb->getQuery());
@@ -328,6 +335,8 @@ class WikiRepository extends BaseRepository
                 'userId' => $user->id,
                 'type'   => $type,
             ]);
+
+        $this->orderByDesc($qb, 'w');
 
         $this->preparePagination($qb, $page, $limit);
 
@@ -354,11 +363,11 @@ class WikiRepository extends BaseRepository
             ->leftJoin('w.drafts', 'd')
             ->where('w.type = :type');
 
-        $qb->andWhere(
-            $qb->expr()->in('w.id', $wikiIds)
-        );
+        $qb->andWhere($qb->expr()->in('w.id', $wikiIds));
 
         $qb->setParameter('type', $type);
+
+        $this->orderByDesc($qb, 'w');
 
         $this->preparePagination($qb, $page, $limit);
 
@@ -375,9 +384,9 @@ class WikiRepository extends BaseRepository
             ->from(Entities\WikiDraftEntity::getClassName(), 'd')
             ->leftJoin('d.wiki', 'w')
             ->distinct('w.id')
-            ->where(
-                $qb->expr()->isNotNull('w.id')
-            );
+            ->where($qb->expr()->isNotNull('w.id'));
+
+        $this->orderByDesc($qb, 'w');
 
         $res = [];
 
