@@ -160,6 +160,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mockAndReturnSelf($qb, 'setFirstResult');
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
@@ -209,6 +210,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'from');
         $this->mockAndReturnSelf($qb, 'where');
         $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mockAndReturnSelf($qb, 'setFirstResult');
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
@@ -252,6 +254,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'join');
         $this->mockAndReturnSelf($qb, 'where');
         $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mock($qb, 'getQuery', 1, $query);
 
         $dao = $this->dao;
@@ -386,6 +389,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'join');
         $this->mockAndReturnSelf($qb, 'where');
         $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mockAndReturnSelf($qb, 'setFirstResult');
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
@@ -437,6 +441,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'where');
         $this->mockAndReturnSelf($qb, 'andWhere');
         $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mockAndReturnSelf($qb, 'setFirstResult');
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
@@ -487,6 +492,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'join');
         $this->mockAndReturnSelf($qb, 'where');
         $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mockAndReturnSelf($qb, 'setFirstResult');
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
@@ -536,6 +542,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'from');
         $this->mockAndReturnSelf($qb, 'where');
         $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mockAndReturnSelf($qb, 'setFirstResult');
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
@@ -586,6 +593,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'join');
         $this->mockAndReturnSelf($qb, 'where');
         $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mockAndReturnSelf($qb, 'setFirstResult');
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
