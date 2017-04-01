@@ -71,9 +71,9 @@ abstract class SingleUserContentRepository extends BaseRepository
     }
 
     /**
-     * @param  string                   $className
-     * @param  Entities\TagEntity       $tag
-     * @return Entities\ArticleEntity[]
+     * @param  string                $className
+     * @param  Entities\TagEntity    $tag
+     * @return Entities\BaseEntity[]
      */
     protected function doGetAllByTag($className, Entities\TagEntity $tag)
     {
@@ -88,10 +88,10 @@ abstract class SingleUserContentRepository extends BaseRepository
     }
 
     /**
-     * @param  string                      $className
-     * @param  Entities\TagEntity          $tag
-     * @param  string                      $name
-     * @return Entities\ArticleEntity|null
+     * @param  string                   $className
+     * @param  Entities\TagEntity       $tag
+     * @param  string                   $name
+     * @return Entities\BaseEntity|null
      */
     protected function doGetByTagAndName($className, Entities\TagEntity $tag, $name)
     {
@@ -115,10 +115,10 @@ abstract class SingleUserContentRepository extends BaseRepository
     }
 
     /**
-     * @param  string                      $className
-     * @param  Entities\TagEntity          $tag
-     * @param  string                      $slug
-     * @return Entities\ArticleEntity|null
+     * @param  string                   $className
+     * @param  Entities\TagEntity       $tag
+     * @param  string                   $slug
+     * @return Entities\BaseEntity|null
      */
     protected function doGetByTagAndSlug($className, Entities\TagEntity $tag, $slug)
     {
