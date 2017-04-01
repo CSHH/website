@@ -65,33 +65,38 @@ abstract class SingleUserContentRepository extends BaseRepository
                 ->setParameter('state', true);
         }
 
+        $this->orderByDesc($qb, 'e');
+
         $this->preparePagination($qb, $page, $limit);
 
         return $paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
-     * @param  string                   $className
-     * @param  Entities\TagEntity       $tag
-     * @return Entities\ArticleEntity[]
+     * @param  string                $className
+     * @param  Entities\TagEntity    $tag
+     * @return Entities\BaseEntity[]
      */
     protected function doGetAllByTag($className, Entities\TagEntity $tag)
     {
-        return $this->dao->createQueryBuilder()
+        $qb = $this->dao->createQueryBuilder()
             ->select('e')
             ->from($className, 'e')
             ->join('e.tag', 't')
             ->where('t.id = :tagId')
-            ->setParameter('tagId', $tag->id)
-            ->getQuery()
+            ->setParameter('tagId', $tag->id);
+
+        $this->orderByDesc($qb, 'e');
+
+        return $qb->getQuery()
             ->getResult();
     }
 
     /**
-     * @param  string                      $className
-     * @param  Entities\TagEntity          $tag
-     * @param  string                      $name
-     * @return Entities\ArticleEntity|null
+     * @param  string                   $className
+     * @param  Entities\TagEntity       $tag
+     * @param  string                   $name
+     * @return Entities\BaseEntity|null
      */
     protected function doGetByTagAndName($className, Entities\TagEntity $tag, $name)
     {
@@ -115,10 +120,10 @@ abstract class SingleUserContentRepository extends BaseRepository
     }
 
     /**
-     * @param  string                      $className
-     * @param  Entities\TagEntity          $tag
-     * @param  string                      $slug
-     * @return Entities\ArticleEntity|null
+     * @param  string                   $className
+     * @param  Entities\TagEntity       $tag
+     * @param  string                   $slug
+     * @return Entities\BaseEntity|null
      */
     protected function doGetByTagAndSlug($className, Entities\TagEntity $tag, $slug)
     {
@@ -167,6 +172,8 @@ abstract class SingleUserContentRepository extends BaseRepository
 
         $qb->setParameters($params);
 
+        $this->orderByDesc($qb, 'e');
+
         $this->preparePagination($qb, $page, $limit);
 
         return $paginatorFactory->createPaginator($qb->getQuery());
@@ -189,6 +196,8 @@ abstract class SingleUserContentRepository extends BaseRepository
             ->where('u.id = :userId')
             ->setParameter('userId', $user->id);
 
+        $this->orderByDesc($qb, 'e');
+
         $this->preparePagination($qb, $page, $limit);
 
         return $paginatorFactory->createPaginator($qb->getQuery());
@@ -208,6 +217,8 @@ abstract class SingleUserContentRepository extends BaseRepository
             ->from($className, 'e')
             ->where('e.isActive = :state')
             ->setParameter('state', false);
+
+        $this->orderByDesc($qb, 'e');
 
         $this->preparePagination($qb, $page, $limit);
 
@@ -233,6 +244,8 @@ abstract class SingleUserContentRepository extends BaseRepository
                 'tagId' => $tag->id,
                 'state' => false,
             ]);
+
+        $this->orderByDesc($qb, 'e');
 
         $this->preparePagination($qb, $page, $limit);
 

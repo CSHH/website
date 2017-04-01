@@ -81,4 +81,13 @@ abstract class BaseRepository
         $qb->setFirstResult($page * $limit - $limit)
             ->setMaxResults($limit);
     }
+
+    /**
+     * @param QueryBuilder $qb
+     * @param string       $select
+     */
+    protected function orderByDesc(QueryBuilder $qb, $select)
+    {
+        $qb->orderBy($select . '.createdAt', 'DESC');
+    }
 }
