@@ -329,6 +329,7 @@ hr {
 
 .form-error {
     height: 50px;
+    padding: 0 25px;
     line-height: 50px;
     text-align: center;
 }
@@ -344,6 +345,7 @@ hr {
     left: 0;
     right: 0;
     height: 50px;
+    padding: 10px 25px;
     line-height: 50px;
     text-align: center;
     z-index: 200;
@@ -355,26 +357,20 @@ hr {
 
 .success,
 .info,
-.warning,
 .danger {
-    padding: 0 25px;
     color: #fff;
 }
 
 .success {
-    background-color: #090;
+    background-color: #0c1;
 }
 
 .info {
-    background-color: #03f;
-}
-
-.warning {
-    background-color: #f10;
+    background-color: #06c;
 }
 
 .danger {
-    background-color: #f10;
+    background-color: #910;
 }
 
 .action-buttons {
