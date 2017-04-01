@@ -5,11 +5,11 @@
 }
 
 a {
-    color: #03f;
+    color: #06c;
 }
 
 a:hover {
-    color: #01f;
+    color: #059;
 }
 
 #top-buttons-bar {
@@ -32,6 +32,7 @@ a:hover {
 
 .activity-switch {
     margin-left: 10px;
+    background-color: #06c;
 }
 
 .activity-switch a {
@@ -40,11 +41,7 @@ a:hover {
 }
 
 .new-item {
-    background-color: #090;
-}
-
-.activity-switch {
-    background-color: #03f;
+    background-color: #0c1;
 }
 
 #dashboard-menu {
@@ -56,15 +53,15 @@ a:hover {
 #dashboard-menu .menu-item {
     float: left;
     display: block;
-    width: 166.666666667px;
+    width: 16.666666667%;
     height: 25px;
     text-align: center;
     line-height: 25px;
-    color: #03f;
+    color: #06c;
 }
 
 #dashboard-menu .menu-item:hover {
-    color: #01f;
+    color: #059;
 }
 
 #dashboard-header {
@@ -85,12 +82,12 @@ a:hover {
     height: 35px;
     text-align: center;
     line-height: 35px;
-    color: #03f;
+    color: #06c;
     background-color: #ccc;
 }
 
 #top-menu .menu-item:hover {
-    color: #01f;
+    color: #059;
     background-color: #aaa;
 }
 
@@ -292,7 +289,7 @@ input[type=email] {
     padding: 10px;
     border: none;
     color: #fff;
-    background-color: #090;
+    background-color: #0c1;
 }
 
 .modal .submit {
