@@ -53,8 +53,7 @@ class WikiForm extends AbstractContentForm
         $form->addTextArea('perex', 'locale.form.perex')
             ->setRequired('locale.form.perex_required');
 
-        $form->addTextArea('text', 'locale.form.text')
-            ->setRequired('locale.form.text_required');
+        $this->addEditor($form);
 
         $this->tryAutoFill($form, $this->item);
     }
