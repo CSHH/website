@@ -33,6 +33,22 @@ abstract class AbstractContentForm extends AbstractForm
         $form->addSubmit('submit', 'locale.form.save');
     }
 
+    protected function addEditor(Form $form)
+    {
+        $form->addTextArea('text', 'locale.form.text')
+            ->setRequired('locale.form.text_required');
+
+        $js = <<<JS
+for (var instanceName in CKEDITOR.instances) {
+    var instance = CKEDITOR.instances[instanceName];
+    var data = instance.getData();
+    instance.element.setText(data);
+}
+JS;
+
+        $form->getElementPrototype()->onsubmit($js);
+    }
+
     /**
      * @param  Form                           $form
      * @throws Exceptions\MissingTagException

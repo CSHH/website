@@ -61,8 +61,7 @@ class WikiDraftForm extends AbstractContentForm
         $form->addTextArea('perex', 'locale.form.perex')
             ->setRequired('locale.form.perex_required');
 
-        $form->addTextArea('text', 'locale.form.text')
-            ->setRequired('locale.form.text_required');
+        $this->addEditor($form);
 
         $form->addHidden('startTime', date('Y-m-d H:i:s'));
 
