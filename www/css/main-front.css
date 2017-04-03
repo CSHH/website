@@ -175,6 +175,14 @@ input[type=email] {
     background-color: #eee;
 }
 
+select:focus,
+textarea:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus {
+    border-color: #06c;
+}
+
 .modal input[type=text],
 .modal input[type=password],
 .modal input[type=email] {
