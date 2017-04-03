@@ -4,6 +4,7 @@ namespace AppTests\Integration\Forms;
 
 use AppTests\Login;
 use AppTests\PresenterTester;
+use Nelmio;
 use Tester;
 use Tester\Assert;
 
@@ -19,17 +20,20 @@ class ArticleFormTest extends Tester\TestCase
 
     public function testSubmitFormCreate()
     {
+        $entityManager = $this->container->getByType('Kdyby\Doctrine\EntityManager');
+        Nelmio\Alice\Fixtures::load(__DIR__ . '/ArticleFormTest.fixtures.php', $entityManager);
+
         $this->signIn($this->container);
 
         $articleRepository = $this->container->getByType('App\Repositories\ArticleRepository');
         Assert::equal(5, $articleRepository->getCount());
 
         $post = [
-            'tagId'  => 1,
-            'name'   => 'Article XYZ',
-            'perex'  => 'Lorem ipsum dolor sit amet...',
-            'text'   => 'Lorem ipsum dolor sit amet...',
-            '_do'    => 'form-form-submit',
+            'tagId' => 1,
+            'name'  => 'Article XYZ',
+            'perex' => 'Lorem ipsum dolor sit amet...',
+            'text'  => 'Lorem ipsum dolor sit amet...',
+            '_do'   => 'form-form-submit',
         ];
 
         $this->assertFormSubmitted('Admin:Article', 'form', 'POST', [], $post);
@@ -39,6 +43,9 @@ class ArticleFormTest extends Tester\TestCase
 
     public function testSubmitFormUpdate()
     {
+        $entityManager = $this->container->getByType('Kdyby\Doctrine\EntityManager');
+        Nelmio\Alice\Fixtures::load(__DIR__ . '/ArticleFormTest.fixtures.php', $entityManager);
+
         $this->signIn($this->container);
 
         $articleRepository = $this->container->getByType('App\Repositories\ArticleRepository');
@@ -46,12 +53,12 @@ class ArticleFormTest extends Tester\TestCase
         Assert::same('Article A', $ent1->name);
 
         $post = [
-            'id'     => 1,
-            'tagId'  => 1,
-            'name'   => 'Article XYZ',
-            'perex'  => 'Lorem ipsum dolor sit amet...',
-            'text'   => 'Lorem ipsum dolor sit amet...',
-            '_do'    => 'form-form-submit',
+            'id'    => 1,
+            'tagId' => 1,
+            'name'  => 'Article XYZ',
+            'perex' => 'Lorem ipsum dolor sit amet...',
+            'text'  => 'Lorem ipsum dolor sit amet...',
+            '_do'   => 'form-form-submit',
         ];
 
         $this->assertFormSubmitted('Admin:Article', 'form', 'POST', ['id' => 1], $post);

@@ -17,6 +17,7 @@ define('TEMP_DIR', __DIR__ . '/tmp/' . getmypid());
 
 $params = [
     'testingsqlitedb' => TEMP_DIR . '/db.sqlite',
+    'appDir'          => __DIR__ . '/../../app',
     'wwwDir'          => __DIR__ . '/../../www',
 ];
 
