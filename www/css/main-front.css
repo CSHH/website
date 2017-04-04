@@ -341,11 +341,11 @@ hr {
 }
 
 .gallery-image.not-public {
-    outline: 10px solid #910;
+    box-shadow: 0 0 0 10px #910;
 }
 
 .gallery-image.not-public:hover {
-    outline-color: #710;
+    box-shadow: 0 0 0 10px #710;
 }
 
 .gallery-image:hover .activation-bar {
