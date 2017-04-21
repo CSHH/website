@@ -24,7 +24,7 @@ class ImageRepository extends SingleUserContentRepository
      * @param EntityDao     $dao
      * @param EntityDao     $fileDao
      * @param EntityManager $em
-     * @param TagCache     $tagCache
+     * @param TagCache      $tagCache
      */
     public function __construct(
         $wwwDir,

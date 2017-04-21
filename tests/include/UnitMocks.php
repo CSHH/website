@@ -125,7 +125,7 @@ trait UnitMocks
         $this->qb                = $this->getQueryBuilderMock();
         $this->query             = $this->getQueryMock();
         $this->imageRepository   = $this->getImageRepositoryMock();
-        $this->tagCache         = $this->getTagCacheMock();
+        $this->tagCache          = $this->getTagCacheMock();
         $this->netteCache        = $this->getNetteCacheMock();
         $this->paginator         = $this->getPaginatorMock();
         $this->paginatorFactory  = $this->getPaginatorFactoryMock();

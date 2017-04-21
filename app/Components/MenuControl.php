@@ -41,7 +41,7 @@ class MenuControl extends Control
         $tagCache->setVideoRepository($videoRepository);
         $tagCache->setWikiRepository($wikiRepository);
 
-        $this->tagCache         = $tagCache;
+        $this->tagCache          = $tagCache;
         $this->articleRepository = $articleRepository;
         $this->imageRepository   = $imageRepository;
         $this->videoRepository   = $videoRepository;

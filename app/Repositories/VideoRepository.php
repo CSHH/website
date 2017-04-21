@@ -32,7 +32,7 @@ class VideoRepository extends SingleUserContentRepository
      * @param EntityDao     $dao
      * @param ITranslator   $translator
      * @param EntityManager $em
-     * @param TagCache     $tagCache
+     * @param TagCache      $tagCache
      */
     public function __construct(
         $vimeoOembedEndpoint,

@@ -27,7 +27,7 @@ abstract class SingleUserContentRepository extends BaseRepository
         parent::__construct($dao);
 
         $this->em        = $em;
-        $this->tagCache = $tagCache;
+        $this->tagCache  = $tagCache;
     }
 
     /**
