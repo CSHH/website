@@ -24,7 +24,7 @@ services:
     paginatorFactory: App\Utils\PaginatorFactory
     videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
 
-    menuCache: App\Caching\MenuCache(
+    tagCache: App\Caching\TagCache(
         Nette\Caching\Cache(
             Nette\Caching\Storages\FileStorage(%tempDir%/cache), 'menu'
         )

@@ -220,10 +220,10 @@ class ImageRepositoryTest extends Tester\TestCase
 
     private function getRepository($wwwDir, $uploadDir, $dao, $fileDao, $em)
     {
-        $menuCache = $this->menuCache;
-        $this->mockAndReturnSelf($menuCache, 'setImageRepository');
+        $tagCache = $this->tagCache;
+        $this->mockAndReturnSelf($tagCache, 'setImageRepository');
 
-        return new AppRepositories\ImageRepository($wwwDir, $uploadDir, $dao, $fileDao, $em, $menuCache);
+        return new AppRepositories\ImageRepository($wwwDir, $uploadDir, $dao, $fileDao, $em, $tagCache);
     }
 }
 

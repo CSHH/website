@@ -6,7 +6,7 @@
 
         <ul>
 
-            <li n:foreach="$menuItems[App\Caching\MenuCache::SECTION_GAMES] as $tag">
+            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_GAMES] as $tag">
 
                 <a href="{plink Game:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
 
@@ -22,7 +22,7 @@
 
         <ul>
 
-            <li n:foreach="$menuItems[App\Caching\MenuCache::SECTION_MOVIES] as $tag">
+            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_MOVIES] as $tag">
 
                 <a href="{plink Movie:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
 
@@ -38,7 +38,7 @@
 
         <ul>
 
-            <li n:foreach="$menuItems[App\Caching\MenuCache::SECTION_BOOKS] as $tag">
+            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_BOOKS] as $tag">
 
                 <a href="{plink Book:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
 
@@ -54,7 +54,7 @@
 
         <ul>
 
-            <li n:foreach="$menuItems[App\Caching\MenuCache::SECTION_ARTICLES] as $tag">
+            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_ARTICLES] as $tag">
 
                 <a href="{plink Article:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
 
@@ -70,7 +70,7 @@
 
         <ul>
 
-            <li n:foreach="$menuItems[App\Caching\MenuCache::SECTION_IMAGES] as $tag">
+            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_IMAGES] as $tag">
 
                 <a href="{plink Gallery:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
 
@@ -86,7 +86,7 @@
 
         <ul>
 
-            <li n:foreach="$menuItems[App\Caching\MenuCache::SECTION_VIDEOS] as $tag">
+            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_VIDEOS] as $tag">
 
                 <a href="{plink Video:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
 

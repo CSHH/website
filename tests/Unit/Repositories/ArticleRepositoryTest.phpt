@@ -719,10 +719,10 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     private function getRepository($dao, $translator, $em)
     {
-        $menuCache = $this->menuCache;
-        $this->mockAndReturnSelf($menuCache, 'setArticleRepository');
+        $tagCache = $this->tagCache;
+        $this->mockAndReturnSelf($tagCache, 'setArticleRepository');
 
-        return new AppRepositories\ArticleRepository($dao, $translator, $em, $menuCache);
+        return new AppRepositories\ArticleRepository($dao, $translator, $em, $tagCache);
     }
 }
 

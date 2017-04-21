@@ -7,7 +7,7 @@ use App\Repositories;
 use Nette;
 use Nette\Caching\Cache;
 
-class MenuCache extends Nette\Object
+class TagCache extends Nette\Object
 {
     /** @var int */
     const SECTION_ARTICLES = 1;

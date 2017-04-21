@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Caching\MenuCache;
+use App\Caching\TagCache;
 use App\Entities;
 use App\Utils\PaginatorFactory;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -24,7 +24,7 @@ class ImageRepository extends SingleUserContentRepository
      * @param EntityDao     $dao
      * @param EntityDao     $fileDao
      * @param EntityManager $em
-     * @param MenuCache     $menuCache
+     * @param TagCache     $tagCache
      */
     public function __construct(
         $wwwDir,
@@ -32,9 +32,9 @@ class ImageRepository extends SingleUserContentRepository
         EntityDao $dao,
         EntityDao $fileDao,
         EntityManager $em,
-        MenuCache $menuCache
+        TagCache $tagCache
     ) {
-        parent::__construct($dao, $em, $menuCache->setImageRepository($this));
+        parent::__construct($dao, $em, $tagCache->setImageRepository($this));
 
         $this->uploadDir = $wwwDir . $uploadDir;
         $this->fileDao   = $fileDao;
@@ -65,7 +65,7 @@ class ImageRepository extends SingleUserContentRepository
      */
     public function activate(Entities\BaseEntity $e)
     {
-        return $this->doActivate($e, MenuCache::SECTION_IMAGES);
+        return $this->doActivate($e, TagCache::SECTION_IMAGES);
     }
 
     /**
@@ -81,7 +81,7 @@ class ImageRepository extends SingleUserContentRepository
         $fm = new FileManager($this->em, $this->fileDao, $this->uploadDir);
         $fm->removeFile($file);
 
-        $this->menuCache->deleteSection(MenuCache::SECTION_IMAGES);
+        $this->tagCache->deleteSection(TagCache::SECTION_IMAGES);
     }
 
     /**

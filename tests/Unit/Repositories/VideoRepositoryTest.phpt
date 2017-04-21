@@ -302,10 +302,10 @@ class VideoRepositoryTest extends Tester\TestCase
 
     private function getRepository($vimeoOembedEndpoint, $dao, $translator, $em)
     {
-        $menuCache = $this->menuCache;
-        $this->mockAndReturnSelf($menuCache, 'setVideoRepository');
+        $tagCache = $this->tagCache;
+        $this->mockAndReturnSelf($tagCache, 'setVideoRepository');
 
-        return new AppRepositories\VideoRepository($vimeoOembedEndpoint, $dao, $translator, $em, $menuCache);
+        return new AppRepositories\VideoRepository($vimeoOembedEndpoint, $dao, $translator, $em, $tagCache);
     }
 }
 
