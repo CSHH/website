@@ -79,10 +79,22 @@ Open your web browser and go to the http://localhost:8000.
 
 ## Log yourself in
 
-If you have applied the fixtures you can use one prepared user account to log yourself in with these credentials
+If you have applied the fixtures you can use one of three prepared user accounts to log yourself in with these credentials
+
+### As a user with role user
+
+* email: jake.doe@example.com
+* password: user
+
+### As a user with role moderator
+
+* email: jane.doe@example.com
+* password: moderator
+
+### As a user with role administrator
 
 * email: john.doe@example.com
-* password: admin
+* password: administrator
 
 ## After you are done don´t forget to stop the server
 
