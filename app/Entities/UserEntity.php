@@ -15,9 +15,11 @@ class UserEntity extends TimestampableEntity implements UserEntityInterface
     use UserMethods;
 
     /** @var int */
-    const ROLE_ADMINISTRATOR = 99;
+    const ROLE_USER = 10;
     /** @var int */
-    const ROLE_USER = 1;
+    const ROLE_MODERATOR = 20;
+    /** @var int */
+    const ROLE_ADMINISTRATOR = 30;
 
     /**
      * @ORM\Column(type="string", unique=true, nullable=true)
