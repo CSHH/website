@@ -2,20 +2,46 @@
 
 return [
     App\Entities\UserEntity::class => [
-        'user_admin' => [
+        'user_with_role_user' => [
+            'username' => 'jakedoe',
+            'email' => 'jake.doe@example.com',
+            'avatar' => null,
+            'forename' => 'Jake',
+            'surname' => 'Doe',
+            'password' => '$2y$10$MayaJ6bYeXfbeE.jZCZRV.7ZLrldlAUl0nB9re9hlsyi2dnluNhhW',
+            'salt' => 'YpEeJhODZO',
+            'role' => App\Entities\UserEntity::ROLE_USER,
+            'token' => null,
+            'tokenCreatedAt' => null,
+            'isAuthenticated' => true,
+        ],
+        'user_with_role_moderator' => [
+            'username' => 'janedoe',
+            'email' => 'jane.doe@example.com',
+            'avatar' => null,
+            'forename' => 'Jane',
+            'surname' => 'Doe',
+            'password' => '$2y$10$r.DcvGlflt.iJ384uvuvL.qqhPUo5zM9mSr/fvvcnGg.v/Lelu0uu',
+            'salt' => 'f3nViQAQ3y',
+            'role' => App\Entities\UserEntity::ROLE_MODERATOR,
+            'token' => null,
+            'tokenCreatedAt' => null,
+            'isAuthenticated' => true,
+        ],
+        'user_with_role_administrator' => [
             'username' => 'johndoe',
             'email' => 'john.doe@example.com',
             'avatar' => null,
             'forename' => 'John',
             'surname' => 'Doe',
-            'password' => '$2y$10$D7DlW8aCiF0JZfvXCpxdeeMbklNC0nJ7IcvdpwIgQoHtWTLQ1UVK2',
-            'salt' => 'X1QWzJRBy3',
+            'password' => '$2y$10$dKzLYfuCnf/Vu8RLpb/RS.awomYcdjm1hCuhBHZRu.1cNFbMjkwqi',
+            'salt' => 'LS3OHTwjYt',
             'role' => App\Entities\UserEntity::ROLE_ADMINISTRATOR,
             'token' => null,
             'tokenCreatedAt' => null,
             'isAuthenticated' => true,
         ],
-        'user_{1..50}' => [
+        'user_{1..47}' => [
             'username (unique)' => '<username()><current()>',
             'email (unique)' => '<username()>@example.com',
             'avatar' => null,
