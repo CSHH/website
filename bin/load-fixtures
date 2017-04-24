@@ -1,7 +1,4 @@
 #!/usr/bin/env php
 <?php
 
-$container = require __DIR__ . '/../app/bootstrap.php';
-$entityManager = $container->getByType('Kdyby\Doctrine\EntityManager');
-
-Nelmio\Alice\Fixtures::load(__DIR__ . '/../fixtures/fixtures.php', $entityManager);
+require __DIR__ . '/../fixtures/bootstrap.php';
