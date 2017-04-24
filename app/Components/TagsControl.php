@@ -6,7 +6,7 @@ use App\Caching\TagCache;
 use App\Repositories;
 use Nette\Application\UI\Control;
 
-class MenuControl extends Control
+class TagsControl extends Control
 {
     /** @var TagCache */
     private $tagCache;
@@ -53,7 +53,7 @@ class MenuControl extends Control
     {
         $template = $template = $this->getTemplate();
 
-        $template->setFile(__DIR__ . '/templates/MenuControl.latte');
+        $template->setFile(__DIR__ . '/templates/TagsControl.latte');
 
         $template->menuItems = $this->tagCache->getAll();
 

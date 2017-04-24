@@ -9,8 +9,8 @@ use Nette\Mail\IMailer;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
 {
-    /** @var Components\MenuControlInterface @inject */
-    public $menuControl;
+    /** @var Components\TagsControlInterface @inject */
+    public $tagsControl;
 
     /** @var Forms\SignUpFormInterface @inject */
     public $signUpForm;
@@ -46,11 +46,11 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
     }
 
     /**
-     * @return Components\MenuControlInterface
+     * @return Components\TagsControlInterface
      */
-    protected function createComponentMenuControl()
+    protected function createComponentTagsControl()
     {
-        return $this->menuControl->create();
+        return $this->tagsControl->create();
     }
 
     /**

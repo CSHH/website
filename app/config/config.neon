@@ -51,8 +51,8 @@ services:
     WikiForm:
         implement: App\Forms\WikiFormInterface
 
-    menuControl:
-        implement: App\Components\MenuControlInterface
+    tagsControl:
+        implement: App\Components\TagsControlInterface
     visualPaginatorControl:
         implement: App\Components\VisualPaginatorControlInterface
 

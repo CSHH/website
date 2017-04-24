@@ -2,10 +2,10 @@
 
 namespace App\Components;
 
-interface MenuControlInterface
+interface TagsControlInterface
 {
     /**
-     * @return MenuControl
+     * @return TagsControl
      */
     public function create();
 }
