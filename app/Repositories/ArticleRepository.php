@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Caching\TagCache;
+use App\Caching;
 use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
@@ -29,9 +29,9 @@ class ArticleRepository extends SingleUserContentRepository
         EntityDao $dao,
         ITranslator $translator,
         EntityManager $em,
-        TagCache $tagCache
+        Caching\ArticleTagSectionCache $tagCache
     ) {
-        parent::__construct($dao, $em, $tagCache->setArticleRepository($this));
+        parent::__construct($dao, $em, $tagCache);
 
         $this->translator   = $translator;
         $this->htmlPurifier = (new HtmlPurifierFactory)->createHtmlPurifier();
@@ -89,7 +89,7 @@ class ArticleRepository extends SingleUserContentRepository
         Entities\ArticleEntity $e
     ) {
         if ($e->tag->id !== $tag->id) {
-            $this->tagCache->deleteSection(TagCache::SECTION_ARTICLES);
+            $this->tagCache->deleteSection(Caching\TagSectionCacheInterface::SECTION_ARTICLES);
         }
 
         $e->setValues($values);
@@ -121,7 +121,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function activate(Entities\BaseEntity $e)
     {
-        return $this->doActivate($e, TagCache::SECTION_ARTICLES);
+        return $this->doActivate($e, Caching\TagSectionCacheInterface::SECTION_ARTICLES);
     }
 
     /**
@@ -131,7 +131,7 @@ class ArticleRepository extends SingleUserContentRepository
     public function delete(Entities\ArticleEntity $e)
     {
         $ent = $this->removeAndFlush($this->em, $e);
-        $this->tagCache->deleteSection(TagCache::SECTION_ARTICLES);
+        $this->tagCache->deleteSection(Caching\TagSectionCacheInterface::SECTION_ARTICLES);
         return $ent;
     }
 

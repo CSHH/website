@@ -4,44 +4,15 @@ namespace App\Caching;
 
 use App\Entities;
 use App\Repositories;
-use Nette;
 use Nette\Caching\Cache;
 
-class TagCache extends Nette\Object
+class TagCache
 {
-    /** @var int */
-    const SECTION_ARTICLES = 1;
-    /** @var int */
-    const SECTION_IMAGES = 2;
-    /** @var int */
-    const SECTION_VIDEOS = 3;
-    /** @var int */
-    const SECTION_GAMES = 4;
-    /** @var int */
-    const SECTION_MOVIES = 5;
-    /** @var int */
-    const SECTION_BOOKS = 6;
-
     /** @var Cache */
     private $cache;
 
-    /** @var Repositories\ArticleRepository */
-    private $articleRepository;
-
-    /** @var Repositories\ImageRepository */
-    private $imageRepository;
-
-    /** @var Repositories\VideoRepository */
-    private $videoRepository;
-
-    /** @var Repositories\WikiRepository */
-    private $wikiRepository;
-
     /** @var Repositories\TagRepository */
     private $tagRepository;
-
-    /** @var array */
-    private $items = [];
 
     public function __construct(Cache $cache, Repositories\TagRepository $tagRepository)
     {
@@ -50,75 +21,11 @@ class TagCache extends Nette\Object
     }
 
     /**
-     * @param  Repositories\ArticleRepository $articleRepository
-     * @return self
+     * @return Repositories\TagRepository
      */
-    public function setArticleRepository(Repositories\ArticleRepository $articleRepository)
+    public function getTagRepository()
     {
-        $this->articleRepository = $articleRepository;
-
-        return $this;
-    }
-
-    /**
-     * @param  Repositories\ImageRepository $imageRepository
-     * @return self
-     */
-    public function setImageRepository(Repositories\ImageRepository $imageRepository)
-    {
-        $this->imageRepository = $imageRepository;
-
-        return $this;
-    }
-
-    /**
-     * @param  Repositories\VideoRepository $videoRepository
-     * @return self
-     */
-    public function setVideoRepository(Repositories\VideoRepository $videoRepository)
-    {
-        $this->videoRepository = $videoRepository;
-
-        return $this;
-    }
-
-    /**
-     * @param  Repositories\WikiRepository $wikiRepository
-     * @return self
-     */
-    public function setWikiRepository(Repositories\WikiRepository $wikiRepository)
-    {
-        $this->wikiRepository = $wikiRepository;
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAll()
-    {
-        $tags = $this->tagRepository->getAll();
-
-        $this->items[self::SECTION_ARTICLES] = $this->getItemsForSection(self::SECTION_ARTICLES, $tags, $this->articleRepository);
-        $this->items[self::SECTION_IMAGES]   = $this->getItemsForSection(self::SECTION_IMAGES, $tags, $this->imageRepository);
-        $this->items[self::SECTION_VIDEOS]   = $this->getItemsForSection(self::SECTION_VIDEOS, $tags, $this->videoRepository);
-        $this->items[self::SECTION_GAMES]    = $this->getItemsForSection(self::SECTION_GAMES, $tags, $this->wikiRepository, Entities\WikiEntity::TYPE_GAME);
-        $this->items[self::SECTION_MOVIES]   = $this->getItemsForSection(self::SECTION_MOVIES, $tags, $this->wikiRepository, Entities\WikiEntity::TYPE_MOVIE);
-        $this->items[self::SECTION_BOOKS]    = $this->getItemsForSection(self::SECTION_BOOKS, $tags, $this->wikiRepository, Entities\WikiEntity::TYPE_BOOK);
-
-        return $this->items;
-    }
-
-    /**
-     * @param int                $section
-     * @param Entities\TagEntity $tag
-     */
-    public function deleteSectionIfTagNotPresent($section, Entities\TagEntity $tag)
-    {
-        if (!$this->isTagInSection($section, $tag)) {
-            $this->deleteSection($section);
-        }
+        return $this->tagRepository;
     }
 
     /**
@@ -129,6 +36,17 @@ class TagCache extends Nette\Object
     public function isTagInSection($section, Entities\TagEntity $tag)
     {
         return array_key_exists($tag->id, $this->cache->load($section));
+    }
+
+    /**
+     * @param int                $section
+     * @param Entities\TagEntity $tag
+     */
+    public function deleteSectionIfTagNotPresent($section, Entities\TagEntity $tag)
+    {
+        if ($this->isTagInSection($section, $tag) === false) {
+            $this->deleteSection($section);
+        }
     }
 
     /**
@@ -146,7 +64,7 @@ class TagCache extends Nette\Object
      * @param  string                      $wikiType
      * @return array
      */
-    private function getItemsForSection($section, array $tags, Repositories\BaseRepository $repository, $wikiType = null)
+    public function getItemsForSection($section, array $tags, Repositories\BaseRepository $repository, $wikiType = null)
     {
         $items = $this->cache->load($section);
         if ($items === null) {

@@ -1,9 +1,11 @@
 parameters:
+    cacheDir: %tempDir%/cache
+    sessionsDir: %tempDir%/sessions
     thumbsDir: /thumbs
     uploadDir: /upload
     videoThumbnailsDir: /video_thumbnails
-    contactEmail: john.doe@example.com
-    vimeoOembedEndpoint: https://vimeo.com/api/oembed.xml
+    contactEmail: 'john.doe@example.com'
+    vimeoOembedEndpoint: 'https://vimeo.com/api/oembed.xml'
 
 php:
     date.timezone: Europe/Prague
@@ -15,8 +17,8 @@ application:
 
 session:
     autoStart: true
-    expiration: 14 days
-    save_path: %tempDir%/sessions
+    expiration: '14 days'
+    save_path: %sessionsDir%
 
 services:
     authenticator: App\Security\Authenticator
@@ -24,11 +26,44 @@ services:
     paginatorFactory: App\Utils\PaginatorFactory
     videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
 
+    articleRepository: App\Repositories\ArticleRepository(@doctrine.dao(App\Entities\ArticleEntity))
+    imageRepository: App\Repositories\ImageRepository(%wwwDir%, %uploadDir%, @doctrine.dao(App\Entities\ImageEntity), @doctrine.dao(App\Entities\FileEntity))
+    tagRepository: App\Repositories\TagRepository(@doctrine.dao(App\Entities\TagEntity))
+    userRepository: App\Repositories\UserRepository(@doctrine.dao(App\Entities\UserEntity))
+    videoRepository: App\Repositories\VideoRepository(%vimeoOembedEndpoint%, @doctrine.dao(App\Entities\VideoEntity))
+    wikiDraftRepository: App\Repositories\WikiDraftRepository(@doctrine.dao(App\Entities\WikiDraftEntity))
+    wikiRepository: App\Repositories\WikiRepository(@doctrine.dao(App\Entities\WikiEntity))
+
     tagCache: App\Caching\TagCache(
         Nette\Caching\Cache(
-            Nette\Caching\Storages\FileStorage(%tempDir%/cache), 'menu'
+            Nette\Caching\Storages\FileStorage(%cacheDir%), 'tags'
         )
     )
+
+    articleTagSectionCache:
+        class: App\Caching\ArticleTagSectionCache
+        setup:
+            - setArticleRepository(@articleRepository)
+    bookTagSectionCache:
+        class: App\Caching\BookTagSectionCache
+        setup:
+            - setWikiRepository(@wikiRepository)
+    gameTagSectionCache:
+        class: App\Caching\GameTagSectionCache
+        setup:
+            - setWikiRepository(@wikiRepository)
+    imageTagSectionCache:
+        class: App\Caching\ImageTagSectionCache
+        setup:
+            - setImageRepository(@imageRepository)
+    movieTagSectionCache:
+        class: App\Caching\MovieTagSectionCache
+        setup:
+            - setWikiRepository(@WikiRepository)
+    videoTagSectionCache:
+        class: App\Caching\VideoTagSectionCache
+        setup:
+            - setVideoRepository(@videoRepository)
 
     articleForm:
         implement: App\Forms\ArticleFormInterface
@@ -44,33 +79,17 @@ services:
         implement: App\Forms\SignResetFormInterface
     signUpForm:
         implement: App\Forms\SignUpFormInterface
-    VideoForm:
+    videoForm:
         implement: App\Forms\VideoFormInterface
-    WikiDraftForm:
+    wikiDraftForm:
         implement: App\Forms\WikiDraftFormInterface
-    WikiForm:
+    wikiForm:
         implement: App\Forms\WikiFormInterface
 
     tagsControl:
         implement: App\Components\TagsControlInterface
     visualPaginatorControl:
         implement: App\Components\VisualPaginatorControlInterface
-
-    - App\Repositories\ArticleRepository(@doctrine.dao(App\Entities\ArticleEntity))
-    - App\Repositories\ImageRepository(
-        %wwwDir%,
-        %uploadDir%,
-        @doctrine.dao(App\Entities\ImageEntity),
-        @doctrine.dao(App\Entities\FileEntity)
-    )
-    - App\Repositories\TagRepository(@doctrine.dao(App\Entities\TagEntity))
-    - App\Repositories\UserRepository(@doctrine.dao(App\Entities\UserEntity))
-    - App\Repositories\VideoRepository(
-        %vimeoOembedEndpoint%,
-        @doctrine.dao(App\Entities\VideoEntity)
-    )
-    - App\Repositories\WikiDraftRepository(@doctrine.dao(App\Entities\WikiDraftEntity))
-    - App\Repositories\WikiRepository(@doctrine.dao(App\Entities\WikiEntity))
 
 extensions:
     annotations: Kdyby\Annotations\DI\AnnotationsExtension

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Caching\TagCache;
+use App\Caching;
 use App\Entities;
 use App\Utils\PaginatorFactory;
 use Doctrine\ORM\NonUniqueResultException;
@@ -16,13 +16,13 @@ abstract class SingleUserContentRepository extends BaseRepository
     /** @var EntityManager */
     protected $em;
 
-    /** @var TagCache */
+    /** @var Caching\TagSectionCacheInterface */
     protected $tagCache;
 
     public function __construct(
         EntityDao $dao,
         EntityManager $em,
-        TagCache $tagCache
+        Caching\TagSectionCacheInterface $tagCache
     ) {
         parent::__construct($dao);
 

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Caching\TagCache;
+use App\Caching;
 use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
@@ -32,16 +32,16 @@ class VideoRepository extends SingleUserContentRepository
      * @param EntityDao     $dao
      * @param ITranslator   $translator
      * @param EntityManager $em
-     * @param TagCache      $tagCache
+     * @param Caching\VideoTagSectionCache $tagCache
      */
     public function __construct(
         $vimeoOembedEndpoint,
         EntityDao $dao,
         ITranslator $translator,
         EntityManager $em,
-        TagCache $tagCache
+        Caching\VideoTagSectionCache $tagCache
     ) {
-        parent::__construct($dao, $em, $tagCache->setVideoRepository($this));
+        parent::__construct($dao, $em, $tagCache);
 
         $this->vimeoOembedEndpoint = $vimeoOembedEndpoint;
         $this->translator          = $translator;
@@ -88,7 +88,7 @@ class VideoRepository extends SingleUserContentRepository
         Entities\VideoEntity $e
     ) {
         if ($e->tag->id !== $tag->id) {
-            $this->tagCache->deleteSection(TagCache::SECTION_VIDEOS);
+            $this->tagCache->deleteSection(Caching\TagSectionCacheInterface::SECTION_VIDEOS);
         }
 
         $e->setValues($values);
@@ -125,7 +125,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function activate(Entities\BaseEntity $e)
     {
-        return $this->doActivate($e, TagCache::SECTION_VIDEOS);
+        return $this->doActivate($e, Caching\TagSectionCacheInterface::SECTION_VIDEOS);
     }
 
     /**
@@ -135,7 +135,7 @@ class VideoRepository extends SingleUserContentRepository
     {
         $this->removeAndFlush($this->em, $e);
 
-        $this->tagCache->deleteSection(TagCache::SECTION_VIDEOS);
+        $this->tagCache->deleteSection(Caching\TagSectionCacheInterface::SECTION_VIDEOS);
     }
 
     /**
