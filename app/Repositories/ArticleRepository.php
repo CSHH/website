@@ -89,7 +89,7 @@ class ArticleRepository extends SingleUserContentRepository
         Entities\ArticleEntity $e
     ) {
         if ($e->tag->id !== $tag->id) {
-            $this->tagCache->deleteSection(Caching\TagSectionCacheInterface::SECTION_ARTICLES);
+            $this->tagCache->deleteSection();
         }
 
         $e->setValues($values);
@@ -121,7 +121,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function activate(Entities\BaseEntity $e)
     {
-        return $this->doActivate($e, Caching\TagSectionCacheInterface::SECTION_ARTICLES);
+        return $this->doActivate($e);
     }
 
     /**
@@ -131,7 +131,7 @@ class ArticleRepository extends SingleUserContentRepository
     public function delete(Entities\ArticleEntity $e)
     {
         $ent = $this->removeAndFlush($this->em, $e);
-        $this->tagCache->deleteSection(Caching\TagSectionCacheInterface::SECTION_ARTICLES);
+        $this->tagCache->deleteSection();
         return $ent;
     }
 

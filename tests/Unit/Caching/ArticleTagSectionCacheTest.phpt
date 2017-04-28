@@ -3,7 +3,6 @@
 namespace AppTests\Unit\Caching;
 
 use App\Caching\ArticleTagSectionCache;
-use App\Caching\TagSectionCacheInterface;
 use AppTests;
 use AppTests\UnitMocks;
 use Tester;
@@ -63,7 +62,7 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
         $articleTagSectionCache = new ArticleTagSectionCache($tagCache);
-        Assert::true($articleTagSectionCache->isTagInSection(TagSectionCacheInterface::SECTION_ARTICLES, $tag));
+        Assert::true($articleTagSectionCache->isTagInSection($tag));
     }
 
     public function testIsTagInSectionReturnsFalse()
@@ -72,7 +71,7 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
         $articleTagSectionCache = new ArticleTagSectionCache($tagCache);
-        Assert::false($articleTagSectionCache->isTagInSection(TagSectionCacheInterface::SECTION_ARTICLES, new AppTests\TagEntityImpl));
+        Assert::false($articleTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSectionIfTagNotPresent()
@@ -81,7 +80,7 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
         $articleTagSectionCache = new ArticleTagSectionCache($tagCache);
-        Assert::null($articleTagSectionCache->deleteSectionIfTagNotPresent(TagSectionCacheInterface::SECTION_ARTICLES, new AppTests\TagEntityImpl));
+        Assert::null($articleTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSection()
@@ -90,7 +89,7 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'deleteSection');
 
         $articleTagSectionCache = new ArticleTagSectionCache($tagCache);
-        Assert::null($articleTagSectionCache->deleteSection(TagSectionCacheInterface::SECTION_ARTICLES));
+        Assert::null($articleTagSectionCache->deleteSection());
     }
 }
 

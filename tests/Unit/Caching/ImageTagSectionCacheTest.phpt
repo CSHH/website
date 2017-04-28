@@ -3,7 +3,6 @@
 namespace AppTests\Unit\Caching;
 
 use App\Caching\ImageTagSectionCache;
-use App\Caching\TagSectionCacheInterface;
 use AppTests;
 use AppTests\UnitMocks;
 use Tester;
@@ -63,7 +62,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
         $imageTagSectionCache = new ImageTagSectionCache($tagCache);
-        Assert::true($imageTagSectionCache->isTagInSection(TagSectionCacheInterface::SECTION_IMAGES, $tag));
+        Assert::true($imageTagSectionCache->isTagInSection($tag));
     }
 
     public function testIsTagInSectionReturnsFalse()
@@ -72,7 +71,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
         $imageTagSectionCache = new ImageTagSectionCache($tagCache);
-        Assert::false($imageTagSectionCache->isTagInSection(TagSectionCacheInterface::SECTION_IMAGES, new AppTests\TagEntityImpl));
+        Assert::false($imageTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSectionIfTagNotPresent()
@@ -81,7 +80,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
         $imageTagSectionCache = new ImageTagSectionCache($tagCache);
-        Assert::null($imageTagSectionCache->deleteSectionIfTagNotPresent(TagSectionCacheInterface::SECTION_IMAGES, new AppTests\TagEntityImpl));
+        Assert::null($imageTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSection()
@@ -90,7 +89,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'deleteSection');
 
         $imageTagSectionCache = new ImageTagSectionCache($tagCache);
-        Assert::null($imageTagSectionCache->deleteSection(TagSectionCacheInterface::SECTION_IMAGES));
+        Assert::null($imageTagSectionCache->deleteSection());
     }
 }
 

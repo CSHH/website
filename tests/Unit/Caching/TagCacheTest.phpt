@@ -3,7 +3,6 @@
 namespace AppTests\Unit\Caching;
 
 use App\Caching\TagCache;
-use App\Caching\TagSectionCacheInterface;
 use AppTests;
 use AppTests\UnitMocks;
 use Tester;
@@ -33,7 +32,7 @@ class TagCacheTest extends Tester\TestCase
         $this->mock($netteCache, 'load', 1, [$tag->id => $tag]);
 
         $tagCache = new TagCache($netteCache, $this->tagRepository);
-        Assert::true($tagCache->isTagInSection(TagSectionCacheInterface::SECTION_ARTICLES, $tag));
+        Assert::true($tagCache->isTagInSection(1, $tag));
     }
 
     public function testIsTagInSectionReturnsFalse()
@@ -42,7 +41,7 @@ class TagCacheTest extends Tester\TestCase
         $this->mock($netteCache, 'load', 1, []);
 
         $tagCache = new TagCache($netteCache, $this->tagRepository);
-        Assert::false($tagCache->isTagInSection(TagSectionCacheInterface::SECTION_ARTICLES, new AppTests\TagEntityImpl));
+        Assert::false($tagCache->isTagInSection(1, new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSectionIfTagNotPresent()
@@ -55,7 +54,7 @@ class TagCacheTest extends Tester\TestCase
         $this->mock($netteCache, 'remove');
 
         $tagCache = new TagCache($netteCache, $this->tagRepository);
-        Assert::null($tagCache->deleteSectionIfTagNotPresent(TagSectionCacheInterface::SECTION_ARTICLES, $tag));
+        Assert::null($tagCache->deleteSectionIfTagNotPresent(1, $tag));
     }
 
     public function testDeleteSection()
@@ -64,7 +63,7 @@ class TagCacheTest extends Tester\TestCase
         $this->mock($netteCache, 'remove');
 
         $tagCache = new TagCache($netteCache, $this->tagRepository);
-        Assert::null($tagCache->deleteSection(TagSectionCacheInterface::SECTION_ARTICLES));
+        Assert::null($tagCache->deleteSection(1));
     }
 }
 

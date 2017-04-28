@@ -65,7 +65,7 @@ class ImageRepository extends SingleUserContentRepository
      */
     public function activate(Entities\BaseEntity $e)
     {
-        return $this->doActivate($e, Caching\TagSectionCacheInterface::SECTION_IMAGES);
+        return $this->doActivate($e);
     }
 
     /**
@@ -81,7 +81,7 @@ class ImageRepository extends SingleUserContentRepository
         $fm = new FileManager($this->em, $this->fileDao, $this->uploadDir);
         $fm->removeFile($file);
 
-        $this->tagCache->deleteSection(Caching\TagSectionCacheInterface::SECTION_IMAGES);
+        $this->tagCache->deleteSection();
     }
 
     /**

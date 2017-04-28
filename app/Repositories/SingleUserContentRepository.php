@@ -32,16 +32,15 @@ abstract class SingleUserContentRepository extends BaseRepository
 
     /**
      * @param  Entities\BaseEntity $e
-     * @param  int                 $menuSection
      * @return Entities\BaseEntity
      */
-    protected function doActivate(Entities\BaseEntity $e, $menuSection)
+    protected function doActivate(Entities\BaseEntity $e)
     {
         $e->isActive = true;
 
         $this->persistAndFlush($this->em, $e);
 
-        $this->tagCache->deleteSectionIfTagNotPresent($menuSection, $e->tag);
+        $this->tagCache->deleteSectionIfTagNotPresent($e->tag);
 
         return $e;
     }

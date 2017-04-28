@@ -88,7 +88,7 @@ class VideoRepository extends SingleUserContentRepository
         Entities\VideoEntity $e
     ) {
         if ($e->tag->id !== $tag->id) {
-            $this->tagCache->deleteSection(Caching\TagSectionCacheInterface::SECTION_VIDEOS);
+            $this->tagCache->deleteSection();
         }
 
         $e->setValues($values);
@@ -125,7 +125,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function activate(Entities\BaseEntity $e)
     {
-        return $this->doActivate($e, Caching\TagSectionCacheInterface::SECTION_VIDEOS);
+        return $this->doActivate($e);
     }
 
     /**
@@ -135,7 +135,7 @@ class VideoRepository extends SingleUserContentRepository
     {
         $this->removeAndFlush($this->em, $e);
 
-        $this->tagCache->deleteSection(Caching\TagSectionCacheInterface::SECTION_VIDEOS);
+        $this->tagCache->deleteSection();
     }
 
     /**

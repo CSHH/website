@@ -3,7 +3,6 @@
 namespace AppTests\Unit\Caching;
 
 use App\Caching\MovieTagSectionCache;
-use App\Caching\TagSectionCacheInterface;
 use AppTests;
 use AppTests\UnitMocks;
 use Tester;
@@ -63,7 +62,7 @@ class MovieTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
         $movieTagSectionCache = new MovieTagSectionCache($tagCache);
-        Assert::true($movieTagSectionCache->isTagInSection(TagSectionCacheInterface::SECTION_MOVIES, $tag));
+        Assert::true($movieTagSectionCache->isTagInSection($tag));
     }
 
     public function testIsTagInSectionReturnsFalse()
@@ -72,7 +71,7 @@ class MovieTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
         $movieTagSectionCache = new MovieTagSectionCache($tagCache);
-        Assert::false($movieTagSectionCache->isTagInSection(TagSectionCacheInterface::SECTION_MOVIES, new AppTests\TagEntityImpl));
+        Assert::false($movieTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSectionIfTagNotPresent()
@@ -81,7 +80,7 @@ class MovieTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
         $movieTagSectionCache = new MovieTagSectionCache($tagCache);
-        Assert::null($movieTagSectionCache->deleteSectionIfTagNotPresent(TagSectionCacheInterface::SECTION_MOVIES, new AppTests\TagEntityImpl));
+        Assert::null($movieTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSection()
@@ -90,7 +89,7 @@ class MovieTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'deleteSection');
 
         $movieTagSectionCache = new MovieTagSectionCache($tagCache);
-        Assert::null($movieTagSectionCache->deleteSection(TagSectionCacheInterface::SECTION_MOVIES));
+        Assert::null($movieTagSectionCache->deleteSection());
     }
 }
 

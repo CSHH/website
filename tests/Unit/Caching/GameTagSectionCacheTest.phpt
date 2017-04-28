@@ -3,7 +3,6 @@
 namespace AppTests\Unit\Caching;
 
 use App\Caching\GameTagSectionCache;
-use App\Caching\TagSectionCacheInterface;
 use AppTests;
 use AppTests\UnitMocks;
 use Tester;
@@ -63,7 +62,7 @@ class GameTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
         $gameTagSectionCache = new GameTagSectionCache($tagCache);
-        Assert::true($gameTagSectionCache->isTagInSection(TagSectionCacheInterface::SECTION_GAMES, $tag));
+        Assert::true($gameTagSectionCache->isTagInSection($tag));
     }
 
     public function testIsTagInSectionReturnsFalse()
@@ -72,7 +71,7 @@ class GameTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
         $gameTagSectionCache = new GameTagSectionCache($tagCache);
-        Assert::false($gameTagSectionCache->isTagInSection(TagSectionCacheInterface::SECTION_GAMES, new AppTests\TagEntityImpl));
+        Assert::false($gameTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSectionIfTagNotPresent()
@@ -81,7 +80,7 @@ class GameTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
         $gameTagSectionCache = new GameTagSectionCache($tagCache);
-        Assert::null($gameTagSectionCache->deleteSectionIfTagNotPresent(TagSectionCacheInterface::SECTION_GAMES, new AppTests\TagEntityImpl));
+        Assert::null($gameTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
     public function testDeleteSection()
@@ -90,7 +89,7 @@ class GameTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'deleteSection');
 
         $gameTagSectionCache = new GameTagSectionCache($tagCache);
-        Assert::null($gameTagSectionCache->deleteSection(TagSectionCacheInterface::SECTION_GAMES));
+        Assert::null($gameTagSectionCache->deleteSection());
     }
 }
 

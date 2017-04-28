@@ -7,6 +7,9 @@ use App\Repositories;
 
 class GameTagSectionCache implements TagSectionCacheInterface
 {
+    /** @var int */
+    const SECTION_ID = 4;
+
     /** @var TagCache */
     private $tagCache;
 
@@ -40,7 +43,7 @@ class GameTagSectionCache implements TagSectionCacheInterface
     public function getTags()
     {
         return $this->tagCache->getItemsForSection(
-            TagSectionCacheInterface::SECTION_GAMES,
+            self::SECTION_ID,
             $this->tagCache->getTagRepository()->getAll(),
             $this->wikiRepository,
             Entities\WikiEntity::TYPE_GAME
@@ -48,29 +51,24 @@ class GameTagSectionCache implements TagSectionCacheInterface
     }
 
     /**
-     * @param  int                $section
      * @param  Entities\TagEntity $tag
      * @return bool
      */
-    public function isTagInSection($section, Entities\TagEntity $tag)
+    public function isTagInSection(Entities\TagEntity $tag)
     {
-        return $this->tagCache->isTagInSection($section, $tag);
+        return $this->tagCache->isTagInSection(self::SECTION_ID, $tag);
     }
 
     /**
-     * @param int                $section
      * @param Entities\TagEntity $tag
      */
-    public function deleteSectionIfTagNotPresent($section, Entities\TagEntity $tag)
+    public function deleteSectionIfTagNotPresent(Entities\TagEntity $tag)
     {
-        $this->tagCache->deleteSectionIfTagNotPresent($section, $tag);
+        $this->tagCache->deleteSectionIfTagNotPresent(self::SECTION_ID, $tag);
     }
 
-    /**
-     * @param int $section
-     */
-    public function deleteSection($section)
+    public function deleteSection()
     {
-        $this->tagCache->deleteSection($section);
+        $this->tagCache->deleteSection(self::SECTION_ID);
     }
 }
