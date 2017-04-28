@@ -27,6 +27,14 @@ class BookTagSectionCache implements TagSectionCacheInterface
     }
 
     /**
+     * @return Repositories\WikiRepository
+     */
+    public function getWikiRepository()
+    {
+        return $this->wikiRepository;
+    }
+
+    /**
      * @return array
      */
     public function getTags()
