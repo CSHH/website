@@ -27,6 +27,14 @@ class ImageTagSectionCache implements TagSectionCacheInterface
     }
 
     /**
+     * @return Repositories\ImageRepository
+     */
+    public function getImageRepository()
+    {
+        return $this->imageRepository;
+    }
+
+    /**
      * @return array
      */
     public function getTags()
