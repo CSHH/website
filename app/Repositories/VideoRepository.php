@@ -28,10 +28,10 @@ class VideoRepository extends SingleUserContentRepository
     private $translator;
 
     /**
-     * @param string        $vimeoOembedEndpoint
-     * @param EntityDao     $dao
-     * @param ITranslator   $translator
-     * @param EntityManager $em
+     * @param string                       $vimeoOembedEndpoint
+     * @param EntityDao                    $dao
+     * @param ITranslator                  $translator
+     * @param EntityManager                $em
      * @param Caching\VideoTagSectionCache $tagCache
      */
     public function __construct(

@@ -28,13 +28,13 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
 
     public function testGetTags()
     {
-        $tag1 = new AppTests\TagEntityImpl;
+        $tag1     = new AppTests\TagEntityImpl;
         $tag1->id = 1;
-        $tag2 = new AppTests\TagEntityImpl;
+        $tag2     = new AppTests\TagEntityImpl;
         $tag2->id = 2;
-        $tag3 = new AppTests\TagEntityImpl;
+        $tag3     = new AppTests\TagEntityImpl;
         $tag3->id = 3;
-        $tags = [$tag1, $tag2, $tag3];
+        $tags     = [$tag1, $tag2, $tag3];
 
         $tagRepository = $this->tagRepository;
         $this->mock($tagRepository, 'getAll', 1, $tags);
