@@ -59,7 +59,7 @@ class TagCache
 
     /**
      * @param  int                         $section
-     * @param  Entities\TagRepository[]    $tags
+     * @param  Entities\TagEntity[]        $tags
      * @param  Repositories\BaseRepository $repository
      * @param  string                      $wikiType
      * @return array

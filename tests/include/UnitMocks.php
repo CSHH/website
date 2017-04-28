@@ -16,6 +16,7 @@ trait UnitMocks
     protected $netteCache;
     protected $paginator;
     protected $paginatorFactory;
+    protected $tagCache;
     protected $tagRepository;
     protected $translator;
     protected $videoRepository;
@@ -64,6 +65,11 @@ trait UnitMocks
     protected function getPaginatorFactoryMock()
     {
         return m::mock('App\Utils\PaginatorFactory');
+    }
+
+    protected function getTagCacheMock()
+    {
+        return m::mock('App\Caching\TagCache');
     }
 
     protected function getTagRepositoryMock()
@@ -122,6 +128,7 @@ trait UnitMocks
         $this->netteCache        = $this->getNetteCacheMock();
         $this->paginator         = $this->getPaginatorMock();
         $this->paginatorFactory  = $this->getPaginatorFactoryMock();
+        $this->tagCache          = $this->getTagCacheMock();
         $this->tagRepository     = $this->getTagRepositoryMock();
         $this->translator        = $this->getTranslatorMock();
         $this->videoRepository   = $this->getVideoRepositoryMock();

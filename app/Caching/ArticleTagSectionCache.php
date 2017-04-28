@@ -27,6 +27,14 @@ class ArticleTagSectionCache implements TagSectionCacheInterface
     }
 
     /**
+     * @return Repositories\ArticleRepository
+     */
+    public function getArticleRepository()
+    {
+        return $this->articleRepository;
+    }
+
+    /**
      * @return array
      */
     public function getTags()
