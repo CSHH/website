@@ -59,7 +59,7 @@ services:
     movieTagSectionCache:
         class: App\Caching\MovieTagSectionCache
         setup:
-            - setWikiRepository(@WikiRepository)
+            - setWikiRepository(@wikiRepository)
     videoTagSectionCache:
         class: App\Caching\VideoTagSectionCache
         setup:
