@@ -7,6 +7,7 @@ use App\Repositories as AppRepositories;
 use AppTests;
 use AppTests\UnitMocks;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Mockery as m;
 use Nette\Utils\ArrayHash;
 use Tester;
 use Tester\Assert;
@@ -719,8 +720,7 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     private function getRepository($dao, $translator, $em)
     {
-        $tagCache = $this->tagCache;
-        $this->mockAndReturnSelf($tagCache, 'setArticleRepository');
+        $tagCache = m::mock('App\Caching\ArticleTagSectionCache');
 
         return new AppRepositories\ArticleRepository($dao, $translator, $em, $tagCache);
     }

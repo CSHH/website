@@ -6,6 +6,7 @@ use App\Entities as AppEntities;
 use App\Repositories as AppRepositories;
 use AppTests\UnitMocks;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Mockery as m;
 use Tester;
 use Tester\Assert;
 
@@ -220,8 +221,7 @@ class ImageRepositoryTest extends Tester\TestCase
 
     private function getRepository($wwwDir, $uploadDir, $dao, $fileDao, $em)
     {
-        $tagCache = $this->tagCache;
-        $this->mockAndReturnSelf($tagCache, 'setImageRepository');
+        $tagCache = m::mock('App\Caching\ImageTagSectionCache');
 
         return new AppRepositories\ImageRepository($wwwDir, $uploadDir, $dao, $fileDao, $em, $tagCache);
     }

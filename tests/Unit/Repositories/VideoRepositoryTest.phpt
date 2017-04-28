@@ -6,6 +6,7 @@ use App\Entities as AppEntities;
 use App\Repositories as AppRepositories;
 use AppTests\UnitMocks;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Mockery as m;
 use Tester;
 use Tester\Assert;
 
@@ -302,8 +303,7 @@ class VideoRepositoryTest extends Tester\TestCase
 
     private function getRepository($vimeoOembedEndpoint, $dao, $translator, $em)
     {
-        $tagCache = $this->tagCache;
-        $this->mockAndReturnSelf($tagCache, 'setVideoRepository');
+        $tagCache = m::mock('App\Caching\VideoTagSectionCache');
 
         return new AppRepositories\VideoRepository($vimeoOembedEndpoint, $dao, $translator, $em, $tagCache);
     }

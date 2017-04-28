@@ -13,7 +13,6 @@ trait UnitMocks
     protected $qb;
     protected $query;
     protected $imageRepository;
-    protected $tagCache;
     protected $netteCache;
     protected $paginator;
     protected $paginatorFactory;
@@ -50,11 +49,6 @@ trait UnitMocks
     protected function getImageRepositoryMock()
     {
         return m::mock('App\Repositories\ImageRepository');
-    }
-
-    protected function getTagCacheMock()
-    {
-        return m::mock('App\Caching\TagCache');
     }
 
     protected function getNetteCacheMock()
@@ -125,7 +119,6 @@ trait UnitMocks
         $this->qb                = $this->getQueryBuilderMock();
         $this->query             = $this->getQueryMock();
         $this->imageRepository   = $this->getImageRepositoryMock();
-        $this->tagCache          = $this->getTagCacheMock();
         $this->netteCache        = $this->getNetteCacheMock();
         $this->paginator         = $this->getPaginatorMock();
         $this->paginatorFactory  = $this->getPaginatorFactoryMock();
