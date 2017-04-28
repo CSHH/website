@@ -27,6 +27,14 @@ class VideoTagSectionCache implements TagSectionCacheInterface
     }
 
     /**
+     * @return Repositories\VideoRepository
+     */
+    public function getVideoRepository()
+    {
+        return $this->videoRepository;
+    }
+
+    /**
      * @return array
      */
     public function getTags()
