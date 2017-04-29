@@ -2,12 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Dao\WikiDao;
 use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Utils\HtmlPurifierFactory;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use HeavenProject\Utils\Slugger;
 use Kdyby\Doctrine\EntityDao;
@@ -18,6 +17,9 @@ use Nette\Utils\ArrayHash;
 class WikiRepository extends BaseRepository
 {
     use DuplicityChecker;
+
+    /** @var WikiDao */
+    private $dataAccess;
 
     /** @var ITranslator */
     private $translator;
@@ -30,11 +32,13 @@ class WikiRepository extends BaseRepository
 
     public function __construct(
         EntityDao $dao,
+        WikiDao $dataAccess,
         ITranslator $translator,
         EntityManager $em
     ) {
         parent::__construct($dao);
 
+        $this->dataAccess   = $dataAccess;
         $this->translator   = $translator;
         $this->em           = $em;
         $this->htmlPurifier = (new HtmlPurifierFactory)->createHtmlPurifier();
@@ -130,25 +134,7 @@ class WikiRepository extends BaseRepository
      */
     public function getAllForPage($page, $limit, $type, $activeOnly = false)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
-            ->where('w.type = :type');
-
-        $params = ['type' => $type];
-
-        if ($activeOnly) {
-            $qb->andWhere('w.isActive = :state');
-            $params['state'] = true;
-        }
-
-        $qb->setParameters($params);
-
-        $this->orderByDesc($qb, 'w');
-
-        $this->preparePagination($qb, $page, $limit);
-
-        return new Paginator($qb->getQuery());
+        return $this->dataAccess->getAllForPage($this->dao, $page, $limit, $type, $activeOnly);
     }
 
     /**
@@ -158,20 +144,7 @@ class WikiRepository extends BaseRepository
      */
     public function getAllByTag(Entities\TagEntity $tag, $type)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
-            ->join('w.tag', 't')
-            ->where('t.id = :tagId AND w.type = :type')
-            ->setParameters([
-                'tagId' => $tag->id,
-                'type'  => $type,
-            ]);
-
-        $this->orderByDesc($qb, 'w');
-
-        return $qb->getQuery()
-            ->getResult();
+        return $this->dataAccess->getAllByTag($this->dao, $tag, $type);
     }
 
     /**
@@ -181,23 +154,7 @@ class WikiRepository extends BaseRepository
      */
     public function getByTagAndName(Entities\TagEntity $tag, $name)
     {
-        try {
-            return $this->dao->createQueryBuilder()
-                ->select('w')
-                ->from(Entities\WikiEntity::getClassName(), 'w')
-                ->join('w.tag', 't')
-                ->where('t.id = :tagId AND w.name = :name')
-                ->setParameters([
-                    'tagId' => $tag->id,
-                    'name'  => $name,
-                ])
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
+        return $this->dataAccess->getByTagAndName($this->dao, $tag, $name);
     }
 
     /**
@@ -207,23 +164,7 @@ class WikiRepository extends BaseRepository
      */
     public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
     {
-        try {
-            return $this->dao->createQueryBuilder()
-                ->select('w')
-                ->from(Entities\WikiEntity::getClassName(), 'w')
-                ->join('w.tag', 't')
-                ->where('t.id = :tagId AND w.slug = :slug')
-                ->setParameters([
-                    'tagId' => $tag->id,
-                    'slug'  => $slug,
-                ])
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
+        return $this->dataAccess->getByTagAndSlug($this->dao, $tag, $slug);
     }
 
     /**
@@ -234,24 +175,7 @@ class WikiRepository extends BaseRepository
      */
     public function getByTagAndNameAndType(Entities\TagEntity $tag, $name, $type)
     {
-        try {
-            return $this->dao->createQueryBuilder()
-                ->select('w')
-                ->from(Entities\WikiEntity::getClassName(), 'w')
-                ->join('w.tag', 't')
-                ->where('t.id = :tagId AND w.name = :name AND w.type = :type')
-                ->setParameters([
-                    'tagId' => $tag->id,
-                    'name'  => $name,
-                    'type'  => $type,
-                ])
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
+        return $this->dataAccess->getByTagAndNameAndType($this->dao, $tag, $name, $type);
     }
 
     /**
@@ -262,24 +186,7 @@ class WikiRepository extends BaseRepository
      */
     public function getByTagAndSlugAndType(Entities\TagEntity $tag, $slug, $type)
     {
-        try {
-            return $this->dao->createQueryBuilder()
-                ->select('w')
-                ->from(Entities\WikiEntity::getClassName(), 'w')
-                ->join('w.tag', 't')
-                ->where('t.id = :tagId AND w.slug = :slug AND w.type = :type')
-                ->setParameters([
-                    'tagId' => $tag->id,
-                    'slug'  => $slug,
-                    'type'  => $type,
-                ])
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
+        return $this->dataAccess->getByTagAndSlugAndType($this->dao, $tag, $slug, $type);
     }
 
     /**
@@ -292,29 +199,7 @@ class WikiRepository extends BaseRepository
      */
     public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $type, $activeOnly = false)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
-            ->join('w.tag', 't')
-            ->where('t.id = :tagId AND w.type = :type');
-
-        $params = [
-            'tagId' => $tag->id,
-            'type'  => $type,
-        ];
-
-        if ($activeOnly) {
-            $qb->andWhere('w.isActive = :state');
-            $params['state'] = true;
-        }
-
-        $qb->setParameters($params);
-
-        $this->orderByDesc($qb, 'w');
-
-        $this->preparePagination($qb, $page, $limit);
-
-        return new Paginator($qb->getQuery());
+        return $this->dataAccess->getAllByTagForPage($this->dao, $page, $limit, $tag, $type, $activeOnly);
     }
 
     /**
@@ -326,21 +211,7 @@ class WikiRepository extends BaseRepository
      */
     public function getAllByUserForPage($page, $limit, Entities\UserEntity $user, $type)
     {
-        $qb = $this->dao->createQueryBuilder()
-            ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
-            ->join('w.createdBy', 'u')
-            ->where('u.id = :userId AND w.type = :type')
-            ->setParameters([
-                'userId' => $user->id,
-                'type'   => $type,
-            ]);
-
-        $this->orderByDesc($qb, 'w');
-
-        $this->preparePagination($qb, $page, $limit);
-
-        return new Paginator($qb->getQuery());
+        return $this->dataAccess->getAllByUserForPage($this->dao, $page, $limit, $user, $type);
     }
 
     /**

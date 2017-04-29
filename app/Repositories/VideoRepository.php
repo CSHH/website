@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Caching;
+use App\Dao\SingleUserContentDao;
 use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
@@ -30,6 +31,7 @@ class VideoRepository extends SingleUserContentRepository
     /**
      * @param string                       $vimeoOembedEndpoint
      * @param EntityDao                    $dao
+     * @param SingleUserContentDao         $dataAccess
      * @param ITranslator                  $translator
      * @param EntityManager                $em
      * @param Caching\VideoTagSectionCache $tagCache
@@ -37,11 +39,12 @@ class VideoRepository extends SingleUserContentRepository
     public function __construct(
         $vimeoOembedEndpoint,
         EntityDao $dao,
+        SingleUserContentDao $dataAccess,
         ITranslator $translator,
         EntityManager $em,
         Caching\VideoTagSectionCache $tagCache
     ) {
-        parent::__construct($dao, $em, $tagCache);
+        parent::__construct($dao, $dataAccess, $em, $tagCache);
 
         $this->vimeoOembedEndpoint = $vimeoOembedEndpoint;
         $this->translator          = $translator;
@@ -147,7 +150,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllForPage(PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
     {
-        return $this->doGetAllForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $activeOnly);
+        return $this->dataAccess->getAllForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $activeOnly);
     }
 
     /**
@@ -156,7 +159,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllByTag(Entities\TagEntity $tag)
     {
-        return $this->doGetAllByTag(Entities\VideoEntity::getClassName(), $tag);
+        return $this->dataAccess->getAllByTag($this->dao, Entities\VideoEntity::getClassName(), $tag);
     }
 
     /**
@@ -166,7 +169,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getByTagAndName(Entities\TagEntity $tag, $name)
     {
-        return $this->doGetByTagAndName(Entities\VideoEntity::getClassName(), $tag, $name);
+        return $this->dataAccess->getByTagAndName($this->dao, Entities\VideoEntity::getClassName(), $tag, $name);
     }
 
     /**
@@ -176,7 +179,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
     {
-        return $this->doGetByTagAndSlug(Entities\VideoEntity::getClassName(), $tag, $slug);
+        return $this->dataAccess->getByTagAndSlug($this->dao, Entities\VideoEntity::getClassName(), $tag, $slug);
     }
 
     /**
@@ -189,7 +192,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        return $this->doGetAllByTagForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag, $activeOnly);
+        return $this->dataAccess->getAllByTagForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag, $activeOnly);
     }
 
     /**
@@ -201,7 +204,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllByUserForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
     {
-        return $this->doGetAllByUserForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $user);
+        return $this->dataAccess->getAllByUserForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $user);
     }
 
     /**
@@ -212,7 +215,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllInactiveForPage(PaginatorFactory $paginatorFactory, $page, $limit)
     {
-        return $this->doGetAllInactiveForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit);
+        return $this->dataAccess->getAllInactiveForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit);
     }
 
     /**
@@ -224,7 +227,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllInactiveByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
     {
-        return $this->doGetAllInactiveByTagForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag);
+        return $this->dataAccess->getAllInactiveByTagForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag);
     }
 
     /**

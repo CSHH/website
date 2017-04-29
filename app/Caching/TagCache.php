@@ -2,6 +2,8 @@
 
 namespace App\Caching;
 
+use App\Dao\SingleUserContentDao;
+use App\Dao\WikiDao;
 use App\Entities;
 use App\Repositories;
 use Nette\Caching\Cache;
@@ -58,19 +60,19 @@ class TagCache
     }
 
     /**
-     * @param  int                         $section
-     * @param  Entities\TagEntity[]        $tags
-     * @param  Repositories\BaseRepository $repository
-     * @param  string                      $wikiType
+     * @param  int                          $section
+     * @param  Entities\TagEntity[]         $tags
+     * @param  SingleUserContentDao|WikiDao $dao
+     * @param  string                       $wikiType
      * @return array
      */
-    public function getItemsForSection($section, array $tags, Repositories\BaseRepository $repository, $wikiType = null)
+    public function getItemsForSection($section, array $tags, $dao, $wikiType = null)
     {
         $items = $this->cache->load($section);
         if ($items === null) {
             $items = [];
             foreach ($tags as $tag) {
-                if ($wikiType ? $repository->getAllByTag($tag, $wikiType) : $repository->getAllByTag($tag)) {
+                if ($wikiType ? $dao->getAllByTag($tag, $wikiType) : $dao->getAllByTag($tag)) {
                     $items[$tag->id] = $tag;
                 }
             }

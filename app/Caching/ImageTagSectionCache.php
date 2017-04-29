@@ -2,8 +2,8 @@
 
 namespace App\Caching;
 
+use App\Dao\SingleUserContentDao;
 use App\Entities;
-use App\Repositories;
 
 class ImageTagSectionCache implements TagSectionCacheInterface
 {
@@ -13,28 +13,13 @@ class ImageTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\ImageRepository */
-    private $imageRepository;
+    /** @var SingleUserContentDao */
+    private $dataAccess;
 
-    public function __construct(TagCache $tagCache)
+    public function __construct(TagCache $tagCache, SingleUserContentDao $dataAccess)
     {
-        $this->tagCache = $tagCache;
-    }
-
-    /**
-     * @param Repositories\ImageRepository $imageRepository
-     */
-    public function setImageRepository(Repositories\ImageRepository $imageRepository)
-    {
-        $this->imageRepository = $imageRepository;
-    }
-
-    /**
-     * @return Repositories\ImageRepository
-     */
-    public function getImageRepository()
-    {
-        return $this->imageRepository;
+        $this->tagCache   = $tagCache;
+        $this->dataAccess = $dataAccess;
     }
 
     /**
@@ -45,7 +30,7 @@ class ImageTagSectionCache implements TagSectionCacheInterface
         return $this->tagCache->getItemsForSection(
             self::SECTION_ID,
             $this->tagCache->getTagRepository()->getAll(),
-            $this->imageRepository
+            $this->dataAccess
         );
     }
 

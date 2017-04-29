@@ -17,14 +17,6 @@ class ImageTagSectionCacheTest extends Tester\TestCase
 {
     use UnitMocks;
 
-    public function testSetAndGetImageRepository()
-    {
-        $imageTagSectionCache = new ImageTagSectionCache($this->tagCache, $this->tagRepository);
-        Assert::null($imageTagSectionCache->getImageRepository());
-        $imageTagSectionCache->setImageRepository($this->imageRepository);
-        Assert::type('App\Repositories\ImageRepository', $imageTagSectionCache->getImageRepository());
-    }
-
     public function testGetTags()
     {
         $tag1     = new AppTests\TagEntityImpl;
@@ -42,8 +34,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'getItemsForSection', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $tagRepository);
-        $imageTagSectionCache->setImageRepository($this->imageRepository);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->singleUserContentDao);
 
         $cachedTags = $imageTagSectionCache->getTags();
         Assert::type('array', $cachedTags);
@@ -61,7 +52,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->singleUserContentDao);
         Assert::true($imageTagSectionCache->isTagInSection($tag));
     }
 
@@ -70,7 +61,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->singleUserContentDao);
         Assert::false($imageTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
@@ -79,7 +70,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->singleUserContentDao);
         Assert::null($imageTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
@@ -88,7 +79,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSection');
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->singleUserContentDao);
         Assert::null($imageTagSectionCache->deleteSection());
     }
 }

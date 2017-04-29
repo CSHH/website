@@ -5,9 +5,7 @@ namespace AppTests\Unit\Repositories;
 use App\Entities as AppEntities;
 use App\Repositories as AppRepositories;
 use AppTests;
-use AppTests\UnitMocks;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Mockery as m;
 use Nette\Utils\ArrayHash;
 use Tester;
 use Tester\Assert;
@@ -19,29 +17,20 @@ require __DIR__ . '/../bootstrap.php';
  */
 class ArticleRepositoryTest extends Tester\TestCase
 {
-    use UnitMocks;
+    use AppTests\PaginatorToArrayConverter;
+    use AppTests\UnitMocks;
 
     public function testCreate()
     {
-        $query = $this->query;
-        $this->mock($query, 'getSingleResult', 2, null);
-
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select', 2);
-        $this->mockAndReturnSelf($qb, 'from', 2);
-        $this->mockAndReturnSelf($qb, 'join', 2);
-        $this->mockAndReturnSelf($qb, 'where', 2);
-        $this->mockAndReturnSelf($qb, 'setParameters', 2);
-        $this->mock($qb, 'getQuery', 2, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 2, $qb);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getByTagAndName', 1);
+        $this->mock($sucDao, 'getByTagAndSlug', 1);
 
         $em = $this->em;
         $this->mockAndReturnSelf($em, 'persist');
         $this->mockAndReturnSelf($em, 'flush');
 
-        $repo = $this->getRepository($dao, $this->translator, $em);
+        $repo = $this->getRepository($this->dao, $sucDao, $this->translator, $em);
 
         $values        = new ArrayHash;
         $values->name  = 'Silent Hill';
@@ -69,24 +58,16 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     public function testCreatePossibleUniqueKeyDuplicationExceptionInCombinationOfTagAndName()
     {
-        $query = $this->query;
-        $this->mock($query, 'getSingleResult', 1, new AppEntities\ArticleEntity);
+        $entity       = new AppTests\TagEntityImpl;
+        $entity->name = 'Silent Hill';
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getByTagAndName', 1, $entity);
 
         $translator = $this->translator;
         $this->mock($translator, 'translate', 1, '');
 
-        $repo = $this->getRepository($dao, $translator, $this->em);
+        $repo = $this->getRepository($this->dao, $sucDao, $translator, $this->em);
 
         $values        = new ArrayHash;
         $values->name  = 'Silent Hill';
@@ -108,25 +89,17 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     public function testCreatePossibleUniqueKeyDuplicationExceptionInCombinationOfTagAndSlug()
     {
-        $query = $this->query;
-        $this->mock($query, 'getSingleResult', 1, null);
-        $this->mock($query, 'getSingleResult', 1, new AppEntities\ArticleEntity);
+        $entity       = new AppTests\TagEntityImpl;
+        $entity->slug = 'silent-hill';
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select', 2);
-        $this->mockAndReturnSelf($qb, 'from', 2);
-        $this->mockAndReturnSelf($qb, 'join', 2);
-        $this->mockAndReturnSelf($qb, 'where', 2);
-        $this->mockAndReturnSelf($qb, 'setParameters', 2);
-        $this->mock($qb, 'getQuery', 2, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 2, $qb);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getByTagAndName', 1);
+        $this->mock($sucDao, 'getByTagAndSlug', 1, $entity);
 
         $translator = $this->translator;
         $this->mock($translator, 'translate', 1, '');
 
-        $repo = $this->getRepository($dao, $translator, $this->em);
+        $repo = $this->getRepository($this->dao, $sucDao, $translator, $this->em);
 
         $values        = new ArrayHash;
         $values->name  = 'Silent Hill';
@@ -148,141 +121,67 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     public function testGetAllForPage()
     {
-        $query         = $this->query;
         $arrayIterator = new \ArrayIterator($this->getArticles());
 
         $paginator = $this->paginator;
         $this->mock($paginator, 'count', 1, $arrayIterator->count());
         $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $paginator);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllForPage', 1, $paginator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
-        $result = $repo->getAllForPage($paginatorFactory, 1, 10);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $result = $repo->getAllForPage($this->paginatorFactory, 1, 10);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
-        $iterator = $result->getIterator();
-        $item1    = $iterator->offsetGet(0);
-        $item2    = $iterator->offsetGet(1);
-        $item3    = $iterator->offsetGet(2);
-        $item4    = $iterator->offsetGet(3);
-        $item5    = $iterator->offsetGet(4);
+        $items = $this->paginatorToArray($result);
 
-        Assert::same(1, $item1->id);
-        Assert::same('Article 1', $item1->name);
-        Assert::same(2, $item2->id);
-        Assert::same('Article 2', $item2->name);
-        Assert::same(3, $item3->id);
-        Assert::same('Article 3', $item3->name);
-        Assert::same(4, $item4->id);
-        Assert::same('Article 4', $item4->name);
-        Assert::same(5, $item5->id);
-        Assert::same('Article 5', $item5->name);
+        $this->assertResultItems($items);
     }
 
     public function testGetAllForPageActiveOnly()
     {
-        $query         = $this->query;
         $arrayIterator = new \ArrayIterator($this->getArticles());
 
         $paginator = $this->paginator;
         $this->mock($paginator, 'count', 1, $arrayIterator->count());
         $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $paginator);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllForPage', 1, $paginator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameter');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
-        $result = $repo->getAllForPage($paginatorFactory, 1, 10, true);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $result = $repo->getAllForPage($this->paginatorFactory, 1, 10, true);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
-        $iterator = $result->getIterator();
-        $item1    = $iterator->offsetGet(0);
-        $item2    = $iterator->offsetGet(1);
-        $item3    = $iterator->offsetGet(2);
-        $item4    = $iterator->offsetGet(3);
-        $item5    = $iterator->offsetGet(4);
+        $items = $this->paginatorToArray($result);
 
-        Assert::same(1, $item1->id);
-        Assert::same('Article 1', $item1->name);
-        Assert::same(2, $item2->id);
-        Assert::same('Article 2', $item2->name);
-        Assert::same(3, $item3->id);
-        Assert::same('Article 3', $item3->name);
-        Assert::same(4, $item4->id);
-        Assert::same('Article 4', $item4->name);
-        Assert::same(5, $item5->id);
-        Assert::same('Article 5', $item5->name);
+        $this->assertResultItems($items);
     }
 
     public function testGetAllByTag()
     {
-        $query = $this->query;
-        $this->mock($query, 'getResult', 1, $this->getArticles());
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllByTag', 1, $this->getArticles());
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameter');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
         $result = $repo->getAllByTag(new AppEntities\TagEntity);
 
         Assert::type('array', $result);
         Assert::count(5, $result);
 
-        Assert::same(1, $result[0]->id);
-        Assert::same('Article 1', $result[0]->name);
-        Assert::same(2, $result[1]->id);
-        Assert::same('Article 2', $result[1]->name);
-        Assert::same(3, $result[2]->id);
-        Assert::same('Article 3', $result[2]->name);
-        Assert::same(4, $result[3]->id);
-        Assert::same('Article 4', $result[3]->name);
-        Assert::same(5, $result[4]->id);
-        Assert::same('Article 5', $result[4]->name);
+        $this->assertResultItems($result);
     }
 
     public function testGetByTagAndName()
     {
-        $repo   = $this->prepareRepositoryForDetail();
+        $repo   = $this->prepareRepositoryForDetail('getByTagAndName');
         $result = $repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill');
+
         Assert::true($result instanceof AppEntities\ArticleEntity);
         Assert::same(1, $result->id);
         Assert::same('Silent Hill', $result->name);
@@ -291,340 +190,140 @@ class ArticleRepositoryTest extends Tester\TestCase
 
     public function testGetByTagAndSlug()
     {
-        $repo   = $this->prepareRepositoryForDetail();
+        $repo   = $this->prepareRepositoryForDetail('getByTagAndSlug');
         $result = $repo->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill');
+
         Assert::true($result instanceof AppEntities\ArticleEntity);
         Assert::same(1, $result->id);
         Assert::same('Silent Hill', $result->name);
         Assert::same('silent-hill', $result->slug);
     }
 
-    private function prepareRepositoryForDetail()
+    /**
+     * @param  string                            $singleUserContentDaoMockMethod
+     * @return AppRepositories\ArticleRepository
+     */
+    private function prepareRepositoryForDetail($singleUserContentDaoMockMethod)
     {
         $article       = new AppTests\ArticleEntityImpl;
         $article->id   = 1;
         $article->name = 'Silent Hill';
         $article->slug = 'silent-hill';
 
-        $query = $this->query;
-        $this->mock($query, 'getSingleResult', 1, $article);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, $singleUserContentDaoMockMethod, 1, $article);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        return $this->getRepository($dao, $this->translator, $this->em);
-    }
-
-    public function testGetByTagAndNameAndThrowNonUniqueResultException()
-    {
-        $repo = $this->prepareRepositoryForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
-
-        Assert::null($repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
-    }
-
-    public function testGetByTagAndNameAndThrowNoResultException()
-    {
-        $repo = $this->prepareRepositoryForDetailToThrowException('Doctrine\ORM\NoResultException');
-
-        Assert::null($repo->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
-    }
-
-    public function testGetByTagAndSlugAndThrowNonUniqueResultException()
-    {
-        $repo = $this->prepareRepositoryForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
-
-        Assert::null($repo->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
-    }
-
-    public function testGetByTagAndSlugAndThrowNoResultException()
-    {
-        $repo = $this->prepareRepositoryForDetailToThrowException('Doctrine\ORM\NoResultException');
-
-        Assert::null($repo->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
-    }
-
-    private function prepareRepositoryForDetailToThrowException($class)
-    {
-        $query = $this->query;
-        $query->shouldReceive('getSingleResult')
-            ->once()
-            ->andThrow($class);
-
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        return $this->getRepository($dao, $this->translator, $this->em);
+        return $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
     }
 
     public function testGetAllByTagForPage()
     {
-        $query         = $this->query;
         $arrayIterator = new \ArrayIterator($this->getArticles());
 
         $paginator = $this->paginator;
         $this->mock($paginator, 'count', 1, $arrayIterator->count());
         $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $paginator);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllByTagForPage', 1, $paginator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
-        $result = $repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $result = $repo->getAllByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
-        $iterator = $result->getIterator();
-        $item1    = $iterator->offsetGet(0);
-        $item2    = $iterator->offsetGet(1);
-        $item3    = $iterator->offsetGet(2);
-        $item4    = $iterator->offsetGet(3);
-        $item5    = $iterator->offsetGet(4);
+        $items = $this->paginatorToArray($result);
 
-        Assert::same(1, $item1->id);
-        Assert::same('Article 1', $item1->name);
-        Assert::same(2, $item2->id);
-        Assert::same('Article 2', $item2->name);
-        Assert::same(3, $item3->id);
-        Assert::same('Article 3', $item3->name);
-        Assert::same(4, $item4->id);
-        Assert::same('Article 4', $item4->name);
-        Assert::same(5, $item5->id);
-        Assert::same('Article 5', $item5->name);
+        $this->assertResultItems($items);
     }
 
     public function testGetAllByTagForPageActiveOnly()
     {
-        $query         = $this->query;
         $arrayIterator = new \ArrayIterator($this->getArticles());
 
         $paginator = $this->paginator;
         $this->mock($paginator, 'count', 1, $arrayIterator->count());
         $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $paginator);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllByTagForPage', 1, $paginator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'andWhere');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
-        $result = $repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity, true);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $result = $repo->getAllByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity, true);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
-        $iterator = $result->getIterator();
-        $item1    = $iterator->offsetGet(0);
-        $item2    = $iterator->offsetGet(1);
-        $item3    = $iterator->offsetGet(2);
-        $item4    = $iterator->offsetGet(3);
-        $item5    = $iterator->offsetGet(4);
+        $items = $this->paginatorToArray($result);
 
-        Assert::same(1, $item1->id);
-        Assert::same('Article 1', $item1->name);
-        Assert::same(2, $item2->id);
-        Assert::same('Article 2', $item2->name);
-        Assert::same(3, $item3->id);
-        Assert::same('Article 3', $item3->name);
-        Assert::same(4, $item4->id);
-        Assert::same('Article 4', $item4->name);
-        Assert::same(5, $item5->id);
-        Assert::same('Article 5', $item5->name);
+        $this->assertResultItems($items);
     }
 
     public function testGetAllByUserForPage()
     {
-        $query         = $this->query;
         $arrayIterator = new \ArrayIterator($this->getArticles());
 
         $paginator = $this->paginator;
         $this->mock($paginator, 'count', 1, $arrayIterator->count());
         $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $paginator);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllByUserForPage', 1, $paginator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameter');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
-        $result = $repo->getAllByUserForPage($paginatorFactory, 1, 10, new AppEntities\UserEntity);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $result = $repo->getAllByUserForPage($this->paginatorFactory, 1, 10, new AppEntities\UserEntity);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
-        $iterator = $result->getIterator();
-        $item1    = $iterator->offsetGet(0);
-        $item2    = $iterator->offsetGet(1);
-        $item3    = $iterator->offsetGet(2);
-        $item4    = $iterator->offsetGet(3);
-        $item5    = $iterator->offsetGet(4);
+        $items = $this->paginatorToArray($result);
 
-        Assert::same(1, $item1->id);
-        Assert::same('Article 1', $item1->name);
-        Assert::same(2, $item2->id);
-        Assert::same('Article 2', $item2->name);
-        Assert::same(3, $item3->id);
-        Assert::same('Article 3', $item3->name);
-        Assert::same(4, $item4->id);
-        Assert::same('Article 4', $item4->name);
-        Assert::same(5, $item5->id);
-        Assert::same('Article 5', $item5->name);
+        $this->assertResultItems($items);
     }
 
     public function testGetAllInactiveForPage()
     {
-        $query         = $this->query;
         $arrayIterator = new \ArrayIterator($this->getArticles());
 
         $paginator = $this->paginator;
         $this->mock($paginator, 'count', 1, $arrayIterator->count());
         $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $paginator);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllInactiveForPage', 1, $paginator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameter');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
-        $result = $repo->getAllInactiveForPage($paginatorFactory, 1, 10);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $result = $repo->getAllInactiveForPage($this->paginatorFactory, 1, 10);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
-        $iterator = $result->getIterator();
-        $item1    = $iterator->offsetGet(0);
-        $item2    = $iterator->offsetGet(1);
-        $item3    = $iterator->offsetGet(2);
-        $item4    = $iterator->offsetGet(3);
-        $item5    = $iterator->offsetGet(4);
+        $items = $this->paginatorToArray($result);
 
-        Assert::same(1, $item1->id);
-        Assert::same('Article 1', $item1->name);
-        Assert::same(2, $item2->id);
-        Assert::same('Article 2', $item2->name);
-        Assert::same(3, $item3->id);
-        Assert::same('Article 3', $item3->name);
-        Assert::same(4, $item4->id);
-        Assert::same('Article 4', $item4->name);
-        Assert::same(5, $item5->id);
-        Assert::same('Article 5', $item5->name);
+        $this->assertResultItems($items);
     }
 
     public function testGetAllInactiveByTagForPage()
     {
-        $query         = $this->query;
         $arrayIterator = new \ArrayIterator($this->getArticles());
 
         $paginator = $this->paginator;
         $this->mock($paginator, 'count', 1, $arrayIterator->count());
         $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $paginator);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllInactiveByTagForPage', 1, $paginator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
-        $result = $repo->getAllInactiveByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $result = $repo->getAllInactiveByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
 
-        $iterator = $result->getIterator();
-        $item1    = $iterator->offsetGet(0);
-        $item2    = $iterator->offsetGet(1);
-        $item3    = $iterator->offsetGet(2);
-        $item4    = $iterator->offsetGet(3);
-        $item5    = $iterator->offsetGet(4);
+        $items = $this->paginatorToArray($result);
 
-        Assert::same(1, $item1->id);
-        Assert::same('Article 1', $item1->name);
-        Assert::same(2, $item2->id);
-        Assert::same('Article 2', $item2->name);
-        Assert::same(3, $item3->id);
-        Assert::same('Article 3', $item3->name);
-        Assert::same(4, $item4->id);
-        Assert::same('Article 4', $item4->name);
-        Assert::same(5, $item5->id);
-        Assert::same('Article 5', $item5->name);
+        $this->assertResultItems($items);
     }
 
     public function testGetAllNews()
@@ -646,22 +345,13 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->singleUserContentDao, $this->translator, $this->em);
         $result = $repo->getAllNews();
 
         Assert::type('array', $result);
         Assert::count(5, $result);
 
-        Assert::same(1, $result[0]->id);
-        Assert::same('Article 1', $result[0]->name);
-        Assert::same(2, $result[1]->id);
-        Assert::same('Article 2', $result[1]->name);
-        Assert::same(3, $result[2]->id);
-        Assert::same('Article 3', $result[2]->name);
-        Assert::same(4, $result[3]->id);
-        Assert::same('Article 4', $result[3]->name);
-        Assert::same(5, $result[4]->id);
-        Assert::same('Article 5', $result[4]->name);
+        $this->assertResultItems($result);
     }
 
     public function testGetLatestArticles()
@@ -683,22 +373,13 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo   = $this->getRepository($dao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->singleUserContentDao, $this->translator, $this->em);
         $result = $repo->getLatestArticles();
 
         Assert::type('array', $result);
         Assert::count(5, $result);
 
-        Assert::same(1, $result[0]->id);
-        Assert::same('Article 1', $result[0]->name);
-        Assert::same(2, $result[1]->id);
-        Assert::same('Article 2', $result[1]->name);
-        Assert::same(3, $result[2]->id);
-        Assert::same('Article 3', $result[2]->name);
-        Assert::same(4, $result[3]->id);
-        Assert::same('Article 4', $result[3]->name);
-        Assert::same(5, $result[4]->id);
-        Assert::same('Article 5', $result[4]->name);
+        $this->assertResultItems($result);
     }
 
     /**
@@ -718,11 +399,23 @@ class ArticleRepositoryTest extends Tester\TestCase
         return $articles;
     }
 
-    private function getRepository($dao, $translator, $em)
+    private function assertResultItems(array $items)
     {
-        $tagCache = m::mock('App\Caching\ArticleTagSectionCache');
+        Assert::same(1, $items[0]->id);
+        Assert::same('Article 1', $items[0]->name);
+        Assert::same(2, $items[1]->id);
+        Assert::same('Article 2', $items[1]->name);
+        Assert::same(3, $items[2]->id);
+        Assert::same('Article 3', $items[2]->name);
+        Assert::same(4, $items[3]->id);
+        Assert::same('Article 4', $items[3]->name);
+        Assert::same(5, $items[4]->id);
+        Assert::same('Article 5', $items[4]->name);
+    }
 
-        return new AppRepositories\ArticleRepository($dao, $translator, $em, $tagCache);
+    private function getRepository($dao, $singleUserContentDao, $translator, $em)
+    {
+        return new AppRepositories\ArticleRepository($dao, $singleUserContentDao, $translator, $em, $this->articleTagSectionCache);
     }
 }
 

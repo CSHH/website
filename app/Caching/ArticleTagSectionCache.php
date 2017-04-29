@@ -2,8 +2,8 @@
 
 namespace App\Caching;
 
+use App\Dao\SingleUserContentDao;
 use App\Entities;
-use App\Repositories;
 
 class ArticleTagSectionCache implements TagSectionCacheInterface
 {
@@ -13,28 +13,13 @@ class ArticleTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\ArticleRepository */
-    private $articleRepository;
+    /** @var SingleUserContentDao */
+    private $dataAccess;
 
-    public function __construct(TagCache $tagCache)
+    public function __construct(TagCache $tagCache, SingleUserContentDao $dataAccess)
     {
-        $this->tagCache = $tagCache;
-    }
-
-    /**
-     * @param Repositories\ArticleRepository $articleRepository
-     */
-    public function setArticleRepository(Repositories\ArticleRepository $articleRepository)
-    {
-        $this->articleRepository = $articleRepository;
-    }
-
-    /**
-     * @return Repositories\ArticleRepository
-     */
-    public function getArticleRepository()
-    {
-        return $this->articleRepository;
+        $this->tagCache   = $tagCache;
+        $this->dataAccess = $dataAccess;
     }
 
     /**
@@ -45,7 +30,7 @@ class ArticleTagSectionCache implements TagSectionCacheInterface
         return $this->tagCache->getItemsForSection(
             self::SECTION_ID,
             $this->tagCache->getTagRepository()->getAll(),
-            $this->articleRepository
+            $this->dataAccess
         );
     }
 

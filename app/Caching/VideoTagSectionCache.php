@@ -2,8 +2,8 @@
 
 namespace App\Caching;
 
+use App\Dao\SingleUserContentDao;
 use App\Entities;
-use App\Repositories;
 
 class VideoTagSectionCache implements TagSectionCacheInterface
 {
@@ -13,28 +13,13 @@ class VideoTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\VideoRepository */
-    private $videoRepository;
+    /** @var SingleUserContentDao */
+    private $dataAccess;
 
-    public function __construct(TagCache $tagCache)
+    public function __construct(TagCache $tagCache, SingleUserContentDao $dataAccess)
     {
-        $this->tagCache = $tagCache;
-    }
-
-    /**
-     * @param Repositories\VideoRepository $videoRepository
-     */
-    public function setVideoRepository(Repositories\VideoRepository $videoRepository)
-    {
-        $this->videoRepository = $videoRepository;
-    }
-
-    /**
-     * @return Repositories\VideoRepository
-     */
-    public function getVideoRepository()
-    {
-        return $this->videoRepository;
+        $this->tagCache   = $tagCache;
+        $this->dataAccess = $dataAccess;
     }
 
     /**
@@ -45,7 +30,7 @@ class VideoTagSectionCache implements TagSectionCacheInterface
         return $this->tagCache->getItemsForSection(
             self::SECTION_ID,
             $this->tagCache->getTagRepository()->getAll(),
-            $this->videoRepository
+            $this->dataAccess
         );
     }
 

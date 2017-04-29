@@ -2,8 +2,8 @@
 
 namespace App\Caching;
 
+use App\Dao\WikiDao;
 use App\Entities;
-use App\Repositories;
 
 class BookTagSectionCache implements TagSectionCacheInterface
 {
@@ -13,28 +13,13 @@ class BookTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\WikiRepository */
-    private $wikiRepository;
+    /** @var WikiDao */
+    private $dataAccess;
 
-    public function __construct(TagCache $tagCache)
+    public function __construct(TagCache $tagCache, WikiDao $dataAccess)
     {
-        $this->tagCache = $tagCache;
-    }
-
-    /**
-     * @param Repositories\WikiRepository $wikiRepository
-     */
-    public function setWikiRepository(Repositories\WikiRepository $wikiRepository)
-    {
-        $this->wikiRepository = $wikiRepository;
-    }
-
-    /**
-     * @return Repositories\WikiRepository
-     */
-    public function getWikiRepository()
-    {
-        return $this->wikiRepository;
+        $this->tagCache   = $tagCache;
+        $this->dataAccess = $dataAccess;
     }
 
     /**
@@ -45,7 +30,7 @@ class BookTagSectionCache implements TagSectionCacheInterface
         return $this->tagCache->getItemsForSection(
             self::SECTION_ID,
             $this->tagCache->getTagRepository()->getAll(),
-            $this->wikiRepository,
+            $this->dataAccess,
             Entities\WikiEntity::TYPE_BOOK
         );
     }

@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Caching;
+use App\Dao\SingleUserContentDao;
 use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
@@ -27,11 +28,12 @@ class ArticleRepository extends SingleUserContentRepository
 
     public function __construct(
         EntityDao $dao,
+        SingleUserContentDao $dataAccess,
         ITranslator $translator,
         EntityManager $em,
         Caching\ArticleTagSectionCache $tagCache
     ) {
-        parent::__construct($dao, $em, $tagCache);
+        parent::__construct($dao, $dataAccess, $em, $tagCache);
 
         $this->translator   = $translator;
         $this->htmlPurifier = (new HtmlPurifierFactory)->createHtmlPurifier();
@@ -131,7 +133,9 @@ class ArticleRepository extends SingleUserContentRepository
     public function delete(Entities\ArticleEntity $e)
     {
         $ent = $this->removeAndFlush($this->em, $e);
+
         $this->tagCache->deleteSection();
+
         return $ent;
     }
 
@@ -144,7 +148,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllForPage(PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
     {
-        return $this->doGetAllForPage(Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit, $activeOnly);
+        return $this->dataAccess->getAllForPage($this->dao, Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit, $activeOnly);
     }
 
     /**
@@ -153,7 +157,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllByTag(Entities\TagEntity $tag)
     {
-        return $this->doGetAllByTag(Entities\ArticleEntity::getClassName(), $tag);
+        return $this->dataAccess->getAllByTag($this->dao, Entities\ArticleEntity::getClassName(), $tag);
     }
 
     /**
@@ -163,7 +167,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getByTagAndName(Entities\TagEntity $tag, $name)
     {
-        return $this->doGetByTagAndName(Entities\ArticleEntity::getClassName(), $tag, $name);
+        return $this->dataAccess->getByTagAndName($this->dao, Entities\ArticleEntity::getClassName(), $tag, $name);
     }
 
     /**
@@ -173,7 +177,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
     {
-        return $this->doGetByTagAndSlug(Entities\ArticleEntity::getClassName(), $tag, $slug);
+        return $this->dataAccess->getByTagAndSlug($this->dao, Entities\ArticleEntity::getClassName(), $tag, $slug);
     }
 
     /**
@@ -186,7 +190,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        return $this->doGetAllByTagForPage(Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit, $tag, $activeOnly);
+        return $this->dataAccess->getAllByTagForPage($this->dao, Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit, $tag, $activeOnly);
     }
 
     /**
@@ -198,7 +202,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllByUserForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
     {
-        return $this->doGetAllByUserForPage(Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit, $user);
+        return $this->dataAccess->getAllByUserForPage($this->dao, Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit, $user);
     }
 
     /**
@@ -209,7 +213,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllInactiveForPage(PaginatorFactory $paginatorFactory, $page, $limit)
     {
-        return $this->doGetAllInactiveForPage(Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit);
+        return $this->dataAccess->getAllInactiveForPage($this->dao, Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit);
     }
 
     /**
@@ -221,7 +225,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllInactiveByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
     {
-        return $this->doGetAllInactiveByTagForPage(Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit, $tag);
+        return $this->dataAccess->getAllInactiveByTagForPage($this->dao, Entities\ArticleEntity::getClassName(), $paginatorFactory, $page, $limit, $tag);
     }
 
     /**

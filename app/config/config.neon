@@ -26,6 +26,9 @@ services:
     paginatorFactory: App\Utils\PaginatorFactory
     videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
 
+    singleUserContentDao: App\Dao\SingleUserContentDao
+    wikiDao: App\Dao\WikiDao
+
     articleRepository: App\Repositories\ArticleRepository(@doctrine.dao(App\Entities\ArticleEntity))
     imageRepository: App\Repositories\ImageRepository(%wwwDir%, %uploadDir%, @doctrine.dao(App\Entities\ImageEntity), @doctrine.dao(App\Entities\FileEntity))
     tagRepository: App\Repositories\TagRepository(@doctrine.dao(App\Entities\TagEntity))
@@ -40,30 +43,12 @@ services:
         )
     )
 
-    articleTagSectionCache:
-        class: App\Caching\ArticleTagSectionCache
-        setup:
-            - setArticleRepository(@articleRepository)
-    bookTagSectionCache:
-        class: App\Caching\BookTagSectionCache
-        setup:
-            - setWikiRepository(@wikiRepository)
-    gameTagSectionCache:
-        class: App\Caching\GameTagSectionCache
-        setup:
-            - setWikiRepository(@wikiRepository)
-    imageTagSectionCache:
-        class: App\Caching\ImageTagSectionCache
-        setup:
-            - setImageRepository(@imageRepository)
-    movieTagSectionCache:
-        class: App\Caching\MovieTagSectionCache
-        setup:
-            - setWikiRepository(@wikiRepository)
-    videoTagSectionCache:
-        class: App\Caching\VideoTagSectionCache
-        setup:
-            - setVideoRepository(@videoRepository)
+    articleTagSectionCache: App\Caching\ArticleTagSectionCache
+    bookTagSectionCache: App\Caching\BookTagSectionCache
+    gameTagSectionCache: App\Caching\GameTagSectionCache
+    imageTagSectionCache: App\Caching\ImageTagSectionCache
+    movieTagSectionCache: App\Caching\MovieTagSectionCache
+    videoTagSectionCache: App\Caching\VideoTagSectionCache
 
     articleForm:
         implement: App\Forms\ArticleFormInterface

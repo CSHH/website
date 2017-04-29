@@ -17,14 +17,6 @@ class BookTagSectionCacheTest extends Tester\TestCase
 {
     use UnitMocks;
 
-    public function testSetAndGetWikiRepository()
-    {
-        $bookTagSectionCache = new BookTagSectionCache($this->tagCache, $this->tagRepository);
-        Assert::null($bookTagSectionCache->getWikiRepository());
-        $bookTagSectionCache->setWikiRepository($this->wikiRepository);
-        Assert::type('App\Repositories\WikiRepository', $bookTagSectionCache->getWikiRepository());
-    }
-
     public function testGetTags()
     {
         $tag1     = new AppTests\TagEntityImpl;
@@ -42,8 +34,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'getItemsForSection', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache, $tagRepository);
-        $bookTagSectionCache->setWikiRepository($this->wikiRepository);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
 
         $cachedTags = $bookTagSectionCache->getTags();
         Assert::type('array', $cachedTags);
@@ -61,7 +52,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
         Assert::true($bookTagSectionCache->isTagInSection($tag));
     }
 
@@ -70,7 +61,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
         Assert::false($bookTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
@@ -79,7 +70,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
         Assert::null($bookTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
@@ -88,7 +79,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSection');
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
         Assert::null($bookTagSectionCache->deleteSection());
     }
 }
