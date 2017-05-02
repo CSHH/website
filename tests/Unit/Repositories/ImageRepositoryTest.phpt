@@ -4,7 +4,7 @@ namespace AppTests\Unit\Repositories;
 
 use App\Entities as AppEntities;
 use App\Repositories as AppRepositories;
-use AppTests\UnitMocks;
+use AppTests;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Tester;
 use Tester\Assert;
@@ -16,214 +16,211 @@ require __DIR__ . '/../bootstrap.php';
  */
 class ImageRepositoryTest extends Tester\TestCase
 {
-    use UnitMocks;
+    use AppTests\PaginatorToArrayConverter;
+    use AppTests\UnitMocks;
 
     public function testGetAllForPage()
     {
-        $query = $this->query;
+        $arrayIterator = new \ArrayIterator($this->getImages());
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+        $paginator = $this->paginator;
+        $this->mock($paginator, 'count', 1, $arrayIterator->count());
+        $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllForPage', 1, $paginator);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
+        $result = $repo->getAllForPage($this->paginatorFactory, 1, 10);
 
-        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
+        Assert::true($result instanceof Paginator);
+        Assert::count(5, $result);
 
-        Assert::true($repo->getAllForPage($paginatorFactory, 1, 10) instanceof Paginator);
+        $items = $this->paginatorToArray($result);
+
+        $this->assertResultItems($items);
     }
 
     public function testGetAllForPageActiveOnly()
     {
-        $query = $this->query;
+        $arrayIterator = new \ArrayIterator($this->getImages());
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+        $paginator = $this->paginator;
+        $this->mock($paginator, 'count', 1, $arrayIterator->count());
+        $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameter');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllForPage', 1, $paginator);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
+        $result = $repo->getAllForPage($this->paginatorFactory, 1, 10, true);
 
-        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
+        Assert::true($result instanceof Paginator);
+        Assert::count(5, $result);
 
-        Assert::true($repo->getAllForPage($paginatorFactory, 1, 10, true) instanceof Paginator);
+        $items = $this->paginatorToArray($result);
+
+        $this->assertResultItems($items);
     }
 
     public function testGetAllByTag()
     {
-        $query = $this->query;
-        $this->mock($query, 'getResult', 1, []);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllByTag', 1, $this->getImages());
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameter');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mock($qb, 'getQuery', 1, $query);
+        $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
+        $result = $repo->getAllByTag(new AppEntities\TagEntity);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        Assert::type('array', $result);
+        Assert::count(5, $result);
 
-        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
-
-        Assert::type('array', $repo->getAllByTag(new AppEntities\TagEntity));
+        $this->assertResultItems($result);
     }
 
     public function testGetAllByTagForPage()
     {
-        $query = $this->query;
+        $arrayIterator = new \ArrayIterator($this->getImages());
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+        $paginator = $this->paginator;
+        $this->mock($paginator, 'count', 1, $arrayIterator->count());
+        $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllByTagForPage', 1, $paginator);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
+        $result = $repo->getAllByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity);
 
-        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
+        Assert::true($result instanceof Paginator);
+        Assert::count(5, $result);
 
-        Assert::true($repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity) instanceof Paginator);
+        $items = $this->paginatorToArray($result);
+
+        $this->assertResultItems($items);
     }
 
     public function testGetAllByTagForPageActiveOnly()
     {
-        $query = $this->query;
+        $arrayIterator = new \ArrayIterator($this->getImages());
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+        $paginator = $this->paginator;
+        $this->mock($paginator, 'count', 1, $arrayIterator->count());
+        $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'andWhere');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllByTagForPage', 1, $paginator);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
+        $result = $repo->getAllByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity, true);
 
-        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
+        Assert::true($result instanceof Paginator);
+        Assert::count(5, $result);
 
-        Assert::true($repo->getAllByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity, true) instanceof Paginator);
+        $items = $this->paginatorToArray($result);
+
+        $this->assertResultItems($items);
     }
 
     public function testGetAllByUserForPage()
     {
-        $query = $this->query;
+        $arrayIterator = new \ArrayIterator($this->getImages());
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+        $paginator = $this->paginator;
+        $this->mock($paginator, 'count', 1, $arrayIterator->count());
+        $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameter');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllByUserForPage', 1, $paginator);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
+        $result = $repo->getAllByUserForPage($this->paginatorFactory, 1, 10, new AppEntities\UserEntity);
 
-        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
+        Assert::true($result instanceof Paginator);
+        Assert::count(5, $result);
 
-        Assert::true($repo->getAllByUserForPage($paginatorFactory, 1, 10, new AppEntities\UserEntity) instanceof Paginator);
+        $items = $this->paginatorToArray($result);
+
+        $this->assertResultItems($items);
     }
 
     public function testGetAllInactiveForPage()
     {
-        $query = $this->query;
+        $arrayIterator = new \ArrayIterator($this->getImages());
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+        $paginator = $this->paginator;
+        $this->mock($paginator, 'count', 1, $arrayIterator->count());
+        $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameter');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllInactiveForPage', 1, $paginator);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
+        $result = $repo->getAllInactiveForPage($this->paginatorFactory, 1, 10);
 
-        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
+        Assert::true($result instanceof Paginator);
+        Assert::count(5, $result);
 
-        Assert::true($repo->getAllInactiveForPage($paginatorFactory, 1, 10) instanceof Paginator);
+        $items = $this->paginatorToArray($result);
+
+        $this->assertResultItems($items);
     }
 
     public function testGetAllInactiveByTagForPage()
     {
-        $query = $this->query;
+        $arrayIterator = new \ArrayIterator($this->getImages());
 
-        $paginatorFactory = $this->paginatorFactory;
-        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+        $paginator = $this->paginator;
+        $this->mock($paginator, 'count', 1, $arrayIterator->count());
+        $this->mock($paginator, 'getIterator', 1, $arrayIterator);
 
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mock($qb, 'getQuery', 1, $query);
+        $sucDao = $this->singleUserContentDao;
+        $this->mock($sucDao, 'getAllInactiveByTagForPage', 1, $paginator);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
+        $result = $repo->getAllInactiveByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity);
 
-        $repo = $this->getRepository('', '', $dao, $dao, $this->em);
+        Assert::true($result instanceof Paginator);
+        Assert::count(5, $result);
 
-        Assert::true($repo->getAllInactiveByTagForPage($paginatorFactory, 1, 10, new AppEntities\TagEntity) instanceof Paginator);
+        $items = $this->paginatorToArray($result);
+
+        $this->assertResultItems($items);
     }
 
-    private function getRepository($wwwDir, $uploadDir, $dao, $fileDao, $em)
+    /**
+     * @return array
+     */
+    private function getImages()
     {
-        $menuCache = $this->menuCache;
-        $this->mockAndReturnSelf($menuCache, 'setImageRepository');
+        $images = [];
+        for ($i = 0; $i < 5; $i++) {
+            $id              = $i + 1;
+            $image           = new AppTests\ImageEntityImpl;
+            $image->id       = $id;
+            $image->name     = "Image $id";
+            $image->isActive = true;
+            $images[]        = $image;
+        }
+        return $images;
+    }
 
-        return new AppRepositories\ImageRepository($wwwDir, $uploadDir, $dao, $fileDao, $em, $menuCache);
+    private function assertResultItems(array $items)
+    {
+        Assert::same(1, $items[0]->id);
+        Assert::same('Image 1', $items[0]->name);
+        Assert::same(2, $items[1]->id);
+        Assert::same('Image 2', $items[1]->name);
+        Assert::same(3, $items[2]->id);
+        Assert::same('Image 3', $items[2]->name);
+        Assert::same(4, $items[3]->id);
+        Assert::same('Image 4', $items[3]->name);
+        Assert::same(5, $items[4]->id);
+        Assert::same('Image 5', $items[4]->name);
+    }
+
+    private function getRepository($wwwDir, $uploadDir, $dao, $fileDao, $singleUserContentDao, $em)
+    {
+        return new AppRepositories\ImageRepository($wwwDir, $uploadDir, $dao, $fileDao, $singleUserContentDao, $em, $this->imageTagSectionCache);
     }
 }
 

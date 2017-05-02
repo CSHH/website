@@ -2,14 +2,14 @@
 
 namespace App\Components;
 
-use App\Caching\MenuCache;
+use App\Caching\TagCache;
 use App\Repositories;
 use Nette\Application\UI\Control;
 
-class MenuControl extends Control
+class TagsControl extends Control
 {
-    /** @var MenuCache */
-    private $menuCache;
+    /** @var TagCache */
+    private $tagCache;
 
     /** @var Repositories\ArticleRepository */
     private $articleRepository;
@@ -27,7 +27,7 @@ class MenuControl extends Control
     private $tagRepository;
 
     public function __construct(
-        MenuCache $menuCache,
+        TagCache $tagCache,
         Repositories\ArticleRepository $articleRepository,
         Repositories\ImageRepository $imageRepository,
         Repositories\VideoRepository $videoRepository,
@@ -36,12 +36,12 @@ class MenuControl extends Control
     ) {
         parent::__construct();
 
-        $menuCache->setArticleRepository($articleRepository);
-        $menuCache->setImageRepository($imageRepository);
-        $menuCache->setVideoRepository($videoRepository);
-        $menuCache->setWikiRepository($wikiRepository);
+        $tagCache->setArticleRepository($articleRepository);
+        $tagCache->setImageRepository($imageRepository);
+        $tagCache->setVideoRepository($videoRepository);
+        $tagCache->setWikiRepository($wikiRepository);
 
-        $this->menuCache         = $menuCache;
+        $this->tagCache          = $tagCache;
         $this->articleRepository = $articleRepository;
         $this->imageRepository   = $imageRepository;
         $this->videoRepository   = $videoRepository;
@@ -53,9 +53,9 @@ class MenuControl extends Control
     {
         $template = $template = $this->getTemplate();
 
-        $template->setFile(__DIR__ . '/templates/MenuControl.latte');
+        $template->setFile(__DIR__ . '/templates/TagsControl.latte');
 
-        $template->menuItems = $this->menuCache->getAll();
+        $template->menuItems = $this->tagCache->getAll();
 
         $template->render();
     }
