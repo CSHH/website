@@ -29,12 +29,12 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $this->query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao;
+        $wikiDao = new WikiDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllForPage($dao, 1, 10, AppEntities\WikiEntity::TYPE_GAME));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllForPage(1, 10, AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetAllForPageActiveOnly()
@@ -50,12 +50,12 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $this->query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao;
+        $wikiDao = new WikiDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllForPage($dao, 1, 10, AppEntities\WikiEntity::TYPE_GAME, true));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllForPage(1, 10, AppEntities\WikiEntity::TYPE_GAME, true));
     }
 
     public function testGetAllByTag()
@@ -72,26 +72,26 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao;
+        $wikiDao = new WikiDao($em);
 
-        Assert::type('array', $wikiDao->getAllByTag($dao, new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME));
+        Assert::type('array', $wikiDao->getAllByTag(new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetByTagAndName()
     {
         $wikiDao = $this->prepareWikiDaoForDetail();
 
-        Assert::type('stdClass', $wikiDao->getByTagAndName($this->dao, new AppEntities\TagEntity, 'Silent Hill'));
+        Assert::type('stdClass', $wikiDao->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
     }
 
     public function testGetByTagAndSlug()
     {
         $wikiDao = $this->prepareWikiDaoForDetail();
 
-        Assert::type('stdClass', $wikiDao->getByTagAndSlug($this->dao, new AppEntities\TagEntity, 'silent-hill'));
+        Assert::type('stdClass', $wikiDao->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
     }
 
     private function prepareWikiDaoForDetail()
@@ -107,38 +107,38 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setParameters');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new WikiDao;
+        return new WikiDao($em);
     }
 
     public function testGetByTagAndNameAndThrowNonUniqueResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
 
-        Assert::null($wikiDao->getByTagAndName($this->dao, new AppEntities\TagEntity, 'Silent Hill'));
+        Assert::null($wikiDao->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
     }
 
     public function testGetByTagAndNameAndThrowNoResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailToThrowException('Doctrine\ORM\NoResultException');
 
-        Assert::null($wikiDao->getByTagAndName($this->dao, new AppEntities\TagEntity, 'Silent Hill'));
+        Assert::null($wikiDao->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
     }
 
     public function testGetByTagAndSlugAndThrowNonUniqueResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
 
-        Assert::null($wikiDao->getByTagAndSlug($this->dao, new AppEntities\TagEntity, 'silent-hill'));
+        Assert::null($wikiDao->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
     }
 
     public function testGetByTagAndSlugAndThrowNoResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailToThrowException('Doctrine\ORM\NoResultException');
 
-        Assert::null($wikiDao->getByTagAndSlug($this->dao, new AppEntities\TagEntity, 'silent-hill'));
+        Assert::null($wikiDao->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
     }
 
     private function prepareWikiDaoForDetailToThrowException($class)
@@ -156,24 +156,24 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setParameters');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new WikiDao;
+        return new WikiDao($em);
     }
 
     public function testGetByTagAndNameAndType()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithType();
 
-        Assert::type('stdClass', $wikiDao->getByTagAndNameAndType($this->dao, new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::type('stdClass', $wikiDao->getByTagAndNameAndType(new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetByTagAndSlugAndType()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithType();
 
-        Assert::type('stdClass', $wikiDao->getByTagAndSlugAndType($this->dao, new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::type('stdClass', $wikiDao->getByTagAndSlugAndType(new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
     private function prepareWikiDaoForDetailWithType()
@@ -189,38 +189,38 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setParameters');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new WikiDao;
+        return new WikiDao($em);
     }
 
     public function testGetByTagAndNameAndTypeAndThrowNonUniqueResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithTypeToThrowException('Doctrine\ORM\NonUniqueResultException');
 
-        Assert::null($wikiDao->getByTagAndNameAndType($this->dao, new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::null($wikiDao->getByTagAndNameAndType(new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetByTagAndNameAndTypeAndThrowNoResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithTypeToThrowException('Doctrine\ORM\NoResultException');
 
-        Assert::null($wikiDao->getByTagAndNameAndType($this->dao, new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::null($wikiDao->getByTagAndNameAndType(new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetByTagAndSlugAndTypeAndThrowNonUniqueResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithTypeToThrowException('Doctrine\ORM\NonUniqueResultException');
 
-        Assert::null($wikiDao->getByTagAndSlugAndType($this->dao, new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::null($wikiDao->getByTagAndSlugAndType(new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetByTagAndSlugAndTypeAndThrowNoResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithTypeToThrowException('Doctrine\ORM\NoResultException');
 
-        Assert::null($wikiDao->getByTagAndSlugAndType($this->dao, new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::null($wikiDao->getByTagAndSlugAndType(new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
     private function prepareWikiDaoForDetailWithTypeToThrowException($class)
@@ -238,10 +238,10 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setParameters');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new WikiDao;
+        return new WikiDao($em);
     }
 
     public function testGetAllByTagForPage()
@@ -257,12 +257,12 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $this->query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao;
+        $wikiDao = new WikiDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByTagForPage($this->dao, 1, 10, new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByTagForPage(1, 10, new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetAllByTagForPageActiveOnly()
@@ -279,12 +279,12 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $this->query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao;
+        $wikiDao = new WikiDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByTagForPage($this->dao, 1, 10, new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME, true));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByTagForPage(1, 10, new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME, true));
     }
 
     public function testGetAllByUserForPage()
@@ -300,12 +300,12 @@ class WikiDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $this->query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao;
+        $wikiDao = new WikiDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByUserForPage($this->dao, 1, 10, new AppEntities\UserEntity, AppEntities\WikiEntity::TYPE_GAME));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByUserForPage(1, 10, new AppEntities\UserEntity, AppEntities\WikiEntity::TYPE_GAME));
     }
 }
 

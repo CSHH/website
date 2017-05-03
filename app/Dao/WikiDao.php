@@ -6,22 +6,29 @@ use App\Entities;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Kdyby\Doctrine\EntityDao;
+use Kdyby\Doctrine\EntityManager;
 use Kdyby\Doctrine\QueryBuilder;
 
 class WikiDao
 {
+    /** @var EntityManager */
+    private $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     /**
-     * @param  EntityDao $dao
      * @param  int       $page
      * @param  int       $limit
      * @param  string    $type
      * @param  bool      $activeOnly
      * @return Paginator
      */
-    public function getAllForPage(EntityDao $dao, $page, $limit, $type, $activeOnly = false)
+    public function getAllForPage($page, $limit, $type, $activeOnly = false)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('w')
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->where('w.type = :type');
@@ -43,14 +50,13 @@ class WikiDao
     }
 
     /**
-     * @param  EntityDao             $dao
      * @param  Entities\TagEntity    $tag
      * @param  string                $type
      * @return Entities\WikiEntity[]
      */
-    public function getAllByTag(EntityDao $dao, Entities\TagEntity $tag, $type)
+    public function getAllByTag(Entities\TagEntity $tag, $type)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('w')
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->join('w.tag', 't')
@@ -67,15 +73,14 @@ class WikiDao
     }
 
     /**
-     * @param  EntityDao                $dao
      * @param  Entities\TagEntity       $tag
      * @param  string                   $name
      * @return Entities\WikiEntity|null
      */
-    public function getByTagAndName(EntityDao $dao, Entities\TagEntity $tag, $name)
+    public function getByTagAndName(Entities\TagEntity $tag, $name)
     {
         try {
-            return $dao->createQueryBuilder()
+            return $this->em->createQueryBuilder()
                 ->select('w')
                 ->from(Entities\WikiEntity::getClassName(), 'w')
                 ->join('w.tag', 't')
@@ -94,15 +99,14 @@ class WikiDao
     }
 
     /**
-     * @param  EntityDao                $dao
      * @param  Entities\TagEntity       $tag
      * @param  string                   $slug
      * @return Entities\WikiEntity|null
      */
-    public function getByTagAndSlug(EntityDao $dao, Entities\TagEntity $tag, $slug)
+    public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
     {
         try {
-            return $dao->createQueryBuilder()
+            return $this->em->createQueryBuilder()
                 ->select('w')
                 ->from(Entities\WikiEntity::getClassName(), 'w')
                 ->join('w.tag', 't')
@@ -121,16 +125,15 @@ class WikiDao
     }
 
     /**
-     * @param  EntityDao                $dao
      * @param  Entities\TagEntity       $tag
      * @param  string                   $name
      * @param  string                   $type
      * @return Entities\WikiEntity|null
      */
-    public function getByTagAndNameAndType(EntityDao $dao, Entities\TagEntity $tag, $name, $type)
+    public function getByTagAndNameAndType(Entities\TagEntity $tag, $name, $type)
     {
         try {
-            return $dao->createQueryBuilder()
+            return $this->em->createQueryBuilder()
                 ->select('w')
                 ->from(Entities\WikiEntity::getClassName(), 'w')
                 ->join('w.tag', 't')
@@ -150,16 +153,15 @@ class WikiDao
     }
 
     /**
-     * @param  EntityDao                $dao
      * @param  Entities\TagEntity       $tag
      * @param  string                   $slug
      * @param  string                   $type
      * @return Entities\WikiEntity|null
      */
-    public function getByTagAndSlugAndType(EntityDao $dao, Entities\TagEntity $tag, $slug, $type)
+    public function getByTagAndSlugAndType(Entities\TagEntity $tag, $slug, $type)
     {
         try {
-            return $dao->createQueryBuilder()
+            return $this->em->createQueryBuilder()
                 ->select('w')
                 ->from(Entities\WikiEntity::getClassName(), 'w')
                 ->join('w.tag', 't')
@@ -179,7 +181,6 @@ class WikiDao
     }
 
     /**
-     * @param  EntityDao          $dao
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
@@ -187,9 +188,9 @@ class WikiDao
      * @param  bool               $activeOnly
      * @return Paginator
      */
-    public function getAllByTagForPage(EntityDao $dao, $page, $limit, Entities\TagEntity $tag, $type, $activeOnly = false)
+    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $type, $activeOnly = false)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('w')
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->join('w.tag', 't')
@@ -215,16 +216,15 @@ class WikiDao
     }
 
     /**
-     * @param  EntityDao           $dao
      * @param  int                 $page
      * @param  int                 $limit
      * @param  Entities\UserEntity $user
      * @param  string              $type
      * @return Paginator
      */
-    public function getAllByUserForPage(EntityDao $dao, $page, $limit, Entities\UserEntity $user, $type)
+    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user, $type)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('w')
             ->from(Entities\WikiEntity::getClassName(), 'w')
             ->join('w.createdBy', 'u')

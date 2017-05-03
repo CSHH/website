@@ -32,12 +32,12 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $sucDao = new SingleUserContentDao;
+        $sucDao = new SingleUserContentDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllForPage($dao, 'MyEntity', $paginatorFactory, 1, 10));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllForPage('MyEntity', $paginatorFactory, 1, 10));
     }
 
     public function testGetAllForPageActiveOnly()
@@ -57,12 +57,12 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $sucDao = new SingleUserContentDao;
+        $sucDao = new SingleUserContentDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllForPage($dao, 'MyEntity', $paginatorFactory, 1, 10, true));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllForPage('MyEntity', $paginatorFactory, 1, 10, true));
     }
 
     public function testGetAllByTag()
@@ -79,26 +79,26 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'orderBy');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $sucDao = new SingleUserContentDao;
+        $sucDao = new SingleUserContentDao($em);
 
-        Assert::type('array', $sucDao->getAllByTag($dao, 'MyEntity', new AppEntities\TagEntity));
+        Assert::type('array', $sucDao->getAllByTag('MyEntity', new AppEntities\TagEntity));
     }
 
     public function testGetByTagAndName()
     {
         $sucDao = $this->prepareSingleUserContentDaoForDetail();
 
-        Assert::type('stdClass', $sucDao->getByTagAndName($this->dao, 'MyEntity', new AppEntities\TagEntity, 'Silent Hill'));
+        Assert::type('stdClass', $sucDao->getByTagAndName('MyEntity', new AppEntities\TagEntity, 'Silent Hill'));
     }
 
     public function testGetByTagAndSlug()
     {
         $sucDao = $this->prepareSingleUserContentDaoForDetail();
 
-        Assert::type('stdClass', $sucDao->getByTagAndSlug($this->dao, 'MyEntity', new AppEntities\TagEntity, 'silent-hill'));
+        Assert::type('stdClass', $sucDao->getByTagAndSlug('MyEntity', new AppEntities\TagEntity, 'silent-hill'));
     }
 
     private function prepareSingleUserContentDaoForDetail()
@@ -114,38 +114,38 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setParameters');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new SingleUserContentDao;
+        return new SingleUserContentDao($em);
     }
 
     public function testGetByTagAndNameAndThrowNonUniqueResultException()
     {
         $sucDao = $this->prepareSingleUserContentDaoForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
 
-        Assert::null($sucDao->getByTagAndName($this->dao, 'MyEntity', new AppEntities\TagEntity, 'Silent Hill'));
+        Assert::null($sucDao->getByTagAndName('MyEntity', new AppEntities\TagEntity, 'Silent Hill'));
     }
 
     public function testGetByTagAndNameAndThrowNoResultException()
     {
         $sucDao = $this->prepareSingleUserContentDaoForDetailToThrowException('Doctrine\ORM\NoResultException');
 
-        Assert::null($sucDao->getByTagAndName($this->dao, 'MyEntity', new AppEntities\TagEntity, 'Silent Hill'));
+        Assert::null($sucDao->getByTagAndName('MyEntity', new AppEntities\TagEntity, 'Silent Hill'));
     }
 
     public function testGetByTagAndSlugAndThrowNonUniqueResultException()
     {
         $sucDao = $this->prepareSingleUserContentDaoForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
 
-        Assert::null($sucDao->getByTagAndSlug($this->dao, 'MyEntity', new AppEntities\TagEntity, 'silent-hill'));
+        Assert::null($sucDao->getByTagAndSlug('MyEntity', new AppEntities\TagEntity, 'silent-hill'));
     }
 
     public function testGetByTagAndSlugAndThrowNoResultException()
     {
         $sucDao = $this->prepareSingleUserContentDaoForDetailToThrowException('Doctrine\ORM\NoResultException');
 
-        Assert::null($sucDao->getByTagAndSlug($this->dao, 'MyEntity', new AppEntities\TagEntity, 'silent-hill'));
+        Assert::null($sucDao->getByTagAndSlug('MyEntity', new AppEntities\TagEntity, 'silent-hill'));
     }
 
     private function prepareSingleUserContentDaoForDetailToThrowException($class)
@@ -163,10 +163,10 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setParameters');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new SingleUserContentDao;
+        return new SingleUserContentDao($em);
     }
 
     public function testGetAllByTagForPage()
@@ -187,12 +187,12 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $sucDao = new SingleUserContentDao;
+        $sucDao = new SingleUserContentDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllByTagForPage($this->dao, 'MyEntity', $paginatorFactory, 1, 10, new AppEntities\TagEntity));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllByTagForPage('MyEntity', $paginatorFactory, 1, 10, new AppEntities\TagEntity));
     }
 
     public function testGetAllByTagForPageActiveOnly()
@@ -214,12 +214,12 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $sucDao = new SingleUserContentDao;
+        $sucDao = new SingleUserContentDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllByTagForPage($this->dao, 'MyEntity', $paginatorFactory, 1, 10, new AppEntities\TagEntity, true));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllByTagForPage('MyEntity', $paginatorFactory, 1, 10, new AppEntities\TagEntity, true));
     }
 
     public function testGetAllByUserForPage()
@@ -240,12 +240,12 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $sucDao = new SingleUserContentDao;
+        $sucDao = new SingleUserContentDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllByUserForPage($this->dao, 'MyEntity', $paginatorFactory, 1, 10, new AppEntities\UserEntity));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllByUserForPage('MyEntity', $paginatorFactory, 1, 10, new AppEntities\UserEntity));
     }
 
     public function testGetAllInactiveForPage()
@@ -265,12 +265,12 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $sucDao = new SingleUserContentDao;
+        $sucDao = new SingleUserContentDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllInactiveForPage($this->dao, 'MyEntity', $paginatorFactory, 1, 10));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllInactiveForPage('MyEntity', $paginatorFactory, 1, 10));
     }
 
     public function testGetAllInactiveByTagForPage()
@@ -291,12 +291,12 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $this->mockAndReturnSelf($qb, 'setMaxResults');
         $this->mock($qb, 'getQuery', 1, $query);
 
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $sucDao = new SingleUserContentDao;
+        $sucDao = new SingleUserContentDao($em);
 
-        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllInactiveByTagForPage($this->dao, 'MyEntity', $paginatorFactory, 1, 10, new AppEntities\TagEntity));
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllInactiveByTagForPage('MyEntity', $paginatorFactory, 1, 10, new AppEntities\TagEntity));
     }
 }
 
