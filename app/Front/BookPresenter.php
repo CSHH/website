@@ -2,11 +2,19 @@
 
 namespace App\Front;
 
+use App\Caching;
+use App\Components;
 use App\Entities;
 use App\Forms;
 
 final class BookPresenter extends SharedContentPresenter
 {
+    /** @var Components\TagsControlInterface @inject */
+    public $tagsControl;
+
+    /** @var Caching\BookTagSectionCache @inject */
+    public $bookTagSectionCache;
+
     /** @var Forms\WikiDraftFormInterface @inject */
     public $wikiDraftForm;
 
@@ -25,5 +33,13 @@ final class BookPresenter extends SharedContentPresenter
     public function actionDetail($tagSlug, $slug)
     {
         $this->runActionDetail($tagSlug, $slug, Entities\WikiEntity::TYPE_BOOK);
+    }
+
+    /**
+     * @return Components\TagsControlInterface
+     */
+    protected function createComponentTagsControl()
+    {
+        return $this->tagsControl->create($this->bookTagSectionCache);
     }
 }

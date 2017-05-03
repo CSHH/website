@@ -2,11 +2,19 @@
 
 namespace App\Front;
 
+use App\Caching;
+use App\Components;
 use App\Entities;
 use App\Repositories;
 
 final class GalleryPresenter extends SingleUserContentPresenter
 {
+    /** @var Components\TagsControlInterface @inject */
+    public $tagsControl;
+
+    /** @var Caching\ImageTagSectionCache @inject */
+    public $imageTagSectionCache;
+
     /** @var Repositories\ImageRepository @inject */
     public $imageRepository;
 
@@ -59,5 +67,13 @@ final class GalleryPresenter extends SingleUserContentPresenter
         $this->imageRepository->delete($image);
 
         $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
+    }
+
+    /**
+     * @return Components\TagsControlInterface
+     */
+    protected function createComponentTagsControl()
+    {
+        return $this->tagsControl->create($this->imageTagSectionCache);
     }
 }

@@ -60,19 +60,42 @@ class TagCache
     }
 
     /**
-     * @param  int                          $section
-     * @param  Entities\TagEntity[]         $tags
-     * @param  SingleUserContentDao|WikiDao $dao
-     * @param  string                       $wikiType
+     * @param  int                  $section
+     * @param  Entities\TagEntity[] $tags
+     * @param  SingleUserContentDao $dao
+     * @param  string               $className
      * @return array
      */
-    public function getItemsForSection($section, array $tags, $dao, $wikiType = null)
+    public function getItemsForSingleUserContentSection($section, array $tags, $dao, $className)
     {
         $items = $this->cache->load($section);
         if ($items === null) {
             $items = [];
             foreach ($tags as $tag) {
-                if ($wikiType ? $dao->getAllByTag($tag, $wikiType) : $dao->getAllByTag($tag)) {
+                if ($dao->getAllByTag($className, $tag)) {
+                    $items[$tag->id] = $tag;
+                }
+            }
+            $this->cache->save($section, $items);
+        }
+
+        return $items;
+    }
+
+    /**
+     * @param  int                  $section
+     * @param  Entities\TagEntity[] $tags
+     * @param  WikiDao              $dao
+     * @param  string               $wikiType
+     * @return array
+     */
+    public function getItemsForWikiSection($section, array $tags, $dao, $wikiType)
+    {
+        $items = $this->cache->load($section);
+        if ($items === null) {
+            $items = [];
+            foreach ($tags as $tag) {
+                if ($dao->getAllByTag($tag, $wikiType)) {
                     $items[$tag->id] = $tag;
                 }
             }

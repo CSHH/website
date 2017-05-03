@@ -27,7 +27,7 @@ class GameTagSectionCache implements TagSectionCacheInterface
      */
     public function getTags()
     {
-        return $this->tagCache->getItemsForSection(
+        return $this->tagCache->getItemsForWikiSection(
             self::SECTION_ID,
             $this->tagCache->getTagRepository()->getAll(),
             $this->dataAccess,

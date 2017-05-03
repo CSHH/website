@@ -2,60 +2,28 @@
 
 namespace App\Components;
 
-use App\Caching\TagCache;
-use App\Repositories;
+use App\Caching\TagSectionCacheInterface;
 use Nette\Application\UI\Control;
 
 class TagsControl extends Control
 {
-    /** @var TagCache */
-    private $tagCache;
+    /** @var TagSectionCacheInterface */
+    private $cache;
 
-    /** @var Repositories\ArticleRepository */
-    private $articleRepository;
-
-    /** @var Repositories\ImageRepository */
-    private $imageRepository;
-
-    /** @var Repositories\VideoRepository */
-    private $videoRepository;
-
-    /** @var Repositories\WikiRepository */
-    private $wikiRepository;
-
-    /** @var Repositories\TagRepository */
-    private $tagRepository;
-
-    public function __construct(
-        TagCache $tagCache,
-        Repositories\ArticleRepository $articleRepository,
-        Repositories\ImageRepository $imageRepository,
-        Repositories\VideoRepository $videoRepository,
-        Repositories\WikiRepository $wikiRepository,
-        Repositories\TagRepository $tagRepository
-    ) {
+    public function __construct(TagSectionCacheInterface $cache)
+    {
         parent::__construct();
 
-        $tagCache->setArticleRepository($articleRepository);
-        $tagCache->setImageRepository($imageRepository);
-        $tagCache->setVideoRepository($videoRepository);
-        $tagCache->setWikiRepository($wikiRepository);
-
-        $this->tagCache          = $tagCache;
-        $this->articleRepository = $articleRepository;
-        $this->imageRepository   = $imageRepository;
-        $this->videoRepository   = $videoRepository;
-        $this->wikiRepository    = $wikiRepository;
-        $this->tagRepository     = $tagRepository;
+        $this->cache = $cache;
     }
 
     public function render()
     {
-        $template = $template = $this->getTemplate();
+        $template = $this->getTemplate();
 
         $template->setFile(__DIR__ . '/templates/TagsControl.latte');
 
-        $template->menuItems = $this->tagCache->getAll();
+        $template->tags = $this->cache->getTags();
 
         $template->render();
     }
