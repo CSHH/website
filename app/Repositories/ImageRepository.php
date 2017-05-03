@@ -96,7 +96,7 @@ class ImageRepository extends SingleUserContentRepository
      */
     public function getAllForPage(PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
     {
-        return $this->dataAccess->getAllForPage($this->dao, Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit, $activeOnly);
+        return $this->dataAccess->getAllForPage(Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit, $activeOnly);
     }
 
     /**
@@ -105,7 +105,7 @@ class ImageRepository extends SingleUserContentRepository
      */
     public function getAllByTag(Entities\TagEntity $tag)
     {
-        return $this->dataAccess->getAllByTag($this->dao, Entities\ImageEntity::getClassName(), $tag);
+        return $this->dataAccess->getAllByTag(Entities\ImageEntity::getClassName(), $tag);
     }
 
     /**
@@ -118,7 +118,7 @@ class ImageRepository extends SingleUserContentRepository
      */
     public function getAllByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        return $this->dataAccess->getAllByTagForPage($this->dao, Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit, $tag, $activeOnly);
+        return $this->dataAccess->getAllByTagForPage(Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit, $tag, $activeOnly);
     }
 
     /**
@@ -130,7 +130,7 @@ class ImageRepository extends SingleUserContentRepository
      */
     public function getAllByUserForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
     {
-        return $this->dataAccess->getAllByUserForPage($this->dao, Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit, $user);
+        return $this->dataAccess->getAllByUserForPage(Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit, $user);
     }
 
     /**
@@ -141,7 +141,7 @@ class ImageRepository extends SingleUserContentRepository
      */
     public function getAllInactiveForPage(PaginatorFactory $paginatorFactory, $page, $limit)
     {
-        return $this->dataAccess->getAllInactiveForPage($this->dao, Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit);
+        return $this->dataAccess->getAllInactiveForPage(Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit);
     }
 
     /**
@@ -153,7 +153,7 @@ class ImageRepository extends SingleUserContentRepository
      */
     public function getAllInactiveByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
     {
-        return $this->dataAccess->getAllInactiveByTagForPage($this->dao, Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit, $tag);
+        return $this->dataAccess->getAllInactiveByTagForPage(Entities\ImageEntity::getClassName(), $paginatorFactory, $page, $limit, $tag);
     }
 
     /**

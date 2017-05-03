@@ -150,7 +150,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllForPage(PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
     {
-        return $this->dataAccess->getAllForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $activeOnly);
+        return $this->dataAccess->getAllForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $activeOnly);
     }
 
     /**
@@ -159,7 +159,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllByTag(Entities\TagEntity $tag)
     {
-        return $this->dataAccess->getAllByTag($this->dao, Entities\VideoEntity::getClassName(), $tag);
+        return $this->dataAccess->getAllByTag(Entities\VideoEntity::getClassName(), $tag);
     }
 
     /**
@@ -169,7 +169,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getByTagAndName(Entities\TagEntity $tag, $name)
     {
-        return $this->dataAccess->getByTagAndName($this->dao, Entities\VideoEntity::getClassName(), $tag, $name);
+        return $this->dataAccess->getByTagAndName(Entities\VideoEntity::getClassName(), $tag, $name);
     }
 
     /**
@@ -179,7 +179,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
     {
-        return $this->dataAccess->getByTagAndSlug($this->dao, Entities\VideoEntity::getClassName(), $tag, $slug);
+        return $this->dataAccess->getByTagAndSlug(Entities\VideoEntity::getClassName(), $tag, $slug);
     }
 
     /**
@@ -192,7 +192,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        return $this->dataAccess->getAllByTagForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag, $activeOnly);
+        return $this->dataAccess->getAllByTagForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag, $activeOnly);
     }
 
     /**
@@ -204,7 +204,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllByUserForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
     {
-        return $this->dataAccess->getAllByUserForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $user);
+        return $this->dataAccess->getAllByUserForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $user);
     }
 
     /**
@@ -215,7 +215,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllInactiveForPage(PaginatorFactory $paginatorFactory, $page, $limit)
     {
-        return $this->dataAccess->getAllInactiveForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit);
+        return $this->dataAccess->getAllInactiveForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit);
     }
 
     /**
@@ -227,7 +227,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllInactiveByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
     {
-        return $this->dataAccess->getAllInactiveByTagForPage($this->dao, Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag);
+        return $this->dataAccess->getAllInactiveByTagForPage(Entities\VideoEntity::getClassName(), $paginatorFactory, $page, $limit, $tag);
     }
 
     /**

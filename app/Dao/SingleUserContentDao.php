@@ -7,13 +7,20 @@ use App\Utils\PaginatorFactory;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Kdyby\Doctrine\EntityDao;
+use Kdyby\Doctrine\EntityManager;
 use Kdyby\Doctrine\QueryBuilder;
 
 class SingleUserContentDao
 {
+    /** @var EntityManager */
+    private $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
     /**
-     * @param  EntityDao        $dao
      * @param  string           $className
      * @param  PaginatorFactory $paginatorFactory
      * @param  int              $page
@@ -21,9 +28,9 @@ class SingleUserContentDao
      * @param  bool             $activeOnly
      * @return Paginator
      */
-    public function getAllForPage(EntityDao $dao, $className, PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
+    public function getAllForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('e')
             ->from($className, 'e');
 
@@ -40,14 +47,13 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  EntityDao             $dao
      * @param  string                $className
      * @param  Entities\TagEntity    $tag
      * @return Entities\BaseEntity[]
      */
-    public function getAllByTag(EntityDao $dao, $className, Entities\TagEntity $tag)
+    public function getAllByTag($className, Entities\TagEntity $tag)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('e')
             ->from($className, 'e')
             ->join('e.tag', 't')
@@ -61,16 +67,15 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  EntityDao                $dao
      * @param  string                   $className
      * @param  Entities\TagEntity       $tag
      * @param  string                   $name
      * @return Entities\BaseEntity|null
      */
-    public function getByTagAndName(EntityDao $dao, $className, Entities\TagEntity $tag, $name)
+    public function getByTagAndName($className, Entities\TagEntity $tag, $name)
     {
         try {
-            return $dao->createQueryBuilder()
+            return $this->em->createQueryBuilder()
                 ->select('e')
                 ->from($className, 'e')
                 ->join('e.tag', 't')
@@ -89,16 +94,15 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  EntityDao                $dao
      * @param  string                   $className
      * @param  Entities\TagEntity       $tag
      * @param  string                   $slug
      * @return Entities\BaseEntity|null
      */
-    public function getByTagAndSlug(EntityDao $dao, $className, Entities\TagEntity $tag, $slug)
+    public function getByTagAndSlug($className, Entities\TagEntity $tag, $slug)
     {
         try {
-            return $dao->createQueryBuilder()
+            return $this->em->createQueryBuilder()
                 ->select('e')
                 ->from($className, 'e')
                 ->join('e.tag', 't')
@@ -117,7 +121,6 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  EntityDao          $dao
      * @param  string             $className
      * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
@@ -126,9 +129,9 @@ class SingleUserContentDao
      * @param  bool               $activeOnly
      * @return Paginator
      */
-    public function getAllByTagForPage(EntityDao $dao, $className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
+    public function getAllByTagForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('e')
             ->from($className, 'e')
             ->join('e.tag', 't')
@@ -151,7 +154,6 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  EntityDao           $dao
      * @param  string              $className
      * @param  PaginatorFactory    $paginatorFactory
      * @param  int                 $page
@@ -159,9 +161,9 @@ class SingleUserContentDao
      * @param  Entities\UserEntity $user
      * @return Paginator
      */
-    public function getAllByUserForPage(EntityDao $dao, $className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
+    public function getAllByUserForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('e')
             ->from($className, 'e')
             ->join('e.user', 'u')
@@ -176,16 +178,15 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  EntityDao        $dao
      * @param  string           $className
      * @param  PaginatorFactory $paginatorFactory
      * @param  int              $page
      * @param  int              $limit
      * @return Paginator
      */
-    public function getAllInactiveForPage(EntityDao $dao, $className, PaginatorFactory $paginatorFactory, $page, $limit)
+    public function getAllInactiveForPage($className, PaginatorFactory $paginatorFactory, $page, $limit)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('e')
             ->from($className, 'e')
             ->where('e.isActive = :state')
@@ -199,7 +200,6 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  EntityDao          $dao
      * @param  string             $className
      * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
@@ -207,9 +207,9 @@ class SingleUserContentDao
      * @param  Entities\TagEntity $tag
      * @return Paginator
      */
-    public function getAllInactiveByTagForPage(EntityDao $dao, $className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
+    public function getAllInactiveByTagForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
     {
-        $qb = $dao->createQueryBuilder()
+        $qb = $this->em->createQueryBuilder()
             ->select('e')
             ->from($className, 'e')
             ->join('e.tag', 't')

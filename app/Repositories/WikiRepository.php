@@ -134,7 +134,7 @@ class WikiRepository extends BaseRepository
      */
     public function getAllForPage($page, $limit, $type, $activeOnly = false)
     {
-        return $this->dataAccess->getAllForPage($this->dao, $page, $limit, $type, $activeOnly);
+        return $this->dataAccess->getAllForPage($page, $limit, $type, $activeOnly);
     }
 
     /**
@@ -144,7 +144,7 @@ class WikiRepository extends BaseRepository
      */
     public function getAllByTag(Entities\TagEntity $tag, $type)
     {
-        return $this->dataAccess->getAllByTag($this->dao, $tag, $type);
+        return $this->dataAccess->getAllByTag($tag, $type);
     }
 
     /**
@@ -154,7 +154,7 @@ class WikiRepository extends BaseRepository
      */
     public function getByTagAndName(Entities\TagEntity $tag, $name)
     {
-        return $this->dataAccess->getByTagAndName($this->dao, $tag, $name);
+        return $this->dataAccess->getByTagAndName($tag, $name);
     }
 
     /**
@@ -164,7 +164,7 @@ class WikiRepository extends BaseRepository
      */
     public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
     {
-        return $this->dataAccess->getByTagAndSlug($this->dao, $tag, $slug);
+        return $this->dataAccess->getByTagAndSlug($tag, $slug);
     }
 
     /**
@@ -175,7 +175,7 @@ class WikiRepository extends BaseRepository
      */
     public function getByTagAndNameAndType(Entities\TagEntity $tag, $name, $type)
     {
-        return $this->dataAccess->getByTagAndNameAndType($this->dao, $tag, $name, $type);
+        return $this->dataAccess->getByTagAndNameAndType($tag, $name, $type);
     }
 
     /**
@@ -186,7 +186,7 @@ class WikiRepository extends BaseRepository
      */
     public function getByTagAndSlugAndType(Entities\TagEntity $tag, $slug, $type)
     {
-        return $this->dataAccess->getByTagAndSlugAndType($this->dao, $tag, $slug, $type);
+        return $this->dataAccess->getByTagAndSlugAndType($tag, $slug, $type);
     }
 
     /**
@@ -199,7 +199,7 @@ class WikiRepository extends BaseRepository
      */
     public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $type, $activeOnly = false)
     {
-        return $this->dataAccess->getAllByTagForPage($this->dao, $page, $limit, $tag, $type, $activeOnly);
+        return $this->dataAccess->getAllByTagForPage($page, $limit, $tag, $type, $activeOnly);
     }
 
     /**
@@ -211,7 +211,7 @@ class WikiRepository extends BaseRepository
      */
     public function getAllByUserForPage($page, $limit, Entities\UserEntity $user, $type)
     {
-        return $this->dataAccess->getAllByUserForPage($this->dao, $page, $limit, $user, $type);
+        return $this->dataAccess->getAllByUserForPage($page, $limit, $user, $type);
     }
 
     /**
