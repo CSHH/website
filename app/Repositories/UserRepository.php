@@ -48,14 +48,14 @@ class UserRepository extends BaseRepository
         $user->setValues($values);
         $pass = $values->password;
 
-        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'username', $user->username);
+        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::class, 'username', $user->username);
         if ($e) {
             throw new PossibleUniqueKeyDuplicationException(
                 $this->translator->translate('locale.duplicity.registration_username')
             );
         }
 
-        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'email', $user->email);
+        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::class, 'email', $user->email);
         if ($e && $this->isActivationLimitExpired($e->tokenCreatedAt)) {
             $this->delete($e);
         } elseif ($e) {
@@ -92,7 +92,7 @@ class UserRepository extends BaseRepository
 
         $user->setValues($values);
 
-        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::getClassName(), 'email', $user->email);
+        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::class, 'email', $user->email);
         if ($e && $e->id !== $user->id) {
             throw new PossibleUniqueKeyDuplicationException($this->translator->translate('locale.duplicity.registration_email'));
         }

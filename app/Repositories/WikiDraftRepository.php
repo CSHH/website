@@ -79,7 +79,7 @@ class WikiDraftRepository extends BaseRepository
     {
         $res = $this->dao->createQueryBuilder()
             ->select('d')
-            ->from(Entities\WikiDraftEntity::getClassName(), 'd')
+            ->from(Entities\WikiDraftEntity::class, 'd')
             ->join('d.wiki', 'w')
             ->where('w.id = :wikiId')
             ->orderBy('d.createdAt', 'DESC')
