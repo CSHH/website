@@ -25,6 +25,7 @@ services:
     router: App\Router\RouterFactory::createRouter
     paginatorFactory: App\Utils\PaginatorFactory
     videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
+    htmlPurifier: App\Utils\HtmlPurifierFactory::createHtmlPurifier
 
     singleUserContentDao: App\Dao\SingleUserContentDao
     wikiDao: App\Dao\WikiDao

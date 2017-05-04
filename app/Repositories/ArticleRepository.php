@@ -7,7 +7,6 @@ use App\Dao\SingleUserContentDao;
 use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
-use App\Utils\HtmlPurifierFactory;
 use App\Utils\PaginatorFactory;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use HeavenProject\Utils\Slugger;
@@ -31,12 +30,13 @@ class ArticleRepository extends SingleUserContentRepository
         SingleUserContentDao $dataAccess,
         ITranslator $translator,
         EntityManager $em,
-        Caching\ArticleTagSectionCache $tagCache
+        Caching\ArticleTagSectionCache $tagCache,
+        \HTMLPurifier $htmlPurifier
     ) {
         parent::__construct($dao, $dataAccess, $em, $tagCache);
 
         $this->translator   = $translator;
-        $this->htmlPurifier = (new HtmlPurifierFactory)->createHtmlPurifier();
+        $this->htmlPurifier = $htmlPurifier;
     }
 
     /**

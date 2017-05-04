@@ -11,6 +11,7 @@ trait UnitMocks
     protected $articleTagSectionCache;
     protected $dao;
     protected $em;
+    protected $htmlPurifier;
     protected $qb;
     protected $query;
     protected $imageRepository;
@@ -45,6 +46,11 @@ trait UnitMocks
     protected function getEntityManagerMock()
     {
         return m::mock('Kdyby\Doctrine\EntityManager');
+    }
+
+    protected function getHtmlPurifierMock()
+    {
+        return m::mock('HTMLPurifier');
     }
 
     protected function getQueryBuilderMock()
@@ -153,6 +159,7 @@ trait UnitMocks
         $this->articleTagSectionCache = $this->getArticleTagSectionCacheMock();
         $this->dao                    = $this->getEntityDaoMock();
         $this->em                     = $this->getEntityManagerMock();
+        $this->htmlPurifier           = $this->getHtmlPurifierMock();
         $this->qb                     = $this->getQueryBuilderMock();
         $this->query                  = $this->getQueryMock();
         $this->imageRepository        = $this->getImageRepositoryMock();
