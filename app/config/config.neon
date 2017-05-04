@@ -50,6 +50,11 @@ services:
     movieTagSectionCache: App\Caching\MovieTagSectionCache
     videoTagSectionCache: App\Caching\VideoTagSectionCache
 
+    htmlPurifier:
+        class: App\Utils\HtmlPurifierFactory
+        setup:
+            - createHtmlPurifier
+
     articleForm:
         implement: App\Forms\ArticleFormInterface
     galleryForm:
