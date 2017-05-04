@@ -30,7 +30,10 @@ class ArticleRepositoryTest extends Tester\TestCase
         $this->mockAndReturnSelf($em, 'persist');
         $this->mockAndReturnSelf($em, 'flush');
 
-        $repo = $this->getRepository($this->dao, $sucDao, $this->translator, $em);
+        $htmlPurifier = $this->htmlPurifier;
+        $this->mock($htmlPurifier, 'purify', 1, 'Text');
+
+        $repo = $this->getRepository($this->dao, $sucDao, $this->translator, $em, $htmlPurifier);
 
         $values        = new ArrayHash;
         $values->name  = 'Silent Hill';
@@ -67,7 +70,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $translator = $this->translator;
         $this->mock($translator, 'translate', 1, '');
 
-        $repo = $this->getRepository($this->dao, $sucDao, $translator, $this->em);
+        $repo = $this->getRepository($this->dao, $sucDao, $translator, $this->em, $this->htmlPurifier);
 
         $values        = new ArrayHash;
         $values->name  = 'Silent Hill';
@@ -99,7 +102,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $translator = $this->translator;
         $this->mock($translator, 'translate', 1, '');
 
-        $repo = $this->getRepository($this->dao, $sucDao, $translator, $this->em);
+        $repo = $this->getRepository($this->dao, $sucDao, $translator, $this->em, $this->htmlPurifier);
 
         $values        = new ArrayHash;
         $values->name  = 'Silent Hill';
@@ -130,7 +133,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $sucDao = $this->singleUserContentDao;
         $this->mock($sucDao, 'getAllForPage', 1, $paginator);
 
-        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getAllForPage($this->paginatorFactory, 1, 10);
 
         Assert::true($result instanceof Paginator);
@@ -152,7 +155,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $sucDao = $this->singleUserContentDao;
         $this->mock($sucDao, 'getAllForPage', 1, $paginator);
 
-        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getAllForPage($this->paginatorFactory, 1, 10, true);
 
         Assert::true($result instanceof Paginator);
@@ -168,7 +171,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $sucDao = $this->singleUserContentDao;
         $this->mock($sucDao, 'getAllByTag', 1, $this->getArticles());
 
-        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getAllByTag(new AppEntities\TagEntity);
 
         Assert::type('array', $result);
@@ -213,7 +216,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $sucDao = $this->singleUserContentDao;
         $this->mock($sucDao, $singleUserContentDaoMockMethod, 1, $article);
 
-        return $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        return $this->getRepository($this->dao, $sucDao, $this->translator, $this->em, $this->htmlPurifier);
     }
 
     public function testGetAllByTagForPage()
@@ -227,7 +230,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $sucDao = $this->singleUserContentDao;
         $this->mock($sucDao, 'getAllByTagForPage', 1, $paginator);
 
-        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getAllByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity);
 
         Assert::true($result instanceof Paginator);
@@ -249,7 +252,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $sucDao = $this->singleUserContentDao;
         $this->mock($sucDao, 'getAllByTagForPage', 1, $paginator);
 
-        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getAllByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity, true);
 
         Assert::true($result instanceof Paginator);
@@ -271,7 +274,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $sucDao = $this->singleUserContentDao;
         $this->mock($sucDao, 'getAllByUserForPage', 1, $paginator);
 
-        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getAllByUserForPage($this->paginatorFactory, 1, 10, new AppEntities\UserEntity);
 
         Assert::true($result instanceof Paginator);
@@ -293,7 +296,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $sucDao = $this->singleUserContentDao;
         $this->mock($sucDao, 'getAllInactiveForPage', 1, $paginator);
 
-        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getAllInactiveForPage($this->paginatorFactory, 1, 10);
 
         Assert::true($result instanceof Paginator);
@@ -315,7 +318,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $sucDao = $this->singleUserContentDao;
         $this->mock($sucDao, 'getAllInactiveByTagForPage', 1, $paginator);
 
-        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($this->dao, $sucDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getAllInactiveByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity);
 
         Assert::true($result instanceof Paginator);
@@ -345,7 +348,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo   = $this->getRepository($dao, $this->singleUserContentDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->singleUserContentDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getAllNews();
 
         Assert::type('array', $result);
@@ -373,7 +376,7 @@ class ArticleRepositoryTest extends Tester\TestCase
         $dao = $this->dao;
         $this->mock($dao, 'createQueryBuilder', 1, $qb);
 
-        $repo   = $this->getRepository($dao, $this->singleUserContentDao, $this->translator, $this->em);
+        $repo   = $this->getRepository($dao, $this->singleUserContentDao, $this->translator, $this->em, $this->htmlPurifier);
         $result = $repo->getLatestArticles();
 
         Assert::type('array', $result);
@@ -413,9 +416,9 @@ class ArticleRepositoryTest extends Tester\TestCase
         Assert::same('Article 5', $items[4]->name);
     }
 
-    private function getRepository($dao, $singleUserContentDao, $translator, $em)
+    private function getRepository($dao, $singleUserContentDao, $translator, $em, $htmlPurifier)
     {
-        return new AppRepositories\ArticleRepository($dao, $singleUserContentDao, $translator, $em, $this->articleTagSectionCache);
+        return new AppRepositories\ArticleRepository($dao, $singleUserContentDao, $translator, $em, $this->articleTagSectionCache, $htmlPurifier);
     }
 }
 

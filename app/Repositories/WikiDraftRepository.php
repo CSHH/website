@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
-use App\Utils\HtmlPurifierFactory;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Localization\ITranslator;
@@ -28,13 +27,14 @@ class WikiDraftRepository extends BaseRepository
     public function __construct(
         EntityDao $dao,
         ITranslator $translator,
-        EntityManager $em
+        EntityManager $em,
+        \HTMLPurifier $htmlPurifier
     ) {
         parent::__construct($dao);
 
         $this->translator   = $translator;
         $this->em           = $em;
-        $this->htmlPurifier = (new HtmlPurifierFactory)->createHtmlPurifier();
+        $this->htmlPurifier = $htmlPurifier;
     }
 
     /**

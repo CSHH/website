@@ -6,7 +6,6 @@ use App\Dao\WikiDao;
 use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
-use App\Utils\HtmlPurifierFactory;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use HeavenProject\Utils\Slugger;
 use Kdyby\Doctrine\EntityDao;
@@ -34,14 +33,15 @@ class WikiRepository extends BaseRepository
         EntityDao $dao,
         WikiDao $dataAccess,
         ITranslator $translator,
-        EntityManager $em
+        EntityManager $em,
+        \HTMLPurifier $htmlPurifier
     ) {
         parent::__construct($dao);
 
         $this->dataAccess   = $dataAccess;
         $this->translator   = $translator;
         $this->em           = $em;
-        $this->htmlPurifier = (new HtmlPurifierFactory)->createHtmlPurifier();
+        $this->htmlPurifier = $htmlPurifier;
     }
 
     /**
