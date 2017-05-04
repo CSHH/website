@@ -230,7 +230,7 @@ class WikiRepository extends BaseRepository
 
         $qb = $this->dao->createQueryBuilder()
             ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
+            ->from(Entities\WikiEntity::class, 'w')
             ->leftJoin('w.drafts', 'd')
             ->where('w.type = :type');
 
@@ -252,7 +252,7 @@ class WikiRepository extends BaseRepository
     {
         $qb = $this->dao->createQueryBuilder();
         $qb->select('w.id')
-            ->from(Entities\WikiDraftEntity::getClassName(), 'd')
+            ->from(Entities\WikiDraftEntity::class, 'd')
             ->leftJoin('d.wiki', 'w')
             ->distinct('w.id')
             ->where($qb->expr()->isNotNull('w.id'));
@@ -333,7 +333,7 @@ class WikiRepository extends BaseRepository
     {
         $qb = $this->dao->createQueryBuilder()
             ->select('e')
-            ->from(Entities\WikiEntity::getClassName(), 'e')
+            ->from(Entities\WikiEntity::class, 'e')
             ->where('e.isActive = :state AND e.type = :type')
             ->orderBy('e.updatedAt', 'DESC')
             ->setFirstResult(0)

@@ -30,7 +30,7 @@ class WikiDao
     {
         $qb = $this->em->createQueryBuilder()
             ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
+            ->from(Entities\WikiEntity::class, 'w')
             ->where('w.type = :type');
 
         $params = ['type' => $type];
@@ -58,7 +58,7 @@ class WikiDao
     {
         $qb = $this->em->createQueryBuilder()
             ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
+            ->from(Entities\WikiEntity::class, 'w')
             ->join('w.tag', 't')
             ->where('t.id = :tagId AND w.type = :type')
             ->setParameters([
@@ -82,7 +82,7 @@ class WikiDao
         try {
             return $this->em->createQueryBuilder()
                 ->select('w')
-                ->from(Entities\WikiEntity::getClassName(), 'w')
+                ->from(Entities\WikiEntity::class, 'w')
                 ->join('w.tag', 't')
                 ->where('t.id = :tagId AND w.name = :name')
                 ->setParameters([
@@ -108,7 +108,7 @@ class WikiDao
         try {
             return $this->em->createQueryBuilder()
                 ->select('w')
-                ->from(Entities\WikiEntity::getClassName(), 'w')
+                ->from(Entities\WikiEntity::class, 'w')
                 ->join('w.tag', 't')
                 ->where('t.id = :tagId AND w.slug = :slug')
                 ->setParameters([
@@ -135,7 +135,7 @@ class WikiDao
         try {
             return $this->em->createQueryBuilder()
                 ->select('w')
-                ->from(Entities\WikiEntity::getClassName(), 'w')
+                ->from(Entities\WikiEntity::class, 'w')
                 ->join('w.tag', 't')
                 ->where('t.id = :tagId AND w.name = :name AND w.type = :type')
                 ->setParameters([
@@ -163,7 +163,7 @@ class WikiDao
         try {
             return $this->em->createQueryBuilder()
                 ->select('w')
-                ->from(Entities\WikiEntity::getClassName(), 'w')
+                ->from(Entities\WikiEntity::class, 'w')
                 ->join('w.tag', 't')
                 ->where('t.id = :tagId AND w.slug = :slug AND w.type = :type')
                 ->setParameters([
@@ -192,7 +192,7 @@ class WikiDao
     {
         $qb = $this->em->createQueryBuilder()
             ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
+            ->from(Entities\WikiEntity::class, 'w')
             ->join('w.tag', 't')
             ->where('t.id = :tagId AND w.type = :type');
 
@@ -226,7 +226,7 @@ class WikiDao
     {
         $qb = $this->em->createQueryBuilder()
             ->select('w')
-            ->from(Entities\WikiEntity::getClassName(), 'w')
+            ->from(Entities\WikiEntity::class, 'w')
             ->join('w.createdBy', 'u')
             ->where('u.id = :userId AND w.type = :type')
             ->setParameters([
