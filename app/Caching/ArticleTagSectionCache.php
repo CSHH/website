@@ -27,10 +27,11 @@ class ArticleTagSectionCache implements TagSectionCacheInterface
      */
     public function getTags()
     {
-        return $this->tagCache->getItemsForSection(
+        return $this->tagCache->getItemsForSingleUserContentSection(
             self::SECTION_ID,
             $this->tagCache->getTagRepository()->getAll(),
-            $this->dataAccess
+            $this->dataAccess,
+            Entities\ArticleEntity::class
         );
     }
 

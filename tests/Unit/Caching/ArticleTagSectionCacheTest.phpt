@@ -31,7 +31,7 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagRepository, 'getAll', 1, $tags);
 
         $tagCache = $this->tagCache;
-        $this->mock($tagCache, 'getItemsForSection', 1, $tags);
+        $this->mock($tagCache, 'getItemsForSingleUserContentSection', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
         $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->singleUserContentDao);

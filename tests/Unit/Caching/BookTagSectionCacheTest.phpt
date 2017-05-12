@@ -31,7 +31,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagRepository, 'getAll', 1, $tags);
 
         $tagCache = $this->tagCache;
-        $this->mock($tagCache, 'getItemsForSection', 1, $tags);
+        $this->mock($tagCache, 'getItemsForWikiSection', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
         $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);

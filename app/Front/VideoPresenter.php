@@ -2,12 +2,20 @@
 
 namespace App\Front;
 
+use App\Caching;
+use App\Components;
 use App\Entities;
 use App\Repositories;
 use App\Videos\VideoThumbnail;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {
+    /** @var Components\TagsControlInterface @inject */
+    public $tagsControl;
+
+    /** @var Caching\VideoTagSectionCache @inject */
+    public $videoTagSectionCache;
+
     /** @var Repositories\VideoRepository @inject */
     public $videoRepository;
 
@@ -90,5 +98,13 @@ final class VideoPresenter extends SingleUserContentPresenter
         $this->videoRepository->delete($video);
 
         $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
+    }
+
+    /**
+     * @return Components\TagsControlInterface
+     */
+    protected function createComponentTagsControl()
+    {
+        return $this->tagsControl->create($this->videoTagSectionCache);
     }
 }

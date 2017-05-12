@@ -3,15 +3,11 @@
 namespace App\Front;
 
 use App;
-use App\Components;
 use App\Forms;
 use Nette\Mail\IMailer;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
 {
-    /** @var Components\TagsControlInterface @inject */
-    public $tagsControl;
-
     /** @var Forms\SignUpFormInterface @inject */
     public $signUpForm;
 
@@ -43,14 +39,6 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
         $this->contactEmail = $parameters['contactEmail'];
 
         $this->registerFormExtendingMethods();
-    }
-
-    /**
-     * @return Components\TagsControlInterface
-     */
-    protected function createComponentTagsControl()
-    {
-        return $this->tagsControl->create();
     }
 
     /**

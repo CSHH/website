@@ -2,11 +2,19 @@
 
 namespace App\Front;
 
+use App\Caching;
+use App\Components;
 use App\Entities;
 use App\Repositories;
 
 final class ArticlePresenter extends SingleUserContentPresenter
 {
+    /** @var Components\TagsControlInterface @inject */
+    public $tagsControl;
+
+    /** @var Caching\ArticleTagSectionCache @inject */
+    public $articleTagSectionCache;
+
     /** @var Repositories\ArticleRepository @inject */
     public $articleRepository;
 
@@ -85,5 +93,13 @@ final class ArticlePresenter extends SingleUserContentPresenter
         $this->articleRepository->delete($article);
 
         $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
+    }
+
+    /**
+     * @return Components\TagsControlInterface
+     */
+    protected function createComponentTagsControl()
+    {
+        return $this->tagsControl->create($this->articleTagSectionCache);
     }
 }

@@ -1,111 +1,13 @@
-<ul>
+{if count($tags)}
 
-    <li>
+    {var $link = substr($control->presenter->name, 6) . ':default'}
 
-        <a href="{plink Game:default}">{_}locale.sections.games{/_}</a>
+    <div>
 
-        <ul>
+        <a href="{plink $link}">{_}locale.tags.show_all{/_}</a>
 
-            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_GAMES] as $tag">
+        <a n:foreach="$tags as $tag" href="{plink $link, tagSlug => $tag->slug}">{$tag->name}</a>
 
-                <a href="{plink Game:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
+    </div>
 
-            </li>
-
-        </ul>
-
-    </li>
-
-    <li>
-
-        <a href="{plink Movie:default}">{_}locale.sections.movies{/_}</a>
-
-        <ul>
-
-            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_MOVIES] as $tag">
-
-                <a href="{plink Movie:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
-
-            </li>
-
-        </ul>
-
-    </li>
-
-    <li>
-
-        <a href="{plink Book:default}">{_}locale.sections.books{/_}</a>
-
-        <ul>
-
-            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_BOOKS] as $tag">
-
-                <a href="{plink Book:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
-
-            </li>
-
-        </ul>
-
-    </li>
-
-    <li>
-
-        <a href="{plink Article:default}">{_}locale.sections.articles{/_}</a>
-
-        <ul>
-
-            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_ARTICLES] as $tag">
-
-                <a href="{plink Article:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
-
-            </li>
-
-        </ul>
-
-    </li>
-
-    <li>
-
-        <a href="{plink Gallery:default}">{_}locale.sections.galleries{/_}</a>
-
-        <ul>
-
-            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_IMAGES] as $tag">
-
-                <a href="{plink Gallery:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
-
-            </li>
-
-        </ul>
-
-    </li>
-
-    <li>
-
-        <a href="{plink Video:default}">{_}locale.sections.videos{/_}</a>
-
-        <ul>
-
-            <li n:foreach="$menuItems[App\Caching\TagCache::SECTION_VIDEOS] as $tag">
-
-                <a href="{plink Video:default, tagSlug => $tag->slug}">{$tag->name|truncate:30}</a>
-
-            </li>
-
-        </ul>
-
-    </li>
-
-    <li>
-
-        <a href="http://www.silenthill-chronicle.cz" target="_blank">Kronika SH</a>
-
-    </li>
-
-    <li>
-
-        <a href="{plink SmrtHrou:default}">Smrt Hrou</a>
-
-    </li>
-
-</ul>
+{/if}

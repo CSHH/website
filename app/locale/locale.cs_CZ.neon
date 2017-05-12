@@ -121,3 +121,6 @@ settings:
 
 alert:
     question: 'Jste si jistí?'
+
+tags:
+    show_all: 'VŠE'
