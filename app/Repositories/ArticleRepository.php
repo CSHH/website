@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Caching;
 use App\Dao\SingleUserContentDao;
-use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Utils\PaginatorFactory;
@@ -17,8 +16,6 @@ use Nette\Utils\ArrayHash;
 
 class ArticleRepository extends SingleUserContentRepository
 {
-    use DuplicityChecker;
-
     /** @var ITranslator */
     private $translator;
 

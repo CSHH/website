@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Dao\WikiDao;
-use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -15,8 +14,6 @@ use Nette\Utils\ArrayHash;
 
 class WikiRepository extends BaseRepository
 {
-    use DuplicityChecker;
-
     /** @var WikiDao */
     private $dataAccess;
 

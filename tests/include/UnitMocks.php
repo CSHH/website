@@ -10,6 +10,7 @@ trait UnitMocks
     protected $articleRepository;
     protected $articleTagSectionCache;
     protected $dao;
+    protected $duplicityChecker;
     protected $em;
     protected $htmlPurifier;
     protected $qb;
@@ -41,6 +42,11 @@ trait UnitMocks
     protected function getEntityDaoMock()
     {
         return m::mock('Kdyby\Doctrine\EntityDao');
+    }
+
+    protected function getDuplicityCheckerMock()
+    {
+        return m::mock('App\Duplicities\DuplicityChecker');
     }
 
     protected function getEntityManagerMock()
@@ -158,6 +164,7 @@ trait UnitMocks
         $this->articleRepository      = $this->getArticleRepositoryMock();
         $this->articleTagSectionCache = $this->getArticleTagSectionCacheMock();
         $this->dao                    = $this->getEntityDaoMock();
+        $this->duplicityChecker       = $this->getDuplicityCheckerMock();
         $this->em                     = $this->getEntityManagerMock();
         $this->htmlPurifier           = $this->getHtmlPurifierMock();
         $this->qb                     = $this->getQueryBuilderMock();

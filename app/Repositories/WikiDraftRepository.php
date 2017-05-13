@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use Kdyby\Doctrine\EntityDao;
@@ -13,8 +12,6 @@ use Nette\Utils\DateTime;
 
 class WikiDraftRepository extends BaseRepository
 {
-    use DuplicityChecker;
-
     /** @var ITranslator */
     private $translator;
 

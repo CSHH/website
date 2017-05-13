@@ -5,35 +5,32 @@ namespace App\Duplicities;
 use App\Entities\BaseEntity;
 use Kdyby\Doctrine\EntityManager;
 
-/**
- * Checks for duplicities for given value.
- */
-trait DuplicityChecker
+class DuplicityChecker
 {
-    /**
-     * @param  EntityManager    $em
-     * @param  string           $entity
-     * @param  string           $attribute
-     * @param  string           $value
-     * @param  string           $locale
-     * @return BaseEntity|false if value if not a duplicate
-     */
-    public function isValueDuplicate(EntityManager $em, $entity, $attribute, $value, $locale = null)
-    {
-        $qb = $em->createQueryBuilder();
-        $qb->select('e')->from($entity, 'e');
+    /** @var EntityManager */
+    private $em;
 
-        if (empty($locale)) {
-            $qb->where('e.' . $attribute . ' = :' . $attribute);
-            $qb->setParameter($attribute, $value);
-        } else {
-            $qb->leftJoin('e.translations', 't');
-            $qb->where('t.' . $attribute . ' = :' . $attribute . ' AND t.locale = :locale');
-            $qb->setParameters([$attribute => $value, 'locale' => $locale]);
-        }
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
+
+    /**
+     * @param  string          $entityClassName
+     * @param  string          $attribute
+     * @param  string          $value
+     * @return BaseEntity|null
+     */
+    public function findDuplicity($entityClassName, $attribute, $value)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb->select('e');
+        $qb->from($entityClassName, 'e');
+        $qb->where('e.' . $attribute . ' = :' . $attribute);
+        $qb->setParameter($attribute, $value);
 
         $result = $qb->getQuery()->getResult();
 
-        return !empty($result) ? $result[0] : false;
+        return !empty($result) ? $result[0] : null;
     }
 }
