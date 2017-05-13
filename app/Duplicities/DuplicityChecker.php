@@ -10,21 +10,18 @@ class DuplicityChecker
     /** @var EntityManager */
     private $em;
 
-    /**
-     * @param EntityManager $em
-     */
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
     }
 
     /**
-     * @param  string           $entityClassName
-     * @param  string           $attribute
-     * @param  string           $value
-     * @return BaseEntity|false
+     * @param  string          $entityClassName
+     * @param  string          $attribute
+     * @param  string          $value
+     * @return BaseEntity|null
      */
-    public function isValueDuplicate($entityClassName, $attribute, $value)
+    public function findDuplicity($entityClassName, $attribute, $value)
     {
         $qb = $this->em->createQueryBuilder();
         $qb->select('e');
@@ -34,6 +31,6 @@ class DuplicityChecker
 
         $result = $qb->getQuery()->getResult();
 
-        return !empty($result) ? $result[0] : false;
+        return !empty($result) ? $result[0] : null;
     }
 }
