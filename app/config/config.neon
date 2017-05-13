@@ -1,10 +1,10 @@
 parameters:
     cacheDir: %tempDir%/cache
+    contactEmail: 'john.doe@example.com'
     sessionsDir: %tempDir%/sessions
     thumbsDir: /thumbs
     uploadDir: /upload
     videoThumbnailsDir: /video_thumbnails
-    contactEmail: 'john.doe@example.com'
     vimeoOembedEndpoint: 'https://vimeo.com/api/oembed.xml'
 
 php:
@@ -22,10 +22,11 @@ session:
 
 services:
     authenticator: App\Security\Authenticator
-    router: App\Router\RouterFactory::createRouter
-    paginatorFactory: App\Utils\PaginatorFactory
-    videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
+    duplicityChecker: App\Duplicities\DuplicityChecker
     htmlPurifier: App\Utils\HtmlPurifierFactory::createHtmlPurifier
+    paginatorFactory: App\Utils\PaginatorFactory
+    router: App\Router\RouterFactory::createRouter
+    videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
 
     singleUserContentDao: App\Dao\SingleUserContentDao
     wikiDao: App\Dao\WikiDao
