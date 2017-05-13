@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Caching;
 use App\Dao\SingleUserContentDao;
-use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Exceptions\InvalidVideoUrlException;
@@ -20,8 +19,6 @@ use Nette\Utils\Strings;
 
 class VideoRepository extends SingleUserContentRepository
 {
-    use DuplicityChecker;
-
     /** @var string */
     protected $vimeoOembedEndpoint;
 

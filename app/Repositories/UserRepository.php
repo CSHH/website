@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Exceptions\ActivationLimitExpiredException;
@@ -18,8 +17,6 @@ use Nette\Utils\Random;
 
 class UserRepository extends BaseRepository
 {
-    use DuplicityChecker;
-
     /** @var ITranslator */
     private $translator;
 
