@@ -99,6 +99,7 @@ sign:
     sign_up_email_sent: 'Na zadanou adresu byl zaslán e-mail, pomocí kterého můžete registraci dokončit.'
     session_expired: 'Došlo k odhlášení z důvodu neaktivity.'
     account_not_found: 'Účet nebyl nalezen.'
+    authentication_issues: 'Pravděpodobně byly zadány chybné přihlašovací údaje.'
 
 item:
     does_not_exist: 'Neexistující položka.'

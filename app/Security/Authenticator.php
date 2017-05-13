@@ -28,9 +28,9 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
      */
     public function __construct(IdentityFactory $identityFactory, ITranslator $translator, Repositories\UserRepository $userRepository)
     {
-        $this->identityFactory  = $identityFactory;
-        $this->translator       = $translator;
-        $this->userRepository   = $userRepository;
+        $this->identityFactory = $identityFactory;
+        $this->translator      = $translator;
+        $this->userRepository  = $userRepository;
     }
 
     /**
@@ -44,20 +44,11 @@ class Authenticator extends Nette\Object implements Nette\Security\IAuthenticato
         $user = $this->userRepository->getByEmail($email);
 
         if (!$user) {
-            throw new Nette\Security\AuthenticationException(
-                $this->translator->translate('locale.sign.incorrect_email'),
-                self::IDENTITY_NOT_FOUND
-            );
+            throw new Nette\Security\AuthenticationException($this->translator->translate('locale.sign.authentication_issues'), self::IDENTITY_NOT_FOUND);
         } elseif (!$user->isAuthenticated) {
-            throw new Nette\Security\AuthenticationException(
-                $this->translator->translate('locale.sign.authentication_waiting'),
-                self::NOT_APPROVED
-            );
+            throw new Nette\Security\AuthenticationException($this->translator->translate('locale.sign.authentication_issues'), self::NOT_APPROVED);
         } elseif (!Passwords::verify($password . $user->salt, $user->password)) {
-            throw new Nette\Security\AuthenticationException(
-                $this->translator->translate('locale.sign.incorrect_password'),
-                self::INVALID_CREDENTIAL
-            );
+            throw new Nette\Security\AuthenticationException($this->translator->translate('locale.sign.authentication_issues'), self::INVALID_CREDENTIAL);
         } elseif (Passwords::needsRehash($user->password)) {
             $this->userRepository->updatePassword($user, $user->password);
         }
