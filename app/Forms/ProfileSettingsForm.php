@@ -5,7 +5,7 @@ namespace App\Forms;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Repositories;
-use App\Security\Authenticator;
+use App\Security\IdentityFactory;
 use HeavenProject\Utils\FlashType;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
@@ -16,8 +16,8 @@ class ProfileSettingsForm extends AbstractForm
     /** @var Repositories\UserRepository */
     private $userRepository;
 
-    /** @var Authenticator */
-    private $authenticator;
+    /** @var IdentityFactory */
+    private $identityFactory;
 
     /** @var IUserStorage */
     private $userStorage;
@@ -28,23 +28,23 @@ class ProfileSettingsForm extends AbstractForm
     /**
      * @param ITranslator                 $translator
      * @param Repositories\UserRepository $userRepository
-     * @param Authenticator               $authenticator
+     * @param IdentityFactory             $identityFactory
      * @param IUserStorage                $userStorage
      * @param Entities\UserEntity         $item
      */
     public function __construct(
         ITranslator $translator,
         Repositories\UserRepository $userRepository,
-        Authenticator $authenticator,
+        IdentityFactory $identityFactory,
         IUserStorage $userStorage,
         Entities\UserEntity $item
     ) {
         parent::__construct($translator);
 
-        $this->userRepository = $userRepository;
-        $this->authenticator  = $authenticator;
-        $this->userStorage    = $userStorage;
-        $this->item           = $item;
+        $this->userRepository  = $userRepository;
+        $this->identityFactory = $identityFactory;
+        $this->userStorage     = $userStorage;
+        $this->item            = $item;
     }
 
     protected function configure(Form $form)
@@ -84,9 +84,7 @@ class ProfileSettingsForm extends AbstractForm
             $values = $form->getValues();
 
             $user = $this->userRepository->updateProfileSettings($values, $this->item);
-            $this->userStorage->setIdentity(
-                $this->authenticator->updateIdentity($user)
-            );
+            $this->userStorage->setIdentity($this->identityFactory->createIdentity($user));
 
             $p->flashMessage(
                 $this->translator->translate('locale.settings.changed_successfully'),
