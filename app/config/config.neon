@@ -24,6 +24,7 @@ services:
     authenticator: App\Security\Authenticator
     duplicityChecker: App\Duplicities\DuplicityChecker
     htmlPurifier: App\Utils\HtmlPurifierFactory::createHtmlPurifier
+    identityFactory: App\Security\IdentityFactory
     paginatorFactory: App\Utils\PaginatorFactory
     router: App\Router\RouterFactory::createRouter
     videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
