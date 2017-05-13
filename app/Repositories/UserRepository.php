@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Duplicities\DuplicityChecker;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Exceptions\ActivationLimitExpiredException;
@@ -23,15 +24,20 @@ class UserRepository extends BaseRepository
     /** @var EntityManager */
     private $em;
 
+    /** @var DuplicityChecker */
+    private $duplicityChecker;
+
     public function __construct(
         EntityDao $dao,
         ITranslator $translator,
-        EntityManager $em
+        EntityManager $em,
+        DuplicityChecker $duplicityChecker
     ) {
         parent::__construct($dao);
 
-        $this->translator = $translator;
-        $this->em         = $em;
+        $this->translator       = $translator;
+        $this->em               = $em;
+        $this->duplicityChecker = $duplicityChecker;
     }
 
     /**
@@ -45,14 +51,14 @@ class UserRepository extends BaseRepository
         $user->setValues($values);
         $pass = $values->password;
 
-        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::class, 'username', $user->username);
+        $e = $this->duplicityChecker->findDuplicity(Entities\UserEntity::class, 'username', $user->username);
         if ($e) {
             throw new PossibleUniqueKeyDuplicationException(
                 $this->translator->translate('locale.duplicity.registration_username')
             );
         }
 
-        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::class, 'email', $user->email);
+        $e = $this->duplicityChecker->findDuplicity(Entities\UserEntity::class, 'email', $user->email);
         if ($e && $this->isActivationLimitExpired($e->tokenCreatedAt)) {
             $this->delete($e);
         } elseif ($e) {
@@ -89,7 +95,7 @@ class UserRepository extends BaseRepository
 
         $user->setValues($values);
 
-        $e = $this->isValueDuplicate($this->em, Entities\UserEntity::class, 'email', $user->email);
+        $e = $this->duplicityChecker->findDuplicity(Entities\UserEntity::class, 'email', $user->email);
         if ($e && $e->id !== $user->id) {
             throw new PossibleUniqueKeyDuplicationException($this->translator->translate('locale.duplicity.registration_email'));
         }
