@@ -3,7 +3,6 @@
 namespace App\Forms;
 
 use App\Entities;
-use App\Logging\Logger;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
@@ -62,7 +61,7 @@ abstract class AbstractForm extends Nette\Application\UI\Control
     {
         $msg = $e->getMessage();
 
-        Logger::log($msg);
+        dlog($msg);
 
         $form->addError(
             $output
