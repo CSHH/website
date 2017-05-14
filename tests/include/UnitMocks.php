@@ -13,6 +13,8 @@ trait UnitMocks
     protected $duplicityChecker;
     protected $em;
     protected $htmlPurifier;
+    protected $identity;
+    protected $identityFactory;
     protected $qb;
     protected $query;
     protected $imageRepository;
@@ -20,10 +22,12 @@ trait UnitMocks
     protected $netteCache;
     protected $paginator;
     protected $paginatorFactory;
+    protected $passwords;
     protected $singleUserContentDao;
     protected $tagCache;
     protected $tagRepository;
     protected $translator;
+    protected $userRepository;
     protected $videoRepository;
     protected $videoTagSectionCache;
     protected $wikiDao;
@@ -57,6 +61,16 @@ trait UnitMocks
     protected function getHtmlPurifierMock()
     {
         return m::mock('HTMLPurifier');
+    }
+
+    protected function getIdentityFactoryMock()
+    {
+        return m::mock('App\Security\IdentityFactory');
+    }
+
+    protected function getIdentityMock()
+    {
+        return m::mock('Nette\Security\Identity');
     }
 
     protected function getQueryBuilderMock()
@@ -94,6 +108,11 @@ trait UnitMocks
         return m::mock('App\Utils\PaginatorFactory');
     }
 
+    protected function getPasswordsMock()
+    {
+        return m::mock('alias:Nette\Security\Passwords');
+    }
+
     protected function getSingleUserContentDaoMock()
     {
         return m::mock('App\Dao\SingleUserContentDao');
@@ -112,6 +131,11 @@ trait UnitMocks
     protected function getTranslatorMock()
     {
         return m::mock('Nette\Localization\ITranslator');
+    }
+
+    protected function getUserRepositoryMock()
+    {
+        return m::mock('App\Repositories\UserRepository');
     }
 
     protected function getVideoRepositoryMock()
@@ -167,6 +191,8 @@ trait UnitMocks
         $this->duplicityChecker       = $this->getDuplicityCheckerMock();
         $this->em                     = $this->getEntityManagerMock();
         $this->htmlPurifier           = $this->getHtmlPurifierMock();
+        $this->identity               = $this->getIdentityMock();
+        $this->identityFactory        = $this->getIdentityFactoryMock();
         $this->qb                     = $this->getQueryBuilderMock();
         $this->query                  = $this->getQueryMock();
         $this->imageRepository        = $this->getImageRepositoryMock();
@@ -174,10 +200,12 @@ trait UnitMocks
         $this->netteCache             = $this->getNetteCacheMock();
         $this->paginator              = $this->getPaginatorMock();
         $this->paginatorFactory       = $this->getPaginatorFactoryMock();
+        $this->passwords              = $this->getPasswordsMock();
         $this->singleUserContentDao   = $this->getSingleUserContentDaoMock();
         $this->tagCache               = $this->getTagCacheMock();
         $this->tagRepository          = $this->getTagRepositoryMock();
         $this->translator             = $this->getTranslatorMock();
+        $this->userRepository         = $this->getUserRepositoryMock();
         $this->videoRepository        = $this->getVideoRepositoryMock();
         $this->videoTagSectionCache   = $this->getVideoTagSectionCacheMock();
         $this->wikiDao                = $this->getWikiDaoMock();
