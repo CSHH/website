@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "eaf5e446874646480806b1ebcdb24ed0",
+    "content-hash": "bf8aaec70adf93ad5e59063dbd550a77",
     "packages": [
         {
             "name": "arachne/container-adapter",
