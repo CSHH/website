@@ -10,7 +10,6 @@ use App\Exceptions\InvalidVideoUrlException;
 use App\Utils\PaginatorFactory;
 use App\Videos;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use HeavenProject\Utils\Slugger;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Localization\ITranslator;
@@ -61,7 +60,7 @@ class VideoRepository extends SingleUserContentRepository
             );
         }
 
-        $e->slug = $e->slug ?: Slugger::slugify($e->name);
+        $e->slug = $e->slug ?: Strings::webalize($e->name);
 
         if ($this->getByTagAndSlug($tag, $e->slug)) {
             throw new PossibleUniqueKeyDuplicationException(
@@ -99,7 +98,7 @@ class VideoRepository extends SingleUserContentRepository
             );
         }
 
-        $e->slug = $e->slug ?: Slugger::slugify($e->name);
+        $e->slug = $e->slug ?: Strings::webalize($e->name);
 
         if ($e->tag->id !== $tag->id && $this->getByTagAndSlug($tag, $e->slug)) {
             throw new PossibleUniqueKeyDuplicationException(

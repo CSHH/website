@@ -8,7 +8,7 @@ use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Utils\PaginatorFactory;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use HeavenProject\Utils\Slugger;
+use Nette\Utils\Strings;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Localization\ITranslator;
@@ -58,7 +58,7 @@ class ArticleRepository extends SingleUserContentRepository
             );
         }
 
-        $e->slug = $e->slug ?: Slugger::slugify($e->name);
+        $e->slug = $e->slug ?: Strings::webalize($e->name);
 
         if ($this->getByTagAndSlug($tag, $e->slug)) {
             throw new PossibleUniqueKeyDuplicationException(
@@ -99,7 +99,7 @@ class ArticleRepository extends SingleUserContentRepository
             );
         }
 
-        $e->slug = $e->slug ?: Slugger::slugify($e->name);
+        $e->slug = $e->slug ?: Strings::webalize($e->name);
 
         if ($e->tag->id !== $tag->id && $this->getByTagAndSlug($tag, $e->slug)) {
             throw new PossibleUniqueKeyDuplicationException(

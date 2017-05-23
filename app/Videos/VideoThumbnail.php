@@ -3,7 +3,7 @@
 namespace App\Videos;
 
 use App\Entities\VideoEntity;
-use HeavenProject\Utils\Slugger;
+use Nette\Utils\Strings;
 
 class VideoThumbnail
 {
@@ -104,7 +104,7 @@ class VideoThumbnail
      */
     private function getFilePath(VideoEntity $video)
     {
-        return $this->videoThumbnailsDir . '/' . Slugger::slugify($video->url);
+        return $this->videoThumbnailsDir . '/' . Strings::webalize($video->url);
     }
 
     /**

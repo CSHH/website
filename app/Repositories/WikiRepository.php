@@ -6,7 +6,7 @@ use App\Dao\WikiDao;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use HeavenProject\Utils\Slugger;
+use Nette\Utils\Strings;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Localization\ITranslator;
@@ -65,7 +65,7 @@ class WikiRepository extends BaseRepository
             );
         }
 
-        $e->slug = $e->slug ?: Slugger::slugify($e->name);
+        $e->slug = $e->slug ?: Strings::webalize($e->name);
 
         if ($this->getByTagAndSlugAndType($tag, $e->slug, $type)) {
             throw new PossibleUniqueKeyDuplicationException(
@@ -105,7 +105,7 @@ class WikiRepository extends BaseRepository
             );
         }
 
-        $e->slug = $e->slug ?: Slugger::slugify($e->name);
+        $e->slug = $e->slug ?: Strings::webalize($e->name);
 
         if ($e->tag->id !== $tag->id && $this->getByTagAndSlugAndType($tag, $e->slug, $type)) {
             throw new PossibleUniqueKeyDuplicationException(
