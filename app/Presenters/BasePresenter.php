@@ -5,7 +5,7 @@ namespace App\Presenters;
 use App\Entities;
 use App\Forms\ExtendingMethods as FormExtendingMethods;
 use App\Repositories;
-use HeavenProject\Utils\FlashType;
+use App\Utils\FlashType;
 use Nette;
 use Nette\Localization\ITranslator;
 

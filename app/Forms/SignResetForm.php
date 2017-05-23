@@ -5,7 +5,7 @@ namespace App\Forms;
 use App\Exceptions\FormSentBySpamException;
 use App\Exceptions\UserNotFoundException;
 use App\Repositories;
-use HeavenProject\Utils\FlashType;
+use App\Utils\FlashType;
 use Latte;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;

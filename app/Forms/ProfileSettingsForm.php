@@ -6,7 +6,7 @@ use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Repositories;
 use App\Security\IdentityFactory;
-use HeavenProject\Utils\FlashType;
+use App\Utils\FlashType;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 use Nette\Security\IUserStorage;

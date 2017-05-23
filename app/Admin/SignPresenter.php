@@ -6,7 +6,7 @@ use App\Entities;
 use App\Exceptions\ActivationLimitExpiredException;
 use App\Exceptions\UserNotFoundException;
 use App\Forms;
-use HeavenProject\Utils\FlashType;
+use App\Utils\FlashType;
 
 final class SignPresenter extends BasePresenter
 {

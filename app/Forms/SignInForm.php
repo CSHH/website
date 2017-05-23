@@ -2,7 +2,7 @@
 
 namespace App\Forms;
 
-use HeavenProject\Utils\FlashType;
+use App\Utils\FlashType;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;

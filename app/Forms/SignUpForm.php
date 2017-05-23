@@ -5,7 +5,7 @@ namespace App\Forms;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Exceptions\FormSentBySpamException;
 use App\Repositories;
-use HeavenProject\Utils\FlashType;
+use App\Utils\FlashType;
 use Latte;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;

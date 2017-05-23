@@ -5,7 +5,7 @@ namespace App\Forms;
 use App\Entities;
 use App\Exceptions\PossibleUniqueKeyDuplicationException;
 use App\Repositories;
-use HeavenProject\Utils\FlashType;
+use App\Utils\FlashType;
 use Nette\Application\UI\Form;
 use Nette\Localization\ITranslator;
 
