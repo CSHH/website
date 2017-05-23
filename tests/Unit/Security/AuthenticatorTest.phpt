@@ -20,7 +20,7 @@ class AuthenticatorTest extends Tester\TestCase
 
     public function testAuthenticate()
     {
-        $user = new UserEntityImpl;
+        $user                  = new UserEntityImpl;
         $user->isAuthenticated = true;
 
         $userRepository = $this->userRepository;
@@ -41,7 +41,7 @@ class AuthenticatorTest extends Tester\TestCase
     public function testAuthenticateFailsBecauseNoUserFound()
     {
         Assert::exception(
-            function() {
+            function () {
                 $translator = $this->translator;
                 $this->mock($translator, 'translate', 1, 'locale.sign.authentication_issues');
 
@@ -60,7 +60,7 @@ class AuthenticatorTest extends Tester\TestCase
     public function testAuthenticateFailsBecauseUserIsNotAuthenticated()
     {
         Assert::exception(
-            function() {
+            function () {
                 $user = new UserEntityImpl;
                 $user->isAuthenticated = false;
 
@@ -82,7 +82,7 @@ class AuthenticatorTest extends Tester\TestCase
     public function testAuthenticateFailsBecauseOfIncorrectPassword()
     {
         Assert::exception(
-            function() {
+            function () {
                 $user = new UserEntityImpl;
                 $user->isAuthenticated = true;
 
