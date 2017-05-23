@@ -8,11 +8,11 @@ use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
 use App\Utils\PaginatorFactory;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Nette\Utils\Strings;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Localization\ITranslator;
 use Nette\Utils\ArrayHash;
+use Nette\Utils\Strings;
 
 class ArticleRepository extends SingleUserContentRepository
 {

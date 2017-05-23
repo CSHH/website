@@ -16,7 +16,7 @@ class IdentityFactoryTest extends Tester\TestCase
 {
     public function testCreateIdentity()
     {
-        $user = new AppTests\UserEntityImpl;
+        $user                  = new AppTests\UserEntityImpl;
         $user->id              = 1;
         $user->username        = 'johndoe';
         $user->email           = 'johndoe@example.com';
