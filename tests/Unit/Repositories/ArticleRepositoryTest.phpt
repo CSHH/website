@@ -329,62 +329,6 @@ class ArticleRepositoryTest extends Tester\TestCase
         $this->assertResultItems($items);
     }
 
-    public function testGetAllNews()
-    {
-        $query = $this->query;
-        $this->mock($query, 'getResult', 1, $this->getArticles());
-
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->singleUserContentDao, $this->translator, $this->em, $this->htmlPurifier);
-        $result = $repo->getAllNews();
-
-        Assert::type('array', $result);
-        Assert::count(5, $result);
-
-        $this->assertResultItems($result);
-    }
-
-    public function testGetLatestArticles()
-    {
-        $query = $this->query;
-        $this->mock($query, 'getResult', 1, $this->getArticles());
-
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'orderBy');
-        $this->mockAndReturnSelf($qb, 'setFirstResult');
-        $this->mockAndReturnSelf($qb, 'setMaxResults');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $dao = $this->dao;
-        $this->mock($dao, 'createQueryBuilder', 1, $qb);
-
-        $repo   = $this->getRepository($dao, $this->singleUserContentDao, $this->translator, $this->em, $this->htmlPurifier);
-        $result = $repo->getLatestArticles();
-
-        Assert::type('array', $result);
-        Assert::count(5, $result);
-
-        $this->assertResultItems($result);
-    }
-
     /**
      * @return array
      */
