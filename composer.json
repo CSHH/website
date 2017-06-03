@@ -77,7 +77,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "bin/copy-config-local-neon"
+            "vendor/bin/phing create-local-config"
         ]
     }
 }
