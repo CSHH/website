@@ -70,4 +70,33 @@
         </exec>
     </target>
 
+    <target name="cleanup" depends="clean-logs, clean-temp-data, clean-tests"/>
+
+    <target name="clean-logs">
+        <delete includeemptydirs="true">
+            <fileset dir="log">
+                <include name="*/**"/>
+                <exclude name=".gitkeep"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="clean-temp-data">
+        <delete includeemptydirs="true">
+            <fileset dir="temp">
+                <include name="*/**"/>
+                <exclude name="sessions/.gitkeep"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="clean-tests">
+        <delete includeemptydirs="true">
+            <fileset dir="tests/Integration/tmp">
+                <include name="*/**"/>
+                <exclude name=".gitkeep"/>
+            </fileset>
+        </delete>
+    </target>
+
 </project>
