@@ -2,17 +2,9 @@
 
 <project name="Czech Silent Hill Heaven" default="init">
 
-    <target name="init" depends="composer, db-drop, migrations, chmod"/>
+    <target name="init" depends="db-drop, migrations, chmod"/>
 
-    <target name="init+fixtures" depends="composer, fixtures, chmod"/>
-
-    <target name="composer">
-        <exec executable="composer" passthru="true" logoutput="true" checkreturn="true">
-            <arg value="install"/>
-            <arg value="--optimize-autoloader"/>
-            <arg value="--no-interaction"/>
-        </exec>
-    </target>
+    <target name="init+fixtures" depends="fixtures, chmod"/>
 
     <target name="db-drop">
         <symfonyconsole command="orm:schema-tool:drop" console="bin/console">
