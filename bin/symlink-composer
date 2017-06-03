@@ -1,7 +1,0 @@
-#!/bin/bash
-
-cmd=composer
-
-if ! [ -f $cmd ]; then
-    ln -s $(which $cmd) $cmd
-fi

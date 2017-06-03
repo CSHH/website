@@ -2,16 +2,9 @@
 
 <project name="Czech Silent Hill Heaven" default="init">
 
-    <target name="init" depends="composer, db-drop, migrations, chmod"/>
+    <target name="init" depends="db-drop, migrations, chmod"/>
 
-    <target name="init+fixtures" depends="composer, fixtures, chmod"/>
-
-    <target name="composer">
-        <composer composer="./composer" command="install">
-            <arg value="--optimize-autoloader"/>
-            <arg value="--no-interaction"/>
-        </composer>
-    </target>
+    <target name="init+fixtures" depends="fixtures, chmod"/>
 
     <target name="db-drop">
         <symfonyconsole command="orm:schema-tool:drop" console="bin/console">
@@ -27,30 +20,79 @@
     </target>
 
     <target name="fixtures" depends="db-drop, migrations">
-        <exec passthru="true" command="./bin/load-fixtures"/>
-        <mkdir dir="./www/upload/1970/01"/>
-        <copy todir="./www/upload/1970/01">
-            <fileset dir="./fixtures/images">
+        <exec executable="bin/load-fixtures" passthru="true" logoutput="true" checkreturn="true"/>
+        <mkdir dir="www/upload/1970/01"/>
+        <copy todir="www/upload/1970/01">
+            <fileset dir="fixtures/images">
                 <include name="*"/>
             </fileset>
         </copy>
     </target>
 
     <target name="chmod">
-        <chmod file="./log" mode="0777"/>
-        <chmod file="./temp" mode="0777"/>
-        <chmod file="./temp/sessions" mode="0777"/>
-        <chmod file="./www/thumbs" mode="0777"/>
-        <chmod file="./www/upload" mode="0777"/>
-        <chmod file="./www/video_thumbnails" mode="0777"/>
+        <chmod file="log" mode="0777"/>
+        <chmod file="temp" mode="0777"/>
+        <chmod file="temp/sessions" mode="0777"/>
+        <chmod file="www/thumbs" mode="0777"/>
+        <chmod file="www/upload" mode="0777"/>
+        <chmod file="www/video_thumbnails" mode="0777"/>
+    </target>
+
+    <target name="create-local-config">
+        <copy file="app/config/config.local.neon.dist" tofile="app/config/config.local.neon"/>
     </target>
 
     <target name="test">
-        <exec passthru="true" command="./vendor/bin/tester tests/ -p php -c tests/php.ini"/>
+        <exec executable="vendor/bin/tester" passthru="true" logoutput="true" checkreturn="true">
+            <arg value="tests"/>
+            <arg value="-p"/>
+            <arg value="php"/>
+            <arg value="-c"/>
+            <arg value="tests/php.ini"/>
+        </exec>
     </target>
 
     <target name="test+coverage">
-        <exec passthru="true" command="./vendor/bin/tester tests/ -p php -c tests/php.ini-coverage --coverage coverage.html --coverage-src app/"/>
+        <exec executable="vendor/bin/tester" passthru="true" logoutput="true" checkreturn="true">
+            <arg value="tests"/>
+            <arg value="-p"/>
+            <arg value="php"/>
+            <arg value="-c"/>
+            <arg value="tests/php.ini-coverage"/>
+            <arg value="--coverage"/>
+            <arg value="coverage.html"/>
+            <arg value="--coverage-src"/>
+            <arg value="app"/>
+        </exec>
+    </target>
+
+    <target name="cleanup" depends="clean-logs, clean-temp-data, clean-tests"/>
+
+    <target name="clean-logs">
+        <delete includeemptydirs="true">
+            <fileset dir="log">
+                <include name="*/**"/>
+                <exclude name=".gitkeep"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="clean-temp-data">
+        <delete includeemptydirs="true">
+            <fileset dir="temp">
+                <include name="*/**"/>
+                <exclude name="sessions/.gitkeep"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="clean-tests">
+        <delete includeemptydirs="true">
+            <fileset dir="tests/Integration/tmp">
+                <include name="*/**"/>
+                <exclude name=".gitkeep"/>
+            </fileset>
+        </delete>
     </target>
 
 </project>

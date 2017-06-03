@@ -77,8 +77,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "bin/copy-config-local-neon",
-            "bin/symlink-composer"
+            "vendor/bin/phing create-local-config"
         ]
     }
 }
