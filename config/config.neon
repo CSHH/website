@@ -105,6 +105,7 @@ thumb:
 
 translation:
     default: cs
+    dirs: [%appDir%/../locale]
 
 userCommandLine:
     targetEntity: App\Entities\UserEntity

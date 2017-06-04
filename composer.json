@@ -86,7 +86,7 @@
     },
     "extra": {
         "incenteev-parameters": {
-            "file": "app/config/config.local.neon",
+            "file": "config/config.local.neon",
             "keep-outdated": true,
             "parameter-key": "doctrine"
         }

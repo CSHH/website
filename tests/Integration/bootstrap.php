@@ -26,7 +26,7 @@ $configurator->setDebugMode(true);
 $configurator->enableDebugger(TEMP_DIR);
 $configurator->setTempDirectory(TEMP_DIR);
 $configurator->addParameters($params);
-$configurator->addConfig(__DIR__ . '/../../app/config/config.neon');
+$configurator->addConfig(__DIR__ . '/../../config/config.neon');
 $configurator->addConfig(__DIR__ . '/config/db.neon');
 
 $container = $configurator->createContainer();
