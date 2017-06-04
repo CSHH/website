@@ -38,10 +38,6 @@
         <chmod file="www/video_thumbnails" mode="0777"/>
     </target>
 
-    <target name="create-local-config">
-        <copy file="app/config/config.local.neon.dist" tofile="app/config/config.local.neon"/>
-    </target>
-
     <target name="test">
         <exec executable="vendor/bin/tester" passthru="true" logoutput="true" checkreturn="true">
             <arg value="tests"/>

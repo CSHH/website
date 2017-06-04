@@ -26,6 +26,7 @@
         "ezyang/htmlpurifier": "^4.9",
         "heavenproject/git-branch-panel": "^1.0",
         "heavenproject/user-command-line": "^1.1",
+        "incenteev/composer-parameter-handler": "^2.1",
         "kdyby/annotations": "^2.4",
         "kdyby/console": "^2.7",
         "kdyby/doctrine": "^3.1",
@@ -77,7 +78,17 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "vendor/bin/phing create-local-config"
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
         ]
+    },
+    "extra": {
+        "incenteev-parameters": {
+            "file": "app/config/config.local.neon",
+            "keep-outdated": true,
+            "parameter-key": "doctrine"
+        }
     }
 }
