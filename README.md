@@ -31,6 +31,10 @@ $ git clone git@github.com:CSHH/website.git
 $ composer install
 ```
 
+## Setup database access
+
+After all dependencies are installed, an interactive prompt will ask you for configuration parameters to setup your database access.
+
 ## Install client side dependencies
 
 ```bash
@@ -42,14 +46,6 @@ $ npm install
 ```bash
 $ grunt
 ```
-
-## Setup database access
-
-Open up the `app/config/config.local.neon` file in your code editor and set these parameters
-
-* dbname
-* user
-* password
 
 ## Prepare this project for development
 
