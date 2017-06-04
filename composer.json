@@ -64,7 +64,7 @@
     },
     "autoload": {
         "files": [
-            "app/functions.php"
+            "functions/dlog.php"
         ],
         "psr-4": {
             "App\\": "app",
@@ -86,7 +86,7 @@
     },
     "extra": {
         "incenteev-parameters": {
-            "file": "app/config/config.local.neon",
+            "file": "config/config.local.neon",
             "keep-outdated": true,
             "parameter-key": "doctrine"
         }
