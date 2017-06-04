@@ -64,7 +64,7 @@
     },
     "autoload": {
         "files": [
-            "app/functions.php"
+            "functions/dlog.php"
         ],
         "psr-4": {
             "App\\": "app",
