@@ -6,7 +6,6 @@ use App\Caching;
 use App\Dao\SingleUserContentDao;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
-use App\Utils\PaginatorFactory;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Kdyby\Doctrine\EntityDao;
 use Kdyby\Doctrine\EntityManager;
@@ -137,15 +136,14 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  PaginatorFactory $paginatorFactory
-     * @param  int              $page
-     * @param  int              $limit
-     * @param  bool             $activeOnly
+     * @param  int  $page
+     * @param  int  $limit
+     * @param  bool $activeOnly
      * @return Paginator
      */
-    public function getAllForPage(PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
+    public function getAllForPage($page, $limit, $activeOnly = false)
     {
-        return $this->dataAccess->getAllForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit, $activeOnly);
+        return $this->dataAccess->getAllForPage(Entities\ArticleEntity::class, $page, $limit, $activeOnly);
     }
 
     /**
@@ -178,50 +176,46 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
      * @param  bool               $activeOnly
      * @return Paginator
      */
-    public function getAllByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
+    public function getAllByTagForPage($page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        return $this->dataAccess->getAllByTagForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit, $tag, $activeOnly);
+        return $this->dataAccess->getAllByTagForPage(Entities\ArticleEntity::class, $page, $limit, $tag, $activeOnly);
     }
 
     /**
-     * @param  PaginatorFactory    $paginatorFactory
      * @param  int                 $page
      * @param  int                 $limit
      * @param  Entities\UserEntity $user
      * @return Paginator
      */
-    public function getAllByUserForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
+    public function getAllByUserForPage($page, $limit, Entities\UserEntity $user)
     {
-        return $this->dataAccess->getAllByUserForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit, $user);
+        return $this->dataAccess->getAllByUserForPage(Entities\ArticleEntity::class, $page, $limit, $user);
     }
 
     /**
-     * @param  PaginatorFactory $paginatorFactory
      * @param  int              $page
      * @param  int              $limit
      * @return Paginator
      */
-    public function getAllInactiveForPage(PaginatorFactory $paginatorFactory, $page, $limit)
+    public function getAllInactiveForPage($page, $limit)
     {
-        return $this->dataAccess->getAllInactiveForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit);
+        return $this->dataAccess->getAllInactiveForPage(Entities\ArticleEntity::class, $page, $limit);
     }
 
     /**
-     * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
      * @return Paginator
      */
-    public function getAllInactiveByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
+    public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
-        return $this->dataAccess->getAllInactiveByTagForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit, $tag);
+        return $this->dataAccess->getAllInactiveByTagForPage(Entities\ArticleEntity::class, $page, $limit, $tag);
     }
 }

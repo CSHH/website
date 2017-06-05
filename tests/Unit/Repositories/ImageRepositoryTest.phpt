@@ -31,7 +31,7 @@ class ImageRepositoryTest extends Tester\TestCase
         $this->mock($sucDao, 'getAllForPage', 1, $paginator);
 
         $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
-        $result = $repo->getAllForPage($this->paginatorFactory, 1, 10);
+        $result = $repo->getAllForPage(1, 10);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
@@ -53,7 +53,7 @@ class ImageRepositoryTest extends Tester\TestCase
         $this->mock($sucDao, 'getAllForPage', 1, $paginator);
 
         $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
-        $result = $repo->getAllForPage($this->paginatorFactory, 1, 10, true);
+        $result = $repo->getAllForPage(1, 10, true);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
@@ -89,7 +89,7 @@ class ImageRepositoryTest extends Tester\TestCase
         $this->mock($sucDao, 'getAllByTagForPage', 1, $paginator);
 
         $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
-        $result = $repo->getAllByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity);
+        $result = $repo->getAllByTagForPage(1, 10, new AppEntities\TagEntity);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
@@ -111,7 +111,7 @@ class ImageRepositoryTest extends Tester\TestCase
         $this->mock($sucDao, 'getAllByTagForPage', 1, $paginator);
 
         $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
-        $result = $repo->getAllByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity, true);
+        $result = $repo->getAllByTagForPage(1, 10, new AppEntities\TagEntity, true);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
@@ -133,7 +133,7 @@ class ImageRepositoryTest extends Tester\TestCase
         $this->mock($sucDao, 'getAllByUserForPage', 1, $paginator);
 
         $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
-        $result = $repo->getAllByUserForPage($this->paginatorFactory, 1, 10, new AppEntities\UserEntity);
+        $result = $repo->getAllByUserForPage(1, 10, new AppEntities\UserEntity);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
@@ -155,7 +155,7 @@ class ImageRepositoryTest extends Tester\TestCase
         $this->mock($sucDao, 'getAllInactiveForPage', 1, $paginator);
 
         $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
-        $result = $repo->getAllInactiveForPage($this->paginatorFactory, 1, 10);
+        $result = $repo->getAllInactiveForPage(1, 10);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
@@ -177,7 +177,7 @@ class ImageRepositoryTest extends Tester\TestCase
         $this->mock($sucDao, 'getAllInactiveByTagForPage', 1, $paginator);
 
         $repo   = $this->getRepository('', '', $this->dao, $this->dao, $sucDao, $this->em);
-        $result = $repo->getAllInactiveByTagForPage($this->paginatorFactory, 1, 10, new AppEntities\TagEntity);
+        $result = $repo->getAllInactiveByTagForPage(1, 10, new AppEntities\TagEntity);
 
         Assert::true($result instanceof Paginator);
         Assert::count(5, $result);
