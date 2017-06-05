@@ -87,9 +87,9 @@ class ImageRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  int  $page
-     * @param  int  $limit
-     * @param  bool $activeOnly
+     * @param  int       $page
+     * @param  int       $limit
+     * @param  bool      $activeOnly
      * @return Paginator
      */
     public function getAllForPage($page, $limit, $activeOnly = false)
@@ -130,8 +130,8 @@ class ImageRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  int              $page
-     * @param  int              $limit
+     * @param  int       $page
+     * @param  int       $limit
      * @return Paginator
      */
     public function getAllInactiveForPage($page, $limit)
