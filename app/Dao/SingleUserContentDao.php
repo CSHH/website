@@ -25,10 +25,10 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  string $className
-     * @param  int    $page
-     * @param  int    $limit
-     * @param  bool   $activeOnly
+     * @param  string    $className
+     * @param  int       $page
+     * @param  int       $limit
+     * @param  bool      $activeOnly
      * @return Paginator
      */
     public function getAllForPage($className, $page, $limit, $activeOnly = false)
@@ -179,9 +179,9 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  string $className
-     * @param  int    $page
-     * @param  int    $limit
+     * @param  string    $className
+     * @param  int       $page
+     * @param  int       $limit
      * @return Paginator
      */
     public function getAllInactiveForPage($className, $page, $limit)
