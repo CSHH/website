@@ -19,6 +19,9 @@ class WikiDaoTest extends Tester\TestCase
 
     public function testGetAllForPage()
     {
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
@@ -32,13 +35,16 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao($em);
+        $wikiDao = new WikiDao($em, $paginatorFactory);
 
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllForPage(1, 10, AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetAllForPageActiveOnly()
     {
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
@@ -53,7 +59,7 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao($em);
+        $wikiDao = new WikiDao($em, $paginatorFactory);
 
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllForPage(1, 10, AppEntities\WikiEntity::TYPE_GAME, true));
     }
@@ -75,7 +81,7 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao($em);
+        $wikiDao = new WikiDao($em, $this->paginatorFactory);
 
         Assert::type('array', $wikiDao->getAllByTag(new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME));
     }
@@ -110,7 +116,7 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new WikiDao($em);
+        return new WikiDao($em, $this->paginatorFactory);
     }
 
     public function testGetByTagAndNameAndThrowNonUniqueResultException()
@@ -159,7 +165,7 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new WikiDao($em);
+        return new WikiDao($em, $this->paginatorFactory);
     }
 
     public function testGetByTagAndNameAndType()
@@ -192,7 +198,7 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new WikiDao($em);
+        return new WikiDao($em, $this->paginatorFactory);
     }
 
     public function testGetByTagAndNameAndTypeAndThrowNonUniqueResultException()
@@ -241,11 +247,14 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        return new WikiDao($em);
+        return new WikiDao($em, $this->paginatorFactory);
     }
 
     public function testGetAllByTagForPage()
     {
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
@@ -260,13 +269,16 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao($em);
+        $wikiDao = new WikiDao($em, $paginatorFactory);
 
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByTagForPage(1, 10, new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetAllByTagForPageActiveOnly()
     {
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
@@ -282,13 +294,16 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao($em);
+        $wikiDao = new WikiDao($em, $paginatorFactory);
 
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByTagForPage(1, 10, new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME, true));
     }
 
     public function testGetAllByUserForPage()
     {
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
         $qb = $this->qb;
         $this->mockAndReturnSelf($qb, 'select');
         $this->mockAndReturnSelf($qb, 'from');
@@ -303,7 +318,7 @@ class WikiDaoTest extends Tester\TestCase
         $em = $this->em;
         $this->mock($em, 'createQueryBuilder', 1, $qb);
 
-        $wikiDao = new WikiDao($em);
+        $wikiDao = new WikiDao($em, $paginatorFactory);
 
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByUserForPage(1, 10, new AppEntities\UserEntity, AppEntities\WikiEntity::TYPE_GAME));
     }

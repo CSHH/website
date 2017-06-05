@@ -3,6 +3,7 @@
 namespace App\Dao;
 
 use App\Entities;
+use App\Utils\PaginatorFactory;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -14,9 +15,13 @@ class WikiDao
     /** @var EntityManager */
     private $em;
 
-    public function __construct(EntityManager $em)
+    /** @var PaginatorFactory */
+    private $paginatorFactory;
+
+    public function __construct(EntityManager $em, PaginatorFactory $paginatorFactory)
     {
-        $this->em = $em;
+        $this->em               = $em;
+        $this->paginatorFactory = $paginatorFactory;
     }
 
     /**
@@ -46,7 +51,7 @@ class WikiDao
 
         $this->preparePagination($qb, $page, $limit);
 
-        return new Paginator($qb->getQuery());
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
@@ -212,7 +217,7 @@ class WikiDao
 
         $this->preparePagination($qb, $page, $limit);
 
-        return new Paginator($qb->getQuery());
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
@@ -238,7 +243,7 @@ class WikiDao
 
         $this->preparePagination($qb, $page, $limit);
 
-        return new Paginator($qb->getQuery());
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**

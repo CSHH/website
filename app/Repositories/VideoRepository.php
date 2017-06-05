@@ -146,7 +146,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllForPage(PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
     {
-        return $this->dataAccess->getAllForPage(Entities\VideoEntity::class, $paginatorFactory, $page, $limit, $activeOnly);
+        return $this->dataAccess->getAllForPage(Entities\VideoEntity::class, $page, $limit, $activeOnly);
     }
 
     /**
@@ -188,7 +188,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        return $this->dataAccess->getAllByTagForPage(Entities\VideoEntity::class, $paginatorFactory, $page, $limit, $tag, $activeOnly);
+        return $this->dataAccess->getAllByTagForPage(Entities\VideoEntity::class, $page, $limit, $tag, $activeOnly);
     }
 
     /**
@@ -200,7 +200,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllByUserForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
     {
-        return $this->dataAccess->getAllByUserForPage(Entities\VideoEntity::class, $paginatorFactory, $page, $limit, $user);
+        return $this->dataAccess->getAllByUserForPage(Entities\VideoEntity::class, $page, $limit, $user);
     }
 
     /**
@@ -211,7 +211,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllInactiveForPage(PaginatorFactory $paginatorFactory, $page, $limit)
     {
-        return $this->dataAccess->getAllInactiveForPage(Entities\VideoEntity::class, $paginatorFactory, $page, $limit);
+        return $this->dataAccess->getAllInactiveForPage(Entities\VideoEntity::class, $page, $limit);
     }
 
     /**
@@ -223,7 +223,7 @@ class VideoRepository extends SingleUserContentRepository
      */
     public function getAllInactiveByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
     {
-        return $this->dataAccess->getAllInactiveByTagForPage(Entities\VideoEntity::class, $paginatorFactory, $page, $limit, $tag);
+        return $this->dataAccess->getAllInactiveByTagForPage(Entities\VideoEntity::class, $page, $limit, $tag);
     }
 
     /**

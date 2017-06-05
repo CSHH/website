@@ -15,20 +15,23 @@ class SingleUserContentDao
     /** @var EntityManager */
     private $em;
 
-    public function __construct(EntityManager $em)
+    /** @var PaginatorFactory */
+    private $paginatorFactory;
+
+    public function __construct(EntityManager $em, PaginatorFactory $paginatorFactory)
     {
-        $this->em = $em;
+        $this->em               = $em;
+        $this->paginatorFactory = $paginatorFactory;
     }
 
     /**
-     * @param  string           $className
-     * @param  PaginatorFactory $paginatorFactory
-     * @param  int              $page
-     * @param  int              $limit
-     * @param  bool             $activeOnly
+     * @param  string $className
+     * @param  int    $page
+     * @param  int    $limit
+     * @param  bool   $activeOnly
      * @return Paginator
      */
-    public function getAllForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
+    public function getAllForPage($className, $page, $limit, $activeOnly = false)
     {
         $qb = $this->em->createQueryBuilder()
             ->select('e')
@@ -43,7 +46,7 @@ class SingleUserContentDao
 
         $this->preparePagination($qb, $page, $limit);
 
-        return $paginatorFactory->createPaginator($qb->getQuery());
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
@@ -122,14 +125,13 @@ class SingleUserContentDao
 
     /**
      * @param  string             $className
-     * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
      * @param  bool               $activeOnly
      * @return Paginator
      */
-    public function getAllByTagForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
+    public function getAllByTagForPage($className, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
         $qb = $this->em->createQueryBuilder()
             ->select('e')
@@ -150,18 +152,17 @@ class SingleUserContentDao
 
         $this->preparePagination($qb, $page, $limit);
 
-        return $paginatorFactory->createPaginator($qb->getQuery());
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
      * @param  string              $className
-     * @param  PaginatorFactory    $paginatorFactory
      * @param  int                 $page
      * @param  int                 $limit
      * @param  Entities\UserEntity $user
      * @return Paginator
      */
-    public function getAllByUserForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
+    public function getAllByUserForPage($className, $page, $limit, Entities\UserEntity $user)
     {
         $qb = $this->em->createQueryBuilder()
             ->select('e')
@@ -174,17 +175,16 @@ class SingleUserContentDao
 
         $this->preparePagination($qb, $page, $limit);
 
-        return $paginatorFactory->createPaginator($qb->getQuery());
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
-     * @param  string           $className
-     * @param  PaginatorFactory $paginatorFactory
-     * @param  int              $page
-     * @param  int              $limit
+     * @param  string $className
+     * @param  int    $page
+     * @param  int    $limit
      * @return Paginator
      */
-    public function getAllInactiveForPage($className, PaginatorFactory $paginatorFactory, $page, $limit)
+    public function getAllInactiveForPage($className, $page, $limit)
     {
         $qb = $this->em->createQueryBuilder()
             ->select('e')
@@ -196,18 +196,17 @@ class SingleUserContentDao
 
         $this->preparePagination($qb, $page, $limit);
 
-        return $paginatorFactory->createPaginator($qb->getQuery());
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**
      * @param  string             $className
-     * @param  PaginatorFactory   $paginatorFactory
      * @param  int                $page
      * @param  int                $limit
      * @param  Entities\TagEntity $tag
      * @return Paginator
      */
-    public function getAllInactiveByTagForPage($className, PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
+    public function getAllInactiveByTagForPage($className, $page, $limit, Entities\TagEntity $tag)
     {
         $qb = $this->em->createQueryBuilder()
             ->select('e')
@@ -223,7 +222,7 @@ class SingleUserContentDao
 
         $this->preparePagination($qb, $page, $limit);
 
-        return $paginatorFactory->createPaginator($qb->getQuery());
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
     }
 
     /**

@@ -145,7 +145,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllForPage(PaginatorFactory $paginatorFactory, $page, $limit, $activeOnly = false)
     {
-        return $this->dataAccess->getAllForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit, $activeOnly);
+        return $this->dataAccess->getAllForPage(Entities\ArticleEntity::class, $page, $limit, $activeOnly);
     }
 
     /**
@@ -187,7 +187,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag, $activeOnly = false)
     {
-        return $this->dataAccess->getAllByTagForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit, $tag, $activeOnly);
+        return $this->dataAccess->getAllByTagForPage(Entities\ArticleEntity::class, $page, $limit, $tag, $activeOnly);
     }
 
     /**
@@ -199,7 +199,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllByUserForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\UserEntity $user)
     {
-        return $this->dataAccess->getAllByUserForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit, $user);
+        return $this->dataAccess->getAllByUserForPage(Entities\ArticleEntity::class, $page, $limit, $user);
     }
 
     /**
@@ -210,7 +210,7 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllInactiveForPage(PaginatorFactory $paginatorFactory, $page, $limit)
     {
-        return $this->dataAccess->getAllInactiveForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit);
+        return $this->dataAccess->getAllInactiveForPage(Entities\ArticleEntity::class, $page, $limit);
     }
 
     /**
@@ -222,6 +222,6 @@ class ArticleRepository extends SingleUserContentRepository
      */
     public function getAllInactiveByTagForPage(PaginatorFactory $paginatorFactory, $page, $limit, Entities\TagEntity $tag)
     {
-        return $this->dataAccess->getAllInactiveByTagForPage(Entities\ArticleEntity::class, $paginatorFactory, $page, $limit, $tag);
+        return $this->dataAccess->getAllInactiveByTagForPage(Entities\ArticleEntity::class, $page, $limit, $tag);
     }
 }
