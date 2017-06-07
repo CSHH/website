@@ -27,6 +27,7 @@ trait UnitMocks
     protected $tagCache;
     protected $tagRepository;
     protected $translator;
+    protected $user;
     protected $userRepository;
     protected $videoRepository;
     protected $videoTagSectionCache;
@@ -133,6 +134,11 @@ trait UnitMocks
         return m::mock('Nette\Localization\ITranslator');
     }
 
+    protected function getUserMock()
+    {
+        return m::mock('Nette\Security\User');
+    }
+
     protected function getUserRepositoryMock()
     {
         return m::mock('App\Repositories\UserRepository');
@@ -205,6 +211,7 @@ trait UnitMocks
         $this->tagCache               = $this->getTagCacheMock();
         $this->tagRepository          = $this->getTagRepositoryMock();
         $this->translator             = $this->getTranslatorMock();
+        $this->user                   = $this->getUserMock();
         $this->userRepository         = $this->getUserRepositoryMock();
         $this->videoRepository        = $this->getVideoRepositoryMock();
         $this->videoTagSectionCache   = $this->getVideoTagSectionCacheMock();
