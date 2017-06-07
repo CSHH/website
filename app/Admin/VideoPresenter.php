@@ -28,7 +28,7 @@ final class VideoPresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $this->runActionDefault($this->videoRepository, 50, $this->getLoggedUserEntity());
+        $this->runActionDefault($this->videoRepository, 50, $this->loggedUser->getLoggedUserEntity());
     }
 
     public function renderDefault()
@@ -77,7 +77,7 @@ final class VideoPresenter extends SingleUserContentPresenter
     protected function createComponentForm()
     {
         return $this->videoForm->create(
-            $this->getLoggedUserEntity(),
+            $this->loggedUser->getLoggedUserEntity(),
             $this->item
         );
     }

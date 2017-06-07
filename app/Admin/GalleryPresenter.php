@@ -11,7 +11,7 @@ final class GalleryPresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $this->runActionDefault($this->imageRepository, 50, $this->getLoggedUserEntity());
+        $this->runActionDefault($this->imageRepository, 50, $this->loggedUser->getLoggedUserEntity());
     }
 
     /**
@@ -35,6 +35,6 @@ final class GalleryPresenter extends SingleUserContentPresenter
      */
     protected function createComponentForm()
     {
-        return $this->galleryForm->create($this->getLoggedUserEntity());
+        return $this->galleryForm->create($this->loggedUser->getLoggedUserEntity());
     }
 }

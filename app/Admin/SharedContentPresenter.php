@@ -25,7 +25,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     {
         if ($id !== null) {
             $item = $this->getItem($id, $this->wikiRepository);
-            $user = $this->getLoggedUserEntity();
+            $user = $this->loggedUser->getLoggedUserEntity();
             if (!$item || $item->type !== $type || $item->createdBy->id !== $user->id) {
                 $this->flashWithRedirect(
                     $this->translator->translate('locale.item.does_not_exist'),
@@ -55,7 +55,7 @@ abstract class SharedContentPresenter extends PageablePresenter
         if ($this->canAccess && $this->displayInactiveOnly) {
             $this->items = $this->wikiRepository->getAllWithDraftsForPage($this->vp->page, $limit, $type);
         } else {
-            $this->items = $this->wikiRepository->getAllByUserForPage($this->vp->page, $limit, $this->getLoggedUserEntity(), $type);
+            $this->items = $this->wikiRepository->getAllByUserForPage($this->vp->page, $limit, $this->loggedUser->getLoggedUserEntity(), $type);
         }
 
         $this->preparePaginator($this->items ? $this->items->count() : 0, $limit);
@@ -68,7 +68,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     protected function runCreateComponentWikiForm($type)
     {
         return $this->wikiForm->create(
-            $this->getLoggedUserEntity(),
+            $this->loggedUser->getLoggedUserEntity(),
             $type,
             $this->item
         );
@@ -81,7 +81,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     protected function runCreateComponentWikiDraftForm($type)
     {
         return $this->wikiDraftForm->create(
-            $this->getLoggedUserEntity(),
+            $this->loggedUser->getLoggedUserEntity(),
             $type,
             $this->item
         );

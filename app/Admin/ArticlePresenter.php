@@ -19,7 +19,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
 
     public function actionDefault()
     {
-        $this->runActionDefault($this->articleRepository, 10, $this->getLoggedUserEntity());
+        $this->runActionDefault($this->articleRepository, 10, $this->loggedUser->getLoggedUserEntity());
     }
 
     /**
@@ -61,7 +61,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
     protected function createComponentForm()
     {
         return $this->articleForm->create(
-            $this->getLoggedUserEntity(),
+            $this->loggedUser->getLoggedUserEntity(),
             $this->item
         );
     }

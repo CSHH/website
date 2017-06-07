@@ -38,7 +38,7 @@ abstract class SharedContentPresenter extends PageablePresenter
 
         $this->wiki = $wiki;
 
-        if ($this->getLoggedUserEntity()) {
+        if ($this->loggedUser->getLoggedUserEntity()) {
             $this->createForm($type);
         }
     }
@@ -84,7 +84,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     private function createForm($type)
     {
         $this['form'] = $this->wikiDraftForm->create(
-            $this->getLoggedUserEntity(),
+            $this->loggedUser->getLoggedUserEntity(),
             $type,
             $this->wiki
         );
