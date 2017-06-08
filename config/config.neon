@@ -21,10 +21,12 @@ session:
     save_path: %sessionsDir%
 
 services:
+    accessChecker: App\Security\AccessChecker
     authenticator: App\Security\Authenticator
     duplicityChecker: App\Duplicities\DuplicityChecker
     htmlPurifier: App\Utils\HtmlPurifierFactory::createHtmlPurifier
     identityFactory: App\Security\IdentityFactory
+    loggedUser: App\Security\LoggedUser
     paginatorFactory: App\Utils\PaginatorFactory
     router: App\Router\RouterFactory::createRouter
     videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
@@ -39,7 +41,6 @@ services:
     videoRepository: App\Repositories\VideoRepository(%vimeoOembedEndpoint%, @doctrine.dao(App\Entities\VideoEntity))
     wikiDraftRepository: App\Repositories\WikiDraftRepository(@doctrine.dao(App\Entities\WikiDraftEntity))
     wikiRepository: App\Repositories\WikiRepository(@doctrine.dao(App\Entities\WikiEntity))
-    loggedUser: App\Security\LoggedUser
 
     tagCache: App\Caching\TagCache(
         Nette\Caching\Cache(
