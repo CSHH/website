@@ -14,6 +14,6 @@ final class SettingsPresenter extends SecurePresenter
      */
     protected function createComponentProfileSettingsForm()
     {
-        return $this->profileSettingsForm->create($this->getLoggedUserEntity());
+        return $this->profileSettingsForm->create($this->loggedUser->getLoggedUserEntity());
     }
 }

@@ -6,12 +6,16 @@ use App\Entities;
 use App\Exceptions\ActivationLimitExpiredException;
 use App\Exceptions\UserNotFoundException;
 use App\Forms;
+use App\Repositories;
 use App\Utils\FlashType;
 
 final class SignPresenter extends BasePresenter
 {
     /** @var Forms\SignPasswordFormInterface @inject */
     public $signPasswordForm;
+
+    /** @var Repositories\UserRepository @inject */
+    public $userRepository;
 
     /** @var Entities\UserEntity */
     protected $e;

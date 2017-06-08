@@ -23,7 +23,7 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     ) {
         if ($id !== null) {
             $item = $this->getItem($id, $repository);
-            $user = $this->getLoggedUserEntity();
+            $user = $this->loggedUser->getLoggedUserEntity();
             if (!$item || $item->user->id !== $user->id) {
                 $this->flashWithRedirect(
                     $this->translator->translate('locale.item.does_not_exist'),
