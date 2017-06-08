@@ -24,6 +24,7 @@ services:
     accessChecker: App\Security\AccessChecker
     authenticator: App\Security\Authenticator
     duplicityChecker: App\Duplicities\DuplicityChecker
+    emailMessageFactory: App\Emails\EmailMessageFactory
     htmlPurifier: App\Utils\HtmlPurifierFactory::createHtmlPurifier
     identityFactory: App\Security\IdentityFactory
     loggedUser: App\Security\LoggedUser
