@@ -1,6 +1,7 @@
 parameters:
     cacheDir: %tempDir%/cache
-    contactEmail: 'john.doe@example.com'
+    contactEmail: 'contact@example.com'
+    noReplyEmail: 'no-reply@example.com'
     sessionsDir: %tempDir%/sessions
     thumbsDir: /thumbs
     uploadDir: /upload
@@ -31,6 +32,11 @@ services:
     paginatorFactory: App\Utils\PaginatorFactory
     router: App\Router\RouterFactory::createRouter
     videoThumbnail: App\Videos\VideoThumbnail(%wwwDir%, %videoThumbnailsDir%, %vimeoOembedEndpoint%, /images/default-video-image.jpg)
+
+    accountActivationLinkGenerator: App\Links\AccountActivationLinkGenerator
+    accountActivationEmail: App\Emails\AccountActivationEmail(@translation.default, @nette.mailer, @latte.latteFactory::create(), @emailMessageFactory::createMessage(), @http.request, %appDir%/Emails/templates/registration.latte, %noReplyEmail%, 'locale.sign.sign_up_request')
+    forgottenPasswordLinkGenerator: App\Links\ForgottenPasswordLinkGenerator
+    forgottenPasswordEmail: App\Emails\ForgottenPasswordEmail(@translation.default, @nette.mailer, @latte.latteFactory::create(), @emailMessageFactory::createMessage(), %appDir%/Emails/templates/forgottenPassword.latte, %noReplyEmail%, 'locale.sign.new_password_request')
 
     singleUserContentDao: App\Dao\SingleUserContentDao
     wikiDao: App\Dao\WikiDao
