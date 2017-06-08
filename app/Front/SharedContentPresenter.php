@@ -32,7 +32,7 @@ abstract class SharedContentPresenter extends PageablePresenter
 
         $wiki = $this->wikiRepository->getByTagAndSlug($tag, $slug);
 
-        if ((!$wiki || !$wiki->isActive) && !$this->canAccess()) {
+        if ((!$wiki || !$wiki->isActive) && !$this->accessChecker->canAccess()) {
             $this->throw404();
         }
 
@@ -57,7 +57,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     {
         $tag = $this->getTag($tagSlug);
 
-        $state = !$this->canAccess();
+        $state = !$this->accessChecker->canAccess();
 
         $wikis = $tag
             ? $this->wikiRepository->getAllByTagForPage($this->vp->page, $limit, $tag, $type, $state)

@@ -56,7 +56,7 @@ final class VideoPresenter extends SingleUserContentPresenter
 
         $video = $this->videoRepository->getByTagAndSlug($tag, $slug);
 
-        if ((!$video || !$video->isActive) && !$this->canAccess()) {
+        if ((!$video || !$video->isActive) && !$this->accessChecker->canAccess()) {
             $this->throw404();
         }
 

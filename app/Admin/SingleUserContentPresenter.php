@@ -44,7 +44,7 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     {
         $this->checkIfDisplayInactiveOnly();
 
-        $this->canAccess = $this->canAccess();
+        $this->canAccess = $this->accessChecker->canAccess();
 
         if ($this->canAccess && $this->displayInactiveOnly) {
             $this->items = $repository->getAllInactiveForPage($this->vp->page, $limit);
