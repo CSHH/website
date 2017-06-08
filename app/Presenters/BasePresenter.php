@@ -15,9 +15,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     /** @var ITranslator @inject */
     public $translator;
 
-    /** @var Repositories\UserRepository @inject */
-    public $userRepository;
-
     /** @var LoggedUser @inject */
     public $loggedUser;
 
