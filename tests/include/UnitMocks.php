@@ -15,6 +15,7 @@ trait UnitMocks
     protected $htmlPurifier;
     protected $identity;
     protected $identityFactory;
+    protected $loggedUser;
     protected $qb;
     protected $query;
     protected $imageRepository;
@@ -64,14 +65,19 @@ trait UnitMocks
         return m::mock('HTMLPurifier');
     }
 
+    protected function getIdentityMock()
+    {
+        return m::mock('Nette\Security\Identity');
+    }
+
     protected function getIdentityFactoryMock()
     {
         return m::mock('App\Security\IdentityFactory');
     }
 
-    protected function getIdentityMock()
+    protected function getLoggedUserMock()
     {
-        return m::mock('Nette\Security\Identity');
+        return m::mock('App\Security\LoggedUser');
     }
 
     protected function getQueryBuilderMock()
@@ -199,6 +205,7 @@ trait UnitMocks
         $this->htmlPurifier           = $this->getHtmlPurifierMock();
         $this->identity               = $this->getIdentityMock();
         $this->identityFactory        = $this->getIdentityFactoryMock();
+        $this->loggedUser             = $this->getLoggedUserMock();
         $this->qb                     = $this->getQueryBuilderMock();
         $this->query                  = $this->getQueryMock();
         $this->imageRepository        = $this->getImageRepositoryMock();
