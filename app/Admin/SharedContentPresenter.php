@@ -50,7 +50,7 @@ abstract class SharedContentPresenter extends PageablePresenter
     {
         $this->checkIfDisplayInactiveOnly();
 
-        $this->canAccess = $this->canAccess();
+        $this->canAccess = $this->accessChecker->canAccess();
 
         if ($this->canAccess && $this->displayInactiveOnly) {
             $this->items = $this->wikiRepository->getAllWithDraftsForPage($this->vp->page, $limit, $type);

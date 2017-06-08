@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Entities;
 use App\Forms\ExtendingMethods as FormExtendingMethods;
 use App\Repositories;
+use App\Security\AccessChecker;
 use App\Security\LoggedUser;
 use App\Utils\FlashType;
 use Nette;
@@ -15,22 +16,15 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     /** @var ITranslator @inject */
     public $translator;
 
+    /** @var AccessChecker @inject */
+    public $accessChecker;
+
     /** @var LoggedUser @inject */
     public $loggedUser;
 
     protected function throw404()
     {
         $this->error($this->translator->translate('locale.error.page_not_found'));
-    }
-
-    /**
-     * @return bool
-     */
-    protected function canAccess()
-    {
-        $user = $this->loggedUser->getLoggedUserEntity();
-
-        return $user && $user->role > Entities\UserEntity::ROLE_USER;
     }
 
     /**

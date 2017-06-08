@@ -26,7 +26,7 @@ abstract class SingleUserContentPresenter extends PageablePresenter
 
         $tag = $this->getTag($tagSlug);
 
-        $this->canAccess = $this->canAccess();
+        $this->canAccess = $this->accessChecker->canAccess();
 
         if ($this->canAccess && $this->displayInactiveOnly) {
             $items = $tag
