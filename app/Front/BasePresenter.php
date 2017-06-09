@@ -4,7 +4,6 @@ namespace App\Front;
 
 use App;
 use App\Forms;
-use Nette\Mail\IMailer;
 
 abstract class BasePresenter extends App\Presenters\BasePresenter
 {
@@ -17,26 +16,12 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
     /** @var Forms\SignResetFormInterface @inject */
     public $signResetForm;
 
-    /** @var IMailer @inject */
-    public $mailer;
-
     /** @var bool */
     protected $canAccess = false;
-
-    /** @var string */
-    protected $appDir;
-
-    /** @var string */
-    protected $contactEmail;
 
     protected function startup()
     {
         parent::startup();
-
-        $parameters = $this->context->parameters;
-
-        $this->appDir       = $parameters['appDir'];
-        $this->contactEmail = $parameters['contactEmail'];
 
         $this->registerFormExtendingMethods();
     }
@@ -62,6 +47,6 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
      */
     protected function createComponentSignResetForm()
     {
-        return $this->signResetForm->create($this->appDir, $this->contactEmail);
+        return $this->signResetForm->create();
     }
 }
