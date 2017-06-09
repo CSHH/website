@@ -46,7 +46,7 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
      */
     protected function createComponentSignUpForm()
     {
-        return $this->signUpForm->create($this->getHttpRequest()->getUrl(), $this->appDir, $this->contactEmail);
+        return $this->signUpForm->create();
     }
 
     /**
