@@ -3,7 +3,9 @@
 namespace App\Forms;
 
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
+use App\Emails\AccountActivationEmail;
 use App\Exceptions\FormSentBySpamException;
+use App\Links\AccountActivationLinkGenerator;
 use App\Repositories;
 use App\Utils\FlashType;
 use Latte;
@@ -13,9 +15,16 @@ use Nette\Http\UrlScript;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
+use Nette\Utils\ArrayHash;
 
 class SignUpForm extends AbstractForm
 {
+    /** @var AccountActivationEmail */
+    private $accountActivationEmail;
+
+    /** @var AccountActivationLinkGenerator */
+    private $accountActivationLinkGenerator;
+
     /** @var Repositories\UserRepository */
     private $userRepository;
 
@@ -32,14 +41,18 @@ class SignUpForm extends AbstractForm
     private $contactEmail;
 
     /**
-     * @param ITranslator                 $translator
-     * @param Repositories\UserRepository $userRepository
-     * @param IMailer                     $mailer
-     * @param UrlScript                   $urlScript
-     * @param string                      $appDir
-     * @param string                      $contactEmail
+     * @param AccountActivationEmail         $accountActivationEmail
+     * @param AccountActivationLinkGenerator $accountActivationLinkGenerator
+     * @param ITranslator                    $translator
+     * @param Repositories\UserRepository    $userRepository
+     * @param IMailer                        $mailer
+     * @param UrlScript                      $urlScript
+     * @param string                         $appDir
+     * @param string                         $contactEmail
      */
     public function __construct(
+        AccountActivationEmail $accountActivationEmail,
+        AccountActivationLinkGenerator $accountActivationLinkGenerator,
         ITranslator $translator,
         Repositories\UserRepository $userRepository,
         IMailer $mailer,
@@ -49,11 +62,13 @@ class SignUpForm extends AbstractForm
     ) {
         parent::__construct($translator);
 
-        $this->userRepository = $userRepository;
-        $this->mailer         = $mailer;
-        $this->urlScript      = $urlScript;
-        $this->appDir         = $appDir;
-        $this->contactEmail   = $contactEmail;
+        $this->accountActivationEmail         = $accountActivationEmail;
+        $this->accountActivationLinkGenerator = $accountActivationLinkGenerator;
+        $this->userRepository                 = $userRepository;
+        $this->mailer                         = $mailer;
+        $this->urlScript                      = $urlScript;
+        $this->appDir                         = $appDir;
+        $this->contactEmail                   = $contactEmail;
     }
 
     protected function configure(Form $form)
@@ -89,21 +104,16 @@ class SignUpForm extends AbstractForm
             $p      = $this->getPresenter();
             $values = $form->getValues();
 
-            if (strlen($values->__anti) > 0) {
-                throw new FormSentBySpamException(
-                    $this->translator->translate('locale.form.spam_attempt_sign_up')
-                );
-            }
-            unset($values->__anti);
+            $this->checkSpam($values);
 
             $user = $this->userRepository->createRegistration($values);
-            $link = $p->link(
+            /*$link = $p->link(
                 '//:Admin:Sign:unlock',
                 [
                     'uid'   => $user->id,
                     'token' => $user->token,
                 ]
-            );
+            );*/
 
             $this->sendEmail(
                 $this->contactEmail,
@@ -170,5 +180,19 @@ class SignUpForm extends AbstractForm
             );
 
         $this->mailer->send($email);
+    }
+
+    /**
+     * @param  ArrayHash $values
+     * @throws FormSentBySpamException
+     */
+    private function checkSpam(ArrayHash $values)
+    {
+        if (strlen($values->__anti) > 0) {
+            throw new FormSentBySpamException(
+                $this->translator->translate('locale.form.spam_attempt_sign_up')
+            );
+        }
+        unset($values->__anti);
     }
 }

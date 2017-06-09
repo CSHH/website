@@ -4,7 +4,7 @@ namespace App\Emails;
 
 use Nette\Mail\Message;
 
-class EmailMessageFactory
+class MessageFactory
 {
     /**
      * @return Message
