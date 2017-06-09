@@ -15,7 +15,7 @@ class MessageFactoryTest extends Tester\TestCase
 {
     public function testCreateMessage()
     {
-        Assert::type('Nette\Mail\Message', (new MessageFactory)->createMessage());
+        Assert::type('Nette\Mail\Message', MessageFactory::createMessage());
     }
 }
 

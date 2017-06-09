@@ -9,7 +9,7 @@ class MessageFactory
     /**
      * @return Message
      */
-    public function createMessage()
+    public static function createMessage()
     {
         return new Message;
     }
