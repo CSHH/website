@@ -15,12 +15,12 @@ class AccountActivationLinkGenerator
     }
 
     /**
-     * @param  string $usernameCanonical
+     * @param  string $email
      * @param  string $token
      * @return string
      */
-    public function generateLink($usernameCanonical, $token)
+    public function generateLink($email, $token)
     {
-        return $this->linkGenerator->link('Admin:Sign:unlock', ['usernameCanonical' => $usernameCanonical, 'token' => $token]);
+        return $this->linkGenerator->link('Admin:Sign:unlock', ['email' => $email, 'token' => $token]);
     }
 }

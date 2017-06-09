@@ -21,7 +21,7 @@ class ForgottenPasswordLinkGeneratorTest extends Tester\TestCase
         $url = new Nette\Http\Url('http://localhost');
         $linkGenerator = new Nette\Application\LinkGenerator($router, $url);
         $link = new ForgottenPasswordLinkGenerator($linkGenerator);
-        Assert::same('http://localhost/zadat-nove-heslo?usernameCanonical=johndoe&token=6hiib0jke9p7p7csh6xy3q0mm', $link->generateLink('johndoe', '6hiib0jke9p7p7csh6xy3q0mm'));
+        Assert::same('http://localhost/zadat-nove-heslo?email=john.doe%40example.com&token=6hiib0jke9p7p7csh6xy3q0mm', $link->generateLink('john.doe@example.com', '6hiib0jke9p7p7csh6xy3q0mm'));
     }
 }
 
