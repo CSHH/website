@@ -27,16 +27,16 @@ final class SignPresenter extends BasePresenter
     }
 
     /**
-     * @param int    $uid
+     * @param string $email
      * @param string $token
      */
-    public function actionUnlock($uid, $token)
+    public function actionUnlock($email, $token)
     {
-        $this->checkParameterAndRedirectIfNull($uid);
+        $this->checkParameterAndRedirectIfNull($email);
         $this->checkParameterAndRedirectIfNull($token);
 
         try {
-            $this->userRepository->unlock($uid, $token);
+            $this->userRepository->unlock($email, $token);
             $this->flashMessage($this->translator->translate('locale.sign.account_activated'));
         } catch (UserNotFoundException $e) {
             dlog($e->getMessage());
@@ -53,21 +53,21 @@ final class SignPresenter extends BasePresenter
     }
 
     /**
-     * @param  int                             $uid
+     * @param  string                          $email
      * @param  string                          $token
      * @throws ActivationLimitExpiredException
      */
-    public function actionPassword($uid, $token)
+    public function actionPassword($email, $token)
     {
         $this->checkLogin();
 
-        if (empty($uid) || empty($token)) {
+        if (empty($email) || empty($token)) {
             $this->redirect(':Front:Homepage:default');
         }
 
         $this->flashMessage($this->translator->translate('locale.sign.password'));
 
-        $this->e = $this->userRepository->getById($uid);
+        $this->e = $this->userRepository->getByEmail($email);
 
         try {
             if (!$this->e) {

@@ -2,51 +2,45 @@
 
 namespace App\Forms;
 
+use App\Emails\ForgottenPasswordEmail;
 use App\Exceptions\FormSentBySpamException;
 use App\Exceptions\UserNotFoundException;
+use App\Links\ForgottenPasswordLinkGenerator;
 use App\Repositories;
 use App\Utils\FlashType;
-use Latte;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
 use Nette\Localization\ITranslator;
-use Nette\Mail\IMailer;
-use Nette\Mail\Message;
+use Nette\Utils\ArrayHash;
 
 class SignResetForm extends AbstractForm
 {
     /** @var Repositories\UserRepository */
     private $userRepository;
 
-    /** @var IMailer */
-    private $mailer;
+    /** @var ForgottenPasswordEmail */
+    private $forgottenPasswordEmail;
 
-    /** @var string */
-    private $appDir;
-
-    /** @var string */
-    private $contactEmail;
+    /** @var ForgottenPasswordLinkGenerator */
+    private $forgottenPasswordLinkGenerator;
 
     /**
-     * @param ITranslator                 $translator
-     * @param Repositories\UserRepository $userRepository
-     * @param IMailer                     $mailer
-     * @param string                      $appDir
-     * @param string                      $contactEmail
+     * @param ITranslator                    $translator
+     * @param Repositories\UserRepository    $userRepository
+     * @param ForgottenPasswordEmail         $forgottenPasswordEmail
+     * @param ForgottenPasswordLinkGenerator $forgottenPasswordLinkGenerator
      */
     public function __construct(
         ITranslator $translator,
         Repositories\UserRepository $userRepository,
-        IMailer $mailer,
-        $appDir,
-        $contactEmail
+        ForgottenPasswordEmail $forgottenPasswordEmail,
+        ForgottenPasswordLinkGenerator $forgottenPasswordLinkGenerator
     ) {
         parent::__construct($translator);
 
-        $this->userRepository = $userRepository;
-        $this->mailer         = $mailer;
-        $this->appDir         = $appDir;
-        $this->contactEmail   = $contactEmail;
+        $this->userRepository                 = $userRepository;
+        $this->forgottenPasswordEmail         = $forgottenPasswordEmail;
+        $this->forgottenPasswordLinkGenerator = $forgottenPasswordLinkGenerator;
     }
 
     protected function configure(Form $form)
@@ -67,12 +61,7 @@ class SignResetForm extends AbstractForm
             $p      = $this->getPresenter();
             $values = $form->getValues();
 
-            if (strlen($values->__anti) > 0) {
-                throw new FormSentBySpamException(
-                    $this->translator->translate('locale.form.spam_attempt_sign_reset')
-                );
-            }
-            unset($values->__anti);
+            $this->checkSpam($values);
 
             $user = $this->userRepository->getByEmail($values->email);
             if (!$user) {
@@ -81,20 +70,8 @@ class SignResetForm extends AbstractForm
 
             $token = $this->userRepository->prepareNewToken($user);
 
-            $link = $p->link(
-                '//:Admin:Sign:password',
-                [
-                    'uid'   => $user->id,
-                    'token' => $token,
-                ]
-            );
-
-            $this->sendEmail(
-                $this->contactEmail,
-                $values->email,
-                $this->translator->translate('locale.sign.new_password_request'),
-                $link
-            );
+            $link = $this->forgottenPasswordLinkGenerator->generateLink($user->email, $token);
+            $this->forgottenPasswordEmail->send($values->email, $link);
 
             $p->flashMessage(
                 $this->translator->translate('locale.sign.new_password_request_email_sent'),
@@ -128,31 +105,16 @@ class SignResetForm extends AbstractForm
     }
 
     /**
-     * @param string $from
-     * @param string $to
-     * @param string $subject
-     * @param string $link
+     * @param  ArrayHash $values
+     * @throws FormSentBySpamException
      */
-    private function sendEmail($from, $to, $subject, $link)
+    private function checkSpam(ArrayHash $values)
     {
-        $latte = new Latte\Engine;
-
-        $parameters = [
-            'subject' => $subject,
-            'link'    => $link,
-        ];
-
-        $email = new Message;
-        $email->setFrom($from)
-            ->addTo($to)
-            ->setSubject($subject)
-            ->setHtmlBody(
-                $latte->renderToString(
-                    $this->appDir . '/Presenters/templates/emails/forgottenPassword.latte',
-                    $parameters
-                )
+        if (strlen($values->__anti) > 0) {
+            throw new FormSentBySpamException(
+                $this->translator->translate('locale.form.spam_attempt_sign_reset')
             );
-
-        $this->mailer->send($email);
+        }
+        unset($values->__anti);
     }
 }

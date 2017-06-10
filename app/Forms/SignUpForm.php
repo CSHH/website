@@ -3,57 +3,44 @@
 namespace App\Forms;
 
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
+use App\Emails\AccountActivationEmail;
 use App\Exceptions\FormSentBySpamException;
+use App\Links\AccountActivationLinkGenerator;
 use App\Repositories;
 use App\Utils\FlashType;
-use Latte;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\ITemplate;
-use Nette\Http\UrlScript;
 use Nette\Localization\ITranslator;
-use Nette\Mail\IMailer;
-use Nette\Mail\Message;
+use Nette\Utils\ArrayHash;
 
 class SignUpForm extends AbstractForm
 {
     /** @var Repositories\UserRepository */
     private $userRepository;
 
-    /** @var IMailer */
-    private $mailer;
+    /** @var AccountActivationEmail */
+    private $accountActivationEmail;
 
-    /** @var UrlScript */
-    private $urlScript;
-
-    /** @var string */
-    private $appDir;
-
-    /** @var string */
-    private $contactEmail;
+    /** @var AccountActivationLinkGenerator */
+    private $accountActivationLinkGenerator;
 
     /**
-     * @param ITranslator                 $translator
-     * @param Repositories\UserRepository $userRepository
-     * @param IMailer                     $mailer
-     * @param UrlScript                   $urlScript
-     * @param string                      $appDir
-     * @param string                      $contactEmail
+     * @param ITranslator                    $translator
+     * @param Repositories\UserRepository    $userRepository
+     * @param AccountActivationEmail         $accountActivationEmail
+     * @param AccountActivationLinkGenerator $accountActivationLinkGenerator
      */
     public function __construct(
         ITranslator $translator,
         Repositories\UserRepository $userRepository,
-        IMailer $mailer,
-        UrlScript $urlScript,
-        $appDir,
-        $contactEmail
+        AccountActivationEmail $accountActivationEmail,
+        AccountActivationLinkGenerator $accountActivationLinkGenerator
     ) {
         parent::__construct($translator);
 
-        $this->userRepository = $userRepository;
-        $this->mailer         = $mailer;
-        $this->urlScript      = $urlScript;
-        $this->appDir         = $appDir;
-        $this->contactEmail   = $contactEmail;
+        $this->userRepository                 = $userRepository;
+        $this->accountActivationEmail         = $accountActivationEmail;
+        $this->accountActivationLinkGenerator = $accountActivationLinkGenerator;
     }
 
     protected function configure(Form $form)
@@ -89,28 +76,11 @@ class SignUpForm extends AbstractForm
             $p      = $this->getPresenter();
             $values = $form->getValues();
 
-            if (strlen($values->__anti) > 0) {
-                throw new FormSentBySpamException(
-                    $this->translator->translate('locale.form.spam_attempt_sign_up')
-                );
-            }
-            unset($values->__anti);
+            $this->checkSpam($values);
 
             $user = $this->userRepository->createRegistration($values);
-            $link = $p->link(
-                '//:Admin:Sign:unlock',
-                [
-                    'uid'   => $user->id,
-                    'token' => $user->token,
-                ]
-            );
-
-            $this->sendEmail(
-                $this->contactEmail,
-                $user->email,
-                $this->translator->translate('locale.sign.sign_up_request'),
-                $link
-            );
+            $link = $this->accountActivationLinkGenerator->generateLink($user->email, $user->token);
+            $this->accountActivationEmail->send($values->email, $link);
 
             $p->flashMessage(
                 $this->translator->translate('locale.sign.sign_up_email_sent'),
@@ -142,33 +112,16 @@ class SignUpForm extends AbstractForm
     }
 
     /**
-     * @param string $from
-     * @param string $to
-     * @param string $subject
-     * @param string $link
+     * @param  ArrayHash $values
+     * @throws FormSentBySpamException
      */
-    private function sendEmail($from, $to, $subject, $link)
+    private function checkSpam(ArrayHash $values)
     {
-        $latte = new Latte\Engine;
-
-        $parameters = [
-            'subject' => $subject,
-            'link'    => $link,
-            'baseUri' => $this->urlScript->getHostUrl(),
-            'host'    => $this->urlScript->getHost(),
-        ];
-
-        $email = new Message;
-        $email->setFrom($from)
-            ->addTo($to)
-            ->setSubject($subject)
-            ->setHtmlBody(
-                $latte->renderToString(
-                    $this->appDir . '/Presenters/templates/emails/registration.latte',
-                    $parameters
-                )
+        if (strlen($values->__anti) > 0) {
+            throw new FormSentBySpamException(
+                $this->translator->translate('locale.form.spam_attempt_sign_up')
             );
-
-        $this->mailer->send($email);
+        }
+        unset($values->__anti);
     }
 }
