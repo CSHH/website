@@ -5,8 +5,8 @@
 <h1>{$item->name}</h1>
 
 {if !$item->isActive}
-    <a n:href="activate!, videoId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
-    <a n:href="delete!, videoId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+    <a n:href="activate!, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+    <a n:href="delete!, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
 {/if}
 
 {include '../../../Presenters/templates/include/video.latte', width => 960, height => 540, src => $item->src, title => $item->name}

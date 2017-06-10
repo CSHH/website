@@ -3,7 +3,7 @@
 {include '../include/topMenu.latte'}
 
 <div id="top-buttons-bar">
-    {include '../include/new.latte', label => 'Nové video'}
+    {include '../include/new.latte', link => 'VideoDetail:form', label => 'Nové video'}
     {include '../include/activitySwitch.latte', state => $inactiveOnly, all => 'Zobrazit pouze moje vlastní', inactiveOnly => 'Zobrazit pouze neschválené'}
 </div>
 
@@ -14,18 +14,18 @@
     <div class="gallery-image">
 
         {if $item->user->id === $user->id}
-            <a class="gallery-image-link" n:href="form, id => $item->id">
+            <a class="gallery-image-link" n:href="VideoDetail:form, id => $item->id">
                 <img src="{$videoThumbnail->getThumbnailImage($item)|thumb:320:320}" title="{$description}" alt="{$description}">
             </a>
         {else}
-            <a class="gallery-image-link" n:href="detail, id => $item->id">
+            <a class="gallery-image-link" n:href="VideoDetail:detail, id => $item->id">
                 <img src="{$videoThumbnail->getThumbnailImage($item)|thumb:320:320}" title="{$description}" alt="{$description}">
             </a>
         {/if}
 
         <div class="activation-bar" n:if="!$item->isActive">
-            <a n:href="activate!, videoId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
-            <a n:href="delete!, videoId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+            <a n:href="VideoDetail:activate, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+            <a n:href="VideoDetail:delete, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
         </div>
 
     </div>
