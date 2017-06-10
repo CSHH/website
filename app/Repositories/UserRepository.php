@@ -192,15 +192,15 @@ class UserRepository extends BaseRepository
     }
 
     /**
-     * @param  int                             $userId
+     * @param  string                          $email
      * @param  string                          $token
      * @param  bool                            $checkExpiration
      * @throws UserNotFoundException
      * @throws ActivationLimitExpiredException
      */
-    public function unlock($userId, $token, $checkExpiration = true)
+    public function unlock($email, $token, $checkExpiration = true)
     {
-        $user = $this->dao->findOneBy(['id' => $userId, 'token' => $token]);
+        $user = $this->dao->findOneBy(['email' => $email, 'token' => $token]);
         if (!$user) {
             throw new UserNotFoundException($this->translator->translate('locale.sign.account_not_found'));
         }
