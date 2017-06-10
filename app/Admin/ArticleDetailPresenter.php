@@ -4,7 +4,7 @@ namespace App\Admin;
 
 use App\Forms;
 
-final class ArticlePresenter extends SingleUserContentPresenter
+final class ArticleDetailPresenter extends SingleUserContentDetailPresenter
 {
     /** @var Forms\ArticleFormInterface @inject */
     public $articleForm;
@@ -14,12 +14,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
      */
     public function actionForm($id = null)
     {
-        $this->runActionForm($this->articleRepository, 'Article:default', $id);
-    }
-
-    public function actionDefault()
-    {
-        $this->runActionDefault($this->articleRepository, 10, $this->loggedUser->getLoggedUserEntity());
+        $this->runActionForm($this->articleRepository, 'ArticleListing:default', $id);
     }
 
     /**
@@ -29,7 +24,7 @@ final class ArticlePresenter extends SingleUserContentPresenter
     {
         $item = $this->getItem($id, $this->articleRepository);
 
-        $this->checkItemAndFlashWithRedirectIfNull($item, 'Article:default');
+        $this->checkItemAndFlashWithRedirectIfNull($item, 'ArticleListing:default');
 
         $this->item = $item;
     }
@@ -40,19 +35,19 @@ final class ArticlePresenter extends SingleUserContentPresenter
     }
 
     /**
-     * @param int $articleId
+     * @param int $id
      */
-    public function handleActivate($articleId)
+    public function actionActivate($id)
     {
-        $this->runHandleActivate($articleId, $this->articleRepository);
+        $this->runHandleActivate($id, $this->articleRepository, 'ArticleListing:default');
     }
 
     /**
-     * @param int $articleId
+     * @param int $id
      */
-    public function handleDelete($articleId)
+    public function actionDelete($id)
     {
-        $this->runHandleDelete($articleId, $this->articleRepository);
+        $this->runHandleDelete($id, $this->articleRepository, 'ArticleListing:default');
     }
 
     /**

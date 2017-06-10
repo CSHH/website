@@ -36,9 +36,13 @@ class RouterFactory
         $router[] = new Route('uzivatelska-sekce/filmy', 'Admin:Movie:default');
         $router[] = new Route('uzivatelska-sekce/knihy/formular', 'Admin:Book:form');
         $router[] = new Route('uzivatelska-sekce/knihy', 'Admin:Book:default');
-        $router[] = new Route('uzivatelska-sekce/clanky/formular', 'Admin:Article:form');
-        $router[] = new Route('uzivatelska-sekce/clanky', 'Admin:Article:default');
-        $router[] = new Route('uzivatelska-sekce/clanky/<id>', 'Admin:Article:detail');
+
+        $router[] = new Route('uzivatelska-sekce/clanky/formular', 'Admin:ArticleDetail:form');
+        $router[] = new Route('uzivatelska-sekce/clanky', 'Admin:ArticleListing:default');
+        $router[] = new Route('uzivatelska-sekce/clanky/<id>', 'Admin:ArticleDetail:detail');
+        $router[] = new Route('uzivatelska-sekce/clanky/aktivovat/<id>', 'Admin:ArticleDetail:activate');
+        $router[] = new Route('uzivatelska-sekce/clanky/smazat/<id>', 'Admin:ArticleDetail:delete');
+
         $router[] = new Route('uzivatelska-sekce/galerie/formular', 'Admin:Gallery:form');
         $router[] = new Route('uzivatelska-sekce/galerie', 'Admin:Gallery:default');
         $router[] = new Route('uzivatelska-sekce/videa/formular', 'Admin:Video:form');
