@@ -37,7 +37,7 @@ class TagCache
      */
     public function isTagInSection($section, Entities\TagEntity $tag)
     {
-        return array_key_exists($tag->id, $this->cache->load($section));
+        return array_key_exists($tag->id, $this->cache->load($section) ?: []);
     }
 
     /**
