@@ -5,19 +5,14 @@ namespace App\Admin;
 use App\Entities;
 use App\Forms;
 
-final class GamePresenter extends SharedContentPresenter
+final class GameDetailPresenter extends SharedContentDetailPresenter
 {
     /**
      * @param int $id
      */
     public function actionForm($id = null)
     {
-        $this->runActionForm(Entities\WikiEntity::TYPE_GAME, 'Game:default', $id);
-    }
-
-    public function actionDefault()
-    {
-        $this->runActionDefault(10, Entities\WikiEntity::TYPE_GAME);
+        $this->runActionForm(Entities\WikiEntity::TYPE_GAME, 'GameListing:default', $id);
     }
 
     /**

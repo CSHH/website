@@ -5,19 +5,14 @@ namespace App\Admin;
 use App\Entities;
 use App\Forms;
 
-final class MoviePresenter extends SharedContentPresenter
+final class MovieDetailPresenter extends SharedContentDetailPresenter
 {
     /**
      * @param int $id
      */
     public function actionForm($id = null)
     {
-        $this->runActionForm(Entities\WikiEntity::TYPE_MOVIE, 'Movie:default', $id);
-    }
-
-    public function actionDefault()
-    {
-        $this->runActionDefault(10, Entities\WikiEntity::TYPE_MOVIE);
+        $this->runActionForm(Entities\WikiEntity::TYPE_MOVIE, 'MovieListing:default', $id);
     }
 
     /**

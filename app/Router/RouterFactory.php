@@ -30,12 +30,12 @@ class RouterFactory
         $router[] = new Route('smrt-hrou', 'Front:SmrtHrou:default');
 
         $router[] = new Route('uzivatelska-sekce', 'Admin:Homepage:default');
-        $router[] = new Route('uzivatelska-sekce/hry/formular', 'Admin:Game:form');
-        $router[] = new Route('uzivatelska-sekce/hry', 'Admin:Game:default');
-        $router[] = new Route('uzivatelska-sekce/filmy/formular', 'Admin:Movie:form');
-        $router[] = new Route('uzivatelska-sekce/filmy', 'Admin:Movie:default');
-        $router[] = new Route('uzivatelska-sekce/knihy/formular', 'Admin:Book:form');
-        $router[] = new Route('uzivatelska-sekce/knihy', 'Admin:Book:default');
+        $router[] = new Route('uzivatelska-sekce/hry/formular', 'Admin:GameDetail:form');
+        $router[] = new Route('uzivatelska-sekce/hry', 'Admin:GameListing:default');
+        $router[] = new Route('uzivatelska-sekce/filmy/formular', 'Admin:MovieDetail:form');
+        $router[] = new Route('uzivatelska-sekce/filmy', 'Admin:MovieListing:default');
+        $router[] = new Route('uzivatelska-sekce/knihy/formular', 'Admin:BookDetail:form');
+        $router[] = new Route('uzivatelska-sekce/knihy', 'Admin:BookListing:default');
         $router[] = new Route('uzivatelska-sekce/clanky/formular', 'Admin:ArticleDetail:form');
         $router[] = new Route('uzivatelska-sekce/clanky', 'Admin:ArticleListing:default');
         $router[] = new Route('uzivatelska-sekce/clanky/<id>', 'Admin:ArticleDetail:detail');

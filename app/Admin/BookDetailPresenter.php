@@ -5,19 +5,14 @@ namespace App\Admin;
 use App\Entities;
 use App\Forms;
 
-final class BookPresenter extends SharedContentPresenter
+final class BookDetailPresenter extends SharedContentDetailPresenter
 {
     /**
      * @param int $id
      */
     public function actionForm($id = null)
     {
-        $this->runActionForm(Entities\WikiEntity::TYPE_BOOK, 'Book:default', $id);
-    }
-
-    public function actionDefault()
-    {
-        $this->runActionDefault(10, Entities\WikiEntity::TYPE_BOOK);
+        $this->runActionForm(Entities\WikiEntity::TYPE_BOOK, 'BookListing:default', $id);
     }
 
     /**
