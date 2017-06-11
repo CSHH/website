@@ -4,13 +4,9 @@ namespace App\Admin;
 
 use App\Entities;
 use App\Repositories;
-use App\Utils\PaginatorFactory;
 
 abstract class SingleUserContentListingPresenter extends PageablePresenter
 {
-    /** @var PaginatorFactory @inject */
-    public $paginatorFactory;
-
     /**
      * @param Repositories\BaseRepository $repository
      * @param int                         $limit
