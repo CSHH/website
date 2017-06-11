@@ -21,7 +21,7 @@ class RouterFactoryTest extends Tester\TestCase
     {
         $router = RouterFactory::createRouter();
         Assert::type('Nette\Application\IRouter', $router);
-        Assert::count(34, $router);
+        Assert::count(40, $router);
         $this->assertRoute($router[0], '', 'Front:Homepage', 'default');
         $this->assertRoute($router[1], 'hry[/<tagSlug>]', 'Front:Game', 'default');
         $this->assertRoute($router[2], 'hry/<tagSlug>/<slug>', 'Front:Game', 'detail');
@@ -36,26 +36,32 @@ class RouterFactoryTest extends Tester\TestCase
         $this->assertRoute($router[11], 'videa[/<tagSlug>]/<slug>', 'Front:Video', 'detail');
         $this->assertRoute($router[12], 'smrt-hrou', 'Front:SmrtHrou', 'default');
         $this->assertRoute($router[13], 'uzivatelska-sekce', 'Admin:Homepage', 'default');
-        $this->assertRoute($router[14], 'uzivatelska-sekce/hry/formular', 'Admin:Game', 'form');
-        $this->assertRoute($router[15], 'uzivatelska-sekce/hry', 'Admin:Game', 'default');
-        $this->assertRoute($router[16], 'uzivatelska-sekce/filmy/formular', 'Admin:Movie', 'form');
-        $this->assertRoute($router[17], 'uzivatelska-sekce/filmy', 'Admin:Movie', 'default');
-        $this->assertRoute($router[18], 'uzivatelska-sekce/knihy/formular', 'Admin:Book', 'form');
-        $this->assertRoute($router[19], 'uzivatelska-sekce/knihy', 'Admin:Book', 'default');
-        $this->assertRoute($router[20], 'uzivatelska-sekce/clanky/formular', 'Admin:Article', 'form');
-        $this->assertRoute($router[21], 'uzivatelska-sekce/clanky', 'Admin:Article', 'default');
-        $this->assertRoute($router[22], 'uzivatelska-sekce/clanky/<id>', 'Admin:Article', 'detail');
-        $this->assertRoute($router[23], 'uzivatelska-sekce/galerie/formular', 'Admin:Gallery', 'form');
-        $this->assertRoute($router[24], 'uzivatelska-sekce/galerie', 'Admin:Gallery', 'default');
-        $this->assertRoute($router[25], 'uzivatelska-sekce/videa/formular', 'Admin:Video', 'form');
-        $this->assertRoute($router[26], 'uzivatelska-sekce/videa', 'Admin:Video', 'default');
-        $this->assertRoute($router[27], 'uzivatelska-sekce/videa/<id>', 'Admin:Video', 'detail');
-        $this->assertRoute($router[28], 'uzivatelska-sekce/drafty', 'Admin:WikiDraft', 'default');
-        $this->assertRoute($router[29], 'uzivatelska-sekce/drafty/detail', 'Admin:WikiDraft', 'detail');
-        $this->assertRoute($router[30], 'ja', 'Admin:Settings', 'me');
-        $this->assertRoute($router[31], 'odhlasit', 'Admin:Sign', 'out');
-        $this->assertRoute($router[32], 'zadat-nove-heslo', 'Admin:Sign', 'password');
-        $this->assertRoute($router[33], 'aktivovat-ucet', 'Admin:Sign', 'unlock');
+        $this->assertRoute($router[14], 'uzivatelska-sekce/hry/formular', 'Admin:GameDetail', 'form');
+        $this->assertRoute($router[15], 'uzivatelska-sekce/hry', 'Admin:GameListing', 'default');
+        $this->assertRoute($router[16], 'uzivatelska-sekce/filmy/formular', 'Admin:MovieDetail', 'form');
+        $this->assertRoute($router[17], 'uzivatelska-sekce/filmy', 'Admin:MovieListing', 'default');
+        $this->assertRoute($router[18], 'uzivatelska-sekce/knihy/formular', 'Admin:BookDetail', 'form');
+        $this->assertRoute($router[19], 'uzivatelska-sekce/knihy', 'Admin:BookListing', 'default');
+        $this->assertRoute($router[20], 'uzivatelska-sekce/clanky/formular', 'Admin:ArticleDetail', 'form');
+        $this->assertRoute($router[21], 'uzivatelska-sekce/clanky', 'Admin:ArticleListing', 'default');
+        $this->assertRoute($router[22], 'uzivatelska-sekce/clanky/<id>', 'Admin:ArticleDetail', 'detail');
+        $this->assertRoute($router[23], 'uzivatelska-sekce/clanky/aktivovat/<id>', 'Admin:ArticleDetail', 'activate');
+        $this->assertRoute($router[24], 'uzivatelska-sekce/clanky/smazat/<id>', 'Admin:ArticleDetail', 'delete');
+        $this->assertRoute($router[25], 'uzivatelska-sekce/galerie/formular', 'Admin:GalleryDetail', 'form');
+        $this->assertRoute($router[26], 'uzivatelska-sekce/galerie', 'Admin:GalleryListing', 'default');
+        $this->assertRoute($router[27], 'uzivatelska-sekce/galerie/aktivovat/<id>', 'Admin:GalleryDetail', 'activate');
+        $this->assertRoute($router[28], 'uzivatelska-sekce/galerie/smazat/<id>', 'Admin:GalleryDetail', 'delete');
+        $this->assertRoute($router[29], 'uzivatelska-sekce/videa/formular', 'Admin:VideoDetail', 'form');
+        $this->assertRoute($router[30], 'uzivatelska-sekce/videa', 'Admin:VideoListing', 'default');
+        $this->assertRoute($router[31], 'uzivatelska-sekce/videa/<id>', 'Admin:VideoDetail', 'detail');
+        $this->assertRoute($router[32], 'uzivatelska-sekce/videa/aktivovat/<id>', 'Admin:VideoDetail', 'activate');
+        $this->assertRoute($router[33], 'uzivatelska-sekce/videa/smazat/<id>', 'Admin:VideoDetail', 'delete');
+        $this->assertRoute($router[34], 'uzivatelska-sekce/drafty', 'Admin:WikiDraft', 'default');
+        $this->assertRoute($router[35], 'uzivatelska-sekce/drafty/detail', 'Admin:WikiDraft', 'detail');
+        $this->assertRoute($router[36], 'ja', 'Admin:Settings', 'me');
+        $this->assertRoute($router[37], 'odhlasit', 'Admin:Sign', 'out');
+        $this->assertRoute($router[38], 'zadat-nove-heslo', 'Admin:Sign', 'password');
+        $this->assertRoute($router[39], 'aktivovat-ucet', 'Admin:Sign', 'unlock');
     }
 
     /**

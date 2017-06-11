@@ -43,7 +43,6 @@ class RouterFactory
         $router[] = new Route('uzivatelska-sekce/clanky/smazat/<id>', 'Admin:ArticleDetail:delete');
         $router[] = new Route('uzivatelska-sekce/galerie/formular', 'Admin:GalleryDetail:form');
         $router[] = new Route('uzivatelska-sekce/galerie', 'Admin:GalleryListing:default');
-        $router[] = new Route('uzivatelska-sekce/galerie/<id>', 'Admin:GalleryDetail:detail');
         $router[] = new Route('uzivatelska-sekce/galerie/aktivovat/<id>', 'Admin:GalleryDetail:activate');
         $router[] = new Route('uzivatelska-sekce/galerie/smazat/<id>', 'Admin:GalleryDetail:delete');
         $router[] = new Route('uzivatelska-sekce/videa/formular', 'Admin:VideoDetail:form');
