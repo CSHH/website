@@ -12,7 +12,7 @@ $container = require __DIR__ . '/../bootstrap.php';
 /**
  * @testCase
  */
-class GalleryPresenterTest extends Tester\TestCase
+class GalleryListingPresenterTest extends Tester\TestCase
 {
     use Login;
     use PresenterTester;
@@ -24,9 +24,9 @@ class GalleryPresenterTest extends Tester\TestCase
 
         $this->signIn($this->container);
 
-        $this->assertAppResponse('Admin:Gallery', 'default', 'GET');
+        $this->assertAppResponse('Admin:GalleryListing', 'default', 'GET');
     }
 }
 
-$testCase = new GalleryPresenterTest($container);
+$testCase = new GalleryListingPresenterTest($container);
 $testCase->run();

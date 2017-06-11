@@ -3,7 +3,7 @@
 {include '../include/topMenu.latte'}
 
 <div id="top-buttons-bar">
-    {include '../include/new.latte', label => 'Nahrát obrázky'}
+    {include '../include/new.latte', link => 'GalleryDetail:form', label => 'Nahrát obrázky'}
     {include '../include/activitySwitch.latte', state => $inactiveOnly, all => 'Zobrazit pouze moje vlastní', inactiveOnly => 'Zobrazit pouze neschválené'}
 </div>
 
@@ -19,8 +19,8 @@
         </a>
 
         <div class="activation-bar" n:if="$canAccess && !$item->isActive">
-            <a n:href="activate!, imageId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
-            <a n:href="delete!, imageId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+            <a n:href="GalleryDetail:activate, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+            <a n:href="GalleryDetail:delete, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
         </div>
 
     </div>
