@@ -5,7 +5,7 @@ namespace App\Admin;
 use App\Entities;
 use App\Repositories;
 
-final class WikiDraftPresenter extends SharedContentPresenter
+final class WikiDraftDetailPresenter extends SharedContentDetailPresenter
 {
     /** @var Repositories\WikiRepository @inject */
     public $wikiRepository;
@@ -13,28 +13,8 @@ final class WikiDraftPresenter extends SharedContentPresenter
     /** @var Repositories\WikiDraftRepository @inject */
     public $wikiDraftRepository;
 
-    /** @var Entities\WikiEntity */
-    private $wiki;
-
     /** @var Entities\WikiDraftEntity */
     private $wikiDraft;
-
-    /**
-     * @param int $wikiId
-     */
-    public function actionDefault($wikiId)
-    {
-        $this->wiki = $this->getItem($wikiId, $this->wikiRepository);
-
-        if (!$this->wiki) {
-            $this->redirect('Homepage:default');
-        }
-    }
-
-    public function renderDefault()
-    {
-        $this->template->wiki = $this->wiki;
-    }
 
     /**
      * @param int $wikiId
@@ -56,7 +36,7 @@ final class WikiDraftPresenter extends SharedContentPresenter
      * @param int $wikiId
      * @param int $id
      */
-    public function handleActivate($wikiId, $id)
+    public function actionActivate($wikiId, $id)
     {
         $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
 
@@ -70,14 +50,14 @@ final class WikiDraftPresenter extends SharedContentPresenter
      * @param int $wikiId
      * @param int $id
      */
-    public function handleDelete($wikiId, $id)
+    public function actionDelete($wikiId, $id)
     {
         $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
 
         $this->checkWikiDraft($wikiDraft, $wikiId);
 
         $this->wikiDraftRepository->delete($wikiDraft);
-        $this->redirect('default', ['wikiId' => $wikiId]);
+        $this->redirect('WikiDraftListing:default', ['wikiId' => $wikiId]);
     }
 
     /**

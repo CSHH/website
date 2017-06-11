@@ -21,7 +21,7 @@ class RouterFactoryTest extends Tester\TestCase
     {
         $router = RouterFactory::createRouter();
         Assert::type('Nette\Application\IRouter', $router);
-        Assert::count(40, $router);
+        Assert::count(42, $router);
         $this->assertRoute($router[0], '', 'Front:Homepage', 'default');
         $this->assertRoute($router[1], 'hry[/<tagSlug>]', 'Front:Game', 'default');
         $this->assertRoute($router[2], 'hry/<tagSlug>/<slug>', 'Front:Game', 'detail');
@@ -56,12 +56,14 @@ class RouterFactoryTest extends Tester\TestCase
         $this->assertRoute($router[31], 'uzivatelska-sekce/videa/<id>', 'Admin:VideoDetail', 'detail');
         $this->assertRoute($router[32], 'uzivatelska-sekce/videa/aktivovat/<id>', 'Admin:VideoDetail', 'activate');
         $this->assertRoute($router[33], 'uzivatelska-sekce/videa/smazat/<id>', 'Admin:VideoDetail', 'delete');
-        $this->assertRoute($router[34], 'uzivatelska-sekce/drafty', 'Admin:WikiDraft', 'default');
-        $this->assertRoute($router[35], 'uzivatelska-sekce/drafty/detail', 'Admin:WikiDraft', 'detail');
-        $this->assertRoute($router[36], 'ja', 'Admin:Settings', 'me');
-        $this->assertRoute($router[37], 'odhlasit', 'Admin:Sign', 'out');
-        $this->assertRoute($router[38], 'zadat-nove-heslo', 'Admin:Sign', 'password');
-        $this->assertRoute($router[39], 'aktivovat-ucet', 'Admin:Sign', 'unlock');
+        $this->assertRoute($router[34], 'uzivatelska-sekce/drafty', 'Admin:WikiDraftListing', 'default');
+        $this->assertRoute($router[35], 'uzivatelska-sekce/drafty/detail', 'Admin:WikiDraftDetail', 'detail');
+        $this->assertRoute($router[36], 'uzivatelska-sekce/drafty/aktivovat', 'Admin:WikiDraftDetail', 'activate');
+        $this->assertRoute($router[37], 'uzivatelska-sekce/drafty/smazat', 'Admin:WikiDraftDetail', 'delete');
+        $this->assertRoute($router[38], 'ja', 'Admin:Settings', 'me');
+        $this->assertRoute($router[39], 'odhlasit', 'Admin:Sign', 'out');
+        $this->assertRoute($router[40], 'zadat-nove-heslo', 'Admin:Sign', 'password');
+        $this->assertRoute($router[41], 'aktivovat-ucet', 'Admin:Sign', 'unlock');
     }
 
     /**

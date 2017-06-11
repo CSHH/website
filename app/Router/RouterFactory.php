@@ -50,8 +50,10 @@ class RouterFactory
         $router[] = new Route('uzivatelska-sekce/videa/<id>', 'Admin:VideoDetail:detail');
         $router[] = new Route('uzivatelska-sekce/videa/aktivovat/<id>', 'Admin:VideoDetail:activate');
         $router[] = new Route('uzivatelska-sekce/videa/smazat/<id>', 'Admin:VideoDetail:delete');
-        $router[] = new Route('uzivatelska-sekce/drafty', 'Admin:WikiDraft:default');
-        $router[] = new Route('uzivatelska-sekce/drafty/detail', 'Admin:WikiDraft:detail');
+        $router[] = new Route('uzivatelska-sekce/drafty', 'Admin:WikiDraftListing:default');
+        $router[] = new Route('uzivatelska-sekce/drafty/detail', 'Admin:WikiDraftDetail:detail');
+        $router[] = new Route('uzivatelska-sekce/drafty/aktivovat', 'Admin:WikiDraftDetail:activate');
+        $router[] = new Route('uzivatelska-sekce/drafty/smazat', 'Admin:WikiDraftDetail:delete');
 
         $router[] = new Route('ja', 'Admin:Settings:me');
         $router[] = new Route('odhlasit', 'Admin:Sign:out');
