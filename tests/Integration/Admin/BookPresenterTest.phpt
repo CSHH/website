@@ -2,9 +2,7 @@
 
 namespace AppTests\Integration\Admin;
 
-use AppTests\Login;
-use AppTests\PresenterTester;
-use Nelmio;
+use AppTests;
 use Tester;
 
 $container = require __DIR__ . '/../bootstrap.php';
@@ -14,16 +12,14 @@ $container = require __DIR__ . '/../bootstrap.php';
  */
 class BookPresenterTest extends Tester\TestCase
 {
-    use Login;
-    use PresenterTester;
+    use AppTests\Fixtures;
+    use AppTests\Login;
+    use AppTests\PresenterTester;
 
     public function testActionDefault()
     {
-        $entityManager = $this->container->getByType('Kdyby\Doctrine\EntityManager');
-        Nelmio\Alice\Fixtures::load(__DIR__ . '/fixtures.php', $entityManager);
-
+        $this->applyFixtures($this->container, __DIR__ . '/fixtures.php');
         $this->signIn($this->container);
-
         $this->assertAppResponse('Admin:Book', 'default', 'GET');
     }
 }
