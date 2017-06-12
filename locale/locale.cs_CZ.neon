@@ -33,7 +33,6 @@ form:
     password_new_confirm: 'Nové heslo (pro ověření)'
     password_new_confirm_required: 'Zadejte prosím Vaše nové přihlašovací heslo znovu pro ověření.'
     submit_change_password: 'Změnit heslo'
-    remember: 'Neodhlašovat'
     submit_sign_up: 'Registrovat'
     sign_in: 'Přihlásit'
     send: 'Odeslat'
