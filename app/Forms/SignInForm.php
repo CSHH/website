@@ -24,8 +24,6 @@ class SignInForm extends AbstractForm
         $form->addPassword('password', 'locale.form.password')
             ->setRequired('locale.form.password_required');
 
-        $form->addCheckbox('remember', 'locale.form.remember');
-
         $form->addSubmit('submit', 'locale.form.sign_in');
     }
 
@@ -35,13 +33,7 @@ class SignInForm extends AbstractForm
             $p      = $this->getPresenter();
             $u      = $p->getUser();
             $values = $form->getValues();
-
-            if ($values->remember) {
-                $u->setExpiration('14 days', false);
-            } else {
-                $u->setExpiration('60 minutes', true);
-            }
-
+            $u->setExpiration('14 days');
             $u->login($values->email, $values->password);
             $p->flashMessage(
                 $this->translator->translate('locale.sign.in'),
