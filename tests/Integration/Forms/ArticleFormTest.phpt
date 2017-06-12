@@ -2,9 +2,7 @@
 
 namespace AppTests\Integration\Forms;
 
-use AppTests\Login;
-use AppTests\PresenterTester;
-use Nelmio;
+use AppTests;
 use Tester;
 use Tester\Assert;
 
@@ -15,14 +13,13 @@ $container = require __DIR__ . '/../bootstrap.php';
  */
 class ArticleFormTest extends Tester\TestCase
 {
-    use Login;
-    use PresenterTester;
+    use AppTests\Fixtures;
+    use AppTests\Login;
+    use AppTests\PresenterTester;
 
     public function testSubmitFormCreate()
     {
-        $entityManager = $this->container->getByType('Kdyby\Doctrine\EntityManager');
-        Nelmio\Alice\Fixtures::load(__DIR__ . '/ArticleFormTest.fixtures.php', $entityManager);
-
+        $this->applyFixtures($this->container, __DIR__ . '/ArticleFormTest.fixtures.php');
         $this->signIn($this->container);
 
         $articleRepository = $this->container->getByType('App\Repositories\ArticleRepository');
@@ -36,16 +33,14 @@ class ArticleFormTest extends Tester\TestCase
             '_do'   => 'form-form-submit',
         ];
 
-        $this->assertFormSubmitted('Admin:Article', 'form', 'POST', [], $post);
+        $this->assertFormSubmitted('Admin:ArticleDetail', 'form', 'POST', [], $post);
 
         Assert::equal(6, $articleRepository->getCount());
     }
 
     public function testSubmitFormUpdate()
     {
-        $entityManager = $this->container->getByType('Kdyby\Doctrine\EntityManager');
-        Nelmio\Alice\Fixtures::load(__DIR__ . '/ArticleFormTest.fixtures.php', $entityManager);
-
+        $this->applyFixtures($this->container, __DIR__ . '/ArticleFormTest.fixtures.php');
         $this->signIn($this->container);
 
         $articleRepository = $this->container->getByType('App\Repositories\ArticleRepository');
@@ -61,7 +56,7 @@ class ArticleFormTest extends Tester\TestCase
             '_do'   => 'form-form-submit',
         ];
 
-        $this->assertFormSubmitted('Admin:Article', 'form', 'POST', ['id' => 1], $post);
+        $this->assertFormSubmitted('Admin:ArticleDetail', 'form', 'POST', ['id' => 1], $post);
 
         $ent2 = $articleRepository->getById(1);
         Assert::same('Article XYZ', $ent2->name);

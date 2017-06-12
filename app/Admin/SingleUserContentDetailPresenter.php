@@ -5,8 +5,11 @@ namespace App\Admin;
 use App\Entities;
 use App\Repositories;
 
-abstract class SingleUserContentPresenter extends PageablePresenter
+abstract class SingleUserContentDetailPresenter extends SecurePresenter
 {
+    /** @var Entities\BaseEntity */
+    protected $item;
+
     /**
      * @param Repositories\BaseRepository $repository
      * @param string                      $redirect
@@ -32,30 +35,11 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     }
 
     /**
-     * @param Repositories\BaseRepository $repository
-     * @param int                         $limit
-     * @param Entities\UserEntity         $user
-     */
-    protected function runActionDefault(Repositories\BaseRepository $repository, $limit, Entities\UserEntity $user)
-    {
-        $this->checkIfDisplayInactiveOnly();
-
-        $this->canAccess = $this->accessChecker->canAccess();
-
-        if ($this->canAccess && $this->displayInactiveOnly) {
-            $this->items = $repository->getAllInactiveForPage($this->vp->page, $limit);
-        } else {
-            $this->items = $repository->getAllByUserForPage($this->vp->page, $limit, $user);
-        }
-
-        $this->preparePaginator($this->items->count(), $limit);
-    }
-
-    /**
      * @param int                         $itemId
      * @param Repositories\BaseRepository $repository
+     * @param string                      $redirect
      */
-    protected function runHandleActivate($itemId, Repositories\BaseRepository $repository)
+    protected function runHandleActivate($itemId, Repositories\BaseRepository $repository, $redirect)
     {
         $item = $this->getItem($itemId, $repository);
 
@@ -63,14 +47,15 @@ abstract class SingleUserContentPresenter extends PageablePresenter
 
         $repository->activate($item);
 
-        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'), $redirect);
     }
 
     /**
      * @param int                         $itemId
      * @param Repositories\BaseRepository $repository
+     * @param string                      $redirect
      */
-    protected function runHandleDelete($itemId, Repositories\BaseRepository $repository)
+    protected function runHandleDelete($itemId, Repositories\BaseRepository $repository, $redirect)
     {
         $item = $this->getItem($itemId, $repository);
 
@@ -78,7 +63,7 @@ abstract class SingleUserContentPresenter extends PageablePresenter
 
         $repository->delete($item);
 
-        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'), $redirect);
     }
 
     /**

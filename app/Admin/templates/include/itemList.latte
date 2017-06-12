@@ -10,11 +10,11 @@
 
                 <span>{$draftCount}</span>
 
-                <a n:href="WikiDraft:default, wikiId => $item->id">{$item->name}</a>
+                <a n:href="WikiDraftListing:default, wikiId => $item->id">{$item->name}</a>
 
             {else}
 
-                <a n:href="form, id => $item->id">{$item->name}</a>
+                <a n:href="$formLink, id => $item->id">{$item->name}</a>
 
             {/if}
 

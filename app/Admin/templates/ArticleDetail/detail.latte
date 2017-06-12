@@ -1,0 +1,12 @@
+{block content}
+
+{include '../include/topMenu.latte'}
+
+<h1>{$item->name}</h1>
+
+{if !$item->isActive}
+    <a n:href="activate, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+    <a n:href="delete, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+{/if}
+
+<div>{$item->text|noescape}</div>

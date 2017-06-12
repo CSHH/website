@@ -3,8 +3,8 @@
 namespace App\Emails;
 
 use Latte;
-use Nette\Http\UrlScript;
 use Nette\Http\Request;
+use Nette\Http\UrlScript;
 use Nette\Localization\ITranslator;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
