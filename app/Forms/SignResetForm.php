@@ -105,7 +105,7 @@ class SignResetForm extends AbstractForm
     }
 
     /**
-     * @param  ArrayHash $values
+     * @param  ArrayHash               $values
      * @throws FormSentBySpamException
      */
     private function checkSpam(ArrayHash $values)

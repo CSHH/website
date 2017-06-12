@@ -3,9 +3,9 @@
 namespace AppTests\Unit\Emails;
 
 use App\Emails\ForgottenPasswordEmail;
+use Mockery as m;
 use Tester;
 use Tester\Assert;
-use Mockery as m;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -28,7 +28,7 @@ class ForgottenPasswordEmailTest extends Tester\TestCase
         $message->shouldReceive('setSubject')->times(1)->andReturnSelf();
         $message->shouldReceive('setHtmlBody')->times(1)->andReturnSelf();
         $email = new ForgottenPasswordEmail($translator, $mailer, $latteEngine, $message, '/path/to/email.latte', 'sender@example.com', 'Subject');
-        Assert::noError(function() use ($email) {
+        Assert::noError(function () use ($email) {
             $email->send('receiver@example.com', 'http://example.com');
         });
     }

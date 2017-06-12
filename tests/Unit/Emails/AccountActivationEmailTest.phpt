@@ -3,9 +3,9 @@
 namespace AppTests\Unit\Emails;
 
 use App\Emails\AccountActivationEmail;
+use Mockery as m;
 use Tester;
 use Tester\Assert;
-use Mockery as m;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -33,7 +33,7 @@ class AccountActivationEmailTest extends Tester\TestCase
         $request = m::mock('Nette\Http\Request');
         $request->shouldReceive('getUrl')->times(1)->andReturn($url);
         $email = new AccountActivationEmail($translator, $mailer, $latteEngine, $message, $request, '/path/to/email.latte', 'sender@example.com', 'Subject');
-        Assert::noError(function() use ($email) {
+        Assert::noError(function () use ($email) {
             $email->send('receiver@example.com', 'http://example.com');
         });
     }
