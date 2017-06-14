@@ -322,6 +322,53 @@ class WikiDaoTest extends Tester\TestCase
 
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByUserForPage(1, 10, new AppEntities\UserEntity, AppEntities\WikiEntity::TYPE_GAME));
     }
+
+    public function testGetAllInactiveForPage()
+    {
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mock($qb, 'getQuery', 1, $this->query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $wikiDao = new WikiDao($em, $paginatorFactory);
+
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllInactiveForPage(1, 10, AppEntities\WikiEntity::TYPE_GAME));
+    }
+
+    public function testGetAllInactiveByTagForPage()
+    {
+        $paginatorFactory = $this->paginatorFactory;
+        $this->mock($paginatorFactory, 'createPaginator', 1, $this->paginator);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mockAndReturnSelf($qb, 'setFirstResult');
+        $this->mockAndReturnSelf($qb, 'setMaxResults');
+        $this->mock($qb, 'getQuery', 1, $this->query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $wikiDao = new WikiDao($em, $paginatorFactory);
+
+        Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllInactiveByTagForPage(1, 10, new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME));
+    }
 }
 
 $testCase = new WikiDaoTest;
