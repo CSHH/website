@@ -12,11 +12,11 @@ trait PageableTrait
     /** @var Components\VisualPaginatorControl */
     protected $vp;
 
-    protected function startup()
+    private function registerPaginator()
     {
-        parent::startup();
-
-        $this->vp = $this['vp'] = $this->visualPaginatorControl->create();
+        $paginator  = $this->visualPaginatorControl->create();
+        $this->vp   = $paginator;
+        $this['vp'] = $paginator;
     }
 
     /**

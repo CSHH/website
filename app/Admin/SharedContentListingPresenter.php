@@ -10,11 +10,9 @@ abstract class SharedContentListingPresenter extends PageablePresenter
      */
     protected function runActionDefault($limit, $type)
     {
-        $this->checkIfDisplayInactiveOnly();
-
         $this->canAccess = $this->accessChecker->canAccess();
 
-        if ($this->canAccess && $this->displayInactiveOnly) {
+        if ($this->canAccess && $this->filter->displayInactive()) {
             $this->items = $this->wikiRepository->getAllWithDraftsForPage($this->vp->page, $limit, $type);
         } else {
             $this->items = $this->wikiRepository->getAllByUserForPage($this->vp->page, $limit, $this->loggedUser->getLoggedUserEntity(), $type);

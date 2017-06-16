@@ -1,7 +1,0 @@
-<span n:if="$canAccess" class="activity-switch">
-    {if $state}
-        <a n:href="default, inactiveOnly => App\Utils\Activity::DISPLAY_DEFAULT">{$all}</a>
-    {else}
-        <a n:href="default, inactiveOnly => App\Utils\Activity::DISPLAY_FILTERED">{$inactiveOnly}</a>
-    {/if}
-</span>

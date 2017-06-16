@@ -21,10 +21,17 @@ abstract class PageablePresenter extends SecurePresenter
     /** @var bool */
     protected $canAccess = false;
 
+    protected function startup()
+    {
+        parent::startup();
+
+        $this->registerFilter();
+        $this->registerPaginator();
+    }
+
     public function renderDefault()
     {
-        $this->template->inactiveOnly = $this->displayInactiveOnly;
-        $this->template->canAccess    = $this->canAccess;
-        $this->template->items        = $this->items;
+        $this->template->canAccess = $this->canAccess;
+        $this->template->items     = $this->items;
     }
 }

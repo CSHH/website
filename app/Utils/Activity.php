@@ -8,5 +8,5 @@ class Activity
     const DISPLAY_DEFAULT = 'display-default';
 
     /** @var string */
-    const DISPLAY_FILTERED = 'display-filtered';
+    const DISPLAY_INACTIVE = 'display-inactive';
 }
