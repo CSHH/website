@@ -247,6 +247,57 @@ class WikiDao
     }
 
     /**
+     * @param  int       $page
+     * @param  int       $limit
+     * @param  string    $type
+     * @return Paginator
+     */
+    public function getAllInactiveForPage($page, $limit, $type)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::class, 'w')
+            ->where('w.isActive = :state AND w.type = :type')
+            ->setParameters([
+                'state' => false,
+                'type'  => $type,
+            ]);
+
+        $this->orderByDesc($qb, 'w');
+
+        $this->preparePagination($qb, $page, $limit);
+
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
+    }
+
+    /**
+     * @param  int                $page
+     * @param  int                $limit
+     * @param  Entities\TagEntity $tag
+     * @param  string             $type
+     * @return Paginator
+     */
+    public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag, $type)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::class, 'w')
+            ->join('w.tag', 't')
+            ->where('t.id = :tagId AND w.isActive = :state AND w.type = :type')
+            ->setParameters([
+                'tagId' => $tag->id,
+                'state' => false,
+                'type'  => $type,
+            ]);
+
+        $this->orderByDesc($qb, 'w');
+
+        $this->preparePagination($qb, $page, $limit);
+
+        return $this->paginatorFactory->createPaginator($qb->getQuery());
+    }
+
+    /**
      * @param QueryBuilder $qb
      * @param int          $page
      * @param int          $limit

@@ -212,6 +212,29 @@ class WikiRepository extends BaseRepository
     }
 
     /**
+     * @param  int       $page
+     * @param  int       $limit
+     * @param  string    $type
+     * @return Paginator
+     */
+    public function getAllInactiveForPage($page, $limit, $type)
+    {
+        return $this->dataAccess->getAllInactiveForPage($page, $limit, $type);
+    }
+
+    /**
+     * @param  int                $page
+     * @param  int                $limit
+     * @param  Entities\TagEntity $tag
+     * @param  string             $type
+     * @return Paginator
+     */
+    public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag, $type)
+    {
+        return $this->dataAccess->getAllInactiveByTagForPage($page, $limit, $tag, $type);
+    }
+
+    /**
      * @param  int            $page
      * @param  int            $limit
      * @param  string         $type
