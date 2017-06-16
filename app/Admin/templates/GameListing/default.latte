@@ -3,8 +3,11 @@
 {include '../include/topMenu.latte'}
 
 <div id="top-buttons-bar">
+
     {include '../include/new.latte', link => 'GameDetail:form', label => 'Nový článek'}
-    {include '../include/activitySwitch.latte', state => $inactiveOnly, all => 'Zobrazit moje vlastní neschválené', inactiveOnly => 'Zobrazit rozpracované'}
+
+    {control filter:sharedContent}
+
 </div>
 
 {include '../include/itemList.latte', formLink => 'GameDetail:form'}

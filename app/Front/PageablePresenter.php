@@ -17,6 +17,13 @@ abstract class PageablePresenter extends BasePresenter
     /** @var Entities\TagEntity */
     protected $tag;
 
+    protected function startup()
+    {
+        parent::startup();
+
+        $this->registerPaginator();
+    }
+
     protected function runRenderDefault()
     {
         $this->template->tag = $this->tag;

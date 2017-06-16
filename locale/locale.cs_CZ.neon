@@ -83,3 +83,7 @@ alert:
     question: 'Jste si jistí?'
 tags:
     show_all: 'VŠE'
+filter:
+    display_mine: 'Zobrazit moje vlastní'
+    display_inactive: 'Zobrazit neschválené'
+    display_drafts: 'Zobrazit rozpracované'

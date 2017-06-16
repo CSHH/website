@@ -14,6 +14,13 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     /** @var PaginatorFactory @inject */
     public $paginatorFactory;
 
+    protected function startup()
+    {
+        parent::startup();
+
+        $this->registerFilter();
+    }
+
     /**
      * @param  Repositories\BaseRepository $repository
      * @param  string                      $tagSlug
@@ -22,13 +29,11 @@ abstract class SingleUserContentPresenter extends PageablePresenter
      */
     protected function runActionDefault(Repositories\BaseRepository $repository, $tagSlug, $limit)
     {
-        $this->checkIfDisplayInactiveOnly();
-
         $tag = $this->getTag($tagSlug);
 
         $this->canAccess = $this->accessChecker->canAccess();
 
-        if ($this->canAccess && $this->displayInactiveOnly) {
+        if ($this->canAccess && $this->filter->displayInactive()) {
             $items = $tag
                 ? $repository->getAllInactiveByTagForPage($this->vp->page, $limit, $tag)
                 : $repository->getAllInactiveForPage($this->vp->page, $limit);
@@ -53,7 +58,6 @@ abstract class SingleUserContentPresenter extends PageablePresenter
     {
         parent::runRenderDefault();
 
-        $this->template->inactiveOnly = $this->displayInactiveOnly;
-        $this->template->canAccess    = $this->canAccess;
+        $this->template->canAccess = $this->canAccess;
     }
 }

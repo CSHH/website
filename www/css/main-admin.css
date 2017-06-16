@@ -26,22 +26,20 @@ a:hover {
     text-decoration: none;
 }
 
+.new-item {
+    background-color: #0c1;
+}
+
 .new-item:hover {
     color: #fff;
 }
 
-.activity-switch {
-    margin-left: 10px;
-    background-color: #06c;
-}
-
 .activity-switch a {
-    color: #fff;
-    text-decoration: none;
+    margin-left: 10px;
 }
 
-.new-item {
-    background-color: #0c1;
+.activity-switch .active {
+    color: #910;
 }
 
 #dashboard-menu {

@@ -2,20 +2,20 @@
 
 namespace App\Presenters;
 
-use App\Utils\Activity;
+use App\Components;
 
 trait ActivityTrait
 {
-    /** @var string @persistent */
-    public $inactiveOnly = Activity::DISPLAY_DEFAULT;
+    /** @var Components\FilterControlInterface @inject */
+    public $filterControl;
 
-    /** @var bool */
-    protected $displayInactiveOnly = false;
+    /** @var Components\FilterControl */
+    protected $filter;
 
-    protected function checkIfDisplayInactiveOnly()
+    private function registerFilter()
     {
-        if ($this->inactiveOnly === Activity::DISPLAY_FILTERED) {
-            $this->displayInactiveOnly = true;
-        }
+        $filter         = $this->filterControl->create();
+        $this->filter   = $filter;
+        $this['filter'] = $filter;
     }
 }

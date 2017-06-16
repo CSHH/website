@@ -83,6 +83,8 @@ services:
     wikiForm:
         implement: App\Forms\WikiFormInterface
 
+    filterControl:
+        implement: App\Components\FilterControlInterface
     tagsControl:
         implement: App\Components\TagsControlInterface
     visualPaginatorControl:
