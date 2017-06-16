@@ -53,22 +53,26 @@ class FilterControl extends Control
 
     public function renderSingleUserContent()
     {
-        $template = $this->getTemplate();
-
-        $template->canAccess = $this->accessChecker->canAccess();
-
-        $template->setFile(__DIR__ . '/templates/FilterControl.singleUserContent.latte');
-
-        $template->render();
+        $this->doRender(__DIR__ . '/templates/FilterControl.singleUserContent.latte');
     }
 
     public function renderSharedContent()
+    {
+        $this->doRender(__DIR__ . '/templates/FilterControl.sharedContent.latte');
+    }
+
+    /**
+     * @param string $templateFile
+     */
+    private function doRender($templateFile)
     {
         $template = $this->getTemplate();
 
         $template->canAccess = $this->accessChecker->canAccess();
 
-        $template->setFile(__DIR__ . '/templates/FilterControl.sharedContent.latte');
+        $template->activeFilter = $this->filter;
+
+        $template->setFile($templateFile);
 
         $template->render();
     }

@@ -38,6 +38,10 @@ a:hover {
     margin-left: 10px;
 }
 
+.activity-switch .active {
+    color: #910;
+}
+
 #dashboard-menu {
     width: 1000px;
     height: 25px;
