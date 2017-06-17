@@ -287,3 +287,36 @@
 .content-body textarea {
     width: 938px;
 }
+
+.filter {
+    width: 1000px;
+    padding: 0 25px 25px 25px;
+    line-height: 50px;
+}
+
+.filter a {
+    color: #666;
+    border-bottom: 1px solid #666;
+}
+
+.filter a:hover {
+    color: #999;
+    border-bottom-color: #999;
+}
+
+.tags {
+    width: 950px;
+    margin: auto;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.tags a {
+    color: #666;
+    border-bottom: 1px solid #666;
+}
+
+.tags a:hover {
+    color: #999;
+    border-bottom-color: #999;
+}
