@@ -4,9 +4,19 @@
 
 {control tagsControl}
 
+{control filter:singleUserContent}
+
 <div class="content-body">
 
     {foreach $wikis as $wiki}
+
+        <div class="activation-links" n:if="!$wiki->isActive">
+
+            <a n:href="activate!, wikiId => $wiki->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+
+            <a n:href="delete!, wikiId => $wiki->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+
+        </div>
 
         <h2 n:class="listing-item-header, !$wiki->isActive ? not-public">
 
