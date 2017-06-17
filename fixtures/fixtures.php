@@ -426,7 +426,7 @@ return [
         ],
     ],
     App\Entities\WikiEntity::class => [
-        'wiki_game_{1..100}' => [
+        'wiki_game_base (template)' => [
             'tag'           => '@tag_silent*',
             'related'       => '80%? <numberBetween(1, 5)>x @wiki_game_*',
             'contributors'  => '80%? <numberBetween(5, 25)>x @user*',
@@ -438,11 +438,16 @@ return [
             'perex'         => '<sentences(4, true)>',
             'text'          => file_get_contents(__DIR__ . '/article.html'),
             'type'          => App\Entities\WikiEntity::TYPE_GAME,
-            'isActive'      => '80%? 1 : 0',
             'createdAt'     => '<dateTimeBetween(\'2000-01-01 00:00:01\', \'2000-06-30 23:59:59\')>',
             'updatedAt'     => '80%? <dateTimeBetween($createdAt, \'2000-06-30 23:59:59\')> : <dateTime($createdAt)>',
         ],
-        'wiki_movie_{1..100}' => [
+        'wiki_game_active_{1..80} (extends wiki_game_base)' => [
+            'isActive' => true,
+        ],
+        'wiki_game_not_active_{1..20} (extends wiki_game_base)' => [
+            'isActive' => false,
+        ],
+        'wiki_movie_base (template)' => [
             'tag'           => '50%? @tag_silent_hill : @tag_movie_silent_hill_revelation',
             'related'       => '80%? <numberBetween(1, 5)>x @wiki_movie_*',
             'contributors'  => '80%? <numberBetween(5, 25)>x @user*',
@@ -454,11 +459,16 @@ return [
             'perex'         => '<sentences(4, true)>',
             'text'          => file_get_contents(__DIR__ . '/article.html'),
             'type'          => App\Entities\WikiEntity::TYPE_MOVIE,
-            'isActive'      => '80%? 1 : 0',
             'createdAt'     => '<dateTimeBetween(\'2000-01-01 00:00:01\', \'2000-06-30 23:59:59\')>',
             'updatedAt'     => '80%? <dateTimeBetween($createdAt, \'2000-06-30 23:59:59\')> : <dateTime($createdAt)>',
         ],
-        'wiki_book_{1..100}' => [
+        'wiki_movie_active_{1..80} (extends wiki_movie_base)' => [
+            'isActive' => true,
+        ],
+        'wiki_movie_not_active_{1..20} (extends wiki_movie_base)' => [
+            'isActive' => false,
+        ],
+        'wiki_book_base (template)' => [
             'tag'           => '@tag_book_*',
             'related'       => '80%? <numberBetween(1, 5)>x @wiki_book_*',
             'contributors'  => '80%? <numberBetween(5, 25)>x @user*',
@@ -470,28 +480,33 @@ return [
             'perex'         => '<sentences(4, true)>',
             'text'          => file_get_contents(__DIR__ . '/article.html'),
             'type'          => App\Entities\WikiEntity::TYPE_BOOK,
-            'isActive'      => '80%? 1 : 0',
             'createdAt'     => '<dateTimeBetween(\'2000-01-01 00:00:01\', \'2000-06-30 23:59:59\')>',
             'updatedAt'     => '80%? <dateTimeBetween($createdAt, \'2000-06-30 23:59:59\')> : <dateTime($createdAt)>',
+        ],
+        'wiki_book_active_{1..80} (extends wiki_book_base)' => [
+            'isActive' => true,
+        ],
+        'wiki_book_not_active_{1..20} (extends wiki_book_base)' => [
+            'isActive' => false,
         ],
     ],
     App\Entities\WikiDraftEntity::class => [
         'wiki_draft_game_{1..50}' => [
-            'wiki'      => '@wiki_game_*',
+            'wiki'      => '@wiki_game_active_*',
             'user'      => '@user*',
             'perex'     => '<sentences(4, true)>',
             'text'      => file_get_contents(__DIR__ . '/article.html'),
             'createdAt' => '<dateTimeBetween(\'2000-07-01 00:00:01\', \'2000-12-31 23:59:59\')>',
         ],
         'wiki_draft_movie_{1..50}' => [
-            'wiki'      => '@wiki_movie_*',
+            'wiki'      => '@wiki_movie_active_*',
             'user'      => '@user*',
             'perex'     => '<sentences(4, true)>',
             'text'      => file_get_contents(__DIR__ . '/article.html'),
             'createdAt' => '<dateTimeBetween(\'2000-07-01 00:00:01\', \'2000-12-31 23:59:59\')>',
         ],
         'wiki_draft_book_{1..50}' => [
-            'wiki'      => '@wiki_book_*',
+            'wiki'      => '@wiki_book_active_*',
             'user'      => '@user*',
             'perex'     => '<sentences(4, true)>',
             'text'      => file_get_contents(__DIR__ . '/article.html'),
