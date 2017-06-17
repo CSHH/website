@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Caching;
 use App\Dao\WikiDao;
 use App\Duplicities\PossibleUniqueKeyDuplicationException;
 use App\Entities;
@@ -23,6 +24,9 @@ class WikiRepository extends BaseRepository
     /** @var EntityManager */
     private $em;
 
+    /** @var Caching\TagSectionCacheInterface */
+    protected $tagCache;
+
     /** @var \HtmlPurifier */
     private $htmlPurifier;
 
@@ -31,6 +35,7 @@ class WikiRepository extends BaseRepository
         WikiDao $dataAccess,
         ITranslator $translator,
         EntityManager $em,
+        Caching\ArticleTagSectionCache $tagCache,
         \HTMLPurifier $htmlPurifier
     ) {
         parent::__construct($dao);
@@ -38,6 +43,7 @@ class WikiRepository extends BaseRepository
         $this->dataAccess   = $dataAccess;
         $this->translator   = $translator;
         $this->em           = $em;
+        $this->tagCache     = $tagCache;
         $this->htmlPurifier = $htmlPurifier;
     }
 
@@ -118,6 +124,43 @@ class WikiRepository extends BaseRepository
         $e->type = $type;
 
         $this->persistAndFlush($this->em, $e);
+
+        return $e;
+    }
+
+    /**
+     * @param  Entities\BaseEntity $e
+     * @return Entities\BaseEntity
+     */
+    public function activate(Entities\BaseEntity $e)
+    {
+        return $this->doActivate($e);
+    }
+
+    /**
+     * @param  Entities\WikiEntity $e
+     * @return Entities\WikiEntity
+     */
+    public function delete(Entities\WikiEntity $e)
+    {
+        $ent = $this->removeAndFlush($this->em, $e);
+
+        $this->tagCache->deleteSection();
+
+        return $ent;
+    }
+
+    /**
+     * @param  Entities\BaseEntity $e
+     * @return Entities\BaseEntity
+     */
+    protected function doActivate(Entities\BaseEntity $e)
+    {
+        $e->isActive = true;
+
+        $this->persistAndFlush($this->em, $e);
+
+        $this->tagCache->deleteSectionIfTagNotPresent($e->tag);
 
         return $e;
     }
