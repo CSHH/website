@@ -4,11 +4,11 @@
 
         <div>
 
-            {var $draftCount = $item->drafts->count()}
+            {if $item->isActive === false}
 
-            {if $draftCount}
+                <a n:href="$detailLink, id => $item->id">{$item->name}</a>
 
-                <span>{$draftCount}</span>
+            {elseif $item->isActive && $item->drafts->count()}
 
                 <a n:href="WikiDraftListing:default, wikiId => $item->id">{$item->name}</a>
 

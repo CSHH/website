@@ -16,6 +16,39 @@ final class GameDetailPresenter extends SharedContentDetailPresenter
     }
 
     /**
+     * @param int $id
+     */
+    public function actionDetail($id)
+    {
+        $item = $this->getItem($id, $this->wikiRepository);
+
+        $this->checkItemAndFlashWithRedirectIfNull($item, 'GameListing:default');
+
+        $this->item = $item;
+    }
+
+    public function renderDetail()
+    {
+        $this->template->item = $this->item;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function actionActivate($id)
+    {
+        $this->runHandleActivate($id, $this->wikiRepository, 'GameListing:default');
+    }
+
+    /**
+     * @param int $id
+     */
+    public function actionDelete($id)
+    {
+        $this->runHandleDelete($id, $this->wikiRepository, 'GameListing:default');
+    }
+
+    /**
      * @return Forms\WikiForm
      */
     protected function createComponentWikiForm()

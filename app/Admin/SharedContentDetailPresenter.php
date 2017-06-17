@@ -4,6 +4,7 @@ namespace App\Admin;
 
 use App\Entities;
 use App\Forms;
+use App\Repositories;
 
 abstract class SharedContentDetailPresenter extends SecurePresenter
 {
@@ -13,8 +14,11 @@ abstract class SharedContentDetailPresenter extends SecurePresenter
     /** @var Forms\WikiDraftFormInterface @inject */
     public $wikiDraftForm;
 
+    /** @var Repositories\WikiRepository @inject */
+    public $wikiRepository;
+
     /** @var Entities\BaseEntity */
-    private $item;
+    protected $item;
 
     /**
      * @param string $type
@@ -40,6 +44,52 @@ abstract class SharedContentDetailPresenter extends SecurePresenter
     public function renderForm()
     {
         $this->template->item = $this->item;
+    }
+
+    /**
+     * @param int                         $itemId
+     * @param Repositories\BaseRepository $repository
+     * @param string                      $redirect
+     */
+    protected function runHandleActivate($itemId, Repositories\BaseRepository $repository, $redirect)
+    {
+        $item = $this->getItem($itemId, $repository);
+
+        $this->checkItemAndFlashWithRedirectIfNull($item);
+
+        $repository->activate($item);
+
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'), $redirect);
+    }
+
+    /**
+     * @param int                         $itemId
+     * @param Repositories\BaseRepository $repository
+     * @param string                      $redirect
+     */
+    protected function runHandleDelete($itemId, Repositories\BaseRepository $repository, $redirect)
+    {
+        $item = $this->getItem($itemId, $repository);
+
+        $this->checkItemAndFlashWithRedirectIfNull($item);
+
+        $repository->delete($item);
+
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'), $redirect);
+    }
+
+    /**
+     * @param Entities\BaseEntity $item
+     * @param string              $redirect
+     */
+    protected function checkItemAndFlashWithRedirectIfNull(Entities\BaseEntity $item = null, $redirect = 'this')
+    {
+        if ($item === null) {
+            $this->flashWithRedirect(
+                $this->translator->translate('locale.item.does_not_exist'),
+                $redirect
+            );
+        }
     }
 
     /**
