@@ -26,7 +26,8 @@ abstract class PageablePresenter extends BasePresenter
 
     protected function runRenderDefault()
     {
-        $this->template->tag = $this->tag;
+        $this->template->canAccess = $this->canAccess;
+        $this->template->tag       = $this->tag;
     }
 
     /**
