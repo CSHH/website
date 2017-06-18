@@ -24,9 +24,17 @@ class SmokeTest extends Tester\TestCase
     {
         $server = new KdybyHttpServer;
         $server->start(__DIR__ . '/../../www/index.php');
+
+        $options = [
+            'http_errors'     => false,
+            'allow_redirects' => false,
+        ];
+
         $httpClient = new GuzzleHttp\Client;
-        $response = $httpClient->get($server->getUrl() . $url, ['http_errors' => false]);
+        $response = $httpClient->get($server->getUrl() . $url, $options);
+
         Assert::same($code, $response->getStatusCode());
+
         $server->slaughter();
     }
 
