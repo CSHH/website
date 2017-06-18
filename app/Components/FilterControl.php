@@ -70,6 +70,8 @@ class FilterControl extends Control
 
         $template->canAccess = $this->accessChecker->canAccess();
 
+        $template->placement = strpos($this->presenter->name, 'Front') === 0 ? 'front' : 'admin';
+
         $template->activeFilter = $this->filter;
 
         $template->setFile($templateFile);
