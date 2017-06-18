@@ -44,9 +44,19 @@ class SmokeTest extends Tester\TestCase
     public function getUrls()
     {
         return [
-            ['/', 200],
-            ['/smrt-hrou', 200],
+            ['/',                  200],
+            ['/hry',               200],
+            ['/filmy',             200],
+            ['/knihy',             200],
+            ['/clanky',            200],
+            ['/galerie',           200],
+            ['/videa',             200],
+            ['/smrt-hrou',         200],
             ['/uzivatelska-sekce', 302],
+            ['/ja',                302],
+            ['/odhlasit',          302],
+            ['/zadat-nove-heslo',  302],
+            ['/aktivovat-ucet',    302],
         ];
     }
 }
