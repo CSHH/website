@@ -2,8 +2,8 @@
 
 namespace App\Front;
 
-use App\Presenters\ActivityTrait;
 use App\Entities;
+use App\Presenters\ActivityTrait;
 use App\Repositories;
 
 abstract class SharedContentPresenter extends PageablePresenter
