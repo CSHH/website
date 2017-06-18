@@ -8,11 +8,11 @@ use Nette\Application\UI\Control;
 class FilterControl extends Control
 {
     /** @var string */
-    const DISPLAY_DEFAULT = 'display-default';
+    const DISPLAY_DEFAULT = 'default';
     /** @var string */
-    const DISPLAY_INACTIVE = 'display-inactive';
+    const DISPLAY_INACTIVE = 'inactive';
     /** @var string */
-    const DISPLAY_DRAFTS = 'display-drafts';
+    const DISPLAY_DRAFTS = 'drafts';
 
     /** @var string @persistent */
     public $filter = self::DISPLAY_DEFAULT;
