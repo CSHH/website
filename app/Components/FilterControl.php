@@ -51,14 +51,14 @@ class FilterControl extends Control
         return $this->filter === self::DISPLAY_DRAFTS;
     }
 
-    public function renderSingleUserContent()
+    public function render()
     {
-        $this->doRender(__DIR__ . '/templates/FilterControl.singleUserContent.latte');
+        $this->doRender(__DIR__ . '/templates/FilterControl.latte');
     }
 
-    public function renderSharedContent()
+    public function renderWithDrafts()
     {
-        $this->doRender(__DIR__ . '/templates/FilterControl.sharedContent.latte');
+        $this->doRender(__DIR__ . '/templates/FilterControl.withDrafts.latte');
     }
 
     /**
