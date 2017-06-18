@@ -8,11 +8,11 @@ use Nette\Application\UI\Control;
 class FilterControl extends Control
 {
     /** @var string */
-    const DISPLAY_DEFAULT = 'display-default';
+    const DISPLAY_DEFAULT = 'default';
     /** @var string */
-    const DISPLAY_INACTIVE = 'display-inactive';
+    const DISPLAY_INACTIVE = 'inactive';
     /** @var string */
-    const DISPLAY_DRAFTS = 'display-drafts';
+    const DISPLAY_DRAFTS = 'drafts';
 
     /** @var string @persistent */
     public $filter = self::DISPLAY_DEFAULT;
@@ -51,14 +51,14 @@ class FilterControl extends Control
         return $this->filter === self::DISPLAY_DRAFTS;
     }
 
-    public function renderSingleUserContent()
+    public function render()
     {
-        $this->doRender(__DIR__ . '/templates/FilterControl.singleUserContent.latte');
+        $this->doRender(__DIR__ . '/templates/FilterControl.latte');
     }
 
-    public function renderSharedContent()
+    public function renderWithDrafts()
     {
-        $this->doRender(__DIR__ . '/templates/FilterControl.sharedContent.latte');
+        $this->doRender(__DIR__ . '/templates/FilterControl.withDrafts.latte');
     }
 
     /**
@@ -69,6 +69,8 @@ class FilterControl extends Control
         $template = $this->getTemplate();
 
         $template->canAccess = $this->accessChecker->canAccess();
+
+        $template->placement = strpos($this->presenter->name, 'Front') === 0 ? 'front' : 'admin';
 
         $template->activeFilter = $this->filter;
 
