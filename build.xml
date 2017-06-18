@@ -88,6 +88,10 @@
                 <include name="*/**"/>
                 <exclude name=".gitkeep"/>
             </fileset>
+            <fileset dir="tests/Smoke/tmp">
+                <include name="*/**"/>
+                <exclude name=".gitkeep"/>
+            </fileset>
         </delete>
     </target>
 
