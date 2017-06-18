@@ -4,8 +4,8 @@ namespace AppTests\Smoke;
 
 use AppTests\KdybyHttpServer;
 use GuzzleHttp;
-use Tester\Assert;
 use Tester;
+use Tester\Assert;
 
 require __DIR__ . '/bootstrap.php';
 
@@ -31,7 +31,7 @@ class SmokeTest extends Tester\TestCase
         ];
 
         $httpClient = new GuzzleHttp\Client;
-        $response = $httpClient->get($server->getUrl() . $url, $options);
+        $response   = $httpClient->get($server->getUrl() . $url, $options);
 
         Assert::same($code, $response->getStatusCode());
 
