@@ -1,7 +1,7 @@
 <span n:if="$canAccess" class="activity-switch">
 
-    <a href="{plink default, filter-filter => App\Components\FilterControl::DISPLAY_DEFAULT}" n:class="$activeFilter === App\Components\FilterControl::DISPLAY_DEFAULT ? active">{_}locale.filter.display_mine{/_}</a>
+    {include 'include/FilterControl.displayDefault.latte'}
 
-    <a href="{plink default, filter-filter => App\Components\FilterControl::DISPLAY_INACTIVE}" n:class="$activeFilter === App\Components\FilterControl::DISPLAY_INACTIVE ? active">{_}locale.filter.display_inactive{/_}</a>
+    {include 'include/FilterControl.displayInactive.latte'}
 
 </span>
