@@ -82,8 +82,9 @@ settings:
 alert:
     question: 'Jste si jistí?'
 tags:
-    show_all: 'VŠE'
+    show_all: 'Vše'
 filter:
     display_mine: 'Zobrazit moje vlastní'
+    display_all: 'Zobrazit vše'
     display_inactive: 'Zobrazit neschválené'
     display_drafts: 'Zobrazit rozpracované'
