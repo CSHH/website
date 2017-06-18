@@ -15,12 +15,12 @@ require __DIR__ . '/bootstrap.php';
 class SmokeTest extends Tester\TestCase
 {
     /**
-     * @dataProvider getUrls
+     * @dataProvider getParams
      *
-     * @param string $url
+     * @param string $path
      * @param int    $code
      */
-    public function testAccess($url, $code)
+    public function testAccess($path, $code)
     {
         $server = new KdybyHttpServer;
         $server->start(__DIR__ . '/../../www/index.php');
@@ -31,7 +31,7 @@ class SmokeTest extends Tester\TestCase
         ];
 
         $httpClient = new GuzzleHttp\Client;
-        $response   = $httpClient->get($server->getUrl() . $url, $options);
+        $response   = $httpClient->get($server->getUrl() . $path, $options);
 
         Assert::same($code, $response->getStatusCode());
 
@@ -41,7 +41,7 @@ class SmokeTest extends Tester\TestCase
     /**
      * @return array
      */
-    public function getUrls()
+    public function getParams()
     {
         return [
             ['/',                  200],
