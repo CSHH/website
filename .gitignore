@@ -9,6 +9,8 @@
 !temp/sessions/.gitkeep
 /tests/Integration/tmp/*
 !tests/Integration/tmp/.gitkeep
+/tests/Smoke/tmp/*
+!tests/Smoke/tmp/.gitkeep
 /www/thumbs/*
 !www/thumbs/.gitkeep
 /www/upload/*
