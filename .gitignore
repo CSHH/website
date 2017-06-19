@@ -11,6 +11,7 @@
 !tests/Integration/tmp/.gitkeep
 /tests/Smoke/tmp/*
 !tests/Smoke/tmp/.gitkeep
+/tests/Smoke/db.neon
 /www/thumbs/*
 !www/thumbs/.gitkeep
 /www/upload/*
