@@ -1,3 +1,6 @@
+application:
+    catchExceptions: true
+
 doctrine:
     dbname: dbname_smoke
     host: 127.0.0.1
