@@ -2,7 +2,6 @@
 
 namespace AppTests\Smoke;
 
-use AppTests\KdybyHttpServer;
 use GuzzleHttp;
 use Tester;
 use Tester\Assert;
@@ -22,20 +21,15 @@ class SmokeTest extends Tester\TestCase
      */
     public function testAccess($path, $code)
     {
-        $server = new KdybyHttpServer;
-        $server->start(__DIR__ . '/../../www/index.php');
-
         $options = [
-            'http_errors'     => false,
             'allow_redirects' => false,
+            'http_errors'     => false,
         ];
 
-        $httpClient = new GuzzleHttp\Client;
-        $response   = $httpClient->get($server->getUrl() . $path, $options);
+        $httpClient = new GuzzleHttp\Client($options);
+        $response = $httpClient->get('http://127.0.0.1:8080' . $path);
 
         Assert::same($code, $response->getStatusCode());
-
-        $server->slaughter();
     }
 
     /**
@@ -48,20 +42,31 @@ class SmokeTest extends Tester\TestCase
             ['/hry',                                   200],
             ['/hry/tag',                               404],
             ['/hry/tag/slug',                          404],
+            ['/hry/novinky',                           200],
+            ['/hry/novinky/lorem-ipsum-game',          200],
             ['/filmy',                                 200],
             ['/filmy/tag',                             404],
             ['/filmy/tag/slug',                        404],
+            ['/filmy/novinky',                         200],
+            ['/filmy/novinky/lorem-ipsum-movie',       200],
             ['/knihy',                                 200],
             ['/knihy/tag',                             404],
             ['/knihy/tag/slug',                        404],
+            ['/knihy/novinky',                         200],
+            ['/knihy/novinky/lorem-ipsum-book',        200],
             ['/clanky',                                200],
             ['/clanky/tag',                            404],
             ['/clanky/tag/slug',                       404],
+            ['/clanky/novinky',                        200],
+            ['/clanky/novinky/lorem-ipsum',            200],
             ['/galerie',                               200],
             ['/galerie/tag',                           404],
-            ['/videa/tag/slug',                        200],
+            ['/galerie/novinky',                       200],
+            ['/videa',                                 200],
             ['/videa/tag',                             404],
             ['/videa/tag/slug',                        404],
+            ['/videa/novinky',                         200],
+            ['/videa/novinky/lorem-ipsum',             200],
             ['/smrt-hrou',                             200],
             ['/uzivatelska-sekce',                     302],
             ['/uzivatelska-sekce/hry/formular',        302],
@@ -105,5 +110,5 @@ class SmokeTest extends Tester\TestCase
     }
 }
 
-$testCase = new SmokeTest;
+$testCase = new SmokeTest($container);
 $testCase->run();
