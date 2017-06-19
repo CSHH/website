@@ -5,6 +5,7 @@ php:
 before_script: travis_retry composer install
 
 script:
-    - vendor/bin/tester tests -p php -c tests/php.ini
+    - vendor/bin/tester tests/Integration -p php -c tests/php.ini
+    - vendor/bin/tester tests/Unit -p php -c tests/php.ini
     - IFS=$'\n'; COMMIT_SCA_FILES=($(git diff --name-only --diff-filter=ACMRTUXB "${COMMIT_RANGE}")); unset IFS
     - vendor/bin/php-cs-fixer fix --config=.php_cs -v --dry-run --using-cache=no --path-mode=intersection "${COMMIT_SCA_FILES[@]}"
