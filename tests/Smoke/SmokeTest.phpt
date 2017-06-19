@@ -27,7 +27,7 @@ class SmokeTest extends Tester\TestCase
         ];
 
         $httpClient = new GuzzleHttp\Client($options);
-        $response = $httpClient->get('http://127.0.0.1:8080' . $path);
+        $response   = $httpClient->get('http://127.0.0.1:8080' . $path);
 
         Assert::same($code, $response->getStatusCode());
     }
