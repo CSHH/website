@@ -1,0 +1,7 @@
+doctrine:
+    dbname: dbname_smoke
+    host: 127.0.0.1
+    user: root
+    password: password
+    charset: UTF8
+    driver: pdo_mysql
