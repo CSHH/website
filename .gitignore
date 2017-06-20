@@ -1,3 +1,5 @@
+/.idea
+/nbproject
 /.php_cs.cache
 /config/config.local.neon
 /log/*
