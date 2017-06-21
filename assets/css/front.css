@@ -31,15 +31,17 @@
 
 #menu ul li {
     float: left;
+    position: relative;
 }
 
-#menu ul li a {
+#menu ul li .menu-link {
     display: block;
     width: 115px;
     padding: 0 5px;
     text-align: center;
     text-decoration: none;
     line-height: 50px;
+    color: #fff;
 }
 
 #menu ul li ul {
@@ -53,6 +55,20 @@
 
 #menu ul li ul li {
     clear: both;
+}
+
+#menu .inactive-items-indicator {
+    position: absolute;
+    margin: 0 auto 0 auto;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
 }
 
 #body-wrapper {
