@@ -130,6 +130,14 @@ class ImageRepository extends SingleUserContentRepository
     }
 
     /**
+     * @return Entities\ImageEntity[]
+     */
+    public function getAllInactive()
+    {
+        return $this->dataAccess->getAllInactive(Entities\ImageEntity::class);
+    }
+
+    /**
      * @param  int       $page
      * @param  int       $limit
      * @return Paginator
