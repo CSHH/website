@@ -1,4 +1,4 @@
-# Czech Silent Hill Heaven (CSHH) Website
+![Title image](www/images/bg-fog.jpg)
 
 [![Build Status](https://travis-ci.org/CSHH/website.svg?branch=master)](https://travis-ci.org/CSHH/website)
 
@@ -22,8 +22,10 @@ $ git clone git@github.com:CSHH/website.git
 
 ## Branches
 
-* [**master**](https://github.com/CSHH/website/tree/master) is the main branch used for development
-* [**ready-to-release**](https://github.com/CSHH/website/tree/ready-to-release) is always one commit ahead of master and contains some modifications for the release
+| Branch                                                                    | Description                                                                          |
+|---------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| [master](https://github.com/CSHH/website/tree/master)                     | is the main branch used for development                                              |
+| [ready-to-release](https://github.com/CSHH/website/tree/ready-to-release) | is always one commit ahead of master and contains some modifications for the release |
 
 ## Install PHP dependencies
 
@@ -47,56 +49,32 @@ $ npm install
 $ grunt
 ```
 
-## Prepare this project for development
+## Prepare project for development
 
-```bash
-$ vendor/bin/phing init
-```
+| Action                             | Command                          |
+|------------------------------------|----------------------------------|
+| Basic initialisation               | `vendor/bin/phing init`          |
+| Seed database with some dummy data | `vendor/bin/phing fixtures`      |
+| Initialise and seed                | `vendor/bin/phing init+fixtures` |
 
-## Seed your database with some dummy data
+## Development server
 
-```bash
-$ vendor/bin/phing fixtures
-```
+| Action | Command                    |
+|--------|----------------------------|
+| Start  | `bin/console server:start` |
+| Stop   | `bin/console server:stop`  |
 
-Or in one single step
-
-```bash
-$ vendor/bin/phing init+fixtures
-```
-
-## Start the development server
-
-```bash
-$ bin/console server:start
-```
-
-Open your web browser and go to the http://localhost:8000.
+The website will be accessible on http://localhost:8000 by default.
 
 ## Log yourself in
 
-If you have applied the fixtures you can use one of three prepared user accounts to log yourself in with these credentials
+If you have applied the fixtures you can use one of three prepared user accounts to log yourself in
 
-### As a user with role user
-
-* email: jake.doe@example.com
-* password: user
-
-### As a user with role moderator
-
-* email: jane.doe@example.com
-* password: moderator
-
-### As a user with role administrator
-
-* email: john.doe@example.com
-* password: administrator
-
-## After you are done don´t forget to stop the server
-
-```bash
-$ bin/console server:stop
-```
+| Role          | Email                | Password      |
+|---------------|----------------------|---------------|
+| Administrator | john.doe@example.com | administrator |
+| Moderator     | jane.doe@example.com | moderator     |
+| User          | jake.doe@example.com | user          |
 
 ## Tests
 
@@ -111,3 +89,4 @@ Please see our [contributing guidlines](CONTRIBUTING.md).
 ## License
 
 This source code is [free software](http://www.gnu.org/philosophy/free-sw.html) licensed under MIT [license](LICENSE.md).
+
