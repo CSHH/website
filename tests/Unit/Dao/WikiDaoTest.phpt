@@ -323,6 +323,27 @@ class WikiDaoTest extends Tester\TestCase
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByUserForPage(1, 10, new AppEntities\UserEntity, AppEntities\WikiEntity::TYPE_GAME));
     }
 
+    public function testGetAllInactive()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, []);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $wikiDao = new WikiDao($em, $this->paginatorFactory);
+
+        Assert::type('array', $wikiDao->getAllInactive(AppEntities\WikiEntity::TYPE_GAME));
+    }
+
     public function testGetAllInactiveForPage()
     {
         $paginatorFactory = $this->paginatorFactory;

@@ -199,6 +199,14 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
+     * @return Entities\ArticleEntity[]
+     */
+    public function getAllInactive()
+    {
+        return $this->dataAccess->getAllInactive(Entities\ArticleEntity::class);
+    }
+
+    /**
      * @param  int       $page
      * @param  int       $limit
      * @return Paginator

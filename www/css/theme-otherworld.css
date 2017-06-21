@@ -1,8 +1,15 @@
-#menu ul li a {
-    color: #fff;
+#menu ul li .menu-link {
     background-color: #910;
 }
 
-#menu ul li a:hover {
+#menu ul li .menu-link:hover {
+    background-color: #710;
+}
+
+#menu .inactive-items-indicator {
+    background-color: #910;
+}
+
+#menu .inactive-items-indicator:hover {
     background-color: #710;
 }

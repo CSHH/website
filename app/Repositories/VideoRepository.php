@@ -200,6 +200,14 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
+     * @return Entities\VideoEntity[]
+     */
+    public function getAllInactive()
+    {
+        return $this->dataAccess->getAllInactive(Entities\VideoEntity::class);
+    }
+
+    /**
      * @param  int       $page
      * @param  int       $limit
      * @return Paginator
