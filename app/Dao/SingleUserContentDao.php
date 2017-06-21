@@ -179,6 +179,24 @@ class SingleUserContentDao
     }
 
     /**
+     * @param  string                $className
+     * @return Entities\BaseEntity[]
+     */
+    public function getAllInactive($className)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('e')
+            ->from($className, 'e')
+            ->where('e.isActive = :state')
+            ->setParameter('state', false);
+
+        $this->orderByDesc($qb, 'e');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param  string    $className
      * @param  int       $page
      * @param  int       $limit
