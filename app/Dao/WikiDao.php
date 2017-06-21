@@ -247,6 +247,27 @@ class WikiDao
     }
 
     /**
+     * @param  string $type
+     * @return Entities\WikiEntity[]
+     */
+    public function getAllInactive($type)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::class, 'w')
+            ->where('w.isActive = :state AND w.type = :type')
+            ->setParameters([
+                'state' => false,
+                'type'  => $type,
+            ]);
+
+        $this->orderByDesc($qb, 'w');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param  int       $page
      * @param  int       $limit
      * @param  string    $type
