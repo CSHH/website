@@ -255,6 +255,30 @@ class WikiRepository extends BaseRepository
     }
 
     /**
+     * @return Entities\WikiEntity[]
+     */
+    public function getAllInactiveGames()
+    {
+        return $this->dataAccess->getAllInactive(Entities\WikiEntity::TYPE_GAME);
+    }
+
+    /**
+     * @return Entities\WikiEntity[]
+     */
+    public function getAllInactiveMovies()
+    {
+        return $this->dataAccess->getAllInactive(Entities\WikiEntity::TYPE_MOVIE);
+    }
+
+    /**
+     * @return Entities\WikiEntity[]
+     */
+    public function getAllInactiveBooks()
+    {
+        return $this->dataAccess->getAllInactive(Entities\WikiEntity::TYPE_BOOK);
+    }
+
+    /**
      * @param  int       $page
      * @param  int       $limit
      * @param  string    $type
