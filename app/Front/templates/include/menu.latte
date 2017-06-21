@@ -2,49 +2,61 @@
 
     <li>
 
-        <a n:href="Game:default">{_}locale.sections.games{/_}</a>
+        <a n:href=":Admin:GameListing:default, filter-filter => App\Components\FilterControl::DISPLAY_INACTIVE" class="inactive-items-indicator" n:if="$canAccess && $inactiveGamesCount">{$inactiveGamesCount}</a>
+
+        <a n:href="Game:default" class="menu-link">{_}locale.sections.games{/_}</a>
 
     </li>
 
     <li>
 
-        <a n:href="Movie:default">{_}locale.sections.movies{/_}</a>
+        <a n:href=":Admin:MovieListing:default, filter-filter => App\Components\FilterControl::DISPLAY_INACTIVE" class="inactive-items-indicator" n:if="$canAccess && $inactiveMoviesCount">{$inactiveMoviesCount}</a>
+
+        <a n:href="Movie:default" class="menu-link">{_}locale.sections.movies{/_}</a>
 
     </li>
 
     <li>
 
-        <a n:href="Book:default">{_}locale.sections.books{/_}</a>
+        <a n:href=":Admin:BookListing:default, filter-filter => App\Components\FilterControl::DISPLAY_INACTIVE" class="inactive-items-indicator" n:if="$canAccess && $inactiveBooksCount">{$inactiveBooksCount}</a>
+
+        <a n:href="Book:default" class="menu-link">{_}locale.sections.books{/_}</a>
 
     </li>
 
     <li>
 
-        <a n:href="Article:default">{_}locale.sections.articles{/_}</a>
+        <a n:href=":Admin:ArticleListing:default, filter-filter => App\Components\FilterControl::DISPLAY_INACTIVE" class="inactive-items-indicator" n:if="$canAccess && $inactiveArticlesCount">{$inactiveArticlesCount}</a>
+
+        <a n:href="Article:default" class="menu-link">{_}locale.sections.articles{/_}</a>
 
     </li>
 
     <li>
 
-        <a n:href="Gallery:default">{_}locale.sections.galleries{/_}</a>
+        <a n:href=":Admin:GalleryListing:default, filter-filter => App\Components\FilterControl::DISPLAY_INACTIVE" class="inactive-items-indicator" n:if="$canAccess && $inactiveImagesCount">{$inactiveImagesCount}</a>
+
+        <a n:href="Gallery:default" class="menu-link">{_}locale.sections.galleries{/_}</a>
 
     </li>
 
     <li>
 
-        <a n:href="Video:default">{_}locale.sections.videos{/_}</a>
+        <a n:href=":Admin:VideoListing:default, filter-filter => App\Components\FilterControl::DISPLAY_INACTIVE" class="inactive-items-indicator" n:if="$canAccess && $inactiveVideosCount">{$inactiveVideosCount}</a>
+
+        <a n:href="Video:default" class="menu-link">{_}locale.sections.videos{/_}</a>
 
     </li>
 
     <li>
 
-        <a href="http://www.silenthill-chronicle.cz" target="_blank">Kronika SH</a>
+        <a href="http://www.silenthill-chronicle.cz" target="_blank" class="menu-link">Kronika SH</a>
 
     </li>
 
     <li>
 
-        <a n:href="SmrtHrou:default">Smrt Hrou</a>
+        <a n:href="SmrtHrou:default" class="menu-link">Smrt Hrou</a>
 
     </li>
 
