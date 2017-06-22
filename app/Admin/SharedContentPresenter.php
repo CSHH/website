@@ -2,6 +2,7 @@
 
 namespace App\Admin;
 
+use App\Entities;
 use App\Forms;
 use App\Repositories;
 
@@ -12,6 +13,9 @@ abstract class SharedContentPresenter extends PageablePresenter
 
     /** @var Forms\WikiDraftFormInterface @inject */
     public $wikiDraftForm;
+
+    /** @var Repositories\WikiRepository @inject */
+    public $wikiRepository;
 
     /** @var Repositories\WikiDraftRepository @inject */
     public $wikiDraftRepository;
@@ -48,17 +52,61 @@ abstract class SharedContentPresenter extends PageablePresenter
      */
     protected function runActionDefault($limit, $type)
     {
-        $this->checkIfDisplayInactiveOnly();
-
         $this->canAccess = $this->accessChecker->canAccess();
 
-        if ($this->canAccess && $this->displayInactiveOnly) {
+        if ($this->canAccess && $this->filter->displayInactive()) {
+            $this->items = $this->wikiRepository->getAllInactiveForPage($this->vp->page, $limit, $type);
+        } elseif ($this->canAccess && $this->filter->displayDrafts()) {
             $this->items = $this->wikiRepository->getAllWithDraftsForPage($this->vp->page, $limit, $type);
         } else {
             $this->items = $this->wikiRepository->getAllByUserForPage($this->vp->page, $limit, $this->loggedUser->getLoggedUserEntity(), $type);
         }
 
         $this->preparePaginator($this->items ? $this->items->count() : 0, $limit);
+    }
+
+    /**
+     * @param int                         $itemId
+     * @param Repositories\BaseRepository $repository
+     */
+    protected function runHandleActivate($itemId, Repositories\BaseRepository $repository)
+    {
+        $item = $this->getItem($itemId, $repository);
+
+        $this->checkItemAndFlashWithRedirectIfNull($item);
+
+        $repository->activate($item);
+
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
+    }
+
+    /**
+     * @param int                         $itemId
+     * @param Repositories\BaseRepository $repository
+     */
+    protected function runHandleDelete($itemId, Repositories\BaseRepository $repository)
+    {
+        $item = $this->getItem($itemId, $repository);
+
+        $this->checkItemAndFlashWithRedirectIfNull($item);
+
+        $repository->delete($item);
+
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
+    }
+
+    /**
+     * @param Entities\BaseEntity $item
+     * @param string              $redirect
+     */
+    protected function checkItemAndFlashWithRedirectIfNull(Entities\BaseEntity $item = null, $redirect = 'this')
+    {
+        if ($item === null) {
+            $this->flashWithRedirect(
+                $this->translator->translate('locale.item.does_not_exist'),
+                $redirect
+            );
+        }
     }
 
     /**
