@@ -82,6 +82,22 @@
         </delete>
     </target>
 
+    <target name="clean-cache">
+        <delete includeemptydirs="true">
+            <fileset dir="temp">
+                <include name="cache/"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="clean-sessions">
+        <delete includeemptydirs="true">
+            <fileset dir="temp">
+                <include name="sessions/sess_*"/>
+            </fileset>
+        </delete>
+    </target>
+
     <target name="clean-tests">
         <delete includeemptydirs="true">
             <fileset dir="tests/Integration/tmp">
