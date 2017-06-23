@@ -4,12 +4,12 @@
 
 <div id="top-buttons-bar">
 
-    {include '../include/new.latte', link => 'BookDetail:form', label => 'Nový článek'}
+    {include '../include/new.latte', label => 'Nový článek'}
 
     {control filter:withDrafts}
 
 </div>
 
-{include '../include/itemList.latte', formLink => 'BookDetail:form', detailLink => 'BookDetail:detail'}
+{include '../include/itemList.latte'}
 
 {control vp}

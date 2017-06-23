@@ -4,7 +4,7 @@
 
 <div id="top-buttons-bar">
 
-    {include '../include/new.latte', link => 'VideoDetail:form', label => 'Nové video'}
+    {include '../include/new.latte', label => 'Nové video'}
 
     {control filter}
 
@@ -18,7 +18,7 @@
 
         {if $item->user->id === $user->id}
 
-            <a class="gallery-image-link" n:href="VideoDetail:form, id => $item->id">
+            <a class="gallery-image-link" n:href="form, id => $item->id">
 
                 <img src="{$videoThumbnail->getThumbnailImage($item)|thumb:320:320}" title="{$description}" alt="{$description}">
 
@@ -26,7 +26,7 @@
 
         {else}
 
-            <a class="gallery-image-link" n:href="VideoDetail:detail, id => $item->id">
+            <a class="gallery-image-link" n:href="detail, id => $item->id">
 
                 <img src="{$videoThumbnail->getThumbnailImage($item)|thumb:320:320}" title="{$description}" alt="{$description}">
 
@@ -36,9 +36,9 @@
 
         <div class="activation-bar" n:if="!$item->isActive">
 
-            <a n:href="VideoDetail:activate, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+            <a n:href="activate!, videoId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
 
-            <a n:href="VideoDetail:delete, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+            <a n:href="delete!, videoId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
 
         </div>
 

@@ -4,7 +4,7 @@
 
 <div id="top-buttons-bar">
 
-    {include '../include/new.latte', link => 'ArticleDetail:form', label => 'Nový článek'}
+    {include '../include/new.latte', label => 'Nový článek'}
 
     {control filter}
 
@@ -16,19 +16,19 @@
 
         {if $canAccess && !$item->isActive}
 
-            <a n:href="ArticleDetail:activate, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+            <a n:href="activate!, articleId => $item->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
 
-            <a n:href="ArticleDetail:delete, id => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+            <a n:href="delete!, articleId => $item->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
 
         {/if}
 
         {if $item->user->id === $user->id}
 
-            <a n:href="ArticleDetail:form, id => $item->id">{$item->name}</a>
+            <a n:href="form, id => $item->id">{$item->name}</a>
 
         {else}
 
-            <a n:href="ArticleDetail:detail, id => $item->id">{$item->name}</a>
+            <a n:href="detail, id => $item->id">{$item->name}</a>
 
         {/if}
 
