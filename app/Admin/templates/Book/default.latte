@@ -1,0 +1,15 @@
+{block content}
+
+{include '../include/topMenu.latte'}
+
+<div id="top-buttons-bar">
+
+    {include '../include/new.latte', label => 'Nový článek'}
+
+    {control filter:withDrafts}
+
+</div>
+
+{include '../include/itemList.latte'}
+
+{control vp}

@@ -247,7 +247,7 @@ class WikiDao
     }
 
     /**
-     * @param  string $type
+     * @param  string                $type
      * @return Entities\WikiEntity[]
      */
     public function getAllInactive($type)

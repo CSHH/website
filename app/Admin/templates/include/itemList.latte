@@ -6,15 +6,15 @@
 
             {if $item->isActive === false}
 
-                <a n:href="$detailLink, id => $item->id">{$item->name}</a>
+                <a n:href="detail, id => $item->id">{$item->name}</a>
 
             {elseif $item->isActive && $item->drafts->count()}
 
-                <a n:href="WikiDraftListing:default, wikiId => $item->id">{$item->name}</a>
+                <a n:href="WikiDraft:default, wikiId => $item->id">{$item->name}</a>
 
             {else}
 
-                <a n:href="$formLink, id => $item->id">{$item->name}</a>
+                <a n:href="form, id => $item->id">{$item->name}</a>
 
             {/if}
 

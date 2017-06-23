@@ -33,7 +33,7 @@ class ArticleFormTest extends Tester\TestCase
             '_do'   => 'form-form-submit',
         ];
 
-        $this->assertFormSubmitted('Admin:ArticleDetail', 'form', 'POST', [], $post);
+        $this->assertFormSubmitted('Admin:Article', 'form', 'POST', [], $post);
 
         Assert::equal(6, $articleRepository->getCount());
     }
@@ -56,7 +56,7 @@ class ArticleFormTest extends Tester\TestCase
             '_do'   => 'form-form-submit',
         ];
 
-        $this->assertFormSubmitted('Admin:ArticleDetail', 'form', 'POST', ['id' => 1], $post);
+        $this->assertFormSubmitted('Admin:Article', 'form', 'POST', ['id' => 1], $post);
 
         $ent2 = $articleRepository->getById(1);
         Assert::same('Article XYZ', $ent2->name);
