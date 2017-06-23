@@ -73,7 +73,7 @@ class VideoForm extends AbstractContentForm
         }
 
         if (!empty($ent)) {
-            $p->redirect('this');
+            $p->redirect('form', ['id' => $ent->id]);
         }
     }
 }
