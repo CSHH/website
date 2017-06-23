@@ -10,7 +10,7 @@ $container = require __DIR__ . '/../bootstrap.php';
 /**
  * @testCase
  */
-class WikiDraftListingPresenterTest extends Tester\TestCase
+class GamePresenterTest extends Tester\TestCase
 {
     use AppTests\Fixtures;
     use AppTests\Login;
@@ -18,11 +18,11 @@ class WikiDraftListingPresenterTest extends Tester\TestCase
 
     public function testActionDefault()
     {
-        $this->applyFixtures($this->container, __DIR__ . '/WikiDraftListingPresenterTest.fixtures.php');
+        $this->applyFixtures($this->container, __DIR__ . '/fixtures.php');
         $this->signIn($this->container);
-        $this->assertAppResponse('Admin:WikiDraftListing', 'default', 'GET', ['wikiId' => 1]);
+        $this->assertAppResponse('Admin:Game', 'default', 'GET');
     }
 }
 
-$testCase = new WikiDraftListingPresenterTest($container);
+$testCase = new GamePresenterTest($container);
 $testCase->run();

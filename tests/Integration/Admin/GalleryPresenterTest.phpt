@@ -10,7 +10,7 @@ $container = require __DIR__ . '/../bootstrap.php';
 /**
  * @testCase
  */
-class MovieListingPresenterTest extends Tester\TestCase
+class GalleryPresenterTest extends Tester\TestCase
 {
     use AppTests\Fixtures;
     use AppTests\Login;
@@ -20,9 +20,9 @@ class MovieListingPresenterTest extends Tester\TestCase
     {
         $this->applyFixtures($this->container, __DIR__ . '/fixtures.php');
         $this->signIn($this->container);
-        $this->assertAppResponse('Admin:MovieListing', 'default', 'GET');
+        $this->assertAppResponse('Admin:Gallery', 'default', 'GET');
     }
 }
 
-$testCase = new MovieListingPresenterTest($container);
+$testCase = new GalleryPresenterTest($container);
 $testCase->run();

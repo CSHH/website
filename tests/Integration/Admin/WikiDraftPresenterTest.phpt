@@ -10,7 +10,7 @@ $container = require __DIR__ . '/../bootstrap.php';
 /**
  * @testCase
  */
-class BookListingPresenterTest extends Tester\TestCase
+class WikiDraftPresenterTest extends Tester\TestCase
 {
     use AppTests\Fixtures;
     use AppTests\Login;
@@ -18,11 +18,11 @@ class BookListingPresenterTest extends Tester\TestCase
 
     public function testActionDefault()
     {
-        $this->applyFixtures($this->container, __DIR__ . '/fixtures.php');
+        $this->applyFixtures($this->container, __DIR__ . '/WikiDraftPresenterTest.fixtures.php');
         $this->signIn($this->container);
-        $this->assertAppResponse('Admin:BookListing', 'default', 'GET');
+        $this->assertAppResponse('Admin:WikiDraft', 'default', 'GET', ['wikiId' => 1]);
     }
 }
 
-$testCase = new BookListingPresenterTest($container);
+$testCase = new WikiDraftPresenterTest($container);
 $testCase->run();
