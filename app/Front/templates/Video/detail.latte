@@ -2,12 +2,19 @@
 
 <div class="content-body">
 
-    <h1 n:block="title">{$video->name}</h1>
-
     {if !$video->isActive}
-        <a n:href="activate!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
-        <a n:href="delete!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+
+        <div class="action-buttons">
+
+            <a n:href="activate!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Povolit</a>
+
+            <a n:href="delete!, videoId => $video->id" data-confirm="{_}locale.alert.question{/_}">Smazat</a>
+
+        </div>
+
     {/if}
+
+    <h1 n:block="title">{$video->name}</h1>
 
     {include '../../../Presenters/templates/include/video.latte', width => 950, height => 540, src => $video->src, title => $video->name}
 

@@ -2,8 +2,6 @@
 
 <div class="content-body">
 
-    <h1 n:block="title">{$article->name}</h1>
-
     {if !$article->isActive}
 
         <div class="action-buttons">
@@ -15,6 +13,8 @@
         </div>
 
     {/if}
+
+    <h1 n:block="title">{$article->name}</h1>
 
     <div class="text-content">{$article->text|noescape}</div>
 
