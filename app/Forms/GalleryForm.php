@@ -55,6 +55,6 @@ class GalleryForm extends AbstractContentForm
             );
         }
 
-        $p->redirect('this');
+        $p->redirect('default');
     }
 }
