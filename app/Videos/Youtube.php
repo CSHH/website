@@ -26,6 +26,12 @@ class Youtube
      */
     public function getVideoSrc($pageUrl)
     {
+        if (!Strings::startsWith($pageUrl, 'https://www.youtube.com')) {
+            throw new InvalidVideoUrlException(
+                $this->translator->translate('locale.error.invalid_youtube_video_url')
+            );
+        }
+
         $key = '/watch';
 
         if (!Strings::contains($pageUrl, $key)) {

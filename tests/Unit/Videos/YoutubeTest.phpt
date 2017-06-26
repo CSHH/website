@@ -17,7 +17,7 @@ class YoutubeTest extends Tester\TestCase
     use UnitMocks;
 
     /**
-     * @dataProvider getUrls
+     * @dataProvider getGoodUrls
      *
      * @param string $url
      * @param string $expectedSrc
@@ -33,19 +33,22 @@ class YoutubeTest extends Tester\TestCase
     /**
      * @return array
      */
-    public function getUrls()
+    public function getGoodUrls()
     {
         return [
-            ['https://www.example.com/watch?v=abc', 'https://www.example.com/embed/abc'],
-            ['https://www.example.com/watch?v=abc&list=xyz', 'https://www.example.com/embed/abc'],
-            ['https://www.example.com/watch?list=xyz&v=abc', 'https://www.example.com/embed/abc'],
+            ['https://www.youtube.com/watch?v=abc', 'https://www.youtube.com/embed/abc'],
+            ['https://www.youtube.com/watch?v=abc&list=xyz', 'https://www.youtube.com/embed/abc'],
+            ['https://www.youtube.com/watch?list=xyz&v=abc', 'https://www.youtube.com/embed/abc'],
         ];
     }
 
-    public function testGetVideoSrcThrowsInvalidVideoUrlException()
+    /**
+     * @dataProvider getBadUrls
+     *
+     * @param string $url
+     */
+    public function testGetVideoSrcThrowsInvalidVideoUrlException($url)
     {
-        $url = 'https://www.example.com/BAD_KEY=abc';
-
         $translator = $this->getTranslatorMock();
         $translator->shouldReceive('translate')
             ->once()
@@ -55,6 +58,18 @@ class YoutubeTest extends Tester\TestCase
             $youtube = new Youtube($translator);
             $youtube->getVideoSrc($url);
         }, 'App\Exceptions\InvalidVideoUrlException');
+    }
+
+    /**
+     * @return array
+     */
+    public function getBadUrls()
+    {
+        return [
+            ['https://www.BADHOST.com'],
+            ['https://www.youtube.com/MISSING_WATCH_IN_PATH'],
+            ['https://A_MALFORMED_URL'],
+        ];
     }
 }
 
