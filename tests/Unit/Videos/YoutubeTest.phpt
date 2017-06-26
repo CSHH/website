@@ -3,7 +3,7 @@
 namespace AppTests\Unit\Videos;
 
 use App\Videos\Youtube;
-use Mockery as m;
+use AppTests\UnitMocks;
 use Tester;
 use Tester\Assert;
 
@@ -14,18 +14,31 @@ require __DIR__ . '/../bootstrap.php';
  */
 class YoutubeTest extends Tester\TestCase
 {
-    public function testGetVideoSrc()
+    use UnitMocks;
+
+    /**
+     * @dataProvider getUrls
+     *
+     * @param string $url
+     * @param string $expectedSrc
+     */
+    public function testGetVideoSrc($url, $expectedSrc)
     {
-        $url         = 'https://www.example.com/watch?v=abc';
-        $expectedSrc = 'https://www.example.com/embed/abc';
-
         $translator = $this->getTranslatorMock();
-
-        $youtube = new Youtube($translator);
-
-        $src = $youtube->getVideoSrc($url);
-
+        $youtube    = new Youtube($translator);
+        $src        = $youtube->getVideoSrc($url);
         Assert::same($expectedSrc, $src);
+    }
+
+    /**
+     * @return array
+     */
+    public function getUrls()
+    {
+        return [
+            ['https://www.example.com/watch?v=abc', 'https://www.example.com/embed/abc'],
+            ['https://www.example.com/watch?v=abc&list=xyz', 'https://www.example.com/embed/abc'],
+        ];
     }
 
     public function testGetVideoSrcThrowsInvalidVideoUrlException()
@@ -41,11 +54,6 @@ class YoutubeTest extends Tester\TestCase
             $youtube = new Youtube($translator);
             $youtube->getVideoSrc($url);
         }, 'App\Exceptions\InvalidVideoUrlException');
-    }
-
-    private function getTranslatorMock()
-    {
-        return m::mock('Nette\Localization\ITranslator');
     }
 }
 

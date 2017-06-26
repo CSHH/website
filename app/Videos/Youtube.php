@@ -34,6 +34,11 @@ class Youtube
             );
         }
 
-        return str_replace($key, 'embed/', $pageUrl);
+        $embedUrl = str_replace($key, 'embed/', $pageUrl);
+        if (!Strings::contains($embedUrl, '&')) {
+            return $embedUrl;
+        }
+
+        return Strings::before($embedUrl, '&');
     }
 }
