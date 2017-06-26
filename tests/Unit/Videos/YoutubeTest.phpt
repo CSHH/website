@@ -3,7 +3,7 @@
 namespace AppTests\Unit\Videos;
 
 use App\Videos\Youtube;
-use Mockery as m;
+use AppTests\UnitMocks;
 use Tester;
 use Tester\Assert;
 
@@ -14,24 +14,41 @@ require __DIR__ . '/../bootstrap.php';
  */
 class YoutubeTest extends Tester\TestCase
 {
-    public function testGetVideoSrc()
+    use UnitMocks;
+
+    /**
+     * @dataProvider getGoodUrls
+     *
+     * @param string $url
+     * @param string $expectedSrc
+     */
+    public function testGetVideoSrc($url, $expectedSrc)
     {
-        $url         = 'https://www.example.com/watch?v=abc';
-        $expectedSrc = 'https://www.example.com/embed/abc';
-
         $translator = $this->getTranslatorMock();
-
-        $youtube = new Youtube($translator);
-
-        $src = $youtube->getVideoSrc($url);
-
+        $youtube    = new Youtube($translator);
+        $src        = $youtube->getVideoSrc($url);
         Assert::same($expectedSrc, $src);
     }
 
-    public function testGetVideoSrcThrowsInvalidVideoUrlException()
+    /**
+     * @return array
+     */
+    public function getGoodUrls()
     {
-        $url = 'https://www.example.com/BAD_KEY=abc';
+        return [
+            ['https://www.youtube.com/watch?v=abc', 'https://www.youtube.com/embed/abc'],
+            ['https://www.youtube.com/watch?v=abc&list=xyz', 'https://www.youtube.com/embed/abc'],
+            ['https://www.youtube.com/watch?list=xyz&v=abc', 'https://www.youtube.com/embed/abc'],
+        ];
+    }
 
+    /**
+     * @dataProvider getBadUrls
+     *
+     * @param string $url
+     */
+    public function testGetVideoSrcThrowsInvalidVideoUrlException($url)
+    {
         $translator = $this->getTranslatorMock();
         $translator->shouldReceive('translate')
             ->once()
@@ -43,9 +60,16 @@ class YoutubeTest extends Tester\TestCase
         }, 'App\Exceptions\InvalidVideoUrlException');
     }
 
-    private function getTranslatorMock()
+    /**
+     * @return array
+     */
+    public function getBadUrls()
     {
-        return m::mock('Nette\Localization\ITranslator');
+        return [
+            ['https://www.BADHOST.com'],
+            ['https://www.youtube.com/MISSING_WATCH_IN_PATH'],
+            ['https://A_MALFORMED_URL'],
+        ];
     }
 }
 
