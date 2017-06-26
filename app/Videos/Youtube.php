@@ -26,7 +26,7 @@ class Youtube
      */
     public function getVideoSrc($pageUrl)
     {
-        $key = 'watch?v=';
+        $key = '/watch';
 
         if (!Strings::contains($pageUrl, $key)) {
             throw new InvalidVideoUrlException(
@@ -34,7 +34,26 @@ class Youtube
             );
         }
 
-        $embedUrl = str_replace($key, 'embed/', $pageUrl);
+        $urlParts = parse_url($pageUrl);
+        if ($urlParts === false) {
+            throw new InvalidVideoUrlException(
+                $this->translator->translate('locale.error.invalid_youtube_video_url')
+            );
+        }
+        $query = $urlParts['query'];
+        if (Strings::contains($query, '&')) {
+            $queryParts = explode('&', $query);
+            foreach ($queryParts as $qp) {
+                if (Strings::startsWith($qp, 'v=')) {
+                    $ytUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . $key . '?' . $qp;
+                    break;
+                }
+            }
+        } else {
+            $ytUrl = $urlParts['scheme'] . '://' . $urlParts['host'] . $key . '?' . $query;
+        }
+
+        $embedUrl = str_replace('watch?v=', 'embed/', $ytUrl);
         if (!Strings::contains($embedUrl, '&')) {
             return $embedUrl;
         }

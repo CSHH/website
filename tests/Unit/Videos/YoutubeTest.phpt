@@ -38,6 +38,7 @@ class YoutubeTest extends Tester\TestCase
         return [
             ['https://www.example.com/watch?v=abc', 'https://www.example.com/embed/abc'],
             ['https://www.example.com/watch?v=abc&list=xyz', 'https://www.example.com/embed/abc'],
+            ['https://www.example.com/watch?list=xyz&v=abc', 'https://www.example.com/embed/abc'],
         ];
     }
 
