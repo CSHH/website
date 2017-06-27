@@ -149,6 +149,17 @@ class WikiEntity extends TimestampableEntity
     /**
      * @return ArrayCollection
      */
+    public function getContributorsWithAuthor()
+    {
+        $contributors = $this->contributors->toArray();
+        array_unshift($contributors, $this->createdBy);
+
+        return new ArrayCollection($contributors);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
     public function getDrafts()
     {
         return $this->drafts;
