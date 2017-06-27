@@ -374,7 +374,7 @@ class WikiRepository extends BaseRepository
                 break;
             }
 
-            if ($e->contributors->contains($d->user) === false) {
+            if ($e->contributors->contains($d->user) === false && $d->user->id !== $e->createdBy->id) {
                 $e->contributors->add($d->user);
             }
 
