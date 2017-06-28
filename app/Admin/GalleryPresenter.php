@@ -3,9 +3,13 @@
 namespace App\Admin;
 
 use App\Forms;
+use App\Repositories;
 
 final class GalleryPresenter extends SingleUserContentPresenter
 {
+    /** @var Repositories\ImageRepository @inject */
+    public $imageRepository;
+
     /** @var Forms\GalleryFormInterface @inject */
     public $galleryForm;
 

@@ -4,20 +4,24 @@ namespace App\Admin;
 
 use App\Entities;
 use App\Forms;
+use App\Repositories;
 
 final class BookPresenter extends SharedContentPresenter
 {
+    /** @var Repositories\BookRepository @inject */
+    public $bookRepository;
+
     /**
      * @param int $id
      */
     public function actionForm($id = null)
     {
-        $this->runActionForm(Entities\WikiEntity::TYPE_BOOK, 'Book:default', $id);
+        $this->runActionForm($this->bookRepository, Entities\WikiEntity::TYPE_BOOK, 'Book:default', $id);
     }
 
     public function actionDefault()
     {
-        $this->runActionDefault(10, Entities\WikiEntity::TYPE_BOOK);
+        $this->runActionDefault($this->bookRepository, 10, Entities\WikiEntity::TYPE_BOOK);
     }
 
     /**
@@ -25,7 +29,7 @@ final class BookPresenter extends SharedContentPresenter
      */
     public function actionDetail($id)
     {
-        $item = $this->getItem($id, $this->wikiRepository);
+        $item = $this->getItem($id, $this->bookRepository);
 
         $this->checkItemAndFlashWithRedirectIfNull($item, 'Book:default');
 
@@ -42,7 +46,7 @@ final class BookPresenter extends SharedContentPresenter
      */
     public function handleActivate($wikiId)
     {
-        $this->runHandleActivate($wikiId, $this->wikiRepository);
+        $this->runHandleActivate($this->bookRepository, $wikiId);
     }
 
     /**
@@ -50,7 +54,7 @@ final class BookPresenter extends SharedContentPresenter
      */
     public function handleDelete($wikiId)
     {
-        $this->runHandleDelete($wikiId, $this->wikiRepository);
+        $this->runHandleDelete($this->bookRepository, $wikiId);
     }
 
     /**

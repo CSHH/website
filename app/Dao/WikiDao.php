@@ -80,62 +80,10 @@ class WikiDao
     /**
      * @param  Entities\TagEntity       $tag
      * @param  string                   $name
-     * @return Entities\WikiEntity|null
-     */
-    public function getByTagAndName(Entities\TagEntity $tag, $name)
-    {
-        try {
-            return $this->em->createQueryBuilder()
-                ->select('w')
-                ->from(Entities\WikiEntity::class, 'w')
-                ->join('w.tag', 't')
-                ->where('t.id = :tagId AND w.name = :name')
-                ->setParameters([
-                    'tagId' => $tag->id,
-                    'name'  => $name,
-                ])
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
-    }
-
-    /**
-     * @param  Entities\TagEntity       $tag
-     * @param  string                   $slug
-     * @return Entities\WikiEntity|null
-     */
-    public function getByTagAndSlug(Entities\TagEntity $tag, $slug)
-    {
-        try {
-            return $this->em->createQueryBuilder()
-                ->select('w')
-                ->from(Entities\WikiEntity::class, 'w')
-                ->join('w.tag', 't')
-                ->where('t.id = :tagId AND w.slug = :slug')
-                ->setParameters([
-                    'tagId' => $tag->id,
-                    'slug'  => $slug,
-                ])
-                ->getQuery()
-                ->getSingleResult();
-        } catch (NonUniqueResultException $e) {
-            return null;
-        } catch (NoResultException $e) {
-            return null;
-        }
-    }
-
-    /**
-     * @param  Entities\TagEntity       $tag
-     * @param  string                   $name
      * @param  string                   $type
      * @return Entities\WikiEntity|null
      */
-    public function getByTagAndNameAndType(Entities\TagEntity $tag, $name, $type)
+    public function getByTagAndName(Entities\TagEntity $tag, $name, $type)
     {
         try {
             return $this->em->createQueryBuilder()
@@ -163,7 +111,7 @@ class WikiDao
      * @param  string                   $type
      * @return Entities\WikiEntity|null
      */
-    public function getByTagAndSlugAndType(Entities\TagEntity $tag, $slug, $type)
+    public function getByTagAndSlug(Entities\TagEntity $tag, $slug, $type)
     {
         try {
             return $this->em->createQueryBuilder()

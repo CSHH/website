@@ -114,10 +114,10 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  Entities\BaseEntity $e
-     * @return Entities\BaseEntity
+     * @param  Entities\ArticleEntity $e
+     * @return Entities\ArticleEntity
      */
-    public function activate(Entities\BaseEntity $e)
+    public function activate(Entities\ArticleEntity $e)
     {
         return $this->doActivate($e);
     }

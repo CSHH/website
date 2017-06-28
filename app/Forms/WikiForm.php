@@ -12,7 +12,7 @@ use Nette\Localization\ITranslator;
 class WikiForm extends AbstractContentForm
 {
     /** @var Repositories\WikiRepository */
-    private $wikiRepository;
+    private $repository;
 
     /** @var string */
     private $type;
@@ -23,7 +23,7 @@ class WikiForm extends AbstractContentForm
     /**
      * @param ITranslator                 $translator
      * @param Repositories\TagRepository  $tagRepository
-     * @param Repositories\WikiRepository $wikiRepository
+     * @param Repositories\WikiRepository $repository
      * @param Entities\UserEntity         $user
      * @param string                      $type
      * @param Entities\WikiEntity         $item
@@ -31,16 +31,16 @@ class WikiForm extends AbstractContentForm
     public function __construct(
         ITranslator $translator,
         Repositories\TagRepository $tagRepository,
-        Repositories\WikiRepository $wikiRepository,
+        Repositories\WikiRepository $repository,
         Entities\UserEntity $user,
         $type,
         Entities\WikiEntity $item = null
     ) {
         parent::__construct($translator, $tagRepository, $user);
 
-        $this->wikiRepository = $wikiRepository;
-        $this->type           = $type;
-        $this->item           = $item;
+        $this->repository = $repository;
+        $this->type       = $type;
+        $this->item       = $item;
     }
 
     protected function configure(Form $form)
@@ -66,10 +66,10 @@ class WikiForm extends AbstractContentForm
             $tag    = $this->getSelectedTag($form);
 
             if ($this->item) {
-                $ent = $this->wikiRepository->update($values, $tag, $this->type, $this->item);
+                $ent = $this->repository->update($values, $tag, $this->type, $this->item);
                 $p->flashMessage($this->translator->translate('locale.item.updated'));
             } else {
-                $ent = $this->wikiRepository->create($values, $tag, $this->user, $this->type, new Entities\WikiEntity);
+                $ent = $this->repository->create($values, $tag, $this->user, $this->type, new Entities\WikiEntity);
                 $p->flashMessage($this->translator->translate('locale.item.created'));
             }
         } catch (Exceptions\MissingTagException $e) {

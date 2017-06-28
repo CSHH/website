@@ -42,12 +42,14 @@ services:
     wikiDao: App\Dao\WikiDao
 
     articleRepository: App\Repositories\ArticleRepository(@doctrine.dao(App\Entities\ArticleEntity))
+    bookRepository: App\Repositories\BookRepository(@doctrine.dao(App\Entities\WikiEntity))
+    gameRepository: App\Repositories\GameRepository(@doctrine.dao(App\Entities\WikiEntity))
     imageRepository: App\Repositories\ImageRepository(%wwwDir%, %uploadDir%, @doctrine.dao(App\Entities\ImageEntity), @doctrine.dao(App\Entities\FileEntity))
+    movieRepository: App\Repositories\MovieRepository(@doctrine.dao(App\Entities\WikiEntity))
     tagRepository: App\Repositories\TagRepository(@doctrine.dao(App\Entities\TagEntity))
     userRepository: App\Repositories\UserRepository(@doctrine.dao(App\Entities\UserEntity))
     videoRepository: App\Repositories\VideoRepository(%vimeoOembedEndpoint%, @doctrine.dao(App\Entities\VideoEntity))
     wikiDraftRepository: App\Repositories\WikiDraftRepository(@doctrine.dao(App\Entities\WikiDraftEntity))
-    wikiRepository: App\Repositories\WikiRepository(@doctrine.dao(App\Entities\WikiEntity))
 
     tagCache: App\Caching\TagCache(
         Nette\Caching\Cache(

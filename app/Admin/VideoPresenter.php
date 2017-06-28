@@ -3,10 +3,14 @@
 namespace App\Admin;
 
 use App\Forms;
+use App\Repositories;
 use App\Videos\VideoThumbnail;
 
 final class VideoPresenter extends SingleUserContentPresenter
 {
+    /** @var Repositories\VideoRepository @inject */
+    public $videoRepository;
+
     /** @var Forms\VideoFormInterface @inject */
     public $videoForm;
 

@@ -88,98 +88,16 @@ class WikiDaoTest extends Tester\TestCase
 
     public function testGetByTagAndName()
     {
-        $wikiDao = $this->prepareWikiDaoForDetail();
+        $wikiDao = $this->prepareWikiDaoForDetailWithType();
 
-        Assert::type('stdClass', $wikiDao->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
+        Assert::type('stdClass', $wikiDao->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
     public function testGetByTagAndSlug()
     {
-        $wikiDao = $this->prepareWikiDaoForDetail();
-
-        Assert::type('stdClass', $wikiDao->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
-    }
-
-    private function prepareWikiDaoForDetail()
-    {
-        $query = $this->query;
-        $this->mock($query, 'getSingleResult', 1, new \stdClass);
-
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $em = $this->em;
-        $this->mock($em, 'createQueryBuilder', 1, $qb);
-
-        return new WikiDao($em, $this->paginatorFactory);
-    }
-
-    public function testGetByTagAndNameAndThrowNonUniqueResultException()
-    {
-        $wikiDao = $this->prepareWikiDaoForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
-
-        Assert::null($wikiDao->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
-    }
-
-    public function testGetByTagAndNameAndThrowNoResultException()
-    {
-        $wikiDao = $this->prepareWikiDaoForDetailToThrowException('Doctrine\ORM\NoResultException');
-
-        Assert::null($wikiDao->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill'));
-    }
-
-    public function testGetByTagAndSlugAndThrowNonUniqueResultException()
-    {
-        $wikiDao = $this->prepareWikiDaoForDetailToThrowException('Doctrine\ORM\NonUniqueResultException');
-
-        Assert::null($wikiDao->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
-    }
-
-    public function testGetByTagAndSlugAndThrowNoResultException()
-    {
-        $wikiDao = $this->prepareWikiDaoForDetailToThrowException('Doctrine\ORM\NoResultException');
-
-        Assert::null($wikiDao->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill'));
-    }
-
-    private function prepareWikiDaoForDetailToThrowException($class)
-    {
-        $query = $this->query;
-        $query->shouldReceive('getSingleResult')
-            ->once()
-            ->andThrow($class);
-
-        $qb = $this->qb;
-        $this->mockAndReturnSelf($qb, 'select');
-        $this->mockAndReturnSelf($qb, 'from');
-        $this->mockAndReturnSelf($qb, 'join');
-        $this->mockAndReturnSelf($qb, 'where');
-        $this->mockAndReturnSelf($qb, 'setParameters');
-        $this->mock($qb, 'getQuery', 1, $query);
-
-        $em = $this->em;
-        $this->mock($em, 'createQueryBuilder', 1, $qb);
-
-        return new WikiDao($em, $this->paginatorFactory);
-    }
-
-    public function testGetByTagAndNameAndType()
-    {
         $wikiDao = $this->prepareWikiDaoForDetailWithType();
 
-        Assert::type('stdClass', $wikiDao->getByTagAndNameAndType(new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
-    }
-
-    public function testGetByTagAndSlugAndType()
-    {
-        $wikiDao = $this->prepareWikiDaoForDetailWithType();
-
-        Assert::type('stdClass', $wikiDao->getByTagAndSlugAndType(new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::type('stdClass', $wikiDao->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
     private function prepareWikiDaoForDetailWithType()
@@ -201,32 +119,32 @@ class WikiDaoTest extends Tester\TestCase
         return new WikiDao($em, $this->paginatorFactory);
     }
 
-    public function testGetByTagAndNameAndTypeAndThrowNonUniqueResultException()
+    public function testGetByTagAndNameAndThrowNonUniqueResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithTypeToThrowException('Doctrine\ORM\NonUniqueResultException');
 
-        Assert::null($wikiDao->getByTagAndNameAndType(new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::null($wikiDao->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
-    public function testGetByTagAndNameAndTypeAndThrowNoResultException()
+    public function testGetByTagAndNameAndThrowNoResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithTypeToThrowException('Doctrine\ORM\NoResultException');
 
-        Assert::null($wikiDao->getByTagAndNameAndType(new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::null($wikiDao->getByTagAndName(new AppEntities\TagEntity, 'Silent Hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
-    public function testGetByTagAndSlugAndTypeAndThrowNonUniqueResultException()
+    public function testGetByTagAndSlugAndThrowNonUniqueResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithTypeToThrowException('Doctrine\ORM\NonUniqueResultException');
 
-        Assert::null($wikiDao->getByTagAndSlugAndType(new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::null($wikiDao->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
-    public function testGetByTagAndSlugAndTypeAndThrowNoResultException()
+    public function testGetByTagAndSlugAndThrowNoResultException()
     {
         $wikiDao = $this->prepareWikiDaoForDetailWithTypeToThrowException('Doctrine\ORM\NoResultException');
 
-        Assert::null($wikiDao->getByTagAndSlugAndType(new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
+        Assert::null($wikiDao->getByTagAndSlug(new AppEntities\TagEntity, 'silent-hill', AppEntities\WikiEntity::TYPE_GAME));
     }
 
     private function prepareWikiDaoForDetailWithTypeToThrowException($class)

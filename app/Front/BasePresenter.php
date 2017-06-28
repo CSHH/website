@@ -20,14 +20,20 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
     /** @var Repositories\ArticleRepository @inject */
     public $articleRepository;
 
+    /** @var Repositories\BookRepository @inject */
+    public $bookRepository;
+
+    /** @var Repositories\GameRepository @inject */
+    public $gameRepository;
+
     /** @var Repositories\ImageRepository @inject */
     public $imageRepository;
 
+    /** @var Repositories\MovieRepository @inject */
+    public $movieRepository;
+
     /** @var Repositories\VideoRepository @inject */
     public $videoRepository;
-
-    /** @var Repositories\WikiRepository @inject */
-    public $wikiRepository;
 
     /** @var bool */
     protected $canAccess = false;
@@ -50,9 +56,9 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
             $this->template->inactiveArticlesCount = count($this->articleRepository->getAllInactive());
             $this->template->inactiveImagesCount   = count($this->imageRepository->getAllInactive());
             $this->template->inactiveVideosCount   = count($this->videoRepository->getAllInactive());
-            $this->template->inactiveGamesCount    = count($this->wikiRepository->getAllInactiveGames());
-            $this->template->inactiveMoviesCount   = count($this->wikiRepository->getAllInactiveMovies());
-            $this->template->inactiveBooksCount    = count($this->wikiRepository->getAllInactiveBooks());
+            $this->template->inactiveGamesCount    = count($this->gameRepository->getAllInactive());
+            $this->template->inactiveMoviesCount   = count($this->movieRepository->getAllInactive());
+            $this->template->inactiveBooksCount    = count($this->bookRepository->getAllInactive());
         }
     }
 

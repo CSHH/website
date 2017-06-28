@@ -13,9 +13,6 @@ use Nette\Utils\DateTime;
 
 class WikiDraftForm extends AbstractContentForm
 {
-    /** @var Repositories\WikiRepository */
-    private $wikiRepository;
-
     /** @var Repositories\WikiDraftRepository */
     private $wikiDraftRepository;
 
@@ -31,7 +28,6 @@ class WikiDraftForm extends AbstractContentForm
     /**
      * @param ITranslator                      $translator
      * @param Repositories\TagRepository       $tagRepository
-     * @param Repositories\WikiRepository      $wikiRepository
      * @param Repositories\WikiDraftRepository $wikiDraftRepository
      * @param Entities\UserEntity              $user
      * @param string                           $type
@@ -40,7 +36,6 @@ class WikiDraftForm extends AbstractContentForm
     public function __construct(
         ITranslator $translator,
         Repositories\TagRepository $tagRepository,
-        Repositories\WikiRepository $wikiRepository,
         Repositories\WikiDraftRepository $wikiDraftRepository,
         Entities\UserEntity $user,
         $type,
@@ -48,7 +43,6 @@ class WikiDraftForm extends AbstractContentForm
     ) {
         parent::__construct($translator, $tagRepository, $user);
 
-        $this->wikiRepository      = $wikiRepository;
         $this->wikiDraftRepository = $wikiDraftRepository;
         $this->type                = $type;
         $this->item                = $item;
