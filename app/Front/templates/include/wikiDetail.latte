@@ -1,6 +1,6 @@
 <div class="content-body">
 
-    {if !$wiki->isActive}
+    {if $wiki->isActive === false}
 
         <div class="action-buttons">
 
@@ -12,24 +12,28 @@
 
     {/if}
 
-    <div n:if="$wiki->isActive" class="action-buttons">
+    {if $user->isLoggedIn() && $wiki->isActive}
 
-        <a href="#draft">Upravit</a>
+        <div class="action-buttons">
 
-    </div>
+            <a href="#draft">Upravit</a>
+
+        </div>
+
+    {/if}
 
     <h1 n:block="title">{$wiki->name}</h1>
 
     <div class="text-content">{$wiki->text|noescape}</div>
 
-    <div id="draft">
+    {if $user->isLoggedIn() && $wiki->isActive}
 
-        {if $user->isLoggedIn() && $wiki->isActive}
+        <div id="draft">
 
             {control form}
 
-        {/if}
+        </div>
 
-    </div>
+    {/if}
 
 </div>
