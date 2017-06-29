@@ -19,13 +19,14 @@ abstract class WikiDraftPresenter extends SharedContentPresenter
     /**
      * @param Repositories\WikiRepository $repository
      * @param int                         $wikiId
+     * @param string                      $redirect
      */
-    protected function callActionDefault(Repositories\WikiRepository $repository, $wikiId)
+    protected function callActionDefault(Repositories\WikiRepository $repository, $wikiId, $redirect)
     {
         $this->wiki = $this->getItem($wikiId, $repository);
 
         if (!$this->wiki) {
-            $this->redirect('Homepage:default');
+            $this->redirect($redirect);
         }
     }
 
@@ -54,15 +55,15 @@ abstract class WikiDraftPresenter extends SharedContentPresenter
      * @param Repositories\WikiRepository $repository
      * @param int                         $wikiId
      * @param int                         $id
+     * @param string                      $redirect
      */
-    protected function callHandleActivate(Repositories\WikiRepository $repository, $wikiId, $id)
+    protected function callHandleActivate(Repositories\WikiRepository $repository, $wikiId, $id, $redirect)
     {
         $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
-
         $this->checkWikiDraft($wikiDraft, $wikiId);
-
         $repository->updateWithDraft($wikiDraft->wiki, $wikiDraft);
-        $this->redirect('Homepage:default');
+        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
+        $this->redirect($redirect);
     }
 
     /**
@@ -72,10 +73,9 @@ abstract class WikiDraftPresenter extends SharedContentPresenter
     public function handleDelete($wikiId, $id)
     {
         $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
-
         $this->checkWikiDraft($wikiDraft, $wikiId);
-
         $this->wikiDraftRepository->delete($wikiDraft);
+        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
         $this->redirect('default', ['wikiId' => $wikiId]);
     }
 

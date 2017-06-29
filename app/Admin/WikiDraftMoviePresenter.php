@@ -14,23 +14,7 @@ final class WikiDraftMoviePresenter extends WikiDraftPresenter
      */
     public function actionDefault($wikiId)
     {
-        $this->callActionDefault($this->movieRepository, $wikiId);
-    }
-
-    /**
-     * @param int $wikiId
-     * @param int $id
-     */
-    public function actionDetail($wikiId, $id)
-    {
-        $this->wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
-
-        $this->checkWikiDraft($this->wikiDraft, $wikiId);
-    }
-
-    public function renderDetail()
-    {
-        $this->template->draft = $this->wikiDraft;
+        $this->callActionDefault($this->movieRepository, $wikiId, 'Movie:default');
     }
 
     /**
@@ -39,6 +23,6 @@ final class WikiDraftMoviePresenter extends WikiDraftPresenter
      */
     public function handleActivate($wikiId, $id)
     {
-        $this->callHandleActivate($this->movieRepository, $wikiId, $id);
+        $this->callHandleActivate($this->movieRepository, $wikiId, $id, 'Movie:default');
     }
 }

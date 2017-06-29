@@ -14,23 +14,7 @@ final class WikiDraftBookPresenter extends WikiDraftPresenter
      */
     public function actionDefault($wikiId)
     {
-        $this->callActionDefault($this->bookRepository, $wikiId);
-    }
-
-    /**
-     * @param int $wikiId
-     * @param int $id
-     */
-    public function actionDetail($wikiId, $id)
-    {
-        $this->wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
-
-        $this->checkWikiDraft($this->wikiDraft, $wikiId);
-    }
-
-    public function renderDetail()
-    {
-        $this->template->draft = $this->wikiDraft;
+        $this->callActionDefault($this->bookRepository, $wikiId, 'Book:default');
     }
 
     /**
@@ -39,6 +23,6 @@ final class WikiDraftBookPresenter extends WikiDraftPresenter
      */
     public function handleActivate($wikiId, $id)
     {
-        $this->callHandleActivate($this->bookRepository, $wikiId, $id);
+        $this->callHandleActivate($this->bookRepository, $wikiId, $id, 'Book:default');
     }
 }
