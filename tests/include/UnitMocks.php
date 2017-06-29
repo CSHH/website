@@ -9,13 +9,16 @@ trait UnitMocks
 {
     protected $articleRepository;
     protected $articleTagSectionCache;
+    protected $bookRepository;
     protected $dao;
     protected $duplicityChecker;
     protected $em;
+    protected $gameRepository;
     protected $htmlPurifier;
     protected $identity;
     protected $identityFactory;
     protected $loggedUser;
+    protected $movieRepository;
     protected $qb;
     protected $query;
     protected $imageRepository;
@@ -45,6 +48,11 @@ trait UnitMocks
         return m::mock('App\Caching\ArticleTagSectionCache');
     }
 
+    protected function getBookRepositoryMock()
+    {
+        return m::mock('App\Repositories\BookRepository');
+    }
+
     protected function getEntityDaoMock()
     {
         return m::mock('Kdyby\Doctrine\EntityDao');
@@ -58,6 +66,11 @@ trait UnitMocks
     protected function getEntityManagerMock()
     {
         return m::mock('Kdyby\Doctrine\EntityManager');
+    }
+
+    protected function getGameRepositoryMock()
+    {
+        return m::mock('App\Repositories\GameRepository');
     }
 
     protected function getHtmlPurifierMock()
@@ -78,6 +91,11 @@ trait UnitMocks
     protected function getLoggedUserMock()
     {
         return m::mock('App\Security\LoggedUser');
+    }
+
+    protected function getMovieRepositoryMock()
+    {
+        return m::mock('App\Repositories\MovieRepository');
     }
 
     protected function getQueryBuilderMock()
@@ -199,13 +217,16 @@ trait UnitMocks
     {
         $this->articleRepository      = $this->getArticleRepositoryMock();
         $this->articleTagSectionCache = $this->getArticleTagSectionCacheMock();
+        $this->bookRepository         = $this->getBookRepositoryMock();
         $this->dao                    = $this->getEntityDaoMock();
         $this->duplicityChecker       = $this->getDuplicityCheckerMock();
         $this->em                     = $this->getEntityManagerMock();
+        $this->gameRepository         = $this->getGameRepositoryMock();
         $this->htmlPurifier           = $this->getHtmlPurifierMock();
         $this->identity               = $this->getIdentityMock();
         $this->identityFactory        = $this->getIdentityFactoryMock();
         $this->loggedUser             = $this->getLoggedUserMock();
+        $this->movieRepository        = $this->getMovieRepositoryMock();
         $this->qb                     = $this->getQueryBuilderMock();
         $this->query                  = $this->getQueryMock();
         $this->imageRepository        = $this->getImageRepositoryMock();

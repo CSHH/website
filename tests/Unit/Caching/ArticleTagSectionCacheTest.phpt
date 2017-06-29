@@ -31,10 +31,10 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagRepository, 'getAll', 1, $tags);
 
         $tagCache = $this->tagCache;
-        $this->mock($tagCache, 'getItemsForSingleUserContentSection', 1, $tags);
+        $this->mock($tagCache, 'getItems', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
-        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->singleUserContentDao);
+        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->articleRepository);
 
         $cachedTags = $articleTagSectionCache->getTags();
         Assert::type('array', $cachedTags);
@@ -52,7 +52,7 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
-        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->singleUserContentDao);
+        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->articleRepository);
         Assert::true($articleTagSectionCache->isTagInSection($tag));
     }
 
@@ -61,7 +61,7 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
-        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->singleUserContentDao);
+        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->articleRepository);
         Assert::false($articleTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
@@ -70,7 +70,7 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
-        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->singleUserContentDao);
+        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->articleRepository);
         Assert::null($articleTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
@@ -79,7 +79,7 @@ class ArticleTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSection');
 
-        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->singleUserContentDao);
+        $articleTagSectionCache = new ArticleTagSectionCache($tagCache, $this->articleRepository);
         Assert::null($articleTagSectionCache->deleteSection());
     }
 }

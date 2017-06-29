@@ -31,10 +31,10 @@ class VideoTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagRepository, 'getAll', 1, $tags);
 
         $tagCache = $this->tagCache;
-        $this->mock($tagCache, 'getItemsForSingleUserContentSection', 1, $tags);
+        $this->mock($tagCache, 'getItems', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
-        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->singleUserContentDao);
+        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->videoRepository);
 
         $cachedTags = $videoTagSectionCache->getTags();
         Assert::type('array', $cachedTags);
@@ -52,7 +52,7 @@ class VideoTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
-        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->singleUserContentDao);
+        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->videoRepository);
         Assert::true($videoTagSectionCache->isTagInSection($tag));
     }
 
@@ -61,7 +61,7 @@ class VideoTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
-        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->singleUserContentDao);
+        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->videoRepository);
         Assert::false($videoTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
@@ -70,7 +70,7 @@ class VideoTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
-        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->singleUserContentDao);
+        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->videoRepository);
         Assert::null($videoTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
@@ -79,7 +79,7 @@ class VideoTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSection');
 
-        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->singleUserContentDao);
+        $videoTagSectionCache = new VideoTagSectionCache($tagCache, $this->videoRepository);
         Assert::null($videoTagSectionCache->deleteSection());
     }
 }

@@ -31,10 +31,10 @@ class MovieTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagRepository, 'getAll', 1, $tags);
 
         $tagCache = $this->tagCache;
-        $this->mock($tagCache, 'getItemsForWikiSection', 1, $tags);
+        $this->mock($tagCache, 'getItems', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
-        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->wikiDao);
+        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->movieRepository);
 
         $cachedTags = $movieTagSectionCache->getTags();
         Assert::type('array', $cachedTags);
@@ -52,7 +52,7 @@ class MovieTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
-        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->wikiDao);
+        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->movieRepository);
         Assert::true($movieTagSectionCache->isTagInSection($tag));
     }
 
@@ -61,7 +61,7 @@ class MovieTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
-        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->wikiDao);
+        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->movieRepository);
         Assert::false($movieTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
@@ -70,7 +70,7 @@ class MovieTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
-        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->wikiDao);
+        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->movieRepository);
         Assert::null($movieTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
@@ -79,7 +79,7 @@ class MovieTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSection');
 
-        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->wikiDao);
+        $movieTagSectionCache = new MovieTagSectionCache($tagCache, $this->movieRepository);
         Assert::null($movieTagSectionCache->deleteSection());
     }
 }
