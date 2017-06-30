@@ -62,7 +62,7 @@ final class BookPresenter extends SharedContentPresenter
      */
     protected function createComponentWikiForm()
     {
-        return $this->runCreateComponentWikiForm(Entities\WikiEntity::TYPE_BOOK);
+        return $this->runCreateComponentWikiForm($this->bookRepository, Entities\WikiEntity::TYPE_BOOK);
     }
 
     /**

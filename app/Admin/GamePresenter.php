@@ -62,7 +62,7 @@ final class GamePresenter extends SharedContentPresenter
      */
     protected function createComponentWikiForm()
     {
-        return $this->runCreateComponentWikiForm(Entities\WikiEntity::TYPE_GAME);
+        return $this->runCreateComponentWikiForm($this->gameRepository, Entities\WikiEntity::TYPE_GAME);
     }
 
     /**

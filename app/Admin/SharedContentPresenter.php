@@ -109,12 +109,14 @@ abstract class SharedContentPresenter extends PageablePresenter
     }
 
     /**
-     * @param  string         $type
+     * @param  Repositories\WikiRepository $repository
+     * @param  string                      $type
      * @return Forms\WikiForm
      */
-    protected function runCreateComponentWikiForm($type)
+    protected function runCreateComponentWikiForm(Repositories\WikiRepository $repository, $type)
     {
         return $this->wikiForm->create(
+            $repository,
             $this->loggedUser->getLoggedUserEntity(),
             $type,
             $this->item

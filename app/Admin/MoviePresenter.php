@@ -62,7 +62,7 @@ final class MoviePresenter extends SharedContentPresenter
      */
     protected function createComponentWikiForm()
     {
-        return $this->runCreateComponentWikiForm(Entities\WikiEntity::TYPE_MOVIE);
+        return $this->runCreateComponentWikiForm($this->movieRepository, Entities\WikiEntity::TYPE_MOVIE);
     }
 
     /**
