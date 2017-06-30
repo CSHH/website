@@ -104,7 +104,7 @@
                 <include name="*/**"/>
                 <exclude name=".gitkeep"/>
             </fileset>
-            <fileset dir="tests/Smoke/tmp">
+            <fileset dir="tests-smoke/tmp">
                 <include name="*/**"/>
                 <exclude name=".gitkeep"/>
             </fileset>
