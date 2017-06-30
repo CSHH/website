@@ -34,7 +34,7 @@ class GameTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'getItems', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
-        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->gameRepository);
+        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->getGamesByTag);
 
         $cachedTags = $gameTagSectionCache->getTags();
         Assert::type('array', $cachedTags);
@@ -52,7 +52,7 @@ class GameTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
-        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->gameRepository);
+        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->getGamesByTag);
         Assert::true($gameTagSectionCache->isTagInSection($tag));
     }
 
@@ -61,7 +61,7 @@ class GameTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
-        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->gameRepository);
+        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->getGamesByTag);
         Assert::false($gameTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
@@ -70,7 +70,7 @@ class GameTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
-        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->gameRepository);
+        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->getGamesByTag);
         Assert::null($gameTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
@@ -79,7 +79,7 @@ class GameTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSection');
 
-        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->gameRepository);
+        $gameTagSectionCache = new GameTagSectionCache($tagCache, $this->getGamesByTag);
         Assert::null($gameTagSectionCache->deleteSection());
     }
 }

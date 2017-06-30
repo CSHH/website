@@ -81,7 +81,7 @@ class TagCacheTest extends Tester\TestCase
         $this->mock($netteCache, 'load');
         $this->mock($netteCache, 'save', 1, $tags);
 
-        $repository = m::mock('App\Repositories\BaseRepository');
+        $repository = m::mock('App\Repositories\AccessibleByTagInterface');
         $repository->shouldReceive('getAllByTag')
             ->times(3)
             ->andReturn([new \stdClass]);

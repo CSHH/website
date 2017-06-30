@@ -13,10 +13,10 @@ class ArticleTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\ArticleRepository */
+    /** @var Repositories\GetArticlesByTag */
     private $repository;
 
-    public function __construct(TagCache $tagCache, Repositories\ArticleRepository $repository)
+    public function __construct(TagCache $tagCache, Repositories\GetArticlesByTag $repository)
     {
         $this->tagCache   = $tagCache;
         $this->repository = $repository;

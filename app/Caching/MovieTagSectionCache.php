@@ -13,10 +13,10 @@ class MovieTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\MovieRepository */
+    /** @var Repositories\GetMoviesByTag */
     private $repository;
 
-    public function __construct(TagCache $tagCache, Repositories\MovieRepository $repository)
+    public function __construct(TagCache $tagCache, Repositories\GetMoviesByTag $repository)
     {
         $this->tagCache   = $tagCache;
         $this->repository = $repository;

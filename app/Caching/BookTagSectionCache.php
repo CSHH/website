@@ -13,10 +13,10 @@ class BookTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\BookRepository */
+    /** @var Repositories\GetBooksByTag */
     private $repository;
 
-    public function __construct(TagCache $tagCache, Repositories\BookRepository $repository)
+    public function __construct(TagCache $tagCache, Repositories\GetBooksByTag $repository)
     {
         $this->tagCache   = $tagCache;
         $this->repository = $repository;

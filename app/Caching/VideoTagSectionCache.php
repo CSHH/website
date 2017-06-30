@@ -13,10 +13,10 @@ class VideoTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\VideoRepository */
+    /** @var Repositories\GetVideosByTag */
     private $repository;
 
-    public function __construct(TagCache $tagCache, Repositories\VideoRepository $repository)
+    public function __construct(TagCache $tagCache, Repositories\GetVideosByTag $repository)
     {
         $this->tagCache   = $tagCache;
         $this->repository = $repository;

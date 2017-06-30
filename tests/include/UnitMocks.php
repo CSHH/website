@@ -14,6 +14,12 @@ trait UnitMocks
     protected $duplicityChecker;
     protected $em;
     protected $gameRepository;
+    protected $getArticlesByTag;
+    protected $getBooksByTag;
+    protected $getGamesByTag;
+    protected $getImagesByTag;
+    protected $getMoviesByTag;
+    protected $getVideosByTag;
     protected $htmlPurifier;
     protected $identity;
     protected $identityFactory;
@@ -71,6 +77,36 @@ trait UnitMocks
     protected function getGameRepositoryMock()
     {
         return m::mock('App\Repositories\GameRepository');
+    }
+
+    protected function getGetArticlesByTagMock()
+    {
+        return m::mock('App\Repositories\GetArticlesByTag');
+    }
+
+    protected function getGetBooksByTagMock()
+    {
+        return m::mock('App\Repositories\GetBooksByTag');
+    }
+
+    protected function getGetGamesByTagMock()
+    {
+        return m::mock('App\Repositories\GetGamesByTag');
+    }
+
+    protected function getGetImagesByTagMock()
+    {
+        return m::mock('App\Repositories\GetImagesByTag');
+    }
+
+    protected function getGetMoviesByTagMock()
+    {
+        return m::mock('App\Repositories\GetMoviesByTag');
+    }
+
+    protected function getGetVideosByTagMock()
+    {
+        return m::mock('App\Repositories\GetVideosByTag');
     }
 
     protected function getHtmlPurifierMock()
@@ -222,6 +258,12 @@ trait UnitMocks
         $this->duplicityChecker       = $this->getDuplicityCheckerMock();
         $this->em                     = $this->getEntityManagerMock();
         $this->gameRepository         = $this->getGameRepositoryMock();
+        $this->getArticlesByTag       = $this->getGetArticlesByTagMock();
+        $this->getBooksByTag          = $this->getGetBooksByTagMock();
+        $this->getGamesByTag          = $this->getGetGamesByTagMock();
+        $this->getImagesByTag         = $this->getGetImagesByTagMock();
+        $this->getMoviesByTag         = $this->getGetMoviesByTagMock();
+        $this->getVideosByTag         = $this->getGetVideosByTagMock();
         $this->htmlPurifier           = $this->getHtmlPurifierMock();
         $this->identity               = $this->getIdentityMock();
         $this->identityFactory        = $this->getIdentityFactoryMock();

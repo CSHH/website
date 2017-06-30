@@ -34,7 +34,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagCache, 'getItems', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->imageRepository);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->getImagesByTag);
 
         $cachedTags = $imageTagSectionCache->getTags();
         Assert::type('array', $cachedTags);
@@ -52,7 +52,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->imageRepository);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->getImagesByTag);
         Assert::true($imageTagSectionCache->isTagInSection($tag));
     }
 
@@ -61,7 +61,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->imageRepository);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->getImagesByTag);
         Assert::false($imageTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
@@ -70,7 +70,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->imageRepository);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->getImagesByTag);
         Assert::null($imageTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
@@ -79,7 +79,7 @@ class ImageTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSection');
 
-        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->imageRepository);
+        $imageTagSectionCache = new ImageTagSectionCache($tagCache, $this->getImagesByTag);
         Assert::null($imageTagSectionCache->deleteSection());
     }
 }

@@ -24,9 +24,8 @@ class YoutubeTest extends Tester\TestCase
      */
     public function testGetVideoSrc($url, $expectedSrc)
     {
-        $translator = $this->getTranslatorMock();
-        $youtube    = new Youtube($translator);
-        $src        = $youtube->getVideoSrc($url);
+        $youtube = new Youtube($this->translator);
+        $src     = $youtube->getVideoSrc($url);
         Assert::same($expectedSrc, $src);
     }
 
@@ -49,7 +48,7 @@ class YoutubeTest extends Tester\TestCase
      */
     public function testGetVideoSrcThrowsInvalidVideoUrlException($url)
     {
-        $translator = $this->getTranslatorMock();
+        $translator = $this->translator;
         $translator->shouldReceive('translate')
             ->once()
             ->andReturn('');
