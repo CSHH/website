@@ -31,10 +31,10 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $this->mock($tagRepository, 'getAll', 1, $tags);
 
         $tagCache = $this->tagCache;
-        $this->mock($tagCache, 'getItemsForWikiSection', 1, $tags);
+        $this->mock($tagCache, 'getItems', 1, $tags);
         $this->mock($tagCache, 'getTagRepository', 1, $tagRepository);
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->bookRepository);
 
         $cachedTags = $bookTagSectionCache->getTags();
         Assert::type('array', $cachedTags);
@@ -52,7 +52,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, true);
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->bookRepository);
         Assert::true($bookTagSectionCache->isTagInSection($tag));
     }
 
@@ -61,7 +61,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'isTagInSection', 1, false);
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->bookRepository);
         Assert::false($bookTagSectionCache->isTagInSection(new AppTests\TagEntityImpl));
     }
 
@@ -70,7 +70,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSectionIfTagNotPresent');
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->bookRepository);
         Assert::null($bookTagSectionCache->deleteSectionIfTagNotPresent(new AppTests\TagEntityImpl));
     }
 
@@ -79,7 +79,7 @@ class BookTagSectionCacheTest extends Tester\TestCase
         $tagCache = $this->tagCache;
         $this->mock($tagCache, 'deleteSection');
 
-        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->wikiDao);
+        $bookTagSectionCache = new BookTagSectionCache($tagCache, $this->bookRepository);
         Assert::null($bookTagSectionCache->deleteSection());
     }
 }
