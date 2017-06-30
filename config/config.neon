@@ -51,6 +51,13 @@ services:
     videoRepository: App\Repositories\VideoRepository(%vimeoOembedEndpoint%, @doctrine.dao(App\Entities\VideoEntity))
     wikiDraftRepository: App\Repositories\WikiDraftRepository(@doctrine.dao(App\Entities\WikiDraftEntity))
 
+    getArticlesByTag: App\Repositories\GetArticlesByTag
+    getBooksByTag: App\Repositories\GetBooksByTag
+    getGamesByTag: App\Repositories\GetGamesByTag
+    getImagesByTag: App\Repositories\GetImagesByTag
+    getMoviesByTag: App\Repositories\GetMoviesByTag
+    getVideosByTag: App\Repositories\GetVideosByTag
+
     tagCache: App\Caching\TagCache(
         Nette\Caching\Cache(
             Nette\Caching\Storages\FileStorage(%cacheDir%), 'tags'
