@@ -5,29 +5,28 @@ namespace App\Admin;
 use App\Entities;
 use App\Repositories;
 
-final class WikiDraftPresenter extends SharedContentPresenter
+abstract class WikiDraftPresenter extends SharedContentPresenter
 {
-    /** @var Repositories\WikiRepository @inject */
-    public $wikiRepository;
-
     /** @var Repositories\WikiDraftRepository @inject */
     public $wikiDraftRepository;
 
     /** @var Entities\WikiEntity */
-    private $wiki;
+    protected $wiki;
 
     /** @var Entities\WikiDraftEntity */
-    private $wikiDraft;
+    protected $wikiDraft;
 
     /**
-     * @param int $wikiId
+     * @param Repositories\WikiRepository $repository
+     * @param int                         $wikiId
+     * @param string                      $redirect
      */
-    public function actionDefault($wikiId)
+    protected function callActionDefault(Repositories\WikiRepository $repository, $wikiId, $redirect)
     {
-        $this->wiki = $this->getItem($wikiId, $this->wikiRepository);
+        $this->wiki = $this->getItem($wikiId, $repository);
 
         if (!$this->wiki) {
-            $this->redirect('Homepage:default');
+            $this->redirect($redirect);
         }
     }
 
@@ -53,17 +52,18 @@ final class WikiDraftPresenter extends SharedContentPresenter
     }
 
     /**
-     * @param int $wikiId
-     * @param int $id
+     * @param Repositories\WikiRepository $repository
+     * @param int                         $wikiId
+     * @param int                         $id
+     * @param string                      $redirect
      */
-    public function handleActivate($wikiId, $id)
+    protected function callHandleActivate(Repositories\WikiRepository $repository, $wikiId, $id, $redirect)
     {
         $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
-
         $this->checkWikiDraft($wikiDraft, $wikiId);
-
-        $this->wikiRepository->updateWithDraft($wikiDraft->wiki, $wikiDraft);
-        $this->redirect('Homepage:default');
+        $repository->updateWithDraft($wikiDraft->wiki, $wikiDraft);
+        $this->flashMessage($this->translator->translate('locale.item.activated'));
+        $this->redirect($redirect);
     }
 
     /**
@@ -73,10 +73,9 @@ final class WikiDraftPresenter extends SharedContentPresenter
     public function handleDelete($wikiId, $id)
     {
         $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
-
         $this->checkWikiDraft($wikiDraft, $wikiId);
-
         $this->wikiDraftRepository->delete($wikiDraft);
+        $this->flashMessage($this->translator->translate('locale.item.deleted'));
         $this->redirect('default', ['wikiId' => $wikiId]);
     }
 
@@ -84,7 +83,7 @@ final class WikiDraftPresenter extends SharedContentPresenter
      * @param Entities\WikiDraftEntity $wikiDraft
      * @param int                      $wikiId
      */
-    private function checkWikiDraft(Entities\WikiDraftEntity $wikiDraft, $wikiId)
+    protected function checkWikiDraft(Entities\WikiDraftEntity $wikiDraft, $wikiId)
     {
         if (!$wikiDraft || $wikiDraft->wiki->id != $wikiId) {
             $this->redirect('Homepage:default');

@@ -3,9 +3,13 @@
 namespace App\Admin;
 
 use App\Forms;
+use App\Repositories;
 
 final class ArticlePresenter extends SingleUserContentPresenter
 {
+    /** @var Repositories\ArticleRepository @inject */
+    public $articleRepository;
+
     /** @var Forms\ArticleFormInterface @inject */
     public $articleForm;
 

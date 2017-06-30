@@ -4,20 +4,24 @@ namespace App\Admin;
 
 use App\Entities;
 use App\Forms;
+use App\Repositories;
 
 final class MoviePresenter extends SharedContentPresenter
 {
+    /** @var Repositories\MovieRepository @inject */
+    public $movieRepository;
+
     /**
      * @param int $id
      */
     public function actionForm($id = null)
     {
-        $this->runActionForm(Entities\WikiEntity::TYPE_MOVIE, 'Movie:default', $id);
+        $this->runActionForm($this->movieRepository, Entities\WikiEntity::TYPE_MOVIE, 'Movie:default', $id);
     }
 
     public function actionDefault()
     {
-        $this->runActionDefault(10, Entities\WikiEntity::TYPE_MOVIE);
+        $this->runActionDefault($this->movieRepository, 10, Entities\WikiEntity::TYPE_MOVIE);
     }
 
     /**
@@ -25,7 +29,7 @@ final class MoviePresenter extends SharedContentPresenter
      */
     public function actionDetail($id)
     {
-        $item = $this->getItem($id, $this->wikiRepository);
+        $item = $this->getItem($id, $this->movieRepository);
 
         $this->checkItemAndFlashWithRedirectIfNull($item, 'Movie:default');
 
@@ -42,7 +46,7 @@ final class MoviePresenter extends SharedContentPresenter
      */
     public function handleActivate($wikiId)
     {
-        $this->runHandleActivate($wikiId, $this->wikiRepository);
+        $this->runHandleActivate($this->movieRepository, $wikiId);
     }
 
     /**
@@ -50,7 +54,7 @@ final class MoviePresenter extends SharedContentPresenter
      */
     public function handleDelete($wikiId)
     {
-        $this->runHandleDelete($wikiId, $this->wikiRepository);
+        $this->runHandleDelete($this->movieRepository, $wikiId);
     }
 
     /**
@@ -58,7 +62,7 @@ final class MoviePresenter extends SharedContentPresenter
      */
     protected function createComponentWikiForm()
     {
-        return $this->runCreateComponentWikiForm(Entities\WikiEntity::TYPE_MOVIE);
+        return $this->runCreateComponentWikiForm($this->movieRepository, Entities\WikiEntity::TYPE_MOVIE);
     }
 
     /**

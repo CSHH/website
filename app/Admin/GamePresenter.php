@@ -4,20 +4,24 @@ namespace App\Admin;
 
 use App\Entities;
 use App\Forms;
+use App\Repositories;
 
 final class GamePresenter extends SharedContentPresenter
 {
+    /** @var Repositories\GameRepository @inject */
+    public $gameRepository;
+
     /**
      * @param int $id
      */
     public function actionForm($id = null)
     {
-        $this->runActionForm(Entities\WikiEntity::TYPE_GAME, 'Game:default', $id);
+        $this->runActionForm($this->gameRepository, Entities\WikiEntity::TYPE_GAME, 'Game:default', $id);
     }
 
     public function actionDefault()
     {
-        $this->runActionDefault(10, Entities\WikiEntity::TYPE_GAME);
+        $this->runActionDefault($this->gameRepository, 10, Entities\WikiEntity::TYPE_GAME);
     }
 
     /**
@@ -25,7 +29,7 @@ final class GamePresenter extends SharedContentPresenter
      */
     public function actionDetail($id)
     {
-        $item = $this->getItem($id, $this->wikiRepository);
+        $item = $this->getItem($id, $this->gameRepository);
 
         $this->checkItemAndFlashWithRedirectIfNull($item, 'Game:default');
 
@@ -42,7 +46,7 @@ final class GamePresenter extends SharedContentPresenter
      */
     public function handleActivate($wikiId)
     {
-        $this->runHandleActivate($wikiId, $this->wikiRepository);
+        $this->runHandleActivate($this->gameRepository, $wikiId);
     }
 
     /**
@@ -50,7 +54,7 @@ final class GamePresenter extends SharedContentPresenter
      */
     public function handleDelete($wikiId)
     {
-        $this->runHandleDelete($wikiId, $this->wikiRepository);
+        $this->runHandleDelete($this->gameRepository, $wikiId);
     }
 
     /**
@@ -58,7 +62,7 @@ final class GamePresenter extends SharedContentPresenter
      */
     protected function createComponentWikiForm()
     {
-        return $this->runCreateComponentWikiForm(Entities\WikiEntity::TYPE_GAME);
+        return $this->runCreateComponentWikiForm($this->gameRepository, Entities\WikiEntity::TYPE_GAME);
     }
 
     /**

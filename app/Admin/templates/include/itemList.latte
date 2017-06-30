@@ -10,7 +10,7 @@
 
             {elseif $item->isActive && $item->drafts->count()}
 
-                <a n:href="WikiDraft:default, wikiId => $item->id">{$item->name}</a>
+                <a n:href="$wikiDraftLink, wikiId => $item->id">{$item->name}</a>
 
             {else}
 

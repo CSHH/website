@@ -6,9 +6,13 @@ use App\Caching;
 use App\Components;
 use App\Entities;
 use App\Forms;
+use App\Repositories;
 
 final class GamePresenter extends SharedContentPresenter
 {
+    /** @var Repositories\GameRepository @inject */
+    public $gameRepository;
+
     /** @var Components\TagsControlInterface @inject */
     public $tagsControl;
 
@@ -23,7 +27,7 @@ final class GamePresenter extends SharedContentPresenter
      */
     public function actionDefault($tagSlug)
     {
-        $this->runActionDefault($tagSlug, 10, Entities\WikiEntity::TYPE_GAME);
+        $this->runActionDefault($this->gameRepository, $tagSlug, 10);
     }
 
     /**
@@ -32,7 +36,23 @@ final class GamePresenter extends SharedContentPresenter
      */
     public function actionDetail($tagSlug, $slug)
     {
-        $this->runActionDetail($tagSlug, $slug, Entities\WikiEntity::TYPE_GAME);
+        $this->runActionDetail($this->gameRepository, $tagSlug, $slug, Entities\WikiEntity::TYPE_GAME);
+    }
+
+    /**
+     * @param int $wikiId
+     */
+    public function handleActivate($wikiId)
+    {
+        $this->runHandleActivate($this->gameRepository, $wikiId);
+    }
+
+    /**
+     * @param int $wikiId
+     */
+    public function handleDelete($wikiId)
+    {
+        $this->runHandleDelete($this->gameRepository, $wikiId);
     }
 
     /**

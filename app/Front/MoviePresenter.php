@@ -6,9 +6,13 @@ use App\Caching;
 use App\Components;
 use App\Entities;
 use App\Forms;
+use App\Repositories;
 
 final class MoviePresenter extends SharedContentPresenter
 {
+    /** @var Repositories\MovieRepository @inject */
+    public $movieRepository;
+
     /** @var Components\TagsControlInterface @inject */
     public $tagsControl;
 
@@ -23,7 +27,7 @@ final class MoviePresenter extends SharedContentPresenter
      */
     public function actionDefault($tagSlug)
     {
-        $this->runActionDefault($tagSlug, 10, Entities\WikiEntity::TYPE_MOVIE);
+        $this->runActionDefault($this->movieRepository, $tagSlug, 10);
     }
 
     /**
@@ -32,7 +36,23 @@ final class MoviePresenter extends SharedContentPresenter
      */
     public function actionDetail($tagSlug, $slug)
     {
-        $this->runActionDetail($tagSlug, $slug, Entities\WikiEntity::TYPE_MOVIE);
+        $this->runActionDetail($this->movieRepository, $tagSlug, $slug, Entities\WikiEntity::TYPE_MOVIE);
+    }
+
+    /**
+     * @param int $wikiId
+     */
+    public function handleActivate($wikiId)
+    {
+        $this->runHandleActivate($this->movieRepository, $wikiId);
+    }
+
+    /**
+     * @param int $wikiId
+     */
+    public function handleDelete($wikiId)
+    {
+        $this->runHandleDelete($this->movieRepository, $wikiId);
     }
 
     /**

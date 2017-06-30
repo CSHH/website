@@ -10,9 +10,6 @@ abstract class SharedContentPresenter extends PageablePresenter
 {
     use ActivityTrait;
 
-    /** @var Repositories\WikiRepository @inject */
-    public $wikiRepository;
-
     /** @var Repositories\WikiDraftRepository @inject */
     public $wikiDraftRepository;
 
@@ -30,17 +27,18 @@ abstract class SharedContentPresenter extends PageablePresenter
     }
 
     /**
-     * @param string $tagSlug
-     * @param string $slug
-     * @param string $type
+     * @param Repositories\WikiRepository $repository
+     * @param string                      $tagSlug
+     * @param string                      $slug
+     * @param string                      $type
      */
-    protected function runActionDetail($tagSlug, $slug, $type)
+    protected function runActionDetail(Repositories\WikiRepository $repository, $tagSlug, $slug, $type)
     {
         $tag = $this->getTag($tagSlug);
 
         $this->throw404IfNoTagOrSlug($tag, $slug);
 
-        $wiki = $this->wikiRepository->getByTagAndSlug($tag, $slug);
+        $wiki = $repository->getByTagAndSlug($tag, $slug);
 
         if ((!$wiki || !$wiki->isActive) && !$this->accessChecker->canAccess()) {
             $this->throw404();
@@ -59,11 +57,11 @@ abstract class SharedContentPresenter extends PageablePresenter
     }
 
     /**
-     * @param string $tagSlug
-     * @param int    $limit
-     * @param string $type
+     * @param Repositories\WikiRepository $repository
+     * @param string                      $tagSlug
+     * @param int                         $limit
      */
-    protected function runActionDefault($tagSlug, $limit, $type)
+    protected function runActionDefault(Repositories\WikiRepository $repository, $tagSlug, $limit)
     {
         $tag = $this->getTag($tagSlug);
 
@@ -71,14 +69,14 @@ abstract class SharedContentPresenter extends PageablePresenter
 
         if ($this->canAccess && $this->filter->displayInactive()) {
             $wikis = $tag
-                ? $this->wikiRepository->getAllInactiveByTagForPage($this->vp->page, $limit, $tag, $type)
-                : $this->wikiRepository->getAllInactiveForPage($this->vp->page, $limit, $type);
+                ? $repository->getAllInactiveByTagForPage($this->vp->page, $limit, $tag)
+                : $repository->getAllInactiveForPage($this->vp->page, $limit);
         } else {
             $state = !$this->canAccess;
 
             $wikis = $tag
-                ? $this->wikiRepository->getAllByTagForPage($this->vp->page, $limit, $tag, $type, $state)
-                : $this->wikiRepository->getAllForPage($this->vp->page, $limit, $type, $state);
+                ? $repository->getAllByTagForPage($this->vp->page, $limit, $tag, $state)
+                : $repository->getAllForPage($this->vp->page, $limit, $state);
         }
 
         $this->preparePaginator($wikis->count(), $limit);
@@ -97,33 +95,35 @@ abstract class SharedContentPresenter extends PageablePresenter
     }
 
     /**
-     * @param int $wikiId
+     * @param Repositories\WikiRepository $repository
+     * @param int                         $wikiId
      */
-    public function handleActivate($wikiId)
+    protected function runHandleActivate(Repositories\WikiRepository $repository, $wikiId)
     {
-        $wiki = $this->getItem($wikiId, $this->wikiRepository);
+        $wiki = $this->getItem($wikiId, $repository);
 
         if (!$wiki) {
             $this->throw404();
         }
 
-        $this->wikiRepository->activate($wiki);
+        $repository->activate($wiki);
 
         $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
     }
 
     /**
-     * @param int $wikiId
+     * @param Repositories\WikiRepository $repository
+     * @param int                         $wikiId
      */
-    public function handleDelete($wikiId)
+    protected function runHandleDelete(Repositories\WikiRepository $repository, $wikiId)
     {
-        $wiki = $this->getItem($wikiId, $this->wikiRepository);
+        $wiki = $this->getItem($wikiId, $repository);
 
         if (!$wiki) {
             $this->throw404();
         }
 
-        $this->wikiRepository->delete($wiki);
+        $repository->delete($wiki);
 
         $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
     }

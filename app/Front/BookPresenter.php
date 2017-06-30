@@ -6,9 +6,13 @@ use App\Caching;
 use App\Components;
 use App\Entities;
 use App\Forms;
+use App\Repositories;
 
 final class BookPresenter extends SharedContentPresenter
 {
+    /** @var Repositories\BookRepository @inject */
+    public $bookRepository;
+
     /** @var Components\TagsControlInterface @inject */
     public $tagsControl;
 
@@ -23,7 +27,7 @@ final class BookPresenter extends SharedContentPresenter
      */
     public function actionDefault($tagSlug)
     {
-        $this->runActionDefault($tagSlug, 10, Entities\WikiEntity::TYPE_BOOK);
+        $this->runActionDefault($this->bookRepository, $tagSlug, 10);
     }
 
     /**
@@ -32,7 +36,23 @@ final class BookPresenter extends SharedContentPresenter
      */
     public function actionDetail($tagSlug, $slug)
     {
-        $this->runActionDetail($tagSlug, $slug, Entities\WikiEntity::TYPE_BOOK);
+        $this->runActionDetail($this->bookRepository, $tagSlug, $slug, Entities\WikiEntity::TYPE_BOOK);
+    }
+
+    /**
+     * @param int $wikiId
+     */
+    public function handleActivate($wikiId)
+    {
+        $this->runHandleActivate($this->bookRepository, $wikiId);
+    }
+
+    /**
+     * @param int $wikiId
+     */
+    public function handleDelete($wikiId)
+    {
+        $this->runHandleDelete($this->bookRepository, $wikiId);
     }
 
     /**
