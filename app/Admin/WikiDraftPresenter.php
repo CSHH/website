@@ -62,7 +62,7 @@ abstract class WikiDraftPresenter extends SharedContentPresenter
         $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
         $this->checkWikiDraft($wikiDraft, $wikiId);
         $repository->updateWithDraft($wikiDraft->wiki, $wikiDraft);
-        $this->flashWithRedirect($this->translator->translate('locale.item.activated'));
+        $this->flashMessage($this->translator->translate('locale.item.activated'));
         $this->redirect($redirect);
     }
 
@@ -75,7 +75,7 @@ abstract class WikiDraftPresenter extends SharedContentPresenter
         $wikiDraft = $this->getItem($id, $this->wikiDraftRepository);
         $this->checkWikiDraft($wikiDraft, $wikiId);
         $this->wikiDraftRepository->delete($wikiDraft);
-        $this->flashWithRedirect($this->translator->translate('locale.item.deleted'));
+        $this->flashMessage($this->translator->translate('locale.item.deleted'));
         $this->redirect('default', ['wikiId' => $wikiId]);
     }
 
