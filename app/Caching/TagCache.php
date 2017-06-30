@@ -58,12 +58,12 @@ class TagCache
     }
 
     /**
-     * @param  int                         $section
-     * @param  Entities\TagEntity[]        $tags
-     * @param  Repositories\BaseRepository $repository
+     * @param  int                                   $section
+     * @param  Entities\TagEntity[]                  $tags
+     * @param  Repositories\AccessibleByTagInterface $repository
      * @return array
      */
-    public function getItems($section, array $tags, Repositories\BaseRepository $repository)
+    public function getItems($section, array $tags, Repositories\AccessibleByTagInterface $repository)
     {
         $items = $this->cache->load($section);
         if ($items === null) {

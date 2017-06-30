@@ -13,10 +13,10 @@ class GameTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\GameRepository */
+    /** @var Repositories\GetGamesByTag */
     private $repository;
 
-    public function __construct(TagCache $tagCache, Repositories\GameRepository $repository)
+    public function __construct(TagCache $tagCache, Repositories\GetGamesByTag $repository)
     {
         $this->tagCache   = $tagCache;
         $this->repository = $repository;

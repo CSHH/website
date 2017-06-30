@@ -13,10 +13,10 @@ class ImageTagSectionCache implements TagSectionCacheInterface
     /** @var TagCache */
     private $tagCache;
 
-    /** @var Repositories\ImageRepository */
+    /** @var Repositories\GetImagesByTag */
     private $repository;
 
-    public function __construct(TagCache $tagCache, Repositories\ImageRepository $repository)
+    public function __construct(TagCache $tagCache, Repositories\GetImagesByTag $repository)
     {
         $this->tagCache   = $tagCache;
         $this->repository = $repository;
