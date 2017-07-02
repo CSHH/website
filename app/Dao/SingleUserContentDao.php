@@ -290,16 +290,16 @@ class SingleUserContentDao
      */
     public function getAllTags($className)
     {
-        $qb = $this->em->createQueryBuilder()
-            ->select('t')
-            ->from($className, 'e')
-            ->join('e.tag', 't')
-            ->where('e.isActive = :state')
-            ->setParameter('state', true)
-            ->groupBy('t.id');
+        $tags = [];
+        foreach ($this->getAllActive($className) as $entity) {
+            $id  = $entity->tag->id;
+            $tag = $entity->tag;
+            if (array_key_exists($id, $tags) === false) {
+                $tags[$id] = $tag;
+            }
+        }
 
-        return $qb->getQuery()
-            ->getResult();
+        return $tags;
     }
 
     /**

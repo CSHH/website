@@ -317,19 +317,16 @@ class WikiDao
      */
     public function getAllTags($type)
     {
-        $qb = $this->em->createQueryBuilder()
-            ->select('t')
-            ->from(Entities\WikiEntity::class, 'w')
-            ->join('w.tag', 't')
-            ->where('w.isActive = :state AND w.type = :type')
-            ->setParameters([
-                'state' => true,
-                'type'  => $type,
-            ])
-            ->groupBy('t.id');
+        $tags = [];
+        foreach ($this->getAllActive($type) as $entity) {
+            $id  = $entity->tag->id;
+            $tag = $entity->tag;
+            if (array_key_exists($id, $tags) === false) {
+                $tags[$id] = $tag;
+            }
+        }
 
-        return $qb->getQuery()
-            ->getResult();
+        return $tags;
     }
 
     /**
