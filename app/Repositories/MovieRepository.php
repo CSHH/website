@@ -204,6 +204,14 @@ class MovieRepository extends WikiRepository
     /**
      * @return Entities\WikiEntity[]
      */
+    public function getAllActive()
+    {
+        return $this->dataAccess->getAllActive(Entities\WikiEntity::TYPE_MOVIE);
+    }
+
+    /**
+     * @return Entities\WikiEntity[]
+     */
     public function getAllInactive()
     {
         return $this->dataAccess->getAllInactive(Entities\WikiEntity::TYPE_MOVIE);
@@ -228,6 +236,14 @@ class MovieRepository extends WikiRepository
     public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
         return $this->dataAccess->getAllInactiveByTagForPage($page, $limit, $tag, Entities\WikiEntity::TYPE_MOVIE);
+    }
+
+    /**
+     * @return Entities\TagEntity[]
+     */
+    public function getAllTags()
+    {
+        return $this->dataAccess->getAllTags(Entities\WikiEntity::TYPE_MOVIE);
     }
 
     /**

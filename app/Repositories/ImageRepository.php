@@ -132,6 +132,14 @@ class ImageRepository extends SingleUserContentRepository
     /**
      * @return Entities\ImageEntity[]
      */
+    public function getAllActive()
+    {
+        return $this->dataAccess->getAllActive(Entities\ImageEntity::class);
+    }
+
+    /**
+     * @return Entities\ImageEntity[]
+     */
     public function getAllInactive()
     {
         return $this->dataAccess->getAllInactive(Entities\ImageEntity::class);
@@ -156,5 +164,13 @@ class ImageRepository extends SingleUserContentRepository
     public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
         return $this->dataAccess->getAllInactiveByTagForPage(Entities\ImageEntity::class, $page, $limit, $tag);
+    }
+
+    /**
+     * @return Entities\TagEntity[]
+     */
+    public function getAllTags()
+    {
+        return $this->dataAccess->getAllTags(Entities\ImageEntity::class);
     }
 }

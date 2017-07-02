@@ -201,6 +201,14 @@ class ArticleRepository extends SingleUserContentRepository
     /**
      * @return Entities\ArticleEntity[]
      */
+    public function getAllActive()
+    {
+        return $this->dataAccess->getAllActive(Entities\ArticleEntity::class);
+    }
+
+    /**
+     * @return Entities\ArticleEntity[]
+     */
     public function getAllInactive()
     {
         return $this->dataAccess->getAllInactive(Entities\ArticleEntity::class);
@@ -225,5 +233,13 @@ class ArticleRepository extends SingleUserContentRepository
     public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
         return $this->dataAccess->getAllInactiveByTagForPage(Entities\ArticleEntity::class, $page, $limit, $tag);
+    }
+
+    /**
+     * @return Entities\TagEntity[]
+     */
+    public function getAllTags()
+    {
+        return $this->dataAccess->getAllTags(Entities\ArticleEntity::class);
     }
 }

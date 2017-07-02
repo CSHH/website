@@ -202,6 +202,14 @@ class VideoRepository extends SingleUserContentRepository
     /**
      * @return Entities\VideoEntity[]
      */
+    public function getAllActive()
+    {
+        return $this->dataAccess->getAllActive(Entities\VideoEntity::class);
+    }
+
+    /**
+     * @return Entities\VideoEntity[]
+     */
     public function getAllInactive()
     {
         return $this->dataAccess->getAllInactive(Entities\VideoEntity::class);
@@ -226,6 +234,14 @@ class VideoRepository extends SingleUserContentRepository
     public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
         return $this->dataAccess->getAllInactiveByTagForPage(Entities\VideoEntity::class, $page, $limit, $tag);
+    }
+
+    /**
+     * @return Entities\TagEntity[]
+     */
+    public function getAllTags()
+    {
+        return $this->dataAccess->getAllTags(Entities\VideoEntity::class);
     }
 
     /**
