@@ -198,6 +198,27 @@ class WikiDao
      * @param  string                $type
      * @return Entities\WikiEntity[]
      */
+    public function getAllActive($type)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::class, 'w')
+            ->where('w.isActive = :state AND w.type = :type')
+            ->setParameters([
+                'state' => true,
+                'type'  => $type,
+            ]);
+
+        $this->orderByDesc($qb, 'w');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param  string                $type
+     * @return Entities\WikiEntity[]
+     */
     public function getAllInactive($type)
     {
         $qb = $this->em->createQueryBuilder()
@@ -264,6 +285,27 @@ class WikiDao
         $this->preparePagination($qb, $page, $limit);
 
         return $this->paginatorFactory->createPaginator($qb->getQuery());
+    }
+
+    /**
+     * @param  string $type
+     * @return Entities\TagEntity[]
+     */
+    public function getAllTags($type)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('t')
+            ->from(Entities\WikiEntity::class, 'w')
+            ->join('w.tag', 't')
+            ->where('w.isActive = :state AND w.type = :type')
+            ->setParameters([
+                'state' => true,
+                'type'  => $type,
+            ])
+            ->groupBy('t.id');
+
+        return $qb->getQuery()
+            ->getResult();
     }
 
     /**

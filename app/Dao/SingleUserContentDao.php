@@ -182,6 +182,24 @@ class SingleUserContentDao
      * @param  string                $className
      * @return Entities\BaseEntity[]
      */
+    public function getAllActive($className)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('e')
+            ->from($className, 'e')
+            ->where('e.isActive = :state')
+            ->setParameter('state', true);
+
+        $this->orderByDesc($qb, 'e');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param  string                $className
+     * @return Entities\BaseEntity[]
+     */
     public function getAllInactive($className)
     {
         $qb = $this->em->createQueryBuilder()
@@ -241,6 +259,24 @@ class SingleUserContentDao
         $this->preparePagination($qb, $page, $limit);
 
         return $this->paginatorFactory->createPaginator($qb->getQuery());
+    }
+
+    /**
+     * @param  string $className
+     * @return Entities\TagEntity[]
+     */
+    public function getAllTags($className)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('t')
+            ->from($className, 'e')
+            ->join('e.tag', 't')
+            ->where('e.isActive = :state')
+            ->setParameter('state', true)
+            ->groupBy('t.id');
+
+        return $qb->getQuery()
+            ->getResult();
     }
 
     /**

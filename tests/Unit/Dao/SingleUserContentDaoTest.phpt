@@ -238,6 +238,27 @@ class SingleUserContentDaoTest extends Tester\TestCase
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllByUserForPage('MyEntity', 1, 10, new AppEntities\UserEntity));
     }
 
+    public function testGetAllActive()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, []);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $sucDao = new SingleUserContentDao($em, $this->paginatorFactory);
+
+        Assert::type('array', $sucDao->getAllActive('MyEntity'));
+    }
+
     public function testGetAllInactive()
     {
         $query = $this->query;
@@ -304,6 +325,28 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $sucDao = new SingleUserContentDao($em, $paginatorFactory);
 
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllInactiveByTagForPage('MyEntity', 1, 10, new AppEntities\TagEntity));
+    }
+
+    public function testGetAllTags()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, []);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'groupBy');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $sucDao = new SingleUserContentDao($em, $this->paginatorFactory);
+
+        Assert::type('array', $sucDao->getAllTags('MyEntity'));
     }
 }
 

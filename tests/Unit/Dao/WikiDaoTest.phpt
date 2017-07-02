@@ -241,6 +241,27 @@ class WikiDaoTest extends Tester\TestCase
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllByUserForPage(1, 10, new AppEntities\UserEntity, AppEntities\WikiEntity::TYPE_GAME));
     }
 
+    public function testGetAllActive()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, []);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $wikiDao = new WikiDao($em, $this->paginatorFactory);
+
+        Assert::type('array', $wikiDao->getAllActive(AppEntities\WikiEntity::TYPE_GAME));
+    }
+
     public function testGetAllInactive()
     {
         $query = $this->query;
@@ -307,6 +328,28 @@ class WikiDaoTest extends Tester\TestCase
         $wikiDao = new WikiDao($em, $paginatorFactory);
 
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $wikiDao->getAllInactiveByTagForPage(1, 10, new AppEntities\TagEntity, AppEntities\WikiEntity::TYPE_GAME));
+    }
+
+    public function testGetAllTags()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, []);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'groupBy');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $wikiDao = new WikiDao($em, $this->paginatorFactory);
+
+        Assert::type('array', $wikiDao->getAllTags(AppEntities\WikiEntity::TYPE_GAME));
     }
 }
 
