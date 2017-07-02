@@ -236,6 +236,15 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  Entities\TagEntity $tag
+     * @return Entities\ArticleEntity[]
+     */
+    public function getAllActiveByTag(Entities\TagEntity $tag)
+    {
+        return $this->dataAccess->getAllActiveByTag(Entities\ArticleEntity::class, $tag);
+    }
+
+    /**
      * @return Entities\TagEntity[]
      */
     public function getAllTags()

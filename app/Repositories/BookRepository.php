@@ -239,6 +239,15 @@ class BookRepository extends WikiRepository
     }
 
     /**
+     * @param  Entities\TagEntity $tag
+     * @return Entities\WikiEntity[]
+     */
+    public function getAllActiveByTag(Entities\TagEntity $tag)
+    {
+        return $this->dataAccess->getAllActiveByTag($tag, Entities\WikiEntity::TYPE_BOOK);
+    }
+
+    /**
      * @return Entities\TagEntity[]
      */
     public function getAllTags()

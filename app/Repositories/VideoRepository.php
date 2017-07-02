@@ -237,6 +237,15 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
+     * @param  Entities\TagEntity $tag
+     * @return Entities\VideoEntity[]
+     */
+    public function getAllActiveByTag(Entities\TagEntity $tag)
+    {
+        return $this->dataAccess->getAllActiveByTag(Entities\VideoEntity::class, $tag);
+    }
+
+    /**
      * @return Entities\TagEntity[]
      */
     public function getAllTags()
