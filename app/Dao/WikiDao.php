@@ -288,6 +288,30 @@ class WikiDao
     }
 
     /**
+     * @param  Entities\TagEntity $tag
+     * @param  string $type
+     * @return Entities\BaseEntity[]
+     */
+    public function getAllActiveByTag(Entities\TagEntity $tag, $type)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::class, 'w')
+            ->join('w.tag', 't')
+            ->where('t.id = :tagId AND w.isActive = :state AND w.type = :type')
+            ->setParameters([
+                'tagId' => $tag->id,
+                'state' => true,
+                'type'  => $type,
+            ]);
+
+        $this->orderByDesc($qb, 'w');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param  string $type
      * @return Entities\TagEntity[]
      */

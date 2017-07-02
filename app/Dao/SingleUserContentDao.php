@@ -263,6 +263,29 @@ class SingleUserContentDao
 
     /**
      * @param  string $className
+     * @param  Entities\TagEntity $tag
+     * @return Entities\BaseEntity[]
+     */
+    public function getAllActiveByTag($className, Entities\TagEntity $tag)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('e')
+            ->from($className, 'e')
+            ->join('e.tag', 't')
+            ->where('t.id = :tagId AND e.isActive = :state')
+            ->setParameters([
+                'tagId' => $tag->id,
+                'state' => true,
+            ]);
+
+        $this->orderByDesc($qb, 'e');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param  string $className
      * @return Entities\TagEntity[]
      */
     public function getAllTags($className)
