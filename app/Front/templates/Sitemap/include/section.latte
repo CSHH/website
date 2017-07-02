@@ -1,0 +1,37 @@
+<ul>
+
+    <li>
+
+        <a n:href="$sectionLink">{$sectionName}</a>
+
+    </li>
+
+    <ul>
+
+        {foreach $repository->getAllTags() as $tag}
+
+            <li>
+
+                <a n:href="$sectionLink, tagSlug => $tag->slug">{$tag->name}</a>
+
+            </li>
+
+            <ul>
+
+                {foreach $repository->getAllActiveByTag($tag) as $item}
+
+                    <li>
+
+                        <a n:href="$sectionDetail, tagSlug => $item->tag->slug, slug => $item->slug">{$item->name}</a>
+
+                    </li>
+
+                {/foreach}
+
+            </ul>
+
+        {/foreach}
+
+    </ul>
+
+</ul>

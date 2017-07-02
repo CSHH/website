@@ -68,6 +68,7 @@ class SmokeTest extends Tester\TestCase
             ['/videa/novinky',                         200],
             ['/videa/novinky/lorem-ipsum',             200],
             ['/smrt-hrou',                             200],
+            ['/sitemap',                               200],
             ['/uzivatelska-sekce',                     302],
             ['/uzivatelska-sekce/hry/drafty',          302],
             ['/uzivatelska-sekce/hry/drafty/detail',   302],

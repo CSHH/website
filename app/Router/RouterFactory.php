@@ -28,6 +28,8 @@ class RouterFactory
         $router[] = new Route('videa[/<tagSlug>]', 'Front:Video:default');
         $router[] = new Route('videa[/<tagSlug>]/<slug>', 'Front:Video:detail');
         $router[] = new Route('smrt-hrou', 'Front:SmrtHrou:default');
+        $router[] = new Route('sitemap', 'Front:Sitemap:default');
+        $router[] = new Route('sitemap.xml', 'Front:SitemapXml:default');
 
         $router[] = new Route('uzivatelska-sekce', 'Admin:Homepage:default');
         $router[] = new Route('uzivatelska-sekce/hry/drafty', 'Admin:WikiDraftGame:default');

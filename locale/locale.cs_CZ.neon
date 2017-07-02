@@ -88,3 +88,5 @@ filter:
     display_all: 'Zobrazit vše'
     display_inactive: 'Zobrazit neschválené'
     display_drafts: 'Zobrazit rozpracované'
+page:
+    sitemap: 'Mapa Stránek'

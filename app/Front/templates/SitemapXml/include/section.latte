@@ -1,0 +1,13 @@
+{contentType application/xml}
+
+{foreach $repository->getAllTags() as $tag}
+
+    {include 'url.latte', loc => $presenter->link($sectionLink, ['tagSlug' => $tag->slug])}
+
+    {foreach $repository->getAllActiveByTag($tag) as $item}
+
+        {include 'url.latte', loc => $presenter->link($sectionDetail, ['tagSlug' => $item->tag->slug, 'slug' => $item->slug])}
+
+    {/foreach}
+
+{/foreach}
