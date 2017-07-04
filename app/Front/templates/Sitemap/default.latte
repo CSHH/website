@@ -1,0 +1,53 @@
+{block content}
+
+<div class="content-body">
+
+    <h1 n:block="title">{_}locale.page.sitemap{/_}</h1>
+
+    <div class="text-content">
+
+        <ul>
+
+            <li>
+
+                <a n:href=":Front:Homepage:default">Domovská stránka</a>
+
+            </li>
+
+            {include 'include/section.latte', sectionLink => ':Front:Game:default', sectionName => 'Hry', repository => $gameRepository, sectionDetail => ':Front:Game:detail'}
+
+            {include 'include/section.latte', sectionLink => ':Front:Movie:default', sectionName => 'Filmy', repository => $movieRepository, sectionDetail => ':Front:Movie:detail'}
+
+            {include 'include/section.latte', sectionLink => ':Front:Book:default', sectionName => 'Knihy', repository => $bookRepository, sectionDetail => ':Front:Book:detail'}
+
+            {include 'include/section.latte', sectionLink => ':Front:Article:default', sectionName => 'Články', repository => $articleRepository, sectionDetail => ':Front:Article:detail'}
+
+            {include 'include/section-gallery.latte'}
+
+            {include 'include/section.latte', sectionLink => ':Front:Video:default', sectionName => 'Videa', repository => $videoRepository, sectionDetail => ':Front:Video:detail'}
+
+            <ul>
+
+                <li>
+
+                    <a n:href=":Front:SmrtHrou:default">Smrt Hrou</a>
+
+                </li>
+
+            </ul>
+
+            <ul>
+
+                <li>
+
+                    <a n:href=":Front:Sitemap:default">Mapa Stránek</a>
+
+                </li>
+
+            </ul>
+
+        </ul>
+
+    </div>
+
+</div>

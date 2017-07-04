@@ -238,6 +238,27 @@ class SingleUserContentDaoTest extends Tester\TestCase
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllByUserForPage('MyEntity', 1, 10, new AppEntities\UserEntity));
     }
 
+    public function testGetAllActive()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, []);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $sucDao = new SingleUserContentDao($em, $this->paginatorFactory);
+
+        Assert::type('array', $sucDao->getAllActive('MyEntity'));
+    }
+
     public function testGetAllInactive()
     {
         $query = $this->query;
@@ -304,6 +325,65 @@ class SingleUserContentDaoTest extends Tester\TestCase
         $sucDao = new SingleUserContentDao($em, $paginatorFactory);
 
         Assert::type('Doctrine\ORM\Tools\Pagination\Paginator', $sucDao->getAllInactiveByTagForPage('MyEntity', 1, 10, new AppEntities\TagEntity));
+    }
+
+    public function testGetAllActiveByTag()
+    {
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, []);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'join');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameters');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $sucDao = new SingleUserContentDao($em, $this->paginatorFactory);
+
+        Assert::type('array', $sucDao->getAllActiveByTag('MyEntity', new AppEntities\TagEntity));
+    }
+
+    public function testGetAllTags()
+    {
+        $tag1     = new \stdClass;
+        $tag1->id = 1;
+        $tag2     = new \stdClass;
+        $tag2->id = 2;
+
+        $entity1      = new \stdClass;
+        $entity1->tag = $tag1;
+        $entity2      = new \stdClass;
+        $entity2->tag = $tag2;
+        $entity3      = new \stdClass;
+        $entity3->tag = $tag1;
+
+        $query = $this->query;
+        $this->mock($query, 'getResult', 1, [$entity1, $entity2, $entity3]);
+
+        $qb = $this->qb;
+        $this->mockAndReturnSelf($qb, 'select');
+        $this->mockAndReturnSelf($qb, 'from');
+        $this->mockAndReturnSelf($qb, 'where');
+        $this->mockAndReturnSelf($qb, 'setParameter');
+        $this->mockAndReturnSelf($qb, 'orderBy');
+        $this->mock($qb, 'getQuery', 1, $query);
+
+        $em = $this->em;
+        $this->mock($em, 'createQueryBuilder', 1, $qb);
+
+        $sucDao = new SingleUserContentDao($em, $this->paginatorFactory);
+        $result = $sucDao->getAllTags('MyEntity');
+
+        Assert::type('array', $result);
+        Assert::count(2, $result);
+        Assert::same(1, $result[1]->id);
+        Assert::same(2, $result[2]->id);
     }
 }
 

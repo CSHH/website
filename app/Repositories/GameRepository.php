@@ -204,6 +204,14 @@ class GameRepository extends WikiRepository
     /**
      * @return Entities\WikiEntity[]
      */
+    public function getAllActive()
+    {
+        return $this->dataAccess->getAllActive(Entities\WikiEntity::TYPE_GAME);
+    }
+
+    /**
+     * @return Entities\WikiEntity[]
+     */
     public function getAllInactive()
     {
         return $this->dataAccess->getAllInactive(Entities\WikiEntity::TYPE_GAME);
@@ -228,6 +236,23 @@ class GameRepository extends WikiRepository
     public function getAllInactiveByTagForPage($page, $limit, Entities\TagEntity $tag)
     {
         return $this->dataAccess->getAllInactiveByTagForPage($page, $limit, $tag, Entities\WikiEntity::TYPE_GAME);
+    }
+
+    /**
+     * @param  Entities\TagEntity $tag
+     * @return Entities\WikiEntity[]
+     */
+    public function getAllActiveByTag(Entities\TagEntity $tag)
+    {
+        return $this->dataAccess->getAllActiveByTag($tag, Entities\WikiEntity::TYPE_GAME);
+    }
+
+    /**
+     * @return Entities\TagEntity[]
+     */
+    public function getAllTags()
+    {
+        return $this->dataAccess->getAllTags(Entities\WikiEntity::TYPE_GAME);
     }
 
     /**

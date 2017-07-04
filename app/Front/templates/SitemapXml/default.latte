@@ -1,0 +1,24 @@
+{contentType application/xml}
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    {include 'include/url.latte'}
+
+    {include 'include/section.latte', repository => $gameRepository, sectionLink => '//:Front:Game:default', sectionDetail => '//:Front:Game:detail'}
+
+    {include 'include/section.latte', repository => $movieRepository, sectionLink => '//:Front:Movie:default', sectionDetail => '//:Front:Movie:detail'}
+
+    {include 'include/section.latte', repository => $bookRepository, sectionLink => '//:Front:Book:default', sectionDetail => '//:Front:Book:detail'}
+
+    {include 'include/section.latte', repository => $articleRepository, sectionLink => '//:Front:Article:default', sectionDetail => '//:Front:Article:detail'}
+
+    {include 'include/section-gallery.latte'}
+
+    {include 'include/section.latte', repository => $videoRepository, sectionLink => '//:Front:Video:default', sectionDetail => '//:Front:Video:detail'}
+
+    {include 'include/url.latte', loc => $presenter->link('//:Front:SmrtHrou:default')}
+
+    {include 'include/url.latte', loc => $presenter->link('//:Front:Sitemap:default')}
+
+</urlset>

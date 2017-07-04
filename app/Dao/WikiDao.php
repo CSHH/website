@@ -198,6 +198,27 @@ class WikiDao
      * @param  string                $type
      * @return Entities\WikiEntity[]
      */
+    public function getAllActive($type)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::class, 'w')
+            ->where('w.isActive = :state AND w.type = :type')
+            ->setParameters([
+                'state' => true,
+                'type'  => $type,
+            ]);
+
+        $this->orderByDesc($qb, 'w');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param  string                $type
+     * @return Entities\WikiEntity[]
+     */
     public function getAllInactive($type)
     {
         $qb = $this->em->createQueryBuilder()
@@ -264,6 +285,48 @@ class WikiDao
         $this->preparePagination($qb, $page, $limit);
 
         return $this->paginatorFactory->createPaginator($qb->getQuery());
+    }
+
+    /**
+     * @param  Entities\TagEntity $tag
+     * @param  string $type
+     * @return Entities\BaseEntity[]
+     */
+    public function getAllActiveByTag(Entities\TagEntity $tag, $type)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('w')
+            ->from(Entities\WikiEntity::class, 'w')
+            ->join('w.tag', 't')
+            ->where('t.id = :tagId AND w.isActive = :state AND w.type = :type')
+            ->setParameters([
+                'tagId' => $tag->id,
+                'state' => true,
+                'type'  => $type,
+            ]);
+
+        $this->orderByDesc($qb, 'w');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param  string $type
+     * @return Entities\TagEntity[]
+     */
+    public function getAllTags($type)
+    {
+        $tags = [];
+        foreach ($this->getAllActive($type) as $entity) {
+            $id  = $entity->tag->id;
+            $tag = $entity->tag;
+            if (array_key_exists($id, $tags) === false) {
+                $tags[$id] = $tag;
+            }
+        }
+
+        return $tags;
     }
 
     /**

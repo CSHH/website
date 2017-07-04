@@ -1,0 +1,13 @@
+{contentType application/xml}
+
+<url>
+
+    <loc>{ifset $loc}{$loc}{else}{$baseUri}{/ifset}</loc>
+
+    <lastmod>{ifset $lastmod}{$lastmod|date:'Y-m-d'}{else}{var $now = new DateTime}{$now|date:'Y-m-d'}{/ifset}</lastmod>
+
+    <changefreq>{ifset $changefreq}{$changefreq}{else}daily{/ifset}</changefreq>
+
+    <priority>{ifset $priority}{$priority}{else}1.0{/ifset}</priority>
+
+</url>

@@ -182,6 +182,24 @@ class SingleUserContentDao
      * @param  string                $className
      * @return Entities\BaseEntity[]
      */
+    public function getAllActive($className)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('e')
+            ->from($className, 'e')
+            ->where('e.isActive = :state')
+            ->setParameter('state', true);
+
+        $this->orderByDesc($qb, 'e');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param  string                $className
+     * @return Entities\BaseEntity[]
+     */
     public function getAllInactive($className)
     {
         $qb = $this->em->createQueryBuilder()
@@ -241,6 +259,47 @@ class SingleUserContentDao
         $this->preparePagination($qb, $page, $limit);
 
         return $this->paginatorFactory->createPaginator($qb->getQuery());
+    }
+
+    /**
+     * @param  string $className
+     * @param  Entities\TagEntity $tag
+     * @return Entities\BaseEntity[]
+     */
+    public function getAllActiveByTag($className, Entities\TagEntity $tag)
+    {
+        $qb = $this->em->createQueryBuilder()
+            ->select('e')
+            ->from($className, 'e')
+            ->join('e.tag', 't')
+            ->where('t.id = :tagId AND e.isActive = :state')
+            ->setParameters([
+                'tagId' => $tag->id,
+                'state' => true,
+            ]);
+
+        $this->orderByDesc($qb, 'e');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param  string $className
+     * @return Entities\TagEntity[]
+     */
+    public function getAllTags($className)
+    {
+        $tags = [];
+        foreach ($this->getAllActive($className) as $entity) {
+            $id  = $entity->tag->id;
+            $tag = $entity->tag;
+            if (array_key_exists($id, $tags) === false) {
+                $tags[$id] = $tag;
+            }
+        }
+
+        return $tags;
     }
 
     /**

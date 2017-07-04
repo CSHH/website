@@ -1,0 +1,39 @@
+<ul>
+
+    <li>
+
+        <a n:href=":Front:Gallery:default">Galerie</a>
+
+    </li>
+
+    <ul>
+
+        {foreach $imageRepository->getAllTags() as $imageTag}
+
+            <li>
+
+                <a n:href=":Front:Gallery:default, tagSlug => $imageTag->slug">{$imageTag->name}</a>
+
+            </li>
+
+            <ul>
+
+                {foreach $imageRepository->getAllActiveByTag($imageTag) as $image}
+
+                    <li>
+
+                        {var $url = $baseUri . $uploadDir . '/' . $image->file->getFilePath()}
+
+                        <a href="{$url}">{$url}</a>
+
+                    </li>
+
+                {/foreach}
+
+            </ul>
+
+        {/foreach}
+
+    </ul>
+
+</ul>

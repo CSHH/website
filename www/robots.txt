@@ -1,3 +1,4 @@
+Sitemap: http://silent-hill.cz/robots.txt
 User-agent: *
 Disallow: /aktivovat-ucet
 Disallow: /ja

@@ -1,0 +1,13 @@
+{contentType application/xml}
+
+{foreach $imageRepository->getAllTags() as $tag}
+
+    {include 'url.latte', loc => $presenter->link('//:Front:Gallery:default', ['tagSlug' => $tag->slug])}
+
+    {foreach $imageRepository->getAllActiveByTag($tag) as $image}
+
+        {include 'url.latte', loc => $baseUri . $uploadDir . '/' . $image->file->getFilePath()}
+
+    {/foreach}
+
+{/foreach}
