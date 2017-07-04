@@ -45,6 +45,8 @@ final class ArticlePresenter extends SingleUserContentPresenter
      */
     public function actionDetail($tagSlug, $slug)
     {
+        $this->checkBacklinks();
+
         $tag = $this->getTag($tagSlug);
 
         $this->throw404IfNoTagOrSlug($tag, $slug);
