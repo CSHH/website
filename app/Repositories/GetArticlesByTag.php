@@ -16,7 +16,7 @@ class GetArticlesByTag implements AccessibleByTagInterface
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity       $tag
      * @return Entities\ArticleEntity[]
      */
     public function getAllByTag(Entities\TagEntity $tag)

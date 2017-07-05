@@ -16,7 +16,7 @@ class GetImagesByTag implements AccessibleByTagInterface
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity     $tag
      * @return Entities\ImageEntity[]
      */
     public function getAllByTag(Entities\TagEntity $tag)

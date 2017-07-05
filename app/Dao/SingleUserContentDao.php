@@ -262,8 +262,8 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  string $className
-     * @param  Entities\TagEntity $tag
+     * @param  string                $className
+     * @param  Entities\TagEntity    $tag
      * @return Entities\BaseEntity[]
      */
     public function getAllActiveByTag($className, Entities\TagEntity $tag)
@@ -285,7 +285,7 @@ class SingleUserContentDao
     }
 
     /**
-     * @param  string $className
+     * @param  string               $className
      * @return Entities\TagEntity[]
      */
     public function getAllTags($className)

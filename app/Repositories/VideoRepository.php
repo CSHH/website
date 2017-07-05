@@ -23,6 +23,9 @@ class VideoRepository extends SingleUserContentRepository
     /** @var ITranslator */
     private $translator;
 
+    /** @var BacklinkRepository */
+    private $backlinkRepository;
+
     /**
      * @param string                       $vimeoOembedEndpoint
      * @param EntityDao                    $dao
@@ -30,6 +33,7 @@ class VideoRepository extends SingleUserContentRepository
      * @param ITranslator                  $translator
      * @param EntityManager                $em
      * @param Caching\VideoTagSectionCache $tagCache
+     * @param BacklinkRepository           $backlinkRepository
      */
     public function __construct(
         $vimeoOembedEndpoint,
@@ -37,12 +41,14 @@ class VideoRepository extends SingleUserContentRepository
         SingleUserContentDao $dataAccess,
         ITranslator $translator,
         EntityManager $em,
-        Caching\VideoTagSectionCache $tagCache
+        Caching\VideoTagSectionCache $tagCache,
+        BacklinkRepository $backlinkRepository
     ) {
         parent::__construct($dao, $dataAccess, $em, $tagCache);
 
         $this->vimeoOembedEndpoint = $vimeoOembedEndpoint;
         $this->translator          = $translator;
+        $this->backlinkRepository  = $backlinkRepository;
     }
 
     public function create(
@@ -85,6 +91,9 @@ class VideoRepository extends SingleUserContentRepository
         Entities\UserEntity $user,
         Entities\VideoEntity $e
     ) {
+        $oldTag  = $e->tag;
+        $oldSlug = $e->slug;
+
         if ($e->tag->id !== $tag->id) {
             $this->tagCache->deleteSection();
         }
@@ -112,9 +121,11 @@ class VideoRepository extends SingleUserContentRepository
         $e->tag  = $tag;
         $e->user = $user;
 
-        $this->persistAndFlush($this->em, $e);
+        $ent = $this->persistAndFlush($this->em, $e);
 
-        return $e;
+        $this->backlinkRepository->create($ent, $oldTag, $oldSlug, 'videa');
+
+        return $ent;
     }
 
     /**
@@ -237,7 +248,7 @@ class VideoRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity     $tag
      * @return Entities\VideoEntity[]
      */
     public function getAllActiveByTag(Entities\TagEntity $tag)

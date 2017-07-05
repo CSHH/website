@@ -288,8 +288,8 @@ class WikiDao
     }
 
     /**
-     * @param  Entities\TagEntity $tag
-     * @param  string $type
+     * @param  Entities\TagEntity    $tag
+     * @param  string                $type
      * @return Entities\BaseEntity[]
      */
     public function getAllActiveByTag(Entities\TagEntity $tag, $type)
@@ -312,7 +312,7 @@ class WikiDao
     }
 
     /**
-     * @param  string $type
+     * @param  string               $type
      * @return Entities\TagEntity[]
      */
     public function getAllTags($type)

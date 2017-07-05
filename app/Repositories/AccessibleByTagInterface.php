@@ -7,7 +7,7 @@ use App\Entities;
 interface AccessibleByTagInterface
 {
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity    $tag
      * @return Entities\BaseEntity[]
      */
     public function getAllByTag(Entities\TagEntity $tag);
