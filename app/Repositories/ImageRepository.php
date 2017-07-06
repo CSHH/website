@@ -167,7 +167,7 @@ class ImageRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity     $tag
      * @return Entities\ImageEntity[]
      */
     public function getAllActiveByTag(Entities\TagEntity $tag)

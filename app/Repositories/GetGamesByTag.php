@@ -16,7 +16,7 @@ class GetGamesByTag implements AccessibleByTagInterface
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity    $tag
      * @return Entities\WikiEntity[]
      */
     public function getAllByTag(Entities\TagEntity $tag)

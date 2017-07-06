@@ -42,6 +42,7 @@ services:
     wikiDao: App\Dao\WikiDao
 
     articleRepository: App\Repositories\ArticleRepository(@doctrine.dao(App\Entities\ArticleEntity))
+    backlinkRepository: App\Repositories\BacklinkRepository(@doctrine.dao(App\Entities\BacklinkEntity))
     bookRepository: App\Repositories\BookRepository(@doctrine.dao(App\Entities\WikiEntity))
     gameRepository: App\Repositories\GameRepository(@doctrine.dao(App\Entities\WikiEntity))
     imageRepository: App\Repositories\ImageRepository(%wwwDir%, %uploadDir%, @doctrine.dao(App\Entities\ImageEntity), @doctrine.dao(App\Entities\FileEntity))

@@ -18,6 +18,9 @@ class MovieRepository extends WikiRepository
     /** @var ITranslator */
     private $translator;
 
+    /** @var BacklinkRepository */
+    private $backlinkRepository;
+
     /** @var \HtmlPurifier */
     private $htmlPurifier;
 
@@ -27,12 +30,14 @@ class MovieRepository extends WikiRepository
         ITranslator $translator,
         EntityManager $em,
         Caching\MovieTagSectionCache $tagCache,
+        BacklinkRepository $backlinkRepository,
         \HTMLPurifier $htmlPurifier
     ) {
         parent::__construct($dao, $dataAccess, $em, $tagCache);
 
-        $this->translator   = $translator;
-        $this->htmlPurifier = $htmlPurifier;
+        $this->translator         = $translator;
+        $this->backlinkRepository = $backlinkRepository;
+        $this->htmlPurifier       = $htmlPurifier;
     }
 
     /**
@@ -91,6 +96,9 @@ class MovieRepository extends WikiRepository
         $type,
         Entities\WikiEntity $e
     ) {
+        $oldTag  = $e->tag;
+        $oldSlug = $e->slug;
+
         $e->setValues($values);
 
         if ($e->tag->id !== $tag->id && $this->getByTagAndName($tag, $values->name)) {
@@ -111,9 +119,11 @@ class MovieRepository extends WikiRepository
         $e->tag  = $tag;
         $e->type = $type;
 
-        $this->persistAndFlush($this->em, $e);
+        $ent = $this->persistAndFlush($this->em, $e);
 
-        return $e;
+        $this->backlinkRepository->create($ent, $oldTag, $oldSlug, 'filmy');
+
+        return $ent;
     }
 
     /**
@@ -239,7 +249,7 @@ class MovieRepository extends WikiRepository
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity    $tag
      * @return Entities\WikiEntity[]
      */
     public function getAllActiveByTag(Entities\TagEntity $tag)

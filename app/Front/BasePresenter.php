@@ -20,6 +20,9 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
     /** @var Repositories\ArticleRepository @inject */
     public $articleRepository;
 
+    /** @var Repositories\BacklinkRepository @inject */
+    public $backlinkRepository;
+
     /** @var Repositories\BookRepository @inject */
     public $bookRepository;
 
@@ -59,6 +62,16 @@ abstract class BasePresenter extends App\Presenters\BasePresenter
             $this->template->inactiveGamesCount    = count($this->gameRepository->getAllInactive());
             $this->template->inactiveMoviesCount   = count($this->movieRepository->getAllInactive());
             $this->template->inactiveBooksCount    = count($this->bookRepository->getAllInactive());
+        }
+    }
+
+    protected function checkBacklinks()
+    {
+        $url  = $this->getHttpRequest()->getUrl();
+        $path = $url->getPath();
+        $link = $this->backlinkRepository->getByOldPath($path);
+        if ($link) {
+            $this->redirectUrl($url->getHostUrl() . $link->newPath);
         }
     }
 

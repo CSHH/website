@@ -16,7 +16,7 @@ class GetVideosByTag implements AccessibleByTagInterface
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity     $tag
      * @return Entities\VideoEntity[]
      */
     public function getAllByTag(Entities\TagEntity $tag)

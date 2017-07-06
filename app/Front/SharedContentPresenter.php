@@ -34,6 +34,8 @@ abstract class SharedContentPresenter extends PageablePresenter
      */
     protected function runActionDetail(Repositories\WikiRepository $repository, $tagSlug, $slug, $type)
     {
+        $this->checkBacklinks();
+
         $tag = $this->getTag($tagSlug);
 
         $this->throw404IfNoTagOrSlug($tag, $slug);

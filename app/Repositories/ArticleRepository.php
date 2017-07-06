@@ -18,6 +18,9 @@ class ArticleRepository extends SingleUserContentRepository
     /** @var ITranslator */
     private $translator;
 
+    /** @var BacklinkRepository */
+    private $backlinkRepository;
+
     /** @var \HtmlPurifier */
     private $htmlPurifier;
 
@@ -27,12 +30,14 @@ class ArticleRepository extends SingleUserContentRepository
         ITranslator $translator,
         EntityManager $em,
         Caching\ArticleTagSectionCache $tagCache,
+        BacklinkRepository $backlinkRepository,
         \HTMLPurifier $htmlPurifier
     ) {
         parent::__construct($dao, $dataAccess, $em, $tagCache);
 
-        $this->translator   = $translator;
-        $this->htmlPurifier = $htmlPurifier;
+        $this->translator         = $translator;
+        $this->backlinkRepository = $backlinkRepository;
+        $this->htmlPurifier       = $htmlPurifier;
     }
 
     /**
@@ -86,6 +91,9 @@ class ArticleRepository extends SingleUserContentRepository
         Entities\UserEntity $user,
         Entities\ArticleEntity $e
     ) {
+        $oldTag  = $e->tag;
+        $oldSlug = $e->slug;
+
         if ($e->tag->id !== $tag->id) {
             $this->tagCache->deleteSection();
         }
@@ -110,7 +118,11 @@ class ArticleRepository extends SingleUserContentRepository
         $e->tag  = $tag;
         $e->user = $user;
 
-        return $this->persistAndFlush($this->em, $e);
+        $ent = $this->persistAndFlush($this->em, $e);
+
+        $this->backlinkRepository->create($ent, $oldTag, $oldSlug, 'clanky');
+
+        return $ent;
     }
 
     /**
@@ -236,7 +248,7 @@ class ArticleRepository extends SingleUserContentRepository
     }
 
     /**
-     * @param  Entities\TagEntity $tag
+     * @param  Entities\TagEntity       $tag
      * @return Entities\ArticleEntity[]
      */
     public function getAllActiveByTag(Entities\TagEntity $tag)
